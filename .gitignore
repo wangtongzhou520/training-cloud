@@ -1,0 +1,12 @@
+.idea
+*.iml
+*/target
+target
+.classpath
+.project
+.settings
+build
+.DS_Store
+*dev.properties
+logs
+*.lock
