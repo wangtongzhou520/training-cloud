@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springcloud.study.system.dao.dept.SysDeptMapper">
+    <resultMap id="BaseResultMap"
+               type="com.springcloud.study.system.entity.dept.SysDeptDO">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="level" property="level"/>
+        <result column="seq" property="seq"/>
+        <result column="remark" property="remark"/>
+        <result column="create_operator" property="createOperator"/>
+        <result column="modified_operator" property="modifiedOperator"/>
+        <result column="modified_operator_ip" property="modifiedOperatorIp"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+                id,
+                name,
+                parent_id,
+                level,
+                seq,
+                remark,
+                create_operator,
+                modified_operator,
+                modified_operator_ip,
+                gmt_create,
+                gmt_modified
+    </sql>
+
+    <select id="countByNameAndParentId" resultType="integer">
+        select
+        count (1)
+        from sys_dept
+        where parent_id=#{parentId}
+        and name=#{name}
+    </select>
+
+    <select id="queryAllDept" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_dept
+    </select>
+
+    <select id="queryChildDeptByLevel" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_dept
+        where level like #{level} || '.%'
+    </select>
+
+    <update id="batchUpdateLevel" parameterType="map">
+        <foreach collection="list" item="item" separator=";">
+            update sys_dept
+            set level=#{item.level}
+            where id=#{item.id}
+        </foreach>
+    </update>
+
+    <select id="countByParentId" resultType="integer">
+        select
+        count (1)
+        from sys_dept
+        where parent_id =#{parentId}
+    </select>
+
+</mapper>

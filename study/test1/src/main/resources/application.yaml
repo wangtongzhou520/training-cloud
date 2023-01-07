@@ -1,0 +1,42 @@
+
+
+spring:
+  # 数据源配置项
+#  datasource:
+#    url: jdbc:mysql://127.0.0.1:3306/study_user?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+#    driver-class-name: com.mysql.jdbc.Driver
+#    username: root
+#    password: 123456
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 10.226.75.8:8886
+        #环境选择
+        namespace: b7d341fc-df29-45ce-b3cd-4415f66b1ee0
+  application:
+    name: order
+
+
+
+
+# Swagger 配置项
+swagger:
+  title: test1
+  description: OpenFeginTest
+  version: 1.0.0
+  base-package: com.springcloud.study.test1.controller
+server:
+  port: 8111
+
+
+## MyBatis Plus 配置项
+#mybatis-plus:
+#  configuration:
+#    map-underscore-to-camel-case: true # 虽然默认为 true ，但是还是显示去指定下。
+#  global-config:
+#    db-config:
+#      id-type: auto
+#      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+#      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+#  mapper-locations: classpath*:mapper/*.xml
+#  type-aliases-package: com.springcloud.study.system.entity
