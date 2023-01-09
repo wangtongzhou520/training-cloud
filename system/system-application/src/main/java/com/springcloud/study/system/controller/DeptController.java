@@ -64,8 +64,7 @@ public class DeptController {
     @GetMapping("/depts")
     @ApiOperation("部门树")
     public CommonResponse<List<DeptTreeVO>> queryDeptTree() {
-        List<DeptTreeVO> treeVoList =
-                SysDeptConvert.INSTANCE.convertVo(sysDeptService.deptTrees());
+        List<DeptTreeVO> treeVoList = sysDeptService.deptTrees();
         return CommonResponse.ok(treeVoList);
     }
 

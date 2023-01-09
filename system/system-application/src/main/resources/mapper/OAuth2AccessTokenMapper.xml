@@ -4,7 +4,7 @@
 <mapper namespace="com.springcloud.study.system.dao.oauth.OAuth2AccessTokenMapper">
 
     <resultMap id="BaseResultMap"
-               type="com.springcloud.study.system.entity.oauth.OAuth2AccessTokenDO">
+               type="com.springcloud.study.system.entity.oauth.OAuth2AccessToken">
         <result column="id" property="id"/>
         <result column="user_id" property="userId"/>
         <result column="refresh_token" property="refreshToken"/>

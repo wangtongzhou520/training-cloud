@@ -1,9 +1,8 @@
 package com.springcloud.study.system.convert.dept;
 
-import com.springcloud.study.system.bo.dept.DeptTreeBO;
 import com.springcloud.study.system.dto.dept.SaveDeptDTO;
 import com.springcloud.study.system.dto.dept.UpdateDeptDTO;
-import com.springcloud.study.system.entity.dept.SysDeptDO;
+import com.springcloud.study.system.entity.dept.SysDept;
 import com.springcloud.study.system.vo.dept.DeptTreeVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mappings;
@@ -29,16 +28,16 @@ public interface SysDeptConvert {
      * @return sysDeptDO
      */
     @Mappings({})
-    SysDeptDO convert(SaveDeptDTO saveDeptDTO);
+    SysDept convert(SaveDeptDTO saveDeptDTO);
 
     /**
      * deptTreeBO convert queryDeptBO
      *
-     * @param sysDeptDO 部门信息
+     * @param sysDept 部门信息
      * @return deptTreeBO
      */
     @Mappings({})
-    DeptTreeBO convert(SysDeptDO sysDeptDO);
+    DeptTreeVO convert(SysDept sysDept);
 
 
     /**
@@ -47,7 +46,7 @@ public interface SysDeptConvert {
      * @param deptDOList 部门信息
      * @return deptTreeBOList
      */
-    List<DeptTreeBO> convert(List<SysDeptDO> deptDOList);
+    List<DeptTreeVO> convert(List<SysDept> deptDOList);
 
     /**
      * updateDeptDTO convert sysDeptDO
@@ -56,23 +55,8 @@ public interface SysDeptConvert {
      * @return sysDeptDO
      */
     @Mappings({})
-    SysDeptDO convert(UpdateDeptDTO updateDeptDTO);
+    SysDept convert(UpdateDeptDTO updateDeptDTO);
 
-    /**
-     * deptTreeBO convert deptTreeVO
-     *
-     * @param deptTreeBO deptTreeBO
-     * @return deptTreeVO
-     */
-    @Mappings({})
-    DeptTreeVO convert(DeptTreeBO deptTreeBO);
 
-    /**
-     * deptTreeBOList convert deptTreeVOList
-     *
-     * @param deptTreeBOList deptTreeBOList
-     * @return deptTreeVOList
-     */
-    List<DeptTreeVO> convertVo(List<DeptTreeBO> deptTreeBOList);
 
 }

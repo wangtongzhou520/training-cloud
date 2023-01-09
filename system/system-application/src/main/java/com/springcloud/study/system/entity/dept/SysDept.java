@@ -1,19 +1,22 @@
-package com.springcloud.study.system.bo.dept;
+package com.springcloud.study.system.entity.dept;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.springcloud.study.entity.BaseDO;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import java.util.Date;
-
 /**
- * 查询返回参数
+ * 部门实体类
  *
  * @author wangtongzhou
- * @since 2020-08-08 14:28
+ * @since 2020-06-03 21:44
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class QueryDeptBO {
+@TableName(value = "sys_dept")
+public class SysDept extends BaseDO {
     /**
      * 部门id
      */
@@ -58,15 +61,4 @@ public class QueryDeptBO {
      * 更新操作者的ip地址
      */
     private String modifiedOperatorIp;
-
-    /**
-     * 创建时间
-     */
-    private Date gmtCreate;
-
-    /**
-     * 更新时间
-     */
-    private Date gmtModified;
-
 }

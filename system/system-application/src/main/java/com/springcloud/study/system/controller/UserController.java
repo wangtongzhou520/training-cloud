@@ -4,8 +4,6 @@ import com.google.common.collect.Lists;
 import com.springcloud.study.common.core.vo.CommonResponse;
 import com.springcloud.study.common.core.vo.PageParam;
 import com.springcloud.study.common.core.vo.PageResponse;
-import com.springcloud.study.system.bo.user.SysUserBO;
-import com.springcloud.study.system.convert.user.SysUserConvert;
 import com.springcloud.study.system.dto.user.SaveUserDTO;
 import com.springcloud.study.system.dto.user.UpdateUserDTO;
 import com.springcloud.study.system.service.user.SysUserService;
@@ -75,10 +73,8 @@ public class UserController {
         if (total > 0) {
             PageParam pageParam =
                     new PageParam().setPageSize(pageSize).setPageNo(pageNo);
-            List<SysUserBO> sysUserBOList =
+            List<SysUserVO> sysUserBOList =
                     sysUserService.querySysUsersByDeptId(deptId, pageParam);
-            sysUserVOList =
-                    SysUserConvert.INSTANCE.convertVO(sysUserBOList);
         }
         PageResponse<SysUserVO> response =
                 PageResponse.pageResponse(sysUserVOList, total);

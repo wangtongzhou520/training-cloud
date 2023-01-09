@@ -1,7 +1,7 @@
 package com.springcloud.study.system.convert.oauth;
 
-import com.springcloud.study.system.bo.oauth.OAuth2AccessTokenBO;
-import com.springcloud.study.system.entity.oauth.OAuth2AccessTokenDO;
+import com.springcloud.study.system.entity.oauth.OAuth2AccessToken;
+import com.springcloud.study.system.vo.oauth.OAuth2AccessTokenVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
@@ -21,10 +21,10 @@ public interface SysOAuthConvert {
     /**
      * oAuth2AccessTokenDO convert oAuth2AccessTokenBO
      *
-     * @param oAuth2AccessTokenDO oAuth2AccessTokenDO
+     * @param oAuth2AccessToken oAuth2AccessTokenDO
      * @return oAuth2AccessTokenDO
      */
     @Mappings({})
-    OAuth2AccessTokenBO convert(OAuth2AccessTokenDO oAuth2AccessTokenDO);
+    OAuth2AccessTokenVO convert(OAuth2AccessToken oAuth2AccessToken);
 
 }

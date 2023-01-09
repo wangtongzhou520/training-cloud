@@ -1,9 +1,8 @@
 package com.springcloud.study.system.convert.user;
 
-import com.springcloud.study.system.bo.user.SysUserBO;
 import com.springcloud.study.system.dto.user.SaveUserDTO;
 import com.springcloud.study.system.dto.user.UpdateUserDTO;
-import com.springcloud.study.system.entity.user.SysUserDO;
+import com.springcloud.study.system.entity.user.SysUser;
 import com.springcloud.study.system.vo.user.SysUserVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mappings;
@@ -30,7 +29,7 @@ public interface SysUserConvert {
      * @return sysUserDO
      */
     @Mappings({})
-    SysUserDO convert(SaveUserDTO saveUserDTO);
+    SysUser convert(SaveUserDTO saveUserDTO);
 
 
     /**
@@ -40,39 +39,23 @@ public interface SysUserConvert {
      * @return sysUserDO
      */
     @Mappings({})
-    SysUserDO convert(UpdateUserDTO updateUserDTO);
+    SysUser convert(UpdateUserDTO updateUserDTO);
 
     /**
      * 用户信息
      *
-     * @param sysUserDO sysUserDO
+     * @param sysUser sysUserDO
      * @return sysUserBO
      */
     @Mappings({})
-    SysUserBO convert(SysUserDO sysUserDO);
+    SysUserVO convert(SysUser sysUser);
 
     /**
      * sysUserDOList convert  sysUserBOList
      *
-     * @param sysUserDOList sysUserDOList
+     * @param sysUserList sysUserDOList
      * @return sysUserBOList
      */
-    List<SysUserBO> convert(List<SysUserDO> sysUserDOList);
+    List<SysUserVO> convert(List<SysUser> sysUserList);
 
-    /**
-     * sysUserBO convert sysUserBO
-     *
-     * @param sysUserBO sysUserBO
-     * @return sysUserBO
-     */
-    @Mappings({})
-    SysUserVO convert(SysUserBO sysUserBO);
-
-    /**
-     * sysUserBOList convert sysUserVOList
-     *
-     * @param sysUserBOList sysUserBOList
-     * @return sysUserVOList
-     */
-    List<SysUserVO> convertVO(List<SysUserBO> sysUserBOList);
 }

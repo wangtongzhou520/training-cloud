@@ -1,7 +1,7 @@
 package com.springcloud.study.system.dao.dept;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.springcloud.study.system.entity.dept.SysDeptDO;
+import com.springcloud.study.system.entity.dept.SysDept;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * @since 2020-06-15 20:22
  */
 @Repository
-public interface SysDeptMapper extends BaseMapper<SysDeptDO> {
+public interface SysDeptMapper extends BaseMapper<SysDept> {
 
     /**
      * 查询同一层级下有没有相同的部门
@@ -30,7 +30,7 @@ public interface SysDeptMapper extends BaseMapper<SysDeptDO> {
      *
      * @return 部门信息
      */
-    List<SysDeptDO> queryAllDept();
+    List<SysDept> queryAllDept();
 
 
     /**
@@ -39,15 +39,15 @@ public interface SysDeptMapper extends BaseMapper<SysDeptDO> {
      * @param level
      * @return 部门信息
      */
-    List<SysDeptDO> queryChildDeptByLevel(@Param("level") String level);
+    List<SysDept> queryChildDeptByLevel(@Param("level") String level);
 
 
     /**
      * 批量更新部门level信息
      *
-     * @param sysDeptDoList
+     * @param sysDeptList
      */
-    void batchUpdateLevel(List<SysDeptDO> sysDeptDoList);
+    void batchUpdateLevel(List<SysDept> sysDeptList);
 
     /**
      * 根据父级id求总数

@@ -1,9 +1,9 @@
 package com.springcloud.study.system.service.user;
 
 import com.springcloud.study.common.core.vo.PageParam;
-import com.springcloud.study.system.bo.user.SysUserBO;
 import com.springcloud.study.system.dto.user.SaveUserDTO;
 import com.springcloud.study.system.dto.user.UpdateUserDTO;
+import com.springcloud.study.system.vo.user.SysUserVO;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public interface SysUserService {
      * @param userName userName
      * @return 用户信息
      */
-    SysUserBO querySysByUserName(String userName);
+    SysUserVO querySysByUserName(String userName);
 
     /**
      * 分页查询用户信息
@@ -44,7 +44,7 @@ public interface SysUserService {
      * @param pageParam pageParam
      * @return 用户分页信息
      */
-    List<SysUserBO> querySysUsersByDeptId(String deptId,
+    List<SysUserVO> querySysUsersByDeptId(String deptId,
                                           PageParam pageParam);
 
     /**

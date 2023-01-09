@@ -2,7 +2,7 @@ package com.springcloud.study.system.dao.user;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.springcloud.study.common.core.vo.PageParam;
-import com.springcloud.study.system.entity.user.SysUserDO;
+import com.springcloud.study.system.entity.user.SysUser;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * @since 2020-08-31 21:33
  */
 @Repository
-public interface SysUserMapper extends BaseMapper<SysUserDO> {
+public interface SysUserMapper extends BaseMapper<SysUser> {
 
     /**
      * 用户信息
@@ -23,7 +23,7 @@ public interface SysUserMapper extends BaseMapper<SysUserDO> {
      * @param userName userName
      * @return 用户信息
      */
-    SysUserDO querySysByUserName(@Param("userName") String userName);
+    SysUser querySysByUserName(@Param("userName") String userName);
 
     /**
      * 查询mail有没有注册过
@@ -51,8 +51,8 @@ public interface SysUserMapper extends BaseMapper<SysUserDO> {
      * @param pageParam pageParam
      * @return 用户信息
      */
-    List<SysUserDO> queryPageByDeptId(@Param("deptId") String deptId,
-                                      @Param("pageParam") PageParam pageParam);
+    List<SysUser> queryPageByDeptId(@Param("deptId") String deptId,
+                                    @Param("pageParam") PageParam pageParam);
 
     /**
      * 根据部门查询总条数

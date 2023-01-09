@@ -1,6 +1,6 @@
 package com.springcloud.study.system.service.oauth;
 
-import com.springcloud.study.system.bo.oauth.OAuth2AccessTokenBO;
+import com.springcloud.study.system.vo.oauth.OAuth2AccessTokenVO;
 
 /**
  * oauth 服务
@@ -18,7 +18,7 @@ public interface OAuth2Service {
      * @param userIp userIp
      * @return 用户相关的token信息
      */
-    OAuth2AccessTokenBO createAccessToken(Long userId, String userIp);
+    OAuth2AccessTokenVO createAccessToken(Long userId, String userIp);
 
     /**
      * 检查token
@@ -26,7 +26,7 @@ public interface OAuth2Service {
      * @param accessToken accessToken
      * @return 用户相关的token信息
      */
-    OAuth2AccessTokenBO checkAccessToken(String accessToken);
+    OAuth2AccessTokenVO checkAccessToken(String accessToken);
 
     /**
      * 刷新token
@@ -35,7 +35,7 @@ public interface OAuth2Service {
      * @param userIp       userIp
      * @return 用户相关的token信息
      */
-    OAuth2AccessTokenBO refreshAccessToken(String refreshToken, String userIp);
+    OAuth2AccessTokenVO refreshAccessToken(String refreshToken, String userIp);
 
 
     /**

@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.springcloud.study.system.dao.dept.SysDeptMapper">
     <resultMap id="BaseResultMap"
-               type="com.springcloud.study.system.entity.dept.SysDeptDO">
+               type="com.springcloud.study.system.entity.dept.SysDept">
         <result column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="parent_id" property="parentId"/>

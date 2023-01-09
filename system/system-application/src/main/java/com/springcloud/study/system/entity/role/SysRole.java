@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName(value = "sys_role")
-public class SysRoleDO extends BaseDO {
+public class SysRole extends BaseDO {
 
     /**
      * 角色id

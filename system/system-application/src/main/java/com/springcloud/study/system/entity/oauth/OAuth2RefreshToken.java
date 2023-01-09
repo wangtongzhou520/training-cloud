@@ -9,30 +9,25 @@ import lombok.experimental.Accessors;
 import java.util.Date;
 
 /**
- * oauth2 token
+ * 刷新token
  *
  * @author wangtongzhou
- * @since 2020-09-18 12:09
+ * @since 2020-09-18 12:14
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName(value = "oauth2_access_token")
-public class OAuth2AccessTokenDO extends BaseDO {
+@TableName(value = "oauth2_refresh_token")
+public class OAuth2RefreshToken extends BaseDO {
     /**
-     * 访问令牌
+     * 编号，刷新令牌
      */
     private String id;
 
     /**
      * 用户编号
      */
-    private Integer userId;
-
-    /**
-     * 刷新令牌
-     */
-    private String refreshToken;
+    private Long userId;
 
     /**
      * 过期时间
@@ -58,4 +53,5 @@ public class OAuth2AccessTokenDO extends BaseDO {
      * 是否删除
      */
     private String deleted;
+
 }

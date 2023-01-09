@@ -1,8 +1,8 @@
 package com.springcloud.study.system.service.dept;
 
-import com.springcloud.study.system.bo.dept.DeptTreeBO;
 import com.springcloud.study.system.dto.dept.SaveDeptDTO;
 import com.springcloud.study.system.dto.dept.UpdateDeptDTO;
+import com.springcloud.study.system.vo.dept.DeptTreeVO;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public interface SysDeptService {
      *
      * @return 部门树
      */
-    List<DeptTreeBO> deptTrees();
+    List<DeptTreeVO> deptTrees();
 
     /**
      * 删除部门信息

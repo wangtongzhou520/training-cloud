@@ -1,5 +1,6 @@
-package com.springcloud.study.system.bo.oauth;
+package com.springcloud.study.system.vo.oauth;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -13,24 +14,23 @@ import java.util.Date;
  */
 @Data
 @Accessors(chain = true)
-public class OAuth2AccessTokenBO {
+public class OAuth2AccessTokenVO {
 
     /**
      * 访问令牌
      */
+    @ApiModelProperty(value = "访问令牌", required = true)
     private String accessToken;
     /**
      * 刷新令牌
      */
+    @ApiModelProperty(value = "刷新令牌", required = true)
     private String refreshToken;
-    /**
-     * 用户编号
-     */
-    private Integer userId;
 
     /**
      * 过期时间
      */
+    @ApiModelProperty(value = "过期时间", required = true)
     private Date expiresTime;
 
 }

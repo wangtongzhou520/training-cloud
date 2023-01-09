@@ -1,12 +1,12 @@
 package com.springcloud.study.system.service.oauth;
 
 import com.springcloud.study.common.core.exception.ServerException;
-import com.springcloud.study.system.bo.oauth.OAuth2AccessTokenBO;
 import com.springcloud.study.system.convert.oauth.SysOAuthConvert;
 import com.springcloud.study.system.dao.oauth.OAuth2AccessTokenMapper;
 import com.springcloud.study.system.dao.oauth.OAuth2RefreshTokenMapper;
-import com.springcloud.study.system.entity.oauth.OAuth2AccessTokenDO;
-import com.springcloud.study.system.entity.oauth.OAuth2RefreshTokenDO;
+import com.springcloud.study.system.entity.oauth.OAuth2AccessToken;
+import com.springcloud.study.system.entity.oauth.OAuth2RefreshToken;
+import com.springcloud.study.system.vo.oauth.OAuth2AccessTokenVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,12 +40,12 @@ public class OAuth2ServiceImpl implements OAuth2Service {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public OAuth2AccessTokenBO createAccessToken(Long userId, String userIp) {
+    public OAuth2AccessTokenVO createAccessToken(Long userId, String userIp) {
         //插入刷新令牌
-        OAuth2RefreshTokenDO oAuth2RefreshToken = createOAuth2RefreshToken(userId, userIp);
+        OAuth2RefreshToken oAuth2RefreshToken = createOAuth2RefreshToken(userId, userIp);
         //插入access_token
-        OAuth2AccessTokenDO oAuth2AccessTokenDO = createOAuth2AccessToken(oAuth2RefreshToken);
-        return SysOAuthConvert.INSTANCE.convert(oAuth2AccessTokenDO);
+        OAuth2AccessToken oAuth2AccessToken = createOAuth2AccessToken(oAuth2RefreshToken);
+        return SysOAuthConvert.INSTANCE.convert(oAuth2AccessToken);
     }
 
     /**
@@ -55,63 +55,63 @@ public class OAuth2ServiceImpl implements OAuth2Service {
      * @param userIp userIp userIp
      * @return oAuth2RefreshTokenDO
      */
-    private OAuth2RefreshTokenDO createOAuth2RefreshToken(Long userId, String userIp) {
-        OAuth2RefreshTokenDO oAuth2RefreshTokenDO = new OAuth2RefreshTokenDO();
-        oAuth2RefreshTokenDO.setCreateOperator("")
+    private OAuth2RefreshToken createOAuth2RefreshToken(Long userId, String userIp) {
+        OAuth2RefreshToken oAuth2RefreshToken = new OAuth2RefreshToken();
+        oAuth2RefreshToken.setCreateOperator("")
                 .setId(UUID.randomUUID().toString())
                 .setExpiresTime(new Date(System.currentTimeMillis() + refreshTokenExpireTimeMillis))
                 .setModifiedOperator("")
                 .setModifiedOperatorIp(userIp)
                 .setUserId(userId);
-        oAuth2RefreshTokenMapper.insert(oAuth2RefreshTokenDO);
-        return oAuth2RefreshTokenDO;
+        oAuth2RefreshTokenMapper.insert(oAuth2RefreshToken);
+        return oAuth2RefreshToken;
     }
 
 
     /**
      * 创建令牌
      *
-     * @param oAuth2RefreshTokenDO oAuth2RefreshTokenDO
+     * @param oAuth2RefreshToken oAuth2RefreshTokenDO
      * @return oAuth2AccessTokenDO
      */
-    private OAuth2AccessTokenDO createOAuth2AccessToken(OAuth2RefreshTokenDO oAuth2RefreshTokenDO) {
-        OAuth2AccessTokenDO oAuth2AccessTokenDO = new OAuth2AccessTokenDO();
-        oAuth2AccessTokenDO.setCreateOperator("")
+    private OAuth2AccessToken createOAuth2AccessToken(OAuth2RefreshToken oAuth2RefreshToken) {
+        OAuth2AccessToken oAuth2AccessToken = new OAuth2AccessToken();
+        oAuth2AccessToken.setCreateOperator("")
                 .setId(UUID.randomUUID().toString())
                 .setExpiresTime(new Date(System.currentTimeMillis() + accessTokenExpireTimeMillis))
                 .setModifiedOperator("")
-                .setRefreshToken(oAuth2RefreshTokenDO.getId())
-                .setModifiedOperatorIp(oAuth2RefreshTokenDO.getModifiedOperatorIp())
-                .setUserId(oAuth2AccessTokenDO.getUserId())
+                .setRefreshToken(oAuth2RefreshToken.getId())
+                .setModifiedOperatorIp(oAuth2RefreshToken.getModifiedOperatorIp())
+                .setUserId(oAuth2AccessToken.getUserId())
                 .setCreateOperator("");
-        oAuth2AccessTokenMapper.insert(oAuth2AccessTokenDO);
-        return oAuth2AccessTokenDO;
+        oAuth2AccessTokenMapper.insert(oAuth2AccessToken);
+        return oAuth2AccessToken;
 
     }
 
 
     @Override
-    public OAuth2AccessTokenBO checkAccessToken(String accessToken) {
+    public OAuth2AccessTokenVO checkAccessToken(String accessToken) {
         //查询token
-        OAuth2AccessTokenDO oAuth2AccessTokenDO =
+        OAuth2AccessToken oAuth2AccessToken =
                 oAuth2AccessTokenMapper.selectById(accessToken);
         //检查token存在不存在
-        if (Objects.isNull(oAuth2AccessTokenDO)) {
+        if (Objects.isNull(oAuth2AccessToken)) {
             throw new ServerException(OAUTH2_ACCESS_TOKEN_NOT_FOUND);
         }
         //检查token过期时间
-        if (oAuth2AccessTokenDO.getExpiresTime().getTime() < System.currentTimeMillis()) {
+        if (oAuth2AccessToken.getExpiresTime().getTime() < System.currentTimeMillis()) {
             throw new ServerException(OAUTH2_ACCESS_TOKEN_NOT_EXPIRED);
         }
         //返回访问令牌
-        return SysOAuthConvert.INSTANCE.convert(oAuth2AccessTokenDO);
+        return SysOAuthConvert.INSTANCE.convert(oAuth2AccessToken);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public OAuth2AccessTokenBO refreshAccessToken(String refreshToken, String userIp) {
+    public OAuth2AccessTokenVO refreshAccessToken(String refreshToken, String userIp) {
         //获取刷新token
-        OAuth2RefreshTokenDO auth2RefreshTokenDO =
+        OAuth2RefreshToken auth2RefreshTokenDO =
                 oAuth2RefreshTokenMapper.selectById(refreshToken);
         //校验刷新token存在不存在
         if (Objects.nonNull(auth2RefreshTokenDO)){
@@ -123,8 +123,8 @@ public class OAuth2ServiceImpl implements OAuth2Service {
         }
         //如果不过期则删除之前访问令牌重新创建令牌
         oAuth2AccessTokenMapper.deleteByRefreshToken(refreshToken);
-        OAuth2AccessTokenDO oAuth2AccessTokenDO=createOAuth2AccessToken(auth2RefreshTokenDO);
-        return SysOAuthConvert.INSTANCE.convert(oAuth2AccessTokenDO);
+        OAuth2AccessToken oAuth2AccessToken =createOAuth2AccessToken(auth2RefreshTokenDO);
+        return SysOAuthConvert.INSTANCE.convert(oAuth2AccessToken);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.springcloud.study.system.entity.dept;
+package com.springcloud.study.system.entity.user;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.springcloud.study.entity.BaseDO;
@@ -7,40 +7,50 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
- * 部门实体类
+ * 用户类
  *
  * @author wangtongzhou
- * @since 2020-06-03 21:44
+ * @since 2020-05-31 16:12
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName(value = "sys_dept")
-public class SysDeptDO extends BaseDO {
+@TableName(value = "sys_user")
+public class SysUser extends BaseDO {
     /**
-     * 部门id
+     * 用户id
      */
     private Integer id;
 
     /**
-     * 部门名称
+     * 用户名称
      */
-    private String name;
+    private String username;
 
     /**
-     * 上级部门id
+     * 手机号
      */
-    private Integer parentId;
+    private String telephone;
 
     /**
-     * 部门层级
+     * 邮箱
      */
-    private String level;
+    private String mail;
 
     /**
-     * 部门在当前层级下的顺序，由小到大
+     * 加密后的密码
      */
-    private Integer seq;
+    private String password;
+
+    /**
+     * 用户所在部门的id
+     */
+    private Integer deptId;
+
+    /**
+     * 状态，1：正常，0：冻结状态，2：删除
+     */
+    private Integer status;
 
     /**
      * 备注

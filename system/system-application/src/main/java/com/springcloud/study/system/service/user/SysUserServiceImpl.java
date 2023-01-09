@@ -4,12 +4,12 @@ import com.google.common.base.Preconditions;
 import com.springcloud.study.common.core.exception.BusinessException;
 import com.springcloud.study.common.core.util.MD5Util;
 import com.springcloud.study.common.core.vo.PageParam;
-import com.springcloud.study.system.bo.user.SysUserBO;
 import com.springcloud.study.system.convert.user.SysUserConvert;
 import com.springcloud.study.system.dao.user.SysUserMapper;
 import com.springcloud.study.system.dto.user.SaveUserDTO;
 import com.springcloud.study.system.dto.user.UpdateUserDTO;
-import com.springcloud.study.system.entity.user.SysUserDO;
+import com.springcloud.study.system.entity.user.SysUser;
+import com.springcloud.study.system.vo.user.SysUserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,14 +37,14 @@ public class SysUserServiceImpl implements SysUserService {
             throw new BusinessException("邮箱已经被占用");
         }
         String encryptedPassword = MD5Util.encrypt("123456");
-        SysUserDO sysUserDO = SysUserConvert.INSTANCE.convert(saveUserDTO);
-        sysUserDO.setCreateOperator("")
+        SysUser sysUser = SysUserConvert.INSTANCE.convert(saveUserDTO);
+        sysUser.setCreateOperator("")
                 .setPassword(encryptedPassword)
                 .setModifiedOperatorIp("")
                 .setModifiedOperator("")
                 .setGmtCreate(new Date())
                 .setGmtModified(new Date());
-        sysUserMapper.insert(sysUserDO);
+        sysUserMapper.insert(sysUser);
     }
 
     @Override
@@ -55,9 +55,9 @@ public class SysUserServiceImpl implements SysUserService {
         if (checkEmailExist(updateUserDTO.getMail(), updateUserDTO.getId())) {
             throw new BusinessException("邮箱已经被占用");
         }
-        SysUserDO before = sysUserMapper.selectById(updateUserDTO.getId());
+        SysUser before = sysUserMapper.selectById(updateUserDTO.getId());
         Preconditions.checkNotNull(before, "待更新用户信息不存在");
-        SysUserDO after = SysUserConvert.INSTANCE.convert(updateUserDTO);
+        SysUser after = SysUserConvert.INSTANCE.convert(updateUserDTO);
         after.setModifiedOperator("")
                 .setModifiedOperatorIp("")
                 .setGmtModified(new Date());
@@ -65,18 +65,18 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public SysUserBO querySysByUserName(String userName) {
-        SysUserDO sysUserDO = sysUserMapper.querySysByUserName(userName);
-        return SysUserConvert.INSTANCE.convert(sysUserDO);
+    public SysUserVO querySysByUserName(String userName) {
+        SysUser sysUser = sysUserMapper.querySysByUserName(userName);
+        return SysUserConvert.INSTANCE.convert(sysUser);
     }
 
     @Override
-    public List<SysUserBO> querySysUsersByDeptId(String deptId,
+    public List<SysUserVO> querySysUsersByDeptId(String deptId,
                                                  PageParam pageParam) {
-        List<SysUserDO> sysUserDOList =
+        List<SysUser> sysUserList =
                 sysUserMapper.queryPageByDeptId(deptId, pageParam);
-        List<SysUserBO> sysUserBOList =
-                SysUserConvert.INSTANCE.convert(sysUserDOList);
+        List<SysUserVO> sysUserBOList =
+                SysUserConvert.INSTANCE.convert(sysUserList);
         return sysUserBOList;
     }
 

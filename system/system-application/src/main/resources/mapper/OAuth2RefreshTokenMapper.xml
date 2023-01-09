@@ -4,7 +4,7 @@
 <mapper namespace="com.springcloud.study.system.dao.oauth.OAuth2RefreshTokenMapper">
 
     <resultMap id="BaseResultMap"
-               type="com.springcloud.study.system.entity.oauth.OAuth2RefreshTokenDO" >
+               type="com.springcloud.study.system.entity.oauth.OAuth2RefreshToken" >
         <result column="id" property="id" />
         <result column="user_id" property="userId" />
         <result column="expires_time" property="expiresTime" />
