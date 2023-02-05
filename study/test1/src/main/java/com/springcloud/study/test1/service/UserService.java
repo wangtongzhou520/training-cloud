@@ -1,8 +1,8 @@
-package com.springcloud.study.test1.service;
+package org.training.cloud.test1.service;
 
-import com.springcloud.study.common.core.vo.CommonResponse;
-import com.springcloud.study.system.vo.dept.DeptTreeVO;
-import com.springcloud.study.test1.config.FeignConfig;
+import org.training.cloud.common.core.vo.CommonResponse;
+import org.training.cloud.system.vo.dept.DeptTreeVO;
+import org.training.cloud.test1.config.FeignConfig;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

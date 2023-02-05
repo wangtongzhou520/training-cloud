@@ -1,4 +1,4 @@
-package com.springcloud.study.order;
+package org.training.cloud.order;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

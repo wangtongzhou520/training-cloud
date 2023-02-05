@@ -1,4 +1,4 @@
-package com.springcloud.study.gateway.filter;
+package org.training.cloud.gateway.filter;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;

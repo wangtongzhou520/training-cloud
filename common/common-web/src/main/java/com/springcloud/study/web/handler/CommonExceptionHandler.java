@@ -1,14 +1,10 @@
-package com.springcloud.study.web.handler;
+package org.training.cloud.web.handler;
 
-import com.springcloud.study.common.core.constant.ExceptionCode;
-import com.springcloud.study.common.core.exception.BusinessException;
-import com.springcloud.study.common.core.exception.ServerException;
-import com.springcloud.study.common.core.vo.CommonResponse;
-import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.training.cloud.common.core.exception.BusinessException;
+import org.training.cloud.common.core.exception.ServerException;
+import org.training.cloud.common.core.vo.CommonResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

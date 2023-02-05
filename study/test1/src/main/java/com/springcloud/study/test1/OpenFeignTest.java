@@ -1,4 +1,4 @@
-package com.springcloud.study.test1;
+package org.training.cloud.test1;
 
 
 import org.springframework.boot.SpringApplication;

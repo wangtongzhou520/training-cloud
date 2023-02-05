@@ -1,4 +1,4 @@
-package com.springcloud.study.gateway;
+package org.training.cloud.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

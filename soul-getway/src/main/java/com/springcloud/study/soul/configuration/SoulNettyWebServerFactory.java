@@ -1,4 +1,4 @@
-package com.springcloud.study.soul.configuration;
+package org.training.cloud.soul.configuration;
 
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.ChannelOption;

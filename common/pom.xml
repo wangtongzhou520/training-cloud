@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>training-cloud</artifactId>
-        <groupId>com.springcloud.study</groupId>
+        <groupId>org.training.cloud</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -13,9 +13,9 @@
     <packaging>pom</packaging>
     <modules>
         <module>common-swagger</module>
-        <module>common-dao</module>
         <module>common-web</module>
         <module>common-core</module>
+        <module>common-mybatis</module>
     </modules>
 
 

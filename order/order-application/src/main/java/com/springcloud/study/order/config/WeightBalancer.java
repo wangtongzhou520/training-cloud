@@ -1,4 +1,4 @@
-package com.springcloud.study.order.config;
+package org.training.cloud.order.config;
 
 import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.alibaba.nacos.client.naming.core.Balancer;

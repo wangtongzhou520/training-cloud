@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.springcloud.study.system.dao.user.SysUserMapper">
+<mapper namespace="org.training.cloud.system.dao.user.SysUserMapper">
     <resultMap id="BaseResultMap"
-               type="com.springcloud.study.system.entity.user.SysUser">
+               type="org.training.cloud.system.entity.user.SysUser">
         <result column="id" property="id"/>
         <result column="username" property="username"/>
         <result column="telephone" property="telephone"/>
@@ -16,7 +16,6 @@
         <result column="modified_operator" property="modifiedOperator"/>
         <result column="gmt_create" property="gmtCreate"/>
         <result column="gmt_modified" property="gmtModified"/>
-        <result column="modified_operator_ip" property="modifiedOperatorIp"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -31,12 +30,11 @@
                 create_operator,
                 modified_operator,
                 gmt_create,
-                gmt_modified,
-                modified_operator_ip
+                gmt_modified
     </sql>
 
     <select id="querySysByUserName"
-            resultType="com.springcloud.study.system.entity.user.SysUser">
+            resultType="org.training.cloud.system.entity.user.SysUser">
         select
         <include refid="Base_Column_List"/>
         from sys_user
@@ -76,7 +74,7 @@
         limit #{pageParam.offset}, #{pageParam.pageSize}
     </select>
 
-    <select id="countByDeptId" resultType="java.lang.Integer">
+    <select id="countByDeptId" resultType="java.lang.Long">
         select
         count(1)
         from sys_user

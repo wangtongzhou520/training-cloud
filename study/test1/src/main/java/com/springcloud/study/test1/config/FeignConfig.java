@@ -1,4 +1,4 @@
-package com.springcloud.study.test1.config;
+package org.training.cloud.test1.config;
 
 import feign.Logger;
 import org.springframework.context.annotation.Bean;

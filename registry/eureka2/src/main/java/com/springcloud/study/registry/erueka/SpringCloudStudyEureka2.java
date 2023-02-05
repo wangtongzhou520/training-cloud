@@ -1,4 +1,4 @@
-package com.springcloud.study.registry.erueka;
+package org.training.cloud.registry.erueka;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
