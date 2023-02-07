@@ -1,4 +1,4 @@
-package com.springcloud.study.order.config;
+package org.training.cloud.order.config;
 
 import com.alibaba.cloud.nacos.ribbon.NacosServer;
 import com.alibaba.nacos.api.exception.NacosException;

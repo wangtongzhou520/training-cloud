@@ -1,4 +1,4 @@
-package com.springcloud.study.order.controller;
+package org.training.cloud.order.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

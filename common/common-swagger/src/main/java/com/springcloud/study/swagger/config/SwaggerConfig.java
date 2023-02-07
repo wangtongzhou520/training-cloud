@@ -1,4 +1,4 @@
-package com.springcloud.study.swagger.config;
+package org.training.cloud.swagger.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

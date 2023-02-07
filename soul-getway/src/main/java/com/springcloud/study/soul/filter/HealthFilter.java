@@ -1,4 +1,4 @@
-package com.springcloud.study.soul.filter;
+package org.training.cloud.soul.filter;
 
 import org.dromara.soul.common.utils.JsonUtils;
 import org.springframework.boot.actuate.health.Health;

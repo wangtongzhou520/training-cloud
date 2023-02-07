@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.springcloud.study.system.dao.oauth.OAuth2RefreshTokenMapper">
+<mapper namespace="org.training.cloud.system.dao.oauth.OAuth2RefreshTokenMapper">
 
     <resultMap id="BaseResultMap"
-               type="com.springcloud.study.system.entity.oauth.OAuth2RefreshTokenDO" >
+               type="org.training.cloud.system.entity.oauth.OAuth2RefreshToken" >
         <result column="id" property="id" />
         <result column="user_id" property="userId" />
         <result column="expires_time" property="expiresTime" />
