@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.training.cloud.swagger.config.SwaggerConfig
+  org.training.cloud.common.swagger.config.SwaggerConfig

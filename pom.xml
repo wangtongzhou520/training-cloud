@@ -10,12 +10,13 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <springboot.vetsion>2.2.11.RELEASE</springboot.vetsion>
-        <spring-cloud-version>Hoxton.SR9</spring-cloud-version>
-        <spring-cloud-alibaba-version>2.2.3.RELEASE</spring-cloud-alibaba-version>
+        <springboot.vetsion>2.7.8</springboot.vetsion>
+        <spring-cloud-version>2021.0.5</spring-cloud-version>
+        <spring-cloud-alibaba-version>2021.0.4.0</spring-cloud-alibaba-version>
+        <spring.authorization.version>0.4.0</spring.authorization.version>
         <druid.version>1.1.20</druid.version>
         <guava.version>23.0</guava.version>
-        <swagger2.version>2.9.2</swagger2.version>
+        <swagger2.version>3.0.0</swagger2.version>
         <mysql-connector-java.version>5.1.46</mysql-connector-java.version>
         <druid.version>1.1.16</druid.version>
         <mybatis-spring-boot-starter.version>2.0.0</mybatis-spring-boot-starter.version>
@@ -27,19 +28,14 @@
         <org.projectlombok.version>1.16.14</org.projectlombok.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <java.version>1.8</java.version>
-        <zuul.ratelimit>2.4.1.RELEASE</zuul.ratelimit>
-        <spring-security-oauth2.version>2.3.5.RELEASE</spring-security-oauth2.version>
-        <soul.version>2.2.0</soul.version>
     </properties>
 
     <modules>
         <module>common</module>
         <module>system</module>
-        <module>order</module>
-        <module>getway</module>
         <module>registry</module>
         <module>study</module>
-        <module>soul-getway</module>
+        <module>auth</module>
     </modules>
 
     <!--统一版本号管理-->
@@ -144,11 +140,6 @@
                 <groupId>javax.validation</groupId>
                 <artifactId>validation-api</artifactId>
                 <version>${validation.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.marcosbarbero.cloud</groupId>
-                <artifactId>spring-cloud-zuul-ratelimit</artifactId>
-                <version>${zuul.ratelimit}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

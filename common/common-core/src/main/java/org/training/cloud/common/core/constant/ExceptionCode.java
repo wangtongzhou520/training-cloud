@@ -1,30 +1,32 @@
 package org.training.cloud.common.core.constant;
 
 /**
- * 系统错误
- * P_XX 参数异常_错误信息
- * B_XX 业务异常_错误信息
- * S_XX 系统异常_错误信息
+ * 错误码定义
+ *
+ * UserExceptionCode 用户看到异常定义
+ * BusinessException 业务异常  系统-模块-错误码
+ *
+ *
  *
  * @author wangtongzhou
  * @since 2020-05-31 21:15
  */
 public class ExceptionCode {
 
-    private String code;
+    private Integer code;
 
     private String message;
 
-    public ExceptionCode(String code, String message) {
+    public ExceptionCode(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
 
-    public String getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public ExceptionCode setCode(String code) {
+    public ExceptionCode setCode(Integer code) {
         this.code = code;
         return this;
     }

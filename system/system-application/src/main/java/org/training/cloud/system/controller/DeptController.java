@@ -1,16 +1,15 @@
 package org.training.cloud.system.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import org.training.cloud.common.core.vo.CommonResponse;
 import org.training.cloud.system.dto.dept.SaveDeptDTO;
 import org.training.cloud.system.dto.dept.UpdateDeptDTO;
 import org.training.cloud.system.service.dept.SysDeptService;
 import org.training.cloud.system.vo.dept.DeptTreeVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import org.dromara.soul.client.springcloud.annotation.SoulSpringCloudClient;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,7 +22,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/sys")
 @Api("部门信息")
-@SoulSpringCloudClient(path = "/sys/**")
 public class DeptController {
 
     @Autowired
