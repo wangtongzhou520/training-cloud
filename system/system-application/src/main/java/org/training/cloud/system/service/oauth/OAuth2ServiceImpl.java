@@ -1,6 +1,8 @@
 package org.training.cloud.system.service.oauth;
 
+import org.training.cloud.common.core.exception.BusinessException;
 import org.training.cloud.common.core.exception.ServerException;
+import org.training.cloud.system.constant.SystemExceptionEnumConstants;
 import org.training.cloud.system.convert.oauth.SysOAuthConvert;
 import org.training.cloud.system.dao.oauth.OAuth2AccessTokenMapper;
 import org.training.cloud.system.dao.oauth.OAuth2RefreshTokenMapper;
@@ -97,7 +99,7 @@ public class OAuth2ServiceImpl implements OAuth2Service {
                 oAuth2AccessTokenMapper.selectById(accessToken);
         //检查token存在不存在
         if (Objects.isNull(oAuth2AccessToken)) {
-            throw new ServerException(OAUTH2_ACCESS_TOKEN_NOT_FOUND);
+            throw new BusinessException(OAUTH2_ACCESS_TOKEN_NOT_FOUND);
         }
         //检查token过期时间
         if (oAuth2AccessToken.getExpiresTime().getTime() < System.currentTimeMillis()) {
@@ -114,16 +116,16 @@ public class OAuth2ServiceImpl implements OAuth2Service {
         OAuth2RefreshToken auth2RefreshTokenDO =
                 oAuth2RefreshTokenMapper.selectById(refreshToken);
         //校验刷新token存在不存在
-        if (Objects.nonNull(auth2RefreshTokenDO)){
+        if (Objects.nonNull(auth2RefreshTokenDO)) {
             throw new ServerException(OAUTH2_REFRESH_TOKEN_NOT_FOUND);
         }
         //检验刷新token是否过期
-        if (auth2RefreshTokenDO.getExpiresTime().getTime()<System.currentTimeMillis()){
+        if (auth2RefreshTokenDO.getExpiresTime().getTime() < System.currentTimeMillis()) {
             throw new ServerException(OAUTH2_REFRESH_TOKEN_NOT_EXPIRED);
         }
         //如果不过期则删除之前访问令牌重新创建令牌
         oAuth2AccessTokenMapper.deleteByRefreshToken(refreshToken);
-        OAuth2AccessToken oAuth2AccessToken =createOAuth2AccessToken(auth2RefreshTokenDO);
+        OAuth2AccessToken oAuth2AccessToken = createOAuth2AccessToken(auth2RefreshTokenDO);
         return SysOAuthConvert.INSTANCE.convert(oAuth2AccessToken);
     }
 

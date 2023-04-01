@@ -52,8 +52,7 @@
         <!-- 工具类 -->
         <dependency>
             <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct
-            </artifactId> <!-- use mapstruct-jdk8 for Java 8 or higher -->
+            <artifactId>mapstruct</artifactId>
         </dependency>
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -66,11 +65,6 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.dromara</groupId>
-            <artifactId>soul-spring-boot-starter-client-springcloud</artifactId>
-            <version>${soul.version}</version>
         </dependency>
     </dependencies>
 

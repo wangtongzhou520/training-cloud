@@ -1,6 +1,9 @@
 package org.training.cloud.common.core.vo;
 
 
+import org.training.cloud.common.core.constant.ExceptionCode;
+import org.training.cloud.common.core.constant.UserExceptionCode;
+
 import java.io.Serializable;
 
 /**
@@ -11,10 +14,7 @@ import java.io.Serializable;
  */
 public class CommonResponse<T> implements Serializable {
 
-    /**
-     * 成功状态码
-     */
-    private final static String SUCCESS_CODE = "SUCCESS";
+
 
     /**
      * 提示信息
@@ -29,7 +29,7 @@ public class CommonResponse<T> implements Serializable {
     /**
      * 状态码
      */
-    private String code;
+    private Integer code;
 
     /**
      * 状态
@@ -61,11 +61,16 @@ public class CommonResponse<T> implements Serializable {
      */
     public static <T> CommonResponse<T> ok(T data) {
         CommonResponse<T> response = new CommonResponse<T>();
-        response.code = SUCCESS_CODE;
+        response.code = UserExceptionCode.SUCCESS.getCode();
         response.data = data;
         response.message = "返回成功";
         response.state = true;
         return response;
+    }
+
+
+    public static <T> CommonResponse<T> error(ExceptionCode errorCode) {
+        return error(errorCode.getCode(), errorCode.getMessage());
     }
 
     /**
@@ -76,7 +81,7 @@ public class CommonResponse<T> implements Serializable {
      * @param <T>     泛型
      * @return 返回信息
      */
-    public static <T> CommonResponse<T> error(String code, String message) {
+    public static <T> CommonResponse<T> error(Integer code, String message) {
         return error(code, message, null);
     }
 
@@ -89,7 +94,7 @@ public class CommonResponse<T> implements Serializable {
      * @param <T>           泛型
      * @return 返回错误信息
      */
-    public static <T> CommonResponse<T> error(String code, String message,
+    public static <T> CommonResponse<T> error(Integer code, String message,
                                               String detailMessage) {
         CommonResponse<T> response = new CommonResponse<T>();
         response.code = code;
@@ -127,11 +132,11 @@ public class CommonResponse<T> implements Serializable {
         return this;
     }
 
-    public String getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public CommonResponse<T> setCode(String code) {
+    public CommonResponse<T> setCode(Integer code) {
         this.code = code;
         return this;
     }

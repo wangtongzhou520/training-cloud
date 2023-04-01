@@ -13,14 +13,14 @@ public class ServerException extends RuntimeException {
     /**
      * 错误码
      */
-    private String code;
+    private Integer code;
 
     /**
      * 错误信息
      */
     private String message;
 
-    public ServerException(String code, String message) {
+    public ServerException(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
@@ -31,11 +31,11 @@ public class ServerException extends RuntimeException {
     }
 
 
-    public String getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
