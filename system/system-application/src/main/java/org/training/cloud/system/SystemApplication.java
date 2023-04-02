@@ -11,7 +11,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * @author wangtongzhou
  */
 @SpringBootApplication(scanBasePackages = {"org.training.cloud"})
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 public class SystemApplication {
 
     public static void main(String[] args) {

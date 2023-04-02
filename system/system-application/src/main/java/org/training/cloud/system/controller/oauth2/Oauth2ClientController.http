@@ -1,0 +1,14 @@
+POST http://localhost:8080/sys/oauth2client/add
+Content-Type: application/json
+
+{
+  "clientId": "admin",
+  "clientSecret": "admin123",
+  "clientName": "后台管理",
+  "grantTypes": ["password","refresh_token"],
+  "redirectUrl": "http://localhost:8080",
+  "scopes": ["user_info"],
+  "accessTokenValiditySeconds": 1000,
+  "refreshTokenValiditySeconds": 100000
+
+}

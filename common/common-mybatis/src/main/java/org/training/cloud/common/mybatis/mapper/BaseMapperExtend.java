@@ -48,6 +48,14 @@ public interface BaseMapperExtend<T> extends BaseMapper<T> {
         return selectOne(new QueryWrapper<T>().eq(field, value));
     }
 
+    default T selectOne(String field1, Object value1, String field2, Object value2) {
+        return selectOne(new QueryWrapper<T>().eq(field1, value1).eq(field2, value2));
+    }
+
+    default T selectOne(SFunction<T, ?> field1, Object value1, SFunction<T, ?> field2, Object value2) {
+        return selectOne(new LambdaQueryWrapper<T>().eq(field1, value1).eq(field2, value2));
+    }
+
     /**
      * 根据函数查询单个实体
      *

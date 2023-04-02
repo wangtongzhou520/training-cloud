@@ -16,11 +16,7 @@ import java.io.Serializable;
 @Data
 @Accessors(chain = true)
 public class SaveUserDTO implements Serializable {
-    /**
-     * 用户id
-     */
-    @ApiModelProperty(value = "用户id")
-    private Integer id;
+
 
     /**
      * 用户名称

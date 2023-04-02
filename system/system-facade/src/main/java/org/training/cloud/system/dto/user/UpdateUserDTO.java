@@ -1,6 +1,7 @@
 package org.training.cloud.system.dto.user;
 
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -15,6 +16,7 @@ import java.io.Serializable;
  */
 @Data
 @Accessors(chain = true)
+@ApiOperation(value = "更新用户")
 public class UpdateUserDTO implements Serializable {
     /**
      * 用户id

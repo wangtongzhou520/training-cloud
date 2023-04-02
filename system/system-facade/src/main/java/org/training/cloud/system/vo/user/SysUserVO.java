@@ -17,7 +17,7 @@ public class SysUserVO {
     /**
      * 用户id
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 用户名称
@@ -45,7 +45,7 @@ public class SysUserVO {
     private Integer deptName;
 
     /**
-     * 状态，1：正常，0：冻结状态，2：删除
+     * 状态，0：正常，1 禁用
      */
     private Integer status;
 

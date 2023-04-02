@@ -34,6 +34,9 @@ public class BaseDO implements Serializable {
      */
     private String modifiedOperator;
 
+
+
+
     public Date getGmtCreate() {
         return gmtCreate;
     }
