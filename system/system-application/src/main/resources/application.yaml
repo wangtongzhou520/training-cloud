@@ -7,12 +7,15 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: 123456
-#  cloud:
-#    nacos:
-#      discovery:
-#        server-addr: 10.226.73.115:8886
-        #环境选择
-        #namespace: b7d341fc-df29-45ce-b3cd-4415f66b1ee0
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+      #  cloud:
+      #    nacos:
+      #      discovery:
+      #        server-addr: 10.226.73.115:8886
+      #环境选择
+    #namespace: b7d341fc-df29-45ce-b3cd-4415f66b1ee0
 
 
 #soul:
@@ -20,15 +23,28 @@ spring:
 #    admin-url: http://127.0.0.1:9095
 #    context-path: /system-api
 #    app-name: system
-
+auth:
+  security:
+    not-auth-urls:
+      - /sys/login
+      - /swagger-ui
+      - /**/api-docs/
+      - /*.html
+      - /**/*.html
+      - /**/*.css
+      - /**/*.js
+      - /webjars/**
+      - /v3/**
+      - /swagger-resources/**
 
 
 # Swagger 配置项
-swagger:
-  title: system
-  description: 用户相关系统
-  version: 1.0.0
-  base-package: org.training.cloud.system.controller
+training:
+  swagger:
+    title: system
+    description: 用户相关系统
+    version: 1.0.0
+    base-package: org.training.cloud.system
 server:
   port: 8080
 

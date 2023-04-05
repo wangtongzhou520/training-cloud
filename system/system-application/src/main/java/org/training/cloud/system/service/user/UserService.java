@@ -1,6 +1,6 @@
 package org.training.cloud.system.service.user;
 
-import org.training.cloud.common.core.vo.PageParam;
+import org.training.cloud.common.web.core.vo.PageParam;
 import org.training.cloud.system.dto.user.SaveUserDTO;
 import org.training.cloud.system.dto.user.UpdateUserDTO;
 import org.training.cloud.system.vo.user.SysUserVO;

@@ -1,6 +1,6 @@
 package org.training.cloud.test1.service;
 
-import org.training.cloud.common.core.vo.CommonResponse;
+import org.training.cloud.common.web.core.vo.CommonResponse;
 import org.training.cloud.system.vo.dept.DeptTreeVO;
 import org.training.cloud.test1.config.FeignConfig;
 import org.springframework.cloud.openfeign.FeignClient;

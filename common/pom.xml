@@ -12,7 +12,6 @@
     <artifactId>common</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>common-swagger</module>
         <module>common-web</module>
         <module>common-core</module>
         <module>common-mybatis</module>

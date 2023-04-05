@@ -1,15 +1,17 @@
 package org.training.cloud.system.controller.auth;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.validation.annotation.Validated;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.training.cloud.common.core.vo.CommonResponse;
+import org.training.cloud.common.web.core.vo.CommonResponse;
 import org.training.cloud.system.dto.auth.AuthLoginDTO;
 import org.training.cloud.system.vo.auth.AuthLoginVO;
+
+import javax.validation.Valid;
 
 /**
  * 管理员登录
@@ -19,7 +21,7 @@ import org.training.cloud.system.vo.auth.AuthLoginVO;
  */
 @RestController
 @RequestMapping("/sys")
-@Api("管理员登录")
+@Tag(name = "管理员登录")
 public class AuthController {
 
     /**
@@ -29,10 +31,10 @@ public class AuthController {
      * @return
      */
     @PostMapping("/login")
-    @ApiOperation("账号密码登录")
-    public CommonResponse<AuthLoginVO> login(@RequestBody @Validated AuthLoginDTO authLoginDTO) {
+    @Operation(summary = "账号密码登录")
+    public CommonResponse<AuthLoginVO> login(@RequestBody @Valid AuthLoginDTO authLoginDTO) {
 
-        return null;
+        return CommonResponse.ok();
     }
 
     /**
@@ -42,7 +44,7 @@ public class AuthController {
      * @return
      */
     @PostMapping("/users")
-    @ApiOperation("登出")
+    @Operation(summary = "登出")
     public CommonResponse<?> loginOut(String userName) {
         return CommonResponse.ok();
     }

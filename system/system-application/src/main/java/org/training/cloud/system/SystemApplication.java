@@ -10,7 +10,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * @since 2020-05-24 10:11
  * @author wangtongzhou
  */
-@SpringBootApplication(scanBasePackages = {"org.training.cloud"})
+@SpringBootApplication
 //@EnableDiscoveryClient
 public class SystemApplication {
 

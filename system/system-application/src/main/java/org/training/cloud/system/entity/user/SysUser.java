@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import org.training.cloud.common.mybatis.dao.BaseDO;
+import org.training.cloud.common.web.mybatis.dao.BaseDO;
 
 /**
  * 用户类

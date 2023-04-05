@@ -1,16 +1,10 @@
 package org.training.cloud.system.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-import org.training.cloud.common.core.vo.CommonResponse;
-import org.training.cloud.common.core.vo.PageResponse;
-import org.training.cloud.system.dto.user.SaveUserDTO;
-import org.training.cloud.system.dto.user.UpdateUserDTO;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.training.cloud.system.service.user.UserService;
-import org.training.cloud.system.vo.user.SysUserVO;
 
 /**
  * 用户相关接口
@@ -20,7 +14,7 @@ import org.training.cloud.system.vo.user.SysUserVO;
  */
 @RestController
 @RequestMapping("/sys")
-@Api("部门信息")
+@Tag(name ="部门信息")
 public class UserController {
 
     @Autowired

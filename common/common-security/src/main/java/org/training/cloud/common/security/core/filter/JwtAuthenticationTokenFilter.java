@@ -1,5 +1,7 @@
 package org.training.cloud.common.security.core.filter;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -14,11 +16,10 @@ import java.io.IOException;
  * @author wangtongzhou
  * @since 2023-03-25 10:58
  */
+@Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-
-
         chain.doFilter(request, response);
     }
 

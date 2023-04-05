@@ -1,7 +1,7 @@
 package org.training.cloud.system.service.oauth2;
 
-import org.training.cloud.common.core.exception.BusinessException;
-import org.training.cloud.common.core.exception.ServerException;
+import org.training.cloud.common.web.core.exception.BusinessException;
+import org.training.cloud.common.web.core.exception.ServerException;
 import org.training.cloud.system.convert.oauth2.SysOAuthConvert;
 import org.training.cloud.system.dao.oauth2.OAuth2AccessTokenMapper;
 import org.training.cloud.system.dao.oauth2.OAuth2RefreshTokenMapper;

@@ -3,9 +3,9 @@ package org.training.cloud.common.security.handler;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
-import org.training.cloud.common.core.constant.UserExceptionCode;
-import org.training.cloud.common.core.utils.josn.JsonUtils;
-import org.training.cloud.common.core.vo.CommonResponse;
+import org.training.cloud.common.web.core.constant.UserExceptionCode;
+import org.training.cloud.common.web.core.utils.josn.JsonUtils;
+import org.training.cloud.common.web.core.vo.CommonResponse;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

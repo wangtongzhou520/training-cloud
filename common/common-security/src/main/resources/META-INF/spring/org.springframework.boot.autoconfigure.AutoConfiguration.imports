@@ -1,0 +1,2 @@
+org.training.cloud.common.security.config.NotAuthenticationConfig
+org.training.cloud.common.security.config.SecurityConfig

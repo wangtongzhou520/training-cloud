@@ -2,8 +2,8 @@ package org.training.cloud.system.service.oauth2;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.training.cloud.common.core.exception.BusinessException;
-import org.training.cloud.common.core.vo.PageResponse;
+import org.training.cloud.common.web.core.exception.BusinessException;
+import org.training.cloud.common.web.core.vo.PageResponse;
 import org.training.cloud.system.convert.oauth2.Oauth2ClientConvert;
 import org.training.cloud.system.dao.oauth2.Oauth2ClientMapper;
 import org.training.cloud.system.dto.oauth2.AddOauth2ClientDTO;

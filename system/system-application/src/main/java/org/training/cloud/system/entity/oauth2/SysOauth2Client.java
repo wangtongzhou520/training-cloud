@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import org.training.cloud.common.mybatis.dao.BaseDO;
+import org.training.cloud.common.web.mybatis.dao.BaseDO;
 
 import java.util.List;
 

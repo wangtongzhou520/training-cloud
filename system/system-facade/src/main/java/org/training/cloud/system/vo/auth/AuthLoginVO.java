@@ -1,6 +1,6 @@
 package org.training.cloud.system.vo.auth;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -15,18 +15,19 @@ import java.util.Date;
  */
 @Data
 @Accessors(chain = true)
+@Schema(description = "登录")
 public class AuthLoginVO implements Serializable {
 
 
-    @ApiModelProperty(value = "用户编号", required = true)
+    @Schema(description = "用户编号", required = true)
     private Long userId;
 
-    @ApiModelProperty(value = "访问令牌", required = true)
+    @Schema(description = "访问令牌", required = true)
     private String accessToken;
 
-    @ApiModelProperty(value = "刷新令牌", required = true)
+    @Schema(description = "刷新令牌", required = true)
     private String refreshToken;
 
-    @ApiModelProperty(value = "过期时间", required = true)
+    @Schema(description = "过期时间", required = true)
     private Date expiresTime;
 }

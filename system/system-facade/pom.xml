@@ -19,10 +19,6 @@
             <artifactId>lombok</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-        </dependency>
-        <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
         </dependency>
@@ -37,7 +33,7 @@
         </dependency>
         <dependency>
             <groupId>org.training.cloud</groupId>
-            <artifactId>common-security</artifactId>
+            <artifactId>common-web</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
