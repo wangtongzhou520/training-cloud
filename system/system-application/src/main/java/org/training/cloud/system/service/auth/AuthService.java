@@ -6,7 +6,7 @@ import org.training.cloud.system.vo.auth.AuthLoginVO;
 /**
  * 登录
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-01 22:05
  */
 public interface AuthService {

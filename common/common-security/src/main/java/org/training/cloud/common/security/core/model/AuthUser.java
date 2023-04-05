@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * 登录用户信息
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-03-30 21:24
  */
 @Data

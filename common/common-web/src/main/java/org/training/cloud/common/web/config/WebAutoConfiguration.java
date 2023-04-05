@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.training.cloud.common.web.handler.GlobalExceptionHandler;
 
 /**
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-05 16:34
  */
 @AutoConfiguration

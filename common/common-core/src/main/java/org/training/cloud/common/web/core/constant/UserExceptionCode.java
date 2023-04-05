@@ -3,7 +3,7 @@ package org.training.cloud.common.web.core.constant;
 /**
  * 用户看到的异常
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-03-30 07:09
  */
 public interface UserExceptionCode {

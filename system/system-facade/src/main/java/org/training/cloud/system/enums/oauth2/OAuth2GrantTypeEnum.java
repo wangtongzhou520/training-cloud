@@ -3,7 +3,7 @@ package org.training.cloud.system.enums.oauth2;
 /**
  * oauth2授权类型
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-02 20:37
  */
 public enum OAuth2GrantTypeEnum {

@@ -11,7 +11,7 @@ import org.training.cloud.system.enums.oauth2.Oauth2ClientStateEnum;
 /**
  * 授权客户端
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-02 14:19
  */
 @Mapper

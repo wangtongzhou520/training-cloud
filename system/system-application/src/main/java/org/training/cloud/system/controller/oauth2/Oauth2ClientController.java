@@ -20,7 +20,7 @@ import org.training.cloud.system.vo.oauth2.Oauth2ClientVO;
 /**
  * Oauth2客户端管理
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-02 09:08
  */
 @Tag(name = "Oauth2客户端管理")

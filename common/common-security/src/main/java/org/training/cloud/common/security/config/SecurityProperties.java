@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 员工考勤信息
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-05 09:47
  */
 @ConfigurationProperties(prefix = "auth.security")

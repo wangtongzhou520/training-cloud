@@ -20,7 +20,7 @@ import static org.training.cloud.system.constant.SystemExceptionEnumConstants.OA
 /**
  * Oauth2客户端服务
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-02 09:14
  */
 @Service

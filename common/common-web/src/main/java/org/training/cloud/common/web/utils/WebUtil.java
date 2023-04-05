@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * web工具类
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-03 07:53
  */
 public class WebUtil {

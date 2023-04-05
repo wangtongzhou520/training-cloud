@@ -11,7 +11,7 @@ import org.training.cloud.system.vo.oauth2.Oauth2ClientVO;
 /**
  * 客户端转化类
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-02 15:06
  */
 @Mapper

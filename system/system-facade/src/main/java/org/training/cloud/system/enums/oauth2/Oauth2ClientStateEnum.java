@@ -3,7 +3,7 @@ package org.training.cloud.system.enums.oauth2;
 /**
  * 授权客户端状态
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-02 15:29
  */
 public enum Oauth2ClientStateEnum {

@@ -10,7 +10,7 @@ import java.util.Collection;
 /**
  * QueryWrapper扩展类 支持空判断
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-02 16:10
  */
 public class QueryWrapperExtend<T> extends QueryWrapper<T> {

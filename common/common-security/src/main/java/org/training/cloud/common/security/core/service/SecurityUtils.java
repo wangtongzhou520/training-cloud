@@ -14,7 +14,7 @@ import java.util.Collections;
 /**
  * 安全框架工具类
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-03-29 21:44
  */
 public class SecurityUtils {

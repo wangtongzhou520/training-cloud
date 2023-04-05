@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * 授权服务器
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-02-08 07:09
  */
 @SpringBootApplication

@@ -8,7 +8,7 @@ import org.training.cloud.common.web.core.vo.PageParam;
 /**
  * 分页查询授权客户端
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-02 15:54
  */
 @Data

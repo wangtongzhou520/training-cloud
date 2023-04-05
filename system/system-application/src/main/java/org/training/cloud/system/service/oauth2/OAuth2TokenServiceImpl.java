@@ -24,7 +24,7 @@ import static org.training.cloud.system.constant.SystemExceptionEnumConstants.*;
  * @author wangtongzhou
  * @since 2020-09-18 11:59
  */
-public class OAuth2ServiceImpl implements OAuth2Service {
+public class OAuth2TokenServiceImpl implements OAuth2TokenService {
 
     @Value("${refresh.token.expire.time.millis}")
     private int refreshTokenExpireTimeMillis;
@@ -42,6 +42,8 @@ public class OAuth2ServiceImpl implements OAuth2Service {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public OAuth2AccessTokenVO createAccessToken(Long userId, String userIp) {
+        //检查客户端是否生效
+
         //插入刷新令牌
         Oauth2RefreshToken oAuth2RefreshToken = createOAuth2RefreshToken(userId, userIp);
         //插入access_token

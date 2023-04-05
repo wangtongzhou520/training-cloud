@@ -9,7 +9,7 @@ import org.training.cloud.system.vo.oauth2.OAuth2AccessTokenVO;
  * @author wangtongzhou
  * @since 2020-09-17 20:35
  */
-public interface OAuth2Service {
+public interface OAuth2TokenService {
 
     /**
      * 创建token

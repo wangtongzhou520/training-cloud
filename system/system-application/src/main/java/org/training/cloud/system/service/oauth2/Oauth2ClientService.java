@@ -9,7 +9,7 @@ import org.training.cloud.system.entity.oauth2.SysOauth2Client;
 /**
  * Oauth2客户端服务
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-02 09:13
  */
 public interface Oauth2ClientService {

@@ -11,7 +11,7 @@ import java.util.Collection;
 /**
  * LambdaQueryWrapper扩展类
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-02 16:09
  */
 public class LambdaQueryWrapperExtend<T> extends LambdaQueryWrapper<T> {
