@@ -19,18 +19,18 @@ public class OAuth2AccessTokenVO {
     /**
      * 访问令牌
      */
-    @ApiModelProperty(value = "访问令牌", required = true)
+    @Schema(description = "访问令牌", required = true)
     private String accessToken;
     /**
      * 刷新令牌
      */
-    @ApiModelProperty(value = "刷新令牌", required = true)
+    @Schema(description = "刷新令牌", required = true)
     private String refreshToken;
 
     /**
      * 过期时间
      */
-    @ApiModelProperty(value = "过期时间", required = true)
+    @Schema(description = "过期时间", required = true)
     private Date expiresTime;
 
 }

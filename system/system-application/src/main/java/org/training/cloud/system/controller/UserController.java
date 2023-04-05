@@ -27,7 +27,7 @@ public class UserController {
 //     * @return true or false
 //     */
 //    @PostMapping("/user")
-//    @ApiOperation("添加用户信息")
+//    @Operation(summary = "添加用户信息")
 //    public CommonResponse<?> saveUser(@RequestBody @Validated SaveUserDTO saveUserDTO) {
 //        userService.saveUser(saveUserDTO);
 //        return CommonResponse.ok();
@@ -40,7 +40,7 @@ public class UserController {
 //     * @return true or false
 //     */
 //    @PutMapping("/user")
-//    @ApiOperation("添加用户信息")
+//    @Operation(summary = "添加用户信息")
 //    public CommonResponse<?> updateUser(@RequestBody @Validated UpdateUserDTO updateUserDTO) {
 //        userService.updateUser(updateUserDTO);
 //        return CommonResponse.ok();
@@ -55,7 +55,7 @@ public class UserController {
 //     * @return 分页用户信息
 //     */
 //    @GetMapping("/users/{deptId}")
-//    @ApiOperation("分页查询用户信息")
+//    @Operation(summary = "分页查询用户信息")
 //    public CommonResponse<PageResponse<SysUserVO>> queryPage(@PathVariable String deptId,
 //                                                             Integer pageSize, Integer pageNo) {
 ////        Long total = userService.countSysUsersByDeptId(deptId);
