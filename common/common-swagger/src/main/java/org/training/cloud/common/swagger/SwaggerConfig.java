@@ -1,4 +1,4 @@
-package org.training.cloud.common.web.swagger;
+package org.training.cloud.common.swagger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;

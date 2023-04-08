@@ -2,7 +2,7 @@ package org.training.cloud.system.dao.oauth2;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
-import org.training.cloud.system.entity.oauth2.Oauth2AccessToken;
+import org.training.cloud.system.entity.oauth2.SysOauth2AccessToken;
 
 /**
  * OAuth2 AccessToken服务
@@ -11,7 +11,7 @@ import org.training.cloud.system.entity.oauth2.Oauth2AccessToken;
  * @since 2020-09-18 13:47
  */
 @Repository
-public interface OAuth2AccessTokenMapper extends BaseMapper<Oauth2AccessToken> {
+public interface OAuth2AccessTokenMapper extends BaseMapper<SysOauth2AccessToken> {
 
     /**
      * 通过刷新token删除访问token

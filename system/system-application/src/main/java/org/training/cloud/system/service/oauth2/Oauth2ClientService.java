@@ -9,7 +9,7 @@ import org.training.cloud.system.entity.oauth2.SysOauth2Client;
 /**
  * Oauth2客户端服务
  *
- * @author wangtongzhou 
+ * @author wangtongzhou
  * @since 2023-04-02 09:13
  */
 public interface Oauth2ClientService {
@@ -45,6 +45,20 @@ public interface Oauth2ClientService {
     SysOauth2Client queryOauth2Client(Long id);
 
 
+    /**
+     * 按照clientId查询客户端
+     *
+     * @param clientId
+     * @return
+     */
+    SysOauth2Client queryOauth2ClientByClientId(String clientId);
 
+
+    /**
+     * 分页查询
+     *
+     * @param pageOauth2ClientDTO
+     * @return
+     */
     PageResponse<SysOauth2Client> pageOauth2Client(PageOauth2ClientDTO pageOauth2ClientDTO);
 }

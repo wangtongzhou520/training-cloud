@@ -12,11 +12,7 @@
     <artifactId>system-application</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>org.training.cloud</groupId>
-            <artifactId>common-security</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+
         <dependency>
             <groupId>org.training.cloud</groupId>
             <artifactId>system-facade</artifactId>
@@ -26,6 +22,11 @@
         <dependency>
             <groupId>org.training.cloud</groupId>
             <artifactId>common-mybatis</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.training.cloud</groupId>
+            <artifactId>common-security</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>

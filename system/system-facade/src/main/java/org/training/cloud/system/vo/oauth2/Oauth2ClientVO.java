@@ -1,6 +1,6 @@
 package org.training.cloud.system.vo.oauth2;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;

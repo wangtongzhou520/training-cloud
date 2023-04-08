@@ -1,4 +1,4 @@
-package org.training.cloud.common.web.swagger;
+package org.training.cloud.common.swagger;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

@@ -20,8 +20,10 @@ public interface SystemExceptionEnumConstants {
     ExceptionCode OAUTH2_REFRESH_TOKEN_NOT_FOUND=new ExceptionCode(100001003,"刷新令牌不存在");
     ExceptionCode OAUTH2_REFRESH_TOKEN_NOT_EXPIRED= new ExceptionCode(100001004,"刷新令牌已过期");
     ExceptionCode OAUTH2_CLIENT_EXIST= new ExceptionCode(100001005, "授权客户端编号已存在");
-    ExceptionCode OAUTH2_CLIENT_NOT_EXIST= new ExceptionCode(100001006,
-                                                                   "授权客户端不存在");
+    ExceptionCode OAUTH2_CLIENT_NOT_EXIST= new ExceptionCode(100001006, "授权客户端不存在");
+    ExceptionCode OAUTH2_CLIENT_DISABLE= new ExceptionCode(100001007,
+            "授权客户端被禁用");
+
 
 
 

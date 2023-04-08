@@ -1,3 +1,1 @@
-org.training.cloud.common.web.swagger.SwaggerConfig
-org.training.cloud.common.web.swagger.BeanPostProcessorConfig
 org.training.cloud.common.web.config.WebAutoConfiguration

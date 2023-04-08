@@ -1,4 +1,4 @@
-package org.training.cloud.common.security.core.service;
+package org.training.cloud.common.security.core.utils;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,7 +23,8 @@ public class SecurityUtils {
 
     private SecurityUtils(){}
 
-    public static String obtainAuthorization(HttpServletRequest request, String header) {
+    public static String getAuthorization(HttpServletRequest request,
+                                        String header) {
         String authorization = request.getHeader(header);
         if (!StringUtils.hasText(authorization)) {
             return null;

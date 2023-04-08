@@ -1,6 +1,7 @@
 package org.training.cloud.system.service.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.training.cloud.common.web.core.vo.PageParam;
@@ -26,8 +27,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private SysUserMapper sysUserMapper;
 
-    @Resource
-    private PasswordEncoder passwordEncoder;
+    private static final PasswordEncoder ENCODER = new BCryptPasswordEncoder();
 
     @Override
     public void saveUser(SaveUserDTO saveUserDTO) {
@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean matchPassWord(String passWord, String encodedPassword) {
-        return passwordEncoder.matches(passWord, encodedPassword);
+        return ENCODER.matches(passWord, encodedPassword);
     }
 
     private boolean checkEmailExist(String mail, Integer id) {

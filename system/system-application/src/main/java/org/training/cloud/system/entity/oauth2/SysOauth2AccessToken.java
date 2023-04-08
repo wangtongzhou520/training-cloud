@@ -9,25 +9,46 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.training.cloud.common.web.mybatis.dao.BaseDO;
 
+import java.util.Date;
 import java.util.List;
 
 /**
- * 授权客户端管理
+ * oauth2 token
  *
- * @author wangtongzhou 
- * @since 2023-04-02 09:48
+ * @author wangtongzhou
+ * @since 2020-09-18 12:09
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName(value = "sys_oauth2_client")
 @Accessors(chain = true)
-public class SysOauth2Client extends BaseDO {
+@TableName(value = "sys_oauth2_access_token")
+public class SysOauth2AccessToken extends BaseDO {
 
     @TableId
     /**
      * 唯一键
      */
-    private Long id;
+    private String id;
+
+    /**
+     * 用户编号
+     */
+    private Long userId;
+
+    /**
+     * 用户类型 0 c端 1 管理端
+     */
+    private Integer userType;
+
+    /**
+     * 刷新令牌
+     */
+    private String accessToken;
+
+    /**
+     * 刷新令牌
+     */
+    private String refreshToken;
 
     /**
      * 客户端id
@@ -35,51 +56,15 @@ public class SysOauth2Client extends BaseDO {
     private String clientId;
 
     /**
-     * 客户端密钥
+     * 过期时间
      */
-    private String clientSecret;
-
-    /**
-     * 客户端名称
-     */
-    private String clientName;
-
-    /**
-     * 头像地址
-     */
-    private String clientLogo;
-
-    /**
-     * 应用描述
-     */
-    private String clientDescription;
-
-    /**
-     * 授权方式
-     */
-    @TableField(typeHandler = JacksonTypeHandler.class)
-    private List<String> grantTypes;
-
-    /**
-     * 重定向地址
-     */
-    private String redirectUrl;
+    private Date expiresTime;
 
     /**
      * 授权范围
      */
     @TableField(typeHandler = JacksonTypeHandler.class)
     private List<String> scopes;
-
-    /**
-     * 授权码有效期
-     */
-    private Long accessTokenValiditySeconds;
-
-    /**
-     * 授权码有效期
-     */
-    private Long refreshTokenValiditySeconds;
 
     /**
      * 状态，0：正常，1：删除

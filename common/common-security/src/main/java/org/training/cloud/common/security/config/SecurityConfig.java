@@ -2,6 +2,7 @@ package org.training.cloud.common.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -15,10 +16,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.training.cloud.common.security.core.SecuritySecurityCheckService;
-import org.training.cloud.common.security.core.filter.JwtAuthenticationTokenFilter;
-import org.training.cloud.common.security.handler.CustomizeAccessDeniedHandler;
-import org.training.cloud.common.security.handler.CustomizeAuthExceptionEntryPoint;
+import org.training.cloud.common.security.core.filter.AuthenticationTokenFilter;
+import org.training.cloud.common.security.core.handler.CustomizeAccessDeniedHandler;
+import org.training.cloud.common.security.core.handler.CustomizeAuthExceptionEntryPoint;
+import org.training.cloud.common.security.core.service.SecuritySecurityCheckService;
 
 /**
  * 安全配置
@@ -29,11 +30,12 @@ import org.training.cloud.common.security.handler.CustomizeAuthExceptionEntryPoi
 @AutoConfiguration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableConfigurationProperties(NotAuthenticationProperties.class)
 public class SecurityConfig {
+
 
     @Autowired
     private NotAuthenticationConfig notAuthenticationConfig;
-
 
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -52,10 +54,11 @@ public class SecurityConfig {
                 .authenticationEntryPoint(new CustomizeAuthExceptionEntryPoint())
                 .accessDeniedHandler(new CustomizeAccessDeniedHandler());
         //token校验
-        http.addFilterBefore(new JwtAuthenticationTokenFilter(),
+        http.addFilterBefore(new AuthenticationTokenFilter(),
                 UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+
 
 
     /**
@@ -85,6 +88,7 @@ public class SecurityConfig {
     public SecuritySecurityCheckService permissionService() {
         return new SecuritySecurityCheckService();
     }
+
 
 
 }

@@ -9,7 +9,7 @@ package org.training.cloud.system.enums.oauth2;
 public enum Oauth2ClientStateEnum {
 
     NORMAL(0, "正常"),
-    DELETE(1, "删除"),
+    DISABLE(1, "禁用"),
             ;
 
     private Integer code;

@@ -6,15 +6,26 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import java.util.List;
 
 /**
- * 员工考勤信息
+ * 配置文件
  *
- * @author wangtongzhou 
+ * @author wangtongzhou
  * @since 2023-04-05 09:47
  */
 @ConfigurationProperties(prefix = "auth.security")
 @Data
-public class SecurityProperties {
+public class NotAuthenticationProperties {
 
+    /**
+     * Token Header
+     */
+
+    private String tokenHeader = "Authorization";
+
+
+    /**
+     * 不需要认证的URL
+     */
 
     private List<String> notAuthUrls;
+
 }

@@ -1,16 +1,19 @@
 package org.training.cloud.system.service.oauth2;
 
+import org.apache.commons.lang3.time.DateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.training.cloud.common.web.core.exception.BusinessException;
 import org.training.cloud.common.web.core.exception.ServerException;
 import org.training.cloud.system.convert.oauth2.SysOAuthConvert;
 import org.training.cloud.system.dao.oauth2.OAuth2AccessTokenMapper;
 import org.training.cloud.system.dao.oauth2.OAuth2RefreshTokenMapper;
-import org.training.cloud.system.entity.oauth2.Oauth2AccessToken;
-import org.training.cloud.system.entity.oauth2.Oauth2RefreshToken;
+import org.training.cloud.system.dto.oauth2.AddOauth2AccessTokenDTO;
+import org.training.cloud.system.entity.oauth2.SysOauth2AccessToken;
+import org.training.cloud.system.entity.oauth2.SysOauth2Client;
+import org.training.cloud.system.entity.oauth2.SysOauth2RefreshToken;
 import org.training.cloud.system.vo.oauth2.OAuth2AccessTokenVO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.Objects;
@@ -24,14 +27,8 @@ import static org.training.cloud.system.constant.SystemExceptionEnumConstants.*;
  * @author wangtongzhou
  * @since 2020-09-18 11:59
  */
+@Service
 public class OAuth2TokenServiceImpl implements OAuth2TokenService {
-
-    @Value("${refresh.token.expire.time.millis}")
-    private int refreshTokenExpireTimeMillis;
-
-    @Value("${access.token.expire.time.millis}")
-    private int accessTokenExpireTimeMillis;
-
 
     @Autowired
     private OAuth2RefreshTokenMapper oAuth2RefreshTokenMapper;
@@ -39,56 +36,63 @@ public class OAuth2TokenServiceImpl implements OAuth2TokenService {
     @Autowired
     private OAuth2AccessTokenMapper oAuth2AccessTokenMapper;
 
+    @Autowired
+    private Oauth2ClientService oauth2ClientService;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public OAuth2AccessTokenVO createAccessToken(Long userId, String userIp) {
-        //检查客户端是否生效
-
+    public OAuth2AccessTokenVO createAccessToken(AddOauth2AccessTokenDTO addOauth2AccessTokenDTO) {
+        //检查授权客户端
+        SysOauth2Client sysOauth2Client = oauth2ClientService.queryOauth2ClientByClientId(addOauth2AccessTokenDTO.getClientId());
         //插入刷新令牌
-        Oauth2RefreshToken oAuth2RefreshToken = createOAuth2RefreshToken(userId, userIp);
+        SysOauth2RefreshToken oauth2RefreshToken =
+                createOAuth2RefreshToken(sysOauth2Client, addOauth2AccessTokenDTO);
         //插入access_token
-        Oauth2AccessToken oAuth2AccessToken = createOAuth2AccessToken(oAuth2RefreshToken);
-        return SysOAuthConvert.INSTANCE.convert(oAuth2AccessToken);
+        SysOauth2AccessToken auth2AccessToken =
+                createOAuth2AccessToken(oauth2RefreshToken,sysOauth2Client);
+        return SysOAuthConvert.INSTANCE.convert(auth2AccessToken);
     }
 
     /**
      * 构建刷新令牌
      *
-     * @param userId userId userId
-     * @param userIp userIp userIp
-     * @return oAuth2RefreshTokenDO
+     * @param client
+     * @param addOauth2AccessTokenDTO
+     * @return
      */
-    private Oauth2RefreshToken createOAuth2RefreshToken(Long userId, String userIp) {
-        Oauth2RefreshToken oAuth2RefreshToken = new Oauth2RefreshToken();
-        oAuth2RefreshToken.setCreateOperator("")
-                .setId(UUID.randomUUID().toString())
-                .setExpiresTime(new Date(System.currentTimeMillis() + refreshTokenExpireTimeMillis))
-                .setModifiedOperator("")
-                .setModifiedOperatorIp(userIp)
-                .setUserId(userId);
-        oAuth2RefreshTokenMapper.insert(oAuth2RefreshToken);
-        return oAuth2RefreshToken;
+    private SysOauth2RefreshToken createOAuth2RefreshToken(SysOauth2Client client,AddOauth2AccessTokenDTO addOauth2AccessTokenDTO) {
+        SysOauth2RefreshToken oauth2RefreshToken = new SysOauth2RefreshToken();
+        oauth2RefreshToken
+                .setExpiresTime(DateUtils.addSeconds(new Date(), client.getRefreshTokenValiditySeconds().intValue()))
+                .setRefreshToken(UUID.randomUUID().toString())
+                .setUserId(addOauth2AccessTokenDTO.getUserId())
+                .setUserType(addOauth2AccessTokenDTO.getUserType())
+                .setClientId(addOauth2AccessTokenDTO.getClientId())
+                .setScopes(client.getScopes());
+        oAuth2RefreshTokenMapper.insert(oauth2RefreshToken);
+        return oauth2RefreshToken;
     }
 
 
     /**
      * 创建令牌
      *
-     * @param oAuth2RefreshToken oAuth2RefreshTokenDO
-     * @return oAuth2AccessTokenDO
+     * @param oauth2RefreshToken
+     * @param client
+     * @return
      */
-    private Oauth2AccessToken createOAuth2AccessToken(Oauth2RefreshToken oAuth2RefreshToken) {
-        Oauth2AccessToken oAuth2AccessToken = new Oauth2AccessToken();
-        oAuth2AccessToken.setCreateOperator("")
-                .setId(UUID.randomUUID().toString())
-                .setExpiresTime(new Date(System.currentTimeMillis() + accessTokenExpireTimeMillis))
-                .setModifiedOperator("")
-                .setRefreshToken(oAuth2RefreshToken.getId())
-                .setModifiedOperatorIp(oAuth2RefreshToken.getModifiedOperatorIp())
-                .setUserId(oAuth2AccessToken.getUserId())
-                .setCreateOperator("");
-        oAuth2AccessTokenMapper.insert(oAuth2AccessToken);
-        return oAuth2AccessToken;
+    private SysOauth2AccessToken createOAuth2AccessToken(SysOauth2RefreshToken oauth2RefreshToken,SysOauth2Client client) {
+        SysOauth2AccessToken oauth2AccessToken = new SysOauth2AccessToken();
+        oauth2AccessToken
+                .setExpiresTime(DateUtils.addSeconds(new Date(), client.getAccessTokenValiditySeconds().intValue()))
+                .setRefreshToken(oauth2RefreshToken.getRefreshToken())
+                .setAccessToken(UUID.randomUUID().toString())
+                .setUserId(oauth2RefreshToken.getUserId())
+                .setUserType(oauth2RefreshToken.getUserType())
+                .setScopes(oauth2RefreshToken.getScopes())
+                .setClientId(oauth2RefreshToken.getClientId());
+        oAuth2AccessTokenMapper.insert(oauth2AccessToken);
+        return oauth2AccessToken;
 
     }
 
@@ -96,43 +100,44 @@ public class OAuth2TokenServiceImpl implements OAuth2TokenService {
     @Override
     public OAuth2AccessTokenVO checkAccessToken(String accessToken) {
         //查询token
-        Oauth2AccessToken oAuth2AccessToken =
+        SysOauth2AccessToken oAuth2AccessTokenSys =
                 oAuth2AccessTokenMapper.selectById(accessToken);
         //检查token存在不存在
-        if (Objects.isNull(oAuth2AccessToken)) {
+        if (Objects.isNull(oAuth2AccessTokenSys)) {
             throw new BusinessException(OAUTH2_ACCESS_TOKEN_NOT_FOUND);
         }
         //检查token过期时间
-        if (oAuth2AccessToken.getExpiresTime().getTime() < System.currentTimeMillis()) {
+        if (oAuth2AccessTokenSys.getExpiresTime().getTime() < System.currentTimeMillis()) {
             throw new ServerException(OAUTH2_ACCESS_TOKEN_NOT_EXPIRED);
         }
         //返回访问令牌
-        return SysOAuthConvert.INSTANCE.convert(oAuth2AccessToken);
+        return SysOAuthConvert.INSTANCE.convert(oAuth2AccessTokenSys);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public OAuth2AccessTokenVO refreshAccessToken(String refreshToken, String userIp) {
-        //获取刷新token
-        Oauth2RefreshToken auth2RefreshTokenDO =
-                oAuth2RefreshTokenMapper.selectById(refreshToken);
-        //校验刷新token存在不存在
-        if (Objects.nonNull(auth2RefreshTokenDO)) {
-            throw new ServerException(OAUTH2_REFRESH_TOKEN_NOT_FOUND);
-        }
-        //检验刷新token是否过期
-        if (auth2RefreshTokenDO.getExpiresTime().getTime() < System.currentTimeMillis()) {
-            throw new ServerException(OAUTH2_REFRESH_TOKEN_NOT_EXPIRED);
-        }
-        //如果不过期则删除之前访问令牌重新创建令牌
-        oAuth2AccessTokenMapper.deleteByRefreshToken(refreshToken);
-        Oauth2AccessToken oAuth2AccessToken = createOAuth2AccessToken(auth2RefreshTokenDO);
-        return SysOAuthConvert.INSTANCE.convert(oAuth2AccessToken);
+//        //获取刷新token
+//        SysOauth2RefreshToken auth2RefreshTokenDO =
+//                oAuth2RefreshTokenMapper.selectById(refreshToken);
+//        //校验刷新token存在不存在
+//        if (Objects.nonNull(auth2RefreshTokenDO)) {
+//            throw new ServerException(OAUTH2_REFRESH_TOKEN_NOT_FOUND);
+//        }
+//        //检验刷新token是否过期
+//        if (auth2RefreshTokenDO.getExpiresTime().getTime() < System.currentTimeMillis()) {
+//            throw new ServerException(OAUTH2_REFRESH_TOKEN_NOT_EXPIRED);
+//        }
+//        //如果不过期则删除之前访问令牌重新创建令牌
+//        oAuth2AccessTokenMapper.deleteByRefreshToken(refreshToken);
+//        SysOauth2AccessToken oAuth2AccessTokenSys = createOAuth2AccessToken(auth2RefreshTokenDO);
+//        return SysOAuthConvert.INSTANCE.convert(oAuth2AccessTokenSys);
+        return null;
     }
 
     @Override
     public void removeToken(Long userId) {
-        oAuth2AccessTokenMapper.deleteByUserId(userId);
-        oAuth2RefreshTokenMapper.deleteByUserId(userId);
+//        oAuth2AccessTokenMapper.deleteByUserId(userId);
+//        oAuth2RefreshTokenMapper.deleteByUserId(userId);
     }
 }

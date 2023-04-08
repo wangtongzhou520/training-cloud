@@ -25,7 +25,6 @@ public interface Oauth2ClientMapper extends BaseMapperExtend<SysOauth2Client> {
 
 
     default SysOauth2Client selectByClientId(String clientId) {
-        return selectOne(SysOauth2Client::getClientId, clientId,
-                SysOauth2Client::getStatus, Oauth2ClientStateEnum.NORMAL.getCode());
+        return selectOne(SysOauth2Client::getClientId, clientId);
     }
 }

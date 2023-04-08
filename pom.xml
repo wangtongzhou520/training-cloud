@@ -35,7 +35,6 @@
         <module>system</module>
         <module>registry</module>
         <module>study</module>
-        <module>auth</module>
     </modules>
 
     <!--统一版本号管理-->

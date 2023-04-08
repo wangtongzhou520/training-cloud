@@ -1,6 +1,6 @@
 package org.training.cloud.system.convert.oauth2;
 
-import org.training.cloud.system.entity.oauth2.Oauth2AccessToken;
+import org.training.cloud.system.entity.oauth2.SysOauth2AccessToken;
 import org.training.cloud.system.vo.oauth2.OAuth2AccessTokenVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mappings;
@@ -21,10 +21,10 @@ public interface SysOAuthConvert {
     /**
      * oAuth2AccessTokenDO convert oAuth2AccessTokenBO
      *
-     * @param oAuth2AccessToken oAuth2AccessTokenDO
+     * @param oAuth2AccessTokenSys oAuth2AccessTokenDO
      * @return oAuth2AccessTokenDO
      */
     @Mappings({})
-    OAuth2AccessTokenVO convert(Oauth2AccessToken oAuth2AccessToken);
+    OAuth2AccessTokenVO convert(SysOauth2AccessToken oAuth2AccessTokenSys);
 
 }

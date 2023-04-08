@@ -1,21 +1,23 @@
 package org.training.cloud.common.security.config;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.training.cloud.common.security.core.annotations.NotAuthentication;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 资源服务器对外直接暴露URL
@@ -24,42 +26,37 @@ import java.util.*;
  * @since 2023-03-19 15:47
  */
 @AutoConfiguration
-@EnableConfigurationProperties(SecurityProperties.class)
+@AllArgsConstructor
 public class NotAuthenticationConfig implements InitializingBean, ApplicationContextAware {
-
-    private static final String PATTERN = "\\{(.*?)}";
-
-    public static final String ASTERISK = "*";
-
 
     private ApplicationContext applicationContext;
 
     @Autowired
-    private SecurityProperties securityProperties;
+    private NotAuthenticationProperties notAuthenticationProperties;
+
 
     @Getter
     @Setter
-    private List<String> permitAllUrls = new ArrayList<>();
+    private List<String> permitAllUrls;
+
 
     @Override
-    public void afterPropertiesSet() throws Exception {
-        permitAllUrls.addAll(securityProperties.getNotAuthUrls());
-        RequestMappingHandlerMapping requestMappingHandlerMapping = (RequestMappingHandlerMapping)
-                applicationContext.getBean("requestMappingHandlerMapping");
-        Map<RequestMappingInfo, HandlerMethod> map = requestMappingHandlerMapping.getHandlerMethods();
-        map.keySet().forEach(x -> {
-            HandlerMethod handlerMethod = map.get(x);
+    public void afterPropertiesSet() {
+        permitAllUrls.addAll(notAuthenticationProperties.getNotAuthUrls());
+        RequestMappingHandlerMapping mapping = (RequestMappingHandlerMapping) applicationContext.getBean("requestMappingHandlerMapping");
+        Map<RequestMappingInfo, HandlerMethod> map = mapping.getHandlerMethods();
 
-            // 获取方法上边的注解 替代path variable 为 *
-            NotAuthentication method = AnnotationUtils.findAnnotation(handlerMethod.getMethod(), NotAuthentication.class);
-            Optional.ofNullable(method).ifPresent(inner -> Objects.requireNonNull(x.getPathPatternsCondition())
-                    .getPatternValues().forEach(url -> permitAllUrls.add(url.replaceAll(PATTERN, ASTERISK))));
-
-            // 获取类上边的注解, 替代path variable 为 *
-            NotAuthentication controller = AnnotationUtils.findAnnotation(handlerMethod.getBeanType(), NotAuthentication.class);
-            Optional.ofNullable(controller).ifPresent(inner -> Objects.requireNonNull(x.getPathPatternsCondition())
-                    .getPatternValues().forEach(url -> permitAllUrls.add(url.replaceAll(PATTERN, ASTERISK))));
-        });
+        for (Map.Entry<RequestMappingInfo, HandlerMethod> entry : map.entrySet()) {
+            HandlerMethod handlerMethod = entry.getValue();
+            if (!handlerMethod.hasMethodAnnotation(NotAuthentication.class)) {
+                continue;
+            }
+            if (entry.getKey().getPatternsCondition() == null) {
+                continue;
+            }
+            Set<String> urls = entry.getKey().getPatternsCondition().getPatterns();
+            permitAllUrls.addAll(urls);
+        }
     }
 
     @Override

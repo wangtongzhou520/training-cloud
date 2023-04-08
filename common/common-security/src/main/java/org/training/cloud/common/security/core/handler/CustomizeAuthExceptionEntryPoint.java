@@ -1,27 +1,28 @@
-package org.training.cloud.common.security.handler;
+package org.training.cloud.common.security.core.handler;
 
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 import org.training.cloud.common.web.core.constant.UserExceptionCode;
 import org.training.cloud.common.web.core.utils.josn.JsonUtils;
 import org.training.cloud.common.web.core.vo.CommonResponse;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 授权失败以后处理
+ * 认证异常处理
  *
- * @author wangtongzhou
- * @since 2023-03-17 21:19
+ * @author wangtongzhou 
+ * @since 2023-03-06 21:30
  */
 @Component
-public class CustomizeAccessDeniedHandler implements AccessDeniedHandler {
+public class CustomizeAuthExceptionEntryPoint implements AuthenticationEntryPoint {
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
-        CommonResponse result = CommonResponse.error(UserExceptionCode.FORBIDDEN);
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+        CommonResponse result = CommonResponse.error(UserExceptionCode.UNAUTHORIZED);
         //处理编码方式，防止中文乱码的情况
         response.setContentType("text/json;charset=utf-8");
         //塞到HttpServletResponse中返回给前台

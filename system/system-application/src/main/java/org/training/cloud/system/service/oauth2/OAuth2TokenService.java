@@ -1,5 +1,6 @@
 package org.training.cloud.system.service.oauth2;
 
+import org.training.cloud.system.dto.oauth2.AddOauth2AccessTokenDTO;
 import org.training.cloud.system.vo.oauth2.OAuth2AccessTokenVO;
 
 /**
@@ -14,11 +15,10 @@ public interface OAuth2TokenService {
     /**
      * 创建token
      *
-     * @param userId userId
-     * @param userIp userIp
-     * @return 用户相关的token信息
+     * @param addOauth2AccessTokenDTO
+     * @return
      */
-    OAuth2AccessTokenVO createAccessToken(Long userId, String userIp);
+    OAuth2AccessTokenVO createAccessToken(AddOauth2AccessTokenDTO addOauth2AccessTokenDTO);
 
     /**
      * 检查token

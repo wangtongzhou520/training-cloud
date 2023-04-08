@@ -1,7 +1,7 @@
 package org.training.cloud.system.dao.oauth2;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.training.cloud.system.entity.oauth2.Oauth2RefreshToken;
+import org.training.cloud.system.entity.oauth2.SysOauth2RefreshToken;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
  * @since 2020-09-18
  */
 @Repository
-public interface OAuth2RefreshTokenMapper extends BaseMapper<Oauth2RefreshToken> {
+public interface OAuth2RefreshTokenMapper extends BaseMapper<SysOauth2RefreshToken> {
 
     /**
      * 删除用户信息

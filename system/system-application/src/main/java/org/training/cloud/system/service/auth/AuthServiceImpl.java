@@ -3,8 +3,11 @@ package org.training.cloud.system.service.auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.training.cloud.common.web.core.exception.BusinessException;
+import org.training.cloud.system.constant.Oauth2ClientConstant;
 import org.training.cloud.system.dto.auth.AuthLoginDTO;
+import org.training.cloud.system.dto.oauth2.AddOauth2AccessTokenDTO;
 import org.training.cloud.system.enums.UserStateEnum;
+import org.training.cloud.system.service.oauth2.OAuth2TokenService;
 import org.training.cloud.system.service.user.UserService;
 import org.training.cloud.system.vo.auth.AuthLoginVO;
 import org.training.cloud.system.vo.user.SysUserVO;
@@ -16,7 +19,7 @@ import static org.training.cloud.system.constant.SystemExceptionEnumConstants.*;
 /**
  * 登录
  *
- * @author wangtongzhou 
+ * @author wangtongzhou
  * @since 2023-04-02 07:50
  */
 @Service
@@ -24,6 +27,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private OAuth2TokenService auth2TokenService;
 
     @Override
     public AuthLoginVO login(AuthLoginDTO authLoginDTO) {
@@ -48,6 +54,12 @@ public class AuthServiceImpl implements AuthService {
 
     private AuthLoginVO createToken(SysUserVO sysUserVO) {
         //创建
+        AddOauth2AccessTokenDTO addOauth2AccessTokenDTO =
+                new AddOauth2AccessTokenDTO();
+        addOauth2AccessTokenDTO.setClientId(Oauth2ClientConstant.CLIENT_ID_ADMIN);
+        addOauth2AccessTokenDTO.setUserId(sysUserVO.getId());
+        addOauth2AccessTokenDTO.setUserType(sysUserVO.getUserType());
+        auth2TokenService.createAccessToken(addOauth2AccessTokenDTO);
         return null;
     }
 }

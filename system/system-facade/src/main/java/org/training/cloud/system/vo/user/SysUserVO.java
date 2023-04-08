@@ -50,32 +50,14 @@ public class SysUserVO {
     private Integer status;
 
     /**
-     * 备注
+     * 用户类型 0 C端 1 管理端
      */
-    private String remark;
-
-    /**
-     * 创建者
-     */
-    private String createOperator;
-
-    /**
-     * 修改者
-     */
-    private String modifiedOperator;
-
-    /**
-     * 更新操作者的ip地址
-     */
-    private String modifiedOperatorIp;
+    private Integer userType;
 
     /**
      * 创建时间
      */
     private Date gmtCreate;
 
-    /**
-     * 更新时间
-     */
-    private Date gmtModified;
+
 }

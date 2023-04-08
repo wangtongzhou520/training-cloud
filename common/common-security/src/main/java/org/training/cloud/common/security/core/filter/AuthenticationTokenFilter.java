@@ -1,6 +1,5 @@
 package org.training.cloud.common.security.core.filter;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -11,15 +10,29 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * jwt token 请求过滤
+ * token请求过滤
  *
  * @author wangtongzhou
  * @since 2023-03-25 10:58
  */
 @Component
-public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
+public class AuthenticationTokenFilter extends OncePerRequestFilter {
+
+//    @Autowired
+//    private SecurityProperties securityProperties;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+
+//        //从请求头获取
+//        String token = SecurityUtils.getAuthorization(request, securityProperties.getTokenHeader());
+//        if(StringUtils.isNotBlank(token)){
+//            //检验token合法性
+//
+//            //构建用户信息
+//        }
+
+
         chain.doFilter(request, response);
     }
 

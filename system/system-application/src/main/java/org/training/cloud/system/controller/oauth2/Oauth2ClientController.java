@@ -1,6 +1,5 @@
 package org.training.cloud.system.controller.oauth2;
 
-import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +25,13 @@ import org.training.cloud.system.vo.oauth2.Oauth2ClientVO;
 @Tag(name = "Oauth2客户端管理")
 @RestController
 @RequestMapping("/sys/oauth2client")
-@NotAuthentication
 public class Oauth2ClientController {
 
     @Autowired
     private Oauth2ClientService oauth2ClientService;
 
+
+    @NotAuthentication
     @PostMapping("/add")
     @Operation(summary = "添加Oauth2客户端")
     public CommonResponse<?> addOauth2Client(@RequestBody @Validated AddOauth2ClientDTO addOauth2ClientDTO) {

@@ -33,7 +33,7 @@
         </dependency>
         <dependency>
             <groupId>org.training.cloud</groupId>
-            <artifactId>common-web</artifactId>
+            <artifactId>common-swagger</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

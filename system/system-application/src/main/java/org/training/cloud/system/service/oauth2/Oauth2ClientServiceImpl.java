@@ -1,5 +1,6 @@
 package org.training.cloud.system.service.oauth2;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.training.cloud.common.web.core.exception.BusinessException;
@@ -14,13 +15,12 @@ import org.training.cloud.system.enums.oauth2.Oauth2ClientStateEnum;
 
 import java.util.Objects;
 
-import static org.training.cloud.system.constant.SystemExceptionEnumConstants.OAUTH2_CLIENT_EXIST;
-import static org.training.cloud.system.constant.SystemExceptionEnumConstants.OAUTH2_CLIENT_NOT_EXIST;
+import static org.training.cloud.system.constant.SystemExceptionEnumConstants.*;
 
 /**
  * Oauth2客户端服务
  *
- * @author wangtongzhou 
+ * @author wangtongzhou
  * @since 2023-04-02 09:14
  */
 @Service
@@ -56,7 +56,7 @@ public class Oauth2ClientServiceImpl implements Oauth2ClientService {
         //检查id是否存在
         SysOauth2Client sysOauth2Client = checkExists(id);
         //更新
-        sysOauth2Client.setStatus(Oauth2ClientStateEnum.DELETE.getCode());
+        sysOauth2Client.setStatus(Oauth2ClientStateEnum.DISABLE.getCode());
         oauth2ClientMapper.updateById(sysOauth2Client);
         //TODO 刷新缓存
     }
@@ -67,13 +67,27 @@ public class Oauth2ClientServiceImpl implements Oauth2ClientService {
     }
 
     @Override
+    public SysOauth2Client queryOauth2ClientByClientId(String clientId) {
+        SysOauth2Client sysOauth2Client = oauth2ClientMapper.selectByClientId(clientId);
+        //检查是否存在
+        if (Objects.isNull(sysOauth2Client)) {
+            throw new BusinessException(OAUTH2_CLIENT_NOT_EXIST);
+        }
+        //检查客户端状态
+        if (Oauth2ClientStateEnum.DISABLE.getCode().equals(sysOauth2Client.getStatus())) {
+            throw new BusinessException(OAUTH2_CLIENT_DISABLE);
+        }
+        return sysOauth2Client;
+    }
+
+    @Override
     public PageResponse<SysOauth2Client> pageOauth2Client(PageOauth2ClientDTO pageOauth2ClientDTO) {
         return oauth2ClientMapper.selectPage(pageOauth2ClientDTO);
     }
 
     private SysOauth2Client checkExists(Long id) {
         SysOauth2Client sysOauth2Client = oauth2ClientMapper.selectById(id);
-        if (Objects.nonNull(sysOauth2Client)) {
+        if (Objects.isNull(sysOauth2Client)) {
             throw new BusinessException(OAUTH2_CLIENT_NOT_EXIST);
         }
         return sysOauth2Client;
@@ -81,7 +95,7 @@ public class Oauth2ClientServiceImpl implements Oauth2ClientService {
 
     private void checkClientIdExists(String clientId) {
         SysOauth2Client sysOauth2Client = oauth2ClientMapper.selectByClientId(clientId);
-        if (Objects.nonNull(sysOauth2Client)) {
+        if (Objects.isNull(sysOauth2Client)) {
             throw new BusinessException(OAUTH2_CLIENT_EXIST);
         }
     }
