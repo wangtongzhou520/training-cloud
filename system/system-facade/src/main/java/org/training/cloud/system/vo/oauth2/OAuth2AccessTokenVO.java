@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * OAuth2AccessTokenBO
@@ -32,5 +33,16 @@ public class OAuth2AccessTokenVO {
      */
     @Schema(description = "过期时间", required = true)
     private Date expiresTime;
+
+
+    @Schema(description = "用户类型", required = true)
+    private Integer userType;
+
+
+    @Schema(description = "用户Id", required = true)
+    private Long userId;
+
+    @Schema(description = "授权范围", required = true)
+    private List<String> scopes;
 
 }

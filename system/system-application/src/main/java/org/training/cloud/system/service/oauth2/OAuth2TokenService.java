@@ -21,10 +21,10 @@ public interface OAuth2TokenService {
     OAuth2AccessTokenVO createAccessToken(AddOauth2AccessTokenDTO addOauth2AccessTokenDTO);
 
     /**
-     * 检查token
+     * 检查token合法性
      *
-     * @param accessToken accessToken
-     * @return 用户相关的token信息
+     * @param accessToken
+     * @return
      */
     OAuth2AccessTokenVO checkAccessToken(String accessToken);
 

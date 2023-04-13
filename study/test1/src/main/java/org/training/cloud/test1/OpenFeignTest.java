@@ -1,4 +1,5 @@
-package org.training.cloud.system;
+package org.training.cloud.test1;
+
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,16 +8,17 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.training.cloud.system.api.oauth2.Oauth2TokenApi;
 
 /**
- * 系统相关应用
+ * feign client
  *
- * @since 2020-05-24 10:11
  * @author wangtongzhou
+ * @since 2020-12-18 13:28
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-public class SystemApplication {
+@EnableFeignClients(clients = {Oauth2TokenApi.class})
+public class OpenFeignTest {
 
     public static void main(String[] args) {
-        SpringApplication.run(SystemApplication.class, args);
+        SpringApplication.run(OpenFeignTest.class);
     }
 }

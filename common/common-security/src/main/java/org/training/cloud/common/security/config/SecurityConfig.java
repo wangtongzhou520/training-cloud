@@ -30,12 +30,15 @@ import org.training.cloud.common.security.core.service.SecuritySecurityCheckServ
 @AutoConfiguration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@EnableConfigurationProperties(NotAuthenticationProperties.class)
 public class SecurityConfig {
 
 
     @Autowired
     private NotAuthenticationConfig notAuthenticationConfig;
+
+    @Autowired
+    private AuthenticationTokenFilter authenticationTokenFilter;
+
 
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -54,7 +57,7 @@ public class SecurityConfig {
                 .authenticationEntryPoint(new CustomizeAuthExceptionEntryPoint())
                 .accessDeniedHandler(new CustomizeAccessDeniedHandler());
         //token校验
-        http.addFilterBefore(new AuthenticationTokenFilter(),
+        http.addFilterBefore(authenticationTokenFilter,
                 UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
@@ -73,21 +76,7 @@ public class SecurityConfig {
         return configuration.getAuthenticationManager();
     }
 
-    /**
-     * 密码
-     *
-     * @return
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptPasswordEncoder;
-    }
 
-    @Bean("ssc")
-    public SecuritySecurityCheckService permissionService() {
-        return new SecuritySecurityCheckService();
-    }
 
 
 

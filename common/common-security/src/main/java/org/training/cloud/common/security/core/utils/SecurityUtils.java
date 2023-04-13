@@ -21,7 +21,11 @@ public class SecurityUtils {
 
     public static final String AUTHORIZATION_BEARER = "Bearer";
 
-    private SecurityUtils(){}
+    /**
+     * 此标识网关或者feign传过来
+     */
+    public static final String USER_TOKE="user-token";
+
 
     public static String getAuthorization(HttpServletRequest request,
                                         String header) {
@@ -48,6 +52,21 @@ public class SecurityUtils {
             return null;
         }
         return context.getAuthentication();
+    }
+
+
+    /**
+     * 获取用户详情
+     *
+     * @return
+     */
+    public static AuthUser getAuthUser(){
+        Authentication authentication=getAuthentication();
+        if (authentication == null) {
+            return null;
+        }
+        return authentication.getPrincipal() instanceof Authentication ?
+                (AuthUser) authentication.getPrincipal() : null;
     }
 
 

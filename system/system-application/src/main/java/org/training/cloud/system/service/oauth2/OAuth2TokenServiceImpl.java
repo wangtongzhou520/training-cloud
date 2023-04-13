@@ -100,8 +100,7 @@ public class OAuth2TokenServiceImpl implements OAuth2TokenService {
     @Override
     public OAuth2AccessTokenVO checkAccessToken(String accessToken) {
         //查询token
-        SysOauth2AccessToken oAuth2AccessTokenSys =
-                oAuth2AccessTokenMapper.selectById(accessToken);
+        SysOauth2AccessToken oAuth2AccessTokenSys = oAuth2AccessTokenMapper.selectById(accessToken);
         //检查token存在不存在
         if (Objects.isNull(oAuth2AccessTokenSys)) {
             throw new BusinessException(OAUTH2_ACCESS_TOKEN_NOT_FOUND);

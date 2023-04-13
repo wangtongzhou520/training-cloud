@@ -1,5 +1,6 @@
 package org.training.cloud.common.web.handler;
 
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindException;
@@ -28,9 +29,11 @@ import java.nio.file.AccessDeniedException;
  * @since 2020-08-11 17:35
  */
 @RestControllerAdvice
+@AllArgsConstructor
 public class GlobalExceptionHandler {
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+
+
 
 
     /**
@@ -155,7 +158,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler({ServerException.class})
     public CommonResponse serverExceptionExceptionHandler(ServerException ex) {
-        logger.debug("ServerException", ex);
+//        logger.debug("ServerException", ex);
         return CommonResponse.error(ex.getCode(), ex.getMessage());
     }
 

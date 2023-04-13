@@ -7,6 +7,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +28,7 @@ import java.util.Set;
  */
 @AutoConfiguration
 @AllArgsConstructor
+@EnableConfigurationProperties(NotAuthenticationProperties.class)
 public class NotAuthenticationConfig implements InitializingBean, ApplicationContextAware {
 
     private ApplicationContext applicationContext;

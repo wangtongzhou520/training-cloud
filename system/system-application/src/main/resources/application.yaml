@@ -1,6 +1,6 @@
 spring:
   application:
-    name: system
+    name: system-application
   # 数据源配置项
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/study_user?useSSL=false&useUnicode=true&characterEncoding=UTF-8
@@ -10,12 +10,18 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-      #  cloud:
-      #    nacos:
-      #      discovery:
-      #        server-addr: 10.226.73.115:8886
-      #环境选择
-    #namespace: b7d341fc-df29-45ce-b3cd-4415f66b1ee0
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+logging:
+  level:
+    org:
+      training:
+        cloud:
+          system: DEBUG
+
+
 
 
 #soul:
