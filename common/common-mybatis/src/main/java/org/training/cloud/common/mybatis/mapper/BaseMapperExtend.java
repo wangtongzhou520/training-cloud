@@ -1,4 +1,4 @@
-package org.training.cloud.common.web.mybatis.mapper;
+package org.training.cloud.common.mybatis.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import org.apache.ibatis.annotations.Param;
 import org.training.cloud.common.web.core.vo.PageParam;
 import org.training.cloud.common.web.core.vo.PageResponse;
-import org.training.cloud.common.web.mybatis.util.MyBatisUtils;
+import org.training.cloud.common.mybatis.util.MyBatisUtils;
 
 import java.util.Collection;
 import java.util.List;

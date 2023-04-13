@@ -1,11 +1,12 @@
 package org.training.cloud.system.entity.user;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import org.training.cloud.common.web.mybatis.dao.BaseDO;
+import org.training.cloud.common.mybatis.dao.BaseDO;
 
 /**
  * 用户类
@@ -21,7 +22,7 @@ public class SysUser extends BaseDO {
     /**
      * 用户id
      */
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     /**

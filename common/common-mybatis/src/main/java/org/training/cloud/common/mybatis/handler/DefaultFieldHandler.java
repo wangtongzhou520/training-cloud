@@ -1,8 +1,8 @@
-package org.training.cloud.common.web.mybatis.handler;
+package org.training.cloud.common.mybatis.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
-import org.training.cloud.common.web.mybatis.dao.BaseDO;
+import org.training.cloud.common.mybatis.dao.BaseDO;
 import org.training.cloud.common.web.utils.WebUtil;
 
 import java.util.Date;

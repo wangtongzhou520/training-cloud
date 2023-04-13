@@ -1,5 +1,6 @@
 package org.training.cloud.system.entity.oauth2;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -7,7 +8,7 @@ import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import org.training.cloud.common.web.mybatis.dao.BaseDO;
+import org.training.cloud.common.mybatis.dao.BaseDO;
 
 import java.util.Date;
 import java.util.List;
@@ -21,14 +22,14 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName(value = "oauth2_refresh_token")
+@TableName(value = "sys_oauth2_refresh_token", autoResultMap = true)
 public class SysOauth2RefreshToken extends BaseDO {
 
-    @TableId
     /**
      * 编号，刷新令牌
      */
-    private String id;
+    @TableId(type = IdType.AUTO)
+    private Long id;
 
     /**
      * 用户编号

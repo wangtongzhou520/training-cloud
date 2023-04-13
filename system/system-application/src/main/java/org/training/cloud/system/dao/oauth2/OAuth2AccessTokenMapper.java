@@ -1,7 +1,7 @@
 package org.training.cloud.system.dao.oauth2;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 import org.training.cloud.system.entity.oauth2.SysOauth2AccessToken;
 
 /**
@@ -10,7 +10,7 @@ import org.training.cloud.system.entity.oauth2.SysOauth2AccessToken;
  * @author wangtongzhou
  * @since 2020-09-18 13:47
  */
-@Repository
+@Mapper
 public interface OAuth2AccessTokenMapper extends BaseMapper<SysOauth2AccessToken> {
 
     /**

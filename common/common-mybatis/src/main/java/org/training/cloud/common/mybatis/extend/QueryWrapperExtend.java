@@ -1,4 +1,4 @@
-package org.training.cloud.common.web.mybatis.extend;
+package org.training.cloud.common.mybatis.extend;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.ArrayUtils;

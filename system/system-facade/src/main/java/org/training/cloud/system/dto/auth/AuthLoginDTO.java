@@ -22,14 +22,14 @@ public class AuthLoginDTO implements Serializable {
 
     @Schema(description = "用户名", required = true, example = "wwwww")
     @NotEmpty(message = "登陆账号不能为空")
-    @Length(min = 5, max = 16, message = "账号长度为 5-16 位")
-    @Pattern(regexp = "^[A-Za-z0-9]+$", message = "账号格式为数字以及字母")
+//    @Length(min = 5, max = 16, message = "账号长度为 5-16 位")
+//    @Pattern(regexp = "^[A-Za-z0-9]+$", message = "账号格式为数字以及字母")
     private String username;
 
     @Schema(description = "密码", required = true, example = "wwwww")
     @NotEmpty(message = "密码不能为空")
-    @Length(min = 8, max = 16, message = "密码长度为 8-16 位")
-    @Pattern(regexp = "^[A-Za-z0-9]+$", message = "账号格式为数字以及字母")
+//    @Length(min = 8, max = 16, message = "密码长度为 8-16 位")
+//    @Pattern(regexp = "^[A-Za-z0-9]+$", message = "账号格式为数字以及字母")
     private String password;
 
 }

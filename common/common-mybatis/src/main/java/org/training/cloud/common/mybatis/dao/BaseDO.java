@@ -1,4 +1,4 @@
-package org.training.cloud.common.web.mybatis.dao;
+package org.training.cloud.common.mybatis.dao;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
