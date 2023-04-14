@@ -7,8 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.training.cloud.common.web.core.exception.BusinessException;
 import org.training.cloud.common.web.core.exception.ServerException;
 import org.training.cloud.system.convert.oauth2.SysOAuthConvert;
-import org.training.cloud.system.dao.oauth2.OAuth2AccessTokenMapper;
-import org.training.cloud.system.dao.oauth2.OAuth2RefreshTokenMapper;
+import org.training.cloud.system.dao.oauth2.Oauth2AccessTokenMapper;
+import org.training.cloud.system.dao.oauth2.Oauth2RefreshTokenMapper;
 import org.training.cloud.system.dto.oauth2.AddOauth2AccessTokenDTO;
 import org.training.cloud.system.entity.oauth2.SysOauth2AccessToken;
 import org.training.cloud.system.entity.oauth2.SysOauth2Client;
@@ -19,7 +19,8 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
-import static org.training.cloud.system.constant.SystemExceptionEnumConstants.*;
+import static org.training.cloud.system.constant.SystemExceptionEnumConstants.OAUTH2_ACCESS_TOKEN_NOT_EXPIRED;
+import static org.training.cloud.system.constant.SystemExceptionEnumConstants.OAUTH2_ACCESS_TOKEN_NOT_FOUND;
 
 /**
  * OAuth 相关服务
@@ -28,13 +29,13 @@ import static org.training.cloud.system.constant.SystemExceptionEnumConstants.*;
  * @since 2020-09-18 11:59
  */
 @Service
-public class OAuth2TokenServiceImpl implements OAuth2TokenService {
+public class Oauth2TokenServiceImpl implements Oauth2TokenService {
 
     @Autowired
-    private OAuth2RefreshTokenMapper oAuth2RefreshTokenMapper;
+    private Oauth2RefreshTokenMapper oauth2RefreshTokenMapper;
 
     @Autowired
-    private OAuth2AccessTokenMapper oAuth2AccessTokenMapper;
+    private Oauth2AccessTokenMapper oauth2AccessTokenMapper;
 
     @Autowired
     private Oauth2ClientService oauth2ClientService;
@@ -69,7 +70,7 @@ public class OAuth2TokenServiceImpl implements OAuth2TokenService {
                 .setUserType(addOauth2AccessTokenDTO.getUserType())
                 .setClientId(addOauth2AccessTokenDTO.getClientId())
                 .setScopes(client.getScopes());
-        oAuth2RefreshTokenMapper.insert(oauth2RefreshToken);
+        oauth2RefreshTokenMapper.insert(oauth2RefreshToken);
         return oauth2RefreshToken;
     }
 
@@ -91,7 +92,7 @@ public class OAuth2TokenServiceImpl implements OAuth2TokenService {
                 .setUserType(oauth2RefreshToken.getUserType())
                 .setScopes(oauth2RefreshToken.getScopes())
                 .setClientId(oauth2RefreshToken.getClientId());
-        oAuth2AccessTokenMapper.insert(oauth2AccessToken);
+        oauth2AccessTokenMapper.insert(oauth2AccessToken);
         return oauth2AccessToken;
 
     }
@@ -100,7 +101,7 @@ public class OAuth2TokenServiceImpl implements OAuth2TokenService {
     @Override
     public OAuth2AccessTokenVO checkAccessToken(String accessToken) {
         //查询token
-        SysOauth2AccessToken oAuth2AccessTokenSys = oAuth2AccessTokenMapper.selectById(accessToken);
+        SysOauth2AccessToken oAuth2AccessTokenSys = oauth2AccessTokenMapper.queryAccessModelByAccessToken(accessToken);
         //检查token存在不存在
         if (Objects.isNull(oAuth2AccessTokenSys)) {
             throw new BusinessException(OAUTH2_ACCESS_TOKEN_NOT_FOUND);

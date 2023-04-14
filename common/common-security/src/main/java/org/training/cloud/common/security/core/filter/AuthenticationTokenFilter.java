@@ -66,7 +66,7 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
     private AuthUser buildAuthUserByToken(String token) {
         //检验token合法性
         OAuth2AccessTokenVO oAuth2AccessTokenVO =
-                oauth2TokenApi.checkAccessToken("123").getApiData();
+                oauth2TokenApi.checkAccessToken(token).getApiData();
         if (Objects.isNull(oAuth2AccessTokenVO)) {
             return null;
         }

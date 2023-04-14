@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.training.cloud.common.security.core.annotations.NotAuthentication;
 import org.training.cloud.common.web.core.vo.CommonResponse;
-import org.training.cloud.system.service.oauth2.OAuth2TokenService;
+import org.training.cloud.system.service.oauth2.Oauth2TokenService;
 import org.training.cloud.system.vo.oauth2.OAuth2AccessTokenVO;
 
 /**
@@ -20,7 +20,7 @@ import org.training.cloud.system.vo.oauth2.OAuth2AccessTokenVO;
 public class Oauth2TokenController {
 
     @Autowired
-    private OAuth2TokenService auth2TokenService;
+    private Oauth2TokenService auth2TokenService;
 
     @NotAuthentication
     @GetMapping("/checkAccessToken/{accessToken}")

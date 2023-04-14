@@ -11,13 +11,7 @@ import org.training.cloud.system.entity.oauth2.SysOauth2RefreshToken;
  * @since 2020-09-18
  */
 @Mapper
-public interface OAuth2RefreshTokenMapper extends BaseMapperExtend<SysOauth2RefreshToken> {
+public interface Oauth2RefreshTokenMapper extends BaseMapperExtend<SysOauth2RefreshToken> {
 
-    /**
-     * 删除用户信息
-     *
-     * @param userId userId
-     * @return 行数
-     */
-    int deleteByUserId(Long userId);
+
 }

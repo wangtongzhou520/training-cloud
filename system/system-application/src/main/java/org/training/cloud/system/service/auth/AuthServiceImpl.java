@@ -7,7 +7,7 @@ import org.training.cloud.system.constant.Oauth2ClientConstant;
 import org.training.cloud.system.dto.auth.AuthLoginDTO;
 import org.training.cloud.system.dto.oauth2.AddOauth2AccessTokenDTO;
 import org.training.cloud.system.enums.UserStateEnum;
-import org.training.cloud.system.service.oauth2.OAuth2TokenService;
+import org.training.cloud.system.service.oauth2.Oauth2TokenService;
 import org.training.cloud.system.service.user.UserService;
 import org.training.cloud.system.vo.auth.AuthLoginVO;
 import org.training.cloud.system.vo.user.SysUserVO;
@@ -29,7 +29,7 @@ public class AuthServiceImpl implements AuthService {
     private UserService userService;
 
     @Autowired
-    private OAuth2TokenService auth2TokenService;
+    private Oauth2TokenService auth2TokenService;
 
     @Override
     public AuthLoginVO login(AuthLoginDTO authLoginDTO) {
