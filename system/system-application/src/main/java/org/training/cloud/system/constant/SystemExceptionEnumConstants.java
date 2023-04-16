@@ -1,6 +1,6 @@
 package org.training.cloud.system.constant;
 
-import org.training.cloud.common.web.core.constant.ExceptionCode;
+import org.training.cloud.common.core.constant.ExceptionCode;
 
 /**
  * 系统异常枚举

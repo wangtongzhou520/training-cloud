@@ -1,9 +1,6 @@
 package org.training.cloud.system.entity.oauth2;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -70,5 +67,6 @@ public class SysOauth2AccessToken extends BaseDO {
     /**
      * 状态，0：正常，1：删除
      */
+    @TableLogic
     private Integer status;
 }

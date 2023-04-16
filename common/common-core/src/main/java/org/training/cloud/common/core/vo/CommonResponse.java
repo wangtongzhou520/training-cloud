@@ -1,10 +1,10 @@
-package org.training.cloud.common.web.core.vo;
+package org.training.cloud.common.core.vo;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.training.cloud.common.web.core.constant.ExceptionCode;
-import org.training.cloud.common.web.core.constant.UserExceptionCode;
-import org.training.cloud.common.web.core.exception.BusinessException;
+import org.training.cloud.common.core.constant.ExceptionCode;
+import org.training.cloud.common.core.constant.UserExceptionCode;
+import org.training.cloud.common.core.exception.BusinessException;
 
 import java.io.Serializable;
 import java.util.Objects;

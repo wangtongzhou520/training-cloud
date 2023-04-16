@@ -1,4 +1,4 @@
-package org.training.cloud.common.web.core.constant;
+package org.training.cloud.common.core.constant;
 
 /**
  * 用户看到的异常

@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.training.cloud.common.mybatis.mapper.BaseMapperExtend;
 import org.training.cloud.system.entity.oauth2.SysOauth2AccessToken;
 
+import java.util.List;
+
 /**
  * OAuth2 AccessToken服务
  *
@@ -22,6 +24,16 @@ public interface Oauth2AccessTokenMapper extends BaseMapperExtend<SysOauth2Acces
      */
     default SysOauth2AccessToken queryAccessModelByAccessToken(String accessToken) {
         return selectOne(SysOauth2AccessToken::getAccessToken, accessToken);
+    }
+
+    /**
+     * 根据刷新令牌查询所有授权令牌
+     *
+     * @param refreshToken
+     * @return
+     */
+    default List<SysOauth2AccessToken> queryAccessListByRefreshToken(String refreshToken){
+        return selectList(SysOauth2AccessToken::getAccessToken, refreshToken);
     }
 
 }

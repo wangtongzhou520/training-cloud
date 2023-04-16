@@ -1,4 +1,4 @@
-package org.training.cloud.common.web.core.vo;
+package org.training.cloud.common.core.vo;
 
 import java.io.Serializable;
 

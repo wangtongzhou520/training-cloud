@@ -13,5 +13,14 @@ import org.training.cloud.system.entity.oauth2.SysOauth2RefreshToken;
 @Mapper
 public interface Oauth2RefreshTokenMapper extends BaseMapperExtend<SysOauth2RefreshToken> {
 
+    /**
+     * 根据刷新令牌查询
+     *
+     * @param refreshToken
+     * @return
+     */
+    default SysOauth2RefreshToken queryRefreshByRefreshToken(String refreshToken){
+        return selectOne(SysOauth2RefreshToken::getRefreshToken,refreshToken);
+    }
 
 }

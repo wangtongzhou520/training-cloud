@@ -31,11 +31,11 @@ public interface Oauth2TokenService {
     /**
      * 刷新token
      *
-     * @param refreshToken refreshToken
-     * @param userIp       userIp
-     * @return 用户相关的token信息
+     * @param refreshToken
+     * @param clientId
+     * @return
      */
-    OAuth2AccessTokenVO refreshAccessToken(String refreshToken, String userIp);
+    OAuth2AccessTokenVO refreshAccessToken(String refreshToken,String clientId);
 
 
     /**

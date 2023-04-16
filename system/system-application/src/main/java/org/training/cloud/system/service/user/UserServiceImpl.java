@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.training.cloud.common.web.core.vo.PageParam;
+import org.training.cloud.common.core.vo.PageParam;
 import org.training.cloud.system.convert.user.SysUserConvert;
 import org.training.cloud.system.dao.user.SysUserMapper;
 import org.training.cloud.system.dto.user.SaveUserDTO;
@@ -12,7 +12,6 @@ import org.training.cloud.system.dto.user.UpdateUserDTO;
 import org.training.cloud.system.entity.user.SysUser;
 import org.training.cloud.system.vo.user.SysUserVO;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**

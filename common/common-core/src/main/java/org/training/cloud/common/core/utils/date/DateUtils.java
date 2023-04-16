@@ -1,4 +1,4 @@
-package org.training.cloud.common.web.core.utils.date;
+package org.training.cloud.common.core.utils.date;
 
 import java.util.Date;
 

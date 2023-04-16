@@ -3,7 +3,7 @@ package org.training.cloud.system.dto.oauth2;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.training.cloud.common.web.core.vo.PageParam;
+import org.training.cloud.common.core.vo.PageParam;
 
 /**
  * 分页查询授权客户端

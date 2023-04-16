@@ -7,8 +7,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import org.apache.ibatis.annotations.Param;
-import org.training.cloud.common.web.core.vo.PageParam;
-import org.training.cloud.common.web.core.vo.PageResponse;
+import org.training.cloud.common.core.vo.PageParam;
+import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.common.mybatis.util.MyBatisUtils;
 
 import java.util.Collection;

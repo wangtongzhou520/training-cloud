@@ -2,7 +2,7 @@ package org.training.cloud.system.convert.oauth2;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-import org.training.cloud.common.web.core.vo.PageResponse;
+import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.system.dto.oauth2.AddOauth2ClientDTO;
 import org.training.cloud.system.dto.oauth2.ModifyOauth2ClientDTO;
 import org.training.cloud.system.entity.oauth2.SysOauth2Client;

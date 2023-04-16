@@ -3,7 +3,7 @@ package org.training.cloud.common.mybatis.util;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.StringUtils;
-import org.training.cloud.common.web.core.vo.PageParam;
+import org.training.cloud.common.core.vo.PageParam;
 
 import java.util.Arrays;
 import java.util.List;

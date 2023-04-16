@@ -1,6 +1,6 @@
-package org.training.cloud.common.web.core.exception;
+package org.training.cloud.common.core.exception;
 
-import org.training.cloud.common.web.core.constant.ExceptionCode;
+import org.training.cloud.common.core.constant.ExceptionCode;
 
 /**
  * 业务异常

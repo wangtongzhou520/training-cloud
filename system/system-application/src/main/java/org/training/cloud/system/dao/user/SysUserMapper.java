@@ -1,7 +1,7 @@
 package org.training.cloud.system.dao.user;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.training.cloud.common.web.core.vo.PageParam;
+import org.training.cloud.common.core.vo.PageParam;
 import org.training.cloud.system.entity.user.SysUser;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

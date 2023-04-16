@@ -1,4 +1,4 @@
-package org.training.cloud.common.web.core.utils.josn;
+package org.training.cloud.common.core.utils.josn;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

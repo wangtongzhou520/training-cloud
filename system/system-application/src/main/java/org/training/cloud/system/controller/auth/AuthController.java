@@ -1,6 +1,5 @@
 package org.training.cloud.system.controller.auth;
 
-import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.training.cloud.common.security.core.annotations.NotAuthentication;
-import org.training.cloud.common.web.core.vo.CommonResponse;
+import org.training.cloud.common.core.vo.CommonResponse;
 import org.training.cloud.system.dto.auth.AuthLoginDTO;
 import org.training.cloud.system.service.auth.AuthService;
 import org.training.cloud.system.vo.auth.AuthLoginVO;
