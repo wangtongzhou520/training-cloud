@@ -11,7 +11,7 @@ import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.system.convert.oauth2.Oauth2ClientConvert;
 import org.training.cloud.system.dto.oauth2.AddOauth2ClientDTO;
 import org.training.cloud.system.dto.oauth2.ModifyOauth2ClientDTO;
-import org.training.cloud.system.dto.oauth2.PageOauth2ClientDTO;
+import org.training.cloud.system.dto.oauth2.Oauth2ClientDTO;
 import org.training.cloud.system.entity.oauth2.SysOauth2Client;
 import org.training.cloud.system.service.oauth2.Oauth2ClientService;
 import org.training.cloud.system.vo.oauth2.Oauth2ClientVO;
@@ -24,7 +24,7 @@ import org.training.cloud.system.vo.oauth2.Oauth2ClientVO;
  */
 @Tag(name = "Oauth2客户端管理")
 @RestController
-@RequestMapping("/sys/oauth2client")
+@RequestMapping("/sys/oauth2/client")
 public class Oauth2ClientController {
 
     @Autowired
@@ -66,8 +66,8 @@ public class Oauth2ClientController {
 
     @GetMapping("/page")
     @Operation(summary = "分页查询Oauth2客户端")
-    public CommonResponse<PageResponse<Oauth2ClientVO>> queryOauth2Client(@Validated PageOauth2ClientDTO pageOauth2ClientDTO) {
-        PageResponse<SysOauth2Client> sysOauth2ClientPageResponse = oauth2ClientService.pageOauth2Client(pageOauth2ClientDTO);
+    public CommonResponse<PageResponse<Oauth2ClientVO>> queryOauth2Client(@Validated Oauth2ClientDTO oauth2ClientDTO) {
+        PageResponse<SysOauth2Client> sysOauth2ClientPageResponse = oauth2ClientService.pageOauth2Client(oauth2ClientDTO);
         return CommonResponse.ok(Oauth2ClientConvert.INSTANCE.convert(sysOauth2ClientPageResponse));
     }
 

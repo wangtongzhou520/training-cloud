@@ -14,7 +14,7 @@ import org.training.cloud.common.core.vo.PageParam;
 @Data
 @Accessors(chain = true)
 @Schema(description = "分页查询授权客户端")
-public class PageOauth2ClientDTO extends PageParam {
+public class Oauth2ClientDTO extends PageParam {
 
     @Schema(description = "客户端名称", required = true, example = "客户端名称")
     private String clientName;

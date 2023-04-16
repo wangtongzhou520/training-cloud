@@ -8,14 +8,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.training.cloud.common.core.constant.UserExceptionCode;
 import org.training.cloud.common.core.exception.BusinessException;
-import org.training.cloud.system.convert.oauth2.SysOAuthConvert;
+import org.training.cloud.common.core.vo.PageResponse;
+import org.training.cloud.system.convert.oauth2.Oauth2TokenConvert;
 import org.training.cloud.system.dao.oauth2.Oauth2AccessTokenMapper;
 import org.training.cloud.system.dao.oauth2.Oauth2RefreshTokenMapper;
 import org.training.cloud.system.dto.oauth2.AddOauth2AccessTokenDTO;
+import org.training.cloud.system.dto.oauth2.Oauth2AccessTokenDTO;
 import org.training.cloud.system.entity.oauth2.SysOauth2AccessToken;
 import org.training.cloud.system.entity.oauth2.SysOauth2Client;
 import org.training.cloud.system.entity.oauth2.SysOauth2RefreshToken;
-import org.training.cloud.system.vo.oauth2.OAuth2AccessTokenVO;
+import org.training.cloud.system.vo.oauth2.Oauth2AccessTokenVO;
 
 import java.util.Date;
 import java.util.List;
@@ -45,7 +47,7 @@ public class Oauth2TokenServiceImpl implements Oauth2TokenService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public OAuth2AccessTokenVO createAccessToken(AddOauth2AccessTokenDTO addOauth2AccessTokenDTO) {
+    public Oauth2AccessTokenVO createAccessToken(AddOauth2AccessTokenDTO addOauth2AccessTokenDTO) {
         //检查授权客户端
         SysOauth2Client sysOauth2Client = oauth2ClientService.queryOauth2ClientByClientId(addOauth2AccessTokenDTO.getClientId());
         //插入刷新令牌
@@ -54,7 +56,7 @@ public class Oauth2TokenServiceImpl implements Oauth2TokenService {
         //插入access_token
         SysOauth2AccessToken auth2AccessToken =
                 createOAuth2AccessToken(oauth2RefreshToken, sysOauth2Client);
-        return SysOAuthConvert.INSTANCE.convert(auth2AccessToken);
+        return Oauth2TokenConvert.INSTANCE.convert(auth2AccessToken);
     }
 
     /**
@@ -102,9 +104,9 @@ public class Oauth2TokenServiceImpl implements Oauth2TokenService {
 
 
     @Override
-    public OAuth2AccessTokenVO checkAccessToken(String accessToken) {
+    public Oauth2AccessTokenVO checkAccessToken(String accessToken) {
         //查询token
-        SysOauth2AccessToken oAuth2AccessTokenSys = oauth2AccessTokenMapper.queryAccessModelByAccessToken(accessToken);
+        SysOauth2AccessToken oAuth2AccessTokenSys = oauth2AccessTokenMapper.queryAccessByAccessToken(accessToken);
         //检查token存在不存在
         if (Objects.isNull(oAuth2AccessTokenSys)) {
             throw new BusinessException(OAUTH2_ACCESS_TOKEN_NOT_FOUND);
@@ -114,12 +116,12 @@ public class Oauth2TokenServiceImpl implements Oauth2TokenService {
             throw new BusinessException(OAUTH2_ACCESS_TOKEN_NOT_EXPIRED);
         }
         //返回访问令牌
-        return SysOAuthConvert.INSTANCE.convert(oAuth2AccessTokenSys);
+        return Oauth2TokenConvert.INSTANCE.convert(oAuth2AccessTokenSys);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public OAuth2AccessTokenVO refreshAccessToken(String refreshToken, String clientId) {
+    public Oauth2AccessTokenVO refreshAccessToken(String refreshToken, String clientId) {
         //获取刷新token
         SysOauth2RefreshToken auth2RefreshTokenDO =
                 oauth2RefreshTokenMapper.queryRefreshByRefreshToken(refreshToken);
@@ -146,12 +148,24 @@ public class Oauth2TokenServiceImpl implements Oauth2TokenService {
             throw new BusinessException(OAUTH2_REFRESH_TOKEN_NOT_EXPIRED);
         }
         SysOauth2AccessToken accessToken= createOAuth2AccessToken(auth2RefreshTokenDO, sysOauth2Client);
-        return SysOAuthConvert.INSTANCE.convert(accessToken);
+        return Oauth2TokenConvert.INSTANCE.convert(accessToken);
     }
 
     @Override
-    public void removeToken(Long userId) {
-//        oAuth2AccessTokenMapper.deleteByUserId(userId);
-//        oAuth2RefreshTokenMapper.deleteByUserId(userId);
+    public PageResponse<Oauth2AccessTokenVO> pageOauth2AccessToken(Oauth2AccessTokenDTO oauth2AccessTokenDTO) {
+        PageResponse<SysOauth2AccessToken> pageAccessToken= oauth2AccessTokenMapper.pageAccessToken(oauth2AccessTokenDTO);
+        return Oauth2TokenConvert.INSTANCE.convert(pageAccessToken);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void removeToken(String accessToken) {
+        SysOauth2AccessToken sysOauth2AccessToken=
+                oauth2AccessTokenMapper.queryAccessByAccessToken(accessToken);
+        if (Objects.isNull(sysOauth2AccessToken)){
+            return;
+        }
+        oauth2AccessTokenMapper.deleteById(sysOauth2AccessToken.getId());
+        oauth2RefreshTokenMapper.removeByRefreshToken(sysOauth2AccessToken.getRefreshToken());
     }
 }

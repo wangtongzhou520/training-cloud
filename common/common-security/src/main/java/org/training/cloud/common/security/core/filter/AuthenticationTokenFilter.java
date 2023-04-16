@@ -10,7 +10,7 @@ import org.training.cloud.common.core.utils.josn.JsonUtils;
 import org.training.cloud.common.core.vo.CommonResponse;
 import org.training.cloud.common.web.handler.GlobalExceptionHandler;
 import org.training.cloud.system.api.oauth2.Oauth2TokenApi;
-import org.training.cloud.system.vo.oauth2.OAuth2AccessTokenVO;
+import org.training.cloud.system.vo.oauth2.Oauth2AccessTokenVO;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -65,7 +65,7 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
 
     private AuthUser buildAuthUserByToken(String token) {
         //检验token合法性
-        OAuth2AccessTokenVO oAuth2AccessTokenVO =
+        Oauth2AccessTokenVO oAuth2AccessTokenVO =
                 oauth2TokenApi.checkAccessToken(token).getApiData();
         if (Objects.isNull(oAuth2AccessTokenVO)) {
             return null;

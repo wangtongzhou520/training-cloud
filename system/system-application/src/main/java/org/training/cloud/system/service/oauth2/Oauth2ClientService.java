@@ -3,7 +3,7 @@ package org.training.cloud.system.service.oauth2;
 import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.system.dto.oauth2.AddOauth2ClientDTO;
 import org.training.cloud.system.dto.oauth2.ModifyOauth2ClientDTO;
-import org.training.cloud.system.dto.oauth2.PageOauth2ClientDTO;
+import org.training.cloud.system.dto.oauth2.Oauth2ClientDTO;
 import org.training.cloud.system.entity.oauth2.SysOauth2Client;
 
 /**
@@ -57,8 +57,8 @@ public interface Oauth2ClientService {
     /**
      * 分页查询
      *
-     * @param pageOauth2ClientDTO
+     * @param oauth2ClientDTO
      * @return
      */
-    PageResponse<SysOauth2Client> pageOauth2Client(PageOauth2ClientDTO pageOauth2ClientDTO);
+    PageResponse<SysOauth2Client> pageOauth2Client(Oauth2ClientDTO oauth2ClientDTO);
 }

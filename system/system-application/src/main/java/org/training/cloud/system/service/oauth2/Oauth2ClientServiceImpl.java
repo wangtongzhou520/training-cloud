@@ -8,7 +8,7 @@ import org.training.cloud.system.convert.oauth2.Oauth2ClientConvert;
 import org.training.cloud.system.dao.oauth2.Oauth2ClientMapper;
 import org.training.cloud.system.dto.oauth2.AddOauth2ClientDTO;
 import org.training.cloud.system.dto.oauth2.ModifyOauth2ClientDTO;
-import org.training.cloud.system.dto.oauth2.PageOauth2ClientDTO;
+import org.training.cloud.system.dto.oauth2.Oauth2ClientDTO;
 import org.training.cloud.system.entity.oauth2.SysOauth2Client;
 import org.training.cloud.system.enums.oauth2.Oauth2ClientStateEnum;
 
@@ -80,8 +80,8 @@ public class Oauth2ClientServiceImpl implements Oauth2ClientService {
     }
 
     @Override
-    public PageResponse<SysOauth2Client> pageOauth2Client(PageOauth2ClientDTO pageOauth2ClientDTO) {
-        return oauth2ClientMapper.selectPage(pageOauth2ClientDTO);
+    public PageResponse<SysOauth2Client> pageOauth2Client(Oauth2ClientDTO oauth2ClientDTO) {
+        return oauth2ClientMapper.selectPage(oauth2ClientDTO);
     }
 
     private SysOauth2Client checkExists(Long id) {

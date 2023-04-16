@@ -15,8 +15,10 @@ import java.util.List;
  */
 @Data
 @Accessors(chain = true)
-public class OAuth2AccessTokenVO {
+public class Oauth2AccessTokenVO {
 
+    @Schema(description = "编号", required = true, example = "1024")
+    private Long id;
     /**
      * 访问令牌
      */

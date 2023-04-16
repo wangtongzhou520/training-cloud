@@ -1,7 +1,9 @@
 package org.training.cloud.system.service.oauth2;
 
+import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.system.dto.oauth2.AddOauth2AccessTokenDTO;
-import org.training.cloud.system.vo.oauth2.OAuth2AccessTokenVO;
+import org.training.cloud.system.dto.oauth2.Oauth2AccessTokenDTO;
+import org.training.cloud.system.vo.oauth2.Oauth2AccessTokenVO;
 
 /**
  * oauth 服务
@@ -18,7 +20,7 @@ public interface Oauth2TokenService {
      * @param addOauth2AccessTokenDTO
      * @return
      */
-    OAuth2AccessTokenVO createAccessToken(AddOauth2AccessTokenDTO addOauth2AccessTokenDTO);
+    Oauth2AccessTokenVO createAccessToken(AddOauth2AccessTokenDTO addOauth2AccessTokenDTO);
 
     /**
      * 检查token合法性
@@ -26,7 +28,7 @@ public interface Oauth2TokenService {
      * @param accessToken
      * @return
      */
-    OAuth2AccessTokenVO checkAccessToken(String accessToken);
+    Oauth2AccessTokenVO checkAccessToken(String accessToken);
 
     /**
      * 刷新token
@@ -35,13 +37,22 @@ public interface Oauth2TokenService {
      * @param clientId
      * @return
      */
-    OAuth2AccessTokenVO refreshAccessToken(String refreshToken,String clientId);
+    Oauth2AccessTokenVO refreshAccessToken(String refreshToken, String clientId);
+
+
+    /**
+     * 分页查询Token
+     *
+     * @param oauth2AccessTokenDTO
+     * @return
+     */
+    PageResponse<Oauth2AccessTokenVO> pageOauth2AccessToken(Oauth2AccessTokenDTO oauth2AccessTokenDTO);
 
 
     /**
      * 删除token
      *
-     * @param userId userId
+     * @param accessToken
      */
-    void removeToken(Long userId);
+    void removeToken(String accessToken);
 }
