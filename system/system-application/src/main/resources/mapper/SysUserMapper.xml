@@ -16,6 +16,7 @@
         <result column="modified_operator" property="modifiedOperator"/>
         <result column="gmt_create" property="gmtCreate"/>
         <result column="gmt_modified" property="gmtModified"/>
+        <result column="user_type" property="userType"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -30,6 +31,7 @@
                 create_operator,
                 modified_operator,
                 gmt_create,
+                user_type,
                 gmt_modified
     </sql>
 

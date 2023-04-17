@@ -6,7 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.training.cloud.common.core.vo.PageParam;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 

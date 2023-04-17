@@ -1,5 +1,7 @@
 package org.training.cloud.system.entity.dept;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,6 +22,7 @@ public class SysDept extends BaseDO {
     /**
      * 部门id
      */
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     /**

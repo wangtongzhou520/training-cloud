@@ -3,7 +3,7 @@ package org.training.cloud.common.core.constant;
 /**
  * 用户看到的异常
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-03-30 07:09
  */
 public interface UserExceptionCode {
@@ -22,7 +22,7 @@ public interface UserExceptionCode {
     /**
      * 服务端异常
      */
-    ExceptionCode INTERNAL_SERVER_ERROR = new ExceptionCode(500, "系统异常");
+    ExceptionCode SERVER_ERROR = new ExceptionCode(500, "系统异常");
 
 
     /**

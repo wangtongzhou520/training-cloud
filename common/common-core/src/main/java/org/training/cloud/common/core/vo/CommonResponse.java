@@ -1,10 +1,13 @@
 package org.training.cloud.common.core.vo;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.training.cloud.common.core.constant.ExceptionCode;
 import org.training.cloud.common.core.constant.UserExceptionCode;
+import org.training.cloud.common.core.exception.BusinessException;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * 公共返回
@@ -13,7 +16,6 @@ import java.io.Serializable;
  * @since 2020-05-23 13:44
  */
 public class CommonResponse<T> implements Serializable {
-
 
 
     /**
@@ -149,5 +151,29 @@ public class CommonResponse<T> implements Serializable {
         this.detailMessage = detailMessage;
         return this;
     }
+
+
+    public static boolean isSuccess(Integer code) {
+        return Objects.equals(code, UserExceptionCode.SUCCESS.getCode());
+    }
+
+    @JsonIgnore
+    public boolean isSuccess() {
+        return isSuccess(code);
+    }
+
+    public void checkError() throws BusinessException {
+        if (isSuccess()) {
+            return;
+        }
+        throw new BusinessException(code, message);
+    }
+
+    @JsonIgnore
+    public T getApiData() {
+        checkError();
+        return data;
+    }
+
 }
 

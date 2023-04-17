@@ -1,5 +1,6 @@
 package org.training.cloud.common.security.core.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
@@ -7,10 +8,9 @@ import java.util.List;
 /**
  * 登录用户信息
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-03-30 21:24
  */
-@Data
 public class AuthUser {
 
     /**
@@ -27,4 +27,33 @@ public class AuthUser {
      * 授权范围
      */
     private List<String> scopes;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public AuthUser setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public Integer getUserType() {
+        return userType;
+    }
+
+    public AuthUser setUserType(Integer userType) {
+        this.userType = userType;
+        return this;
+    }
+
+    public List<String> getScopes() {
+        return scopes;
+    }
+
+    public AuthUser setScopes(List<String> scopes) {
+        this.scopes = scopes;
+        return this;
+    }
+
 }

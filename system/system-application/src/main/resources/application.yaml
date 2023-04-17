@@ -1,36 +1,60 @@
 spring:
   application:
-    name: system
+    name: system-application
   # 数据源配置项
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/study_user?useSSL=false&useUnicode=true&characterEncoding=UTF-8
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: 123456
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   cloud:
     nacos:
       discovery:
-        server-addr: 10.226.73.115:8886
-        #环境选择
-        #namespace: b7d341fc-df29-45ce-b3cd-4415f66b1ee0
+        server-addr: 127.0.0.1:8848
+logging:
+  level:
+    org:
+      training:
+        cloud:
+          system: DEBUG
 
 
-soul:
-  springcloud:
-    admin-url: http://127.0.0.1:9095
-    context-path: /system-api
-    app-name: system
 
+
+#soul:
+#  springcloud:
+#    admin-url: http://127.0.0.1:9095
+#    context-path: /system-api
+#    app-name: system
+auth:
+  security:
+    not-auth-urls:
+      - /sys/login
+      - /swagger-ui
+      - /**/api-docs/
+      - /*.html
+      - /**/*.html
+      - /**/*.css
+      - /**/*.js
+      - /webjars/**
+      - /v3/**
+      - /swagger-resources/**
 
 
 # Swagger 配置项
-swagger:
-  title: system
-  description: 用户相关系统
-  version: 1.0.0
-  base-package: org.training.cloud.system.controller
+training:
+  swagger:
+    title: system
+    description: 用户相关系统
+    version: 1.0.0
+    base-package: org.training.cloud.system
 server:
-  port: 8081
+  port: 8080
+
+
 
 
 # MyBatis Plus 配置项
@@ -39,7 +63,7 @@ mybatis-plus:
     map-underscore-to-camel-case: true # 虽然默认为 true ，但是还是显示去指定下。
   global-config:
     db-config:
-      id-type: auto
+      id-type: AUTO
       logic-delete-value: 1 # 逻辑已删除值(默认为 1)
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
   mapper-locations: classpath*:mapper/*.xml

@@ -1,0 +1,5 @@
+org.training.cloud.common.security.config.SecurityConfig
+org.training.cloud.common.security.core.NotAuthenticationAop
+org.training.cloud.common.security.config.NotAuthenticationConfig
+org.training.cloud.common.security.config.SecurityAutoConfig
+org.training.cloud.common.security.config.FeignClientAutoConfig
