@@ -1,6 +1,6 @@
 package org.training.cloud.system.controller;
 
-import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,6 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/sys")
-@Tag(name ="角色信息")
+@Api("角色信息")
 public class RoleController {
 }

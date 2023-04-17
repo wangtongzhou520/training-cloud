@@ -1,7 +1,5 @@
 package org.training.cloud.system.entity.user;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,7 +20,6 @@ public class SysUser extends BaseDO {
     /**
      * 用户id
      */
-    @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
@@ -48,10 +45,10 @@ public class SysUser extends BaseDO {
     /**
      * 用户所在部门的id
      */
-    private Long deptId;
+    private Integer deptId;
 
     /**
-     * 状态，0 正常 1禁用
+     * 状态，1：正常，0：冻结状态，2：删除
      */
     private Integer status;
 
@@ -69,10 +66,5 @@ public class SysUser extends BaseDO {
      * 修改者
      */
     private String modifiedOperator;
-
-    /**
-     * 用户类型 0 C端 1 管理端
-     */
-    private Integer userType;
 
 }

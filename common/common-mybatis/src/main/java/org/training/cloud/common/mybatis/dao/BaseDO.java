@@ -34,9 +34,6 @@ public class BaseDO implements Serializable {
      */
     private String modifiedOperator;
 
-
-
-
     public Date getGmtCreate() {
         return gmtCreate;
     }
@@ -52,24 +49,6 @@ public class BaseDO implements Serializable {
 
     public BaseDO setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
-        return this;
-    }
-
-    public String getCreateOperator() {
-        return createOperator;
-    }
-
-    public BaseDO setCreateOperator(String createOperator) {
-        this.createOperator = createOperator;
-        return this;
-    }
-
-    public String getModifiedOperator() {
-        return modifiedOperator;
-    }
-
-    public BaseDO setModifiedOperator(String modifiedOperator) {
-        this.modifiedOperator = modifiedOperator;
         return this;
     }
 

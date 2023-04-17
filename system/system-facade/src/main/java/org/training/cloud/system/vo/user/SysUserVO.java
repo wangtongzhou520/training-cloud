@@ -17,7 +17,7 @@ public class SysUserVO {
     /**
      * 用户id
      */
-    private Long id;
+    private Integer id;
 
     /**
      * 用户名称
@@ -45,19 +45,37 @@ public class SysUserVO {
     private Integer deptName;
 
     /**
-     * 状态，0：正常，1 禁用
+     * 状态，1：正常，0：冻结状态，2：删除
      */
     private Integer status;
 
     /**
-     * 用户类型 0 C端 1 管理端
+     * 备注
      */
-    private Integer userType;
+    private String remark;
+
+    /**
+     * 创建者
+     */
+    private String createOperator;
+
+    /**
+     * 修改者
+     */
+    private String modifiedOperator;
+
+    /**
+     * 更新操作者的ip地址
+     */
+    private String modifiedOperatorIp;
 
     /**
      * 创建时间
      */
     private Date gmtCreate;
 
-
+    /**
+     * 更新时间
+     */
+    private Date gmtModified;
 }

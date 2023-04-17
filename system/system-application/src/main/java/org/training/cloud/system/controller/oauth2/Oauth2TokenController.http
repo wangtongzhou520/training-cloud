@@ -1,3 +1,0 @@
-GET http://localhost:8080/sys/oauth2token/checkAccessToken?checkAccessToken=94b8278b-e904-4231-bd19-5b571e4db7dc
-Content-Type: application/json
-Authorization: Bearer 94b8278b-e904-4231-bd19-5b571e4db7dc
