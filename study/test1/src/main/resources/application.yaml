@@ -10,9 +10,9 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
-#        #环境选择
-#        namespace: b7d341fc-df29-45ce-b3cd-4415f66b1ee0
+        server-addr: 10.226.75.8:8886
+        #环境选择
+        namespace: b7d341fc-df29-45ce-b3cd-4415f66b1ee0
   application:
     name: order
 
@@ -20,11 +20,11 @@ spring:
 
 
 # Swagger 配置项
-#swagger:
-#  title: test1
-#  description: OpenFeginTest
-#  version: 1.0.0
-#  base-package: org.training.cloud.test1.controller
+swagger:
+  title: test1
+  description: OpenFeginTest
+  version: 1.0.0
+  base-package: org.training.cloud.test1.controller
 server:
   port: 8111
 

@@ -12,12 +12,11 @@
     <artifactId>common</artifactId>
     <packaging>pom</packaging>
     <modules>
+        <module>common-swagger</module>
         <module>common-web</module>
         <module>common-core</module>
         <module>common-mybatis</module>
         <module>common-security</module>
-        <module>common-feign</module>
-        <module>common-swagger</module>
     </modules>
 
 
