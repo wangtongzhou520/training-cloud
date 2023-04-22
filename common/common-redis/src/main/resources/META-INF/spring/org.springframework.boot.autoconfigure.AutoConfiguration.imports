@@ -1,0 +1,2 @@
+org.training.cloud.common.redis.config.RedisConfig
+org.training.cloud.common.redis.config.RedisAutoConfig

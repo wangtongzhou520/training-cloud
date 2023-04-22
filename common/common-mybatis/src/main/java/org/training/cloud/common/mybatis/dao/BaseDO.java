@@ -3,6 +3,7 @@ package org.training.cloud.common.mybatis.dao;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -17,12 +18,12 @@ public class BaseDO implements Serializable {
     /**
      * 创建时间
      */
-    private Date gmtCreate;
+    private LocalDateTime gmtCreate;
 
     /**
      * 更新时间
      */
-    private Date gmtModified;
+    private LocalDateTime gmtModified;
 
     /**
      * 创建者
@@ -37,20 +38,20 @@ public class BaseDO implements Serializable {
 
 
 
-    public Date getGmtCreate() {
+    public LocalDateTime getGmtCreate() {
         return gmtCreate;
     }
 
-    public BaseDO setGmtCreate(Date gmtCreate) {
+    public BaseDO setGmtCreate(LocalDateTime gmtCreate) {
         this.gmtCreate = gmtCreate;
         return this;
     }
 
-    public Date getGmtModified() {
+    public LocalDateTime getGmtModified() {
         return gmtModified;
     }
 
-    public BaseDO setGmtModified(Date gmtModified) {
+    public BaseDO setGmtModified(LocalDateTime gmtModified) {
         this.gmtModified = gmtModified;
         return this;
     }

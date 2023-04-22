@@ -5,6 +5,7 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.training.cloud.common.mybatis.dao.BaseDO;
 import org.training.cloud.common.web.utils.WebUtil;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -20,14 +21,14 @@ public class DefaultFieldHandler implements MetaObjectHandler {
         if (Objects.nonNull(metaObject) && metaObject.getOriginalObject() instanceof BaseDO) {
             BaseDO baseDO = (BaseDO) metaObject.getOriginalObject();
 
-            Date current = new Date();
+            LocalDateTime now= LocalDateTime.now();;
             // 创建时间为空，则以当前时间为插入时间
             if (Objects.isNull(baseDO.getGmtCreate())) {
-                baseDO.setGmtCreate(current);
+                baseDO.setGmtCreate(now);
             }
             // 更新时间为空，则以当前时间为更新时间
             if (Objects.isNull(baseDO.getGmtModified())) {
-                baseDO.setGmtModified(current);
+                baseDO.setGmtModified(now);
             }
 
             Long userId = WebUtil.getLoginUserId();
@@ -47,7 +48,7 @@ public class DefaultFieldHandler implements MetaObjectHandler {
         // 更新时间为空，则以当前时间为更新时间
         Object modifyTime = getFieldValByName("gmtModified", metaObject);
         if (Objects.isNull(modifyTime)) {
-            setFieldValByName("gmtModified", new Date(), metaObject);
+            setFieldValByName("gmtModified", LocalDateTime.now(), metaObject);
         }
 
         // 当前登录用户不为空，更新人为空，则当前登录用户为更新人

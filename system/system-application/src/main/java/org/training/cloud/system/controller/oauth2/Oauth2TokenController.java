@@ -13,7 +13,7 @@ import org.training.cloud.system.vo.oauth2.Oauth2AccessTokenVO;
 /**
  * token认证
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-11 20:19
  */
 @Tag(name = "Oauth2 Token管理")

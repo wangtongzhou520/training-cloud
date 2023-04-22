@@ -42,9 +42,7 @@ public class SysDeptServiceImpl implements SysDeptService {
                 saveDeptDTO.getParentId());
         sysDept.setLevel(level)
                 .setCreateOperator("")
-                .setModifiedOperator("")
-                .setGmtCreate(new Date())
-                .setGmtModified(new Date());
+                .setModifiedOperator("");
         sysDeptMapper.insert(sysDept);
     }
 

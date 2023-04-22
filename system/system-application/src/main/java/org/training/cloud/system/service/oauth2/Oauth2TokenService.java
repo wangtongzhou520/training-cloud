@@ -3,6 +3,7 @@ package org.training.cloud.system.service.oauth2;
 import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.system.dto.oauth2.AddOauth2AccessTokenDTO;
 import org.training.cloud.system.dto.oauth2.Oauth2AccessTokenDTO;
+import org.training.cloud.system.entity.oauth2.SysOauth2AccessToken;
 import org.training.cloud.system.vo.oauth2.Oauth2AccessTokenVO;
 
 /**
@@ -29,6 +30,15 @@ public interface Oauth2TokenService {
      * @return
      */
     Oauth2AccessTokenVO checkAccessToken(String accessToken);
+
+    /**
+     * 获取access_token
+     *
+     * @param accessToken
+     * @return
+     */
+    SysOauth2AccessToken queryAccessTokenByAccessToken(String accessToken);
+
 
     /**
      * 刷新token

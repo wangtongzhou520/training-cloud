@@ -3,7 +3,7 @@ package org.training.cloud.system.constant;
 /**
  * 客户端常量
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-06 07:02
  */
 public interface Oauth2ClientConstant {

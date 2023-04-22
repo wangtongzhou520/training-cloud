@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * feignConfig配置
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-13 20:17
  */
 @Configuration

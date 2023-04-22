@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * 授权资源管理
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-16 15:52
  */
 @Data

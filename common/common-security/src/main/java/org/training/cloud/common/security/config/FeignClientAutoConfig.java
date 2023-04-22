@@ -9,7 +9,7 @@ import org.training.cloud.system.api.oauth2.Oauth2TokenApi;
 /**
  * FeignClient自动加载
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-09 18:44
  */
 @AutoConfiguration

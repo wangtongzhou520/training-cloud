@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 授权资源管理
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-16 16:01
  */
 @Mapper

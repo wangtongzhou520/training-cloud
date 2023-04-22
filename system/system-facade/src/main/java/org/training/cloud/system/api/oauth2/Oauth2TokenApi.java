@@ -11,7 +11,7 @@ import org.training.cloud.system.vo.oauth2.Oauth2AccessTokenVO;
 /**
  * OAuth2 Token
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-09 14:23
  */
 @FeignClient(value = ApiConstants.NAME)

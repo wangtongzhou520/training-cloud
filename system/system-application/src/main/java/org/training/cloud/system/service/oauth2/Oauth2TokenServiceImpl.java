@@ -2,16 +2,17 @@ package org.training.cloud.system.service.oauth2;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.training.cloud.common.core.constant.UserExceptionCode;
 import org.training.cloud.common.core.exception.BusinessException;
+import org.training.cloud.common.core.utils.date.DateUtils;
 import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.system.convert.oauth2.Oauth2TokenConvert;
 import org.training.cloud.system.dao.oauth2.Oauth2AccessTokenMapper;
 import org.training.cloud.system.dao.oauth2.Oauth2RefreshTokenMapper;
+import org.training.cloud.system.dao.redis.oauth2.Oauth2AccessTokenCacheDAO;
 import org.training.cloud.system.dto.oauth2.AddOauth2AccessTokenDTO;
 import org.training.cloud.system.dto.oauth2.Oauth2AccessTokenDTO;
 import org.training.cloud.system.entity.oauth2.SysOauth2AccessToken;
@@ -19,6 +20,7 @@ import org.training.cloud.system.entity.oauth2.SysOauth2Client;
 import org.training.cloud.system.entity.oauth2.SysOauth2RefreshToken;
 import org.training.cloud.system.vo.oauth2.Oauth2AccessTokenVO;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -45,6 +47,10 @@ public class Oauth2TokenServiceImpl implements Oauth2TokenService {
     @Autowired
     private Oauth2ClientService oauth2ClientService;
 
+
+    @Autowired
+    private Oauth2AccessTokenCacheDAO accessTokenCacheDAO;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Oauth2AccessTokenVO createAccessToken(AddOauth2AccessTokenDTO addOauth2AccessTokenDTO) {
@@ -69,7 +75,7 @@ public class Oauth2TokenServiceImpl implements Oauth2TokenService {
     private SysOauth2RefreshToken createOAuth2RefreshToken(SysOauth2Client client, AddOauth2AccessTokenDTO addOauth2AccessTokenDTO) {
         SysOauth2RefreshToken oauth2RefreshToken = new SysOauth2RefreshToken();
         oauth2RefreshToken
-                .setExpiresTime(DateUtils.addSeconds(new Date(), client.getRefreshTokenValiditySeconds().intValue()))
+                .setExpiresTime(org.apache.commons.lang3.time.DateUtils.addSeconds(new Date(), client.getRefreshTokenValiditySeconds().intValue()))
                 .setRefreshToken(UUID.randomUUID().toString())
                 .setUserId(addOauth2AccessTokenDTO.getUserId())
                 .setUserType(addOauth2AccessTokenDTO.getUserType())
@@ -90,7 +96,7 @@ public class Oauth2TokenServiceImpl implements Oauth2TokenService {
     private SysOauth2AccessToken createOAuth2AccessToken(SysOauth2RefreshToken oauth2RefreshToken, SysOauth2Client client) {
         SysOauth2AccessToken oauth2AccessToken = new SysOauth2AccessToken();
         oauth2AccessToken
-                .setExpiresTime(DateUtils.addSeconds(new Date(), client.getAccessTokenValiditySeconds().intValue()))
+                .setExpiresTime(LocalDateTime.now().plusSeconds(client.getAccessTokenValiditySeconds()))
                 .setRefreshToken(oauth2RefreshToken.getRefreshToken())
                 .setAccessToken(UUID.randomUUID().toString())
                 .setUserId(oauth2RefreshToken.getUserId())
@@ -112,11 +118,28 @@ public class Oauth2TokenServiceImpl implements Oauth2TokenService {
             throw new BusinessException(OAUTH2_ACCESS_TOKEN_NOT_FOUND);
         }
         //检查token过期时间
-        if (oAuth2AccessTokenSys.getExpiresTime().getTime() < System.currentTimeMillis()) {
+
+        if (LocalDateTime.now().isAfter(oAuth2AccessTokenSys.getExpiresTime())) {
             throw new BusinessException(OAUTH2_ACCESS_TOKEN_NOT_EXPIRED);
         }
         //返回访问令牌
         return Oauth2TokenConvert.INSTANCE.convert(oAuth2AccessTokenSys);
+    }
+
+    @Override
+    public SysOauth2AccessToken queryAccessTokenByAccessToken(String accessToken) {
+        //从缓存中获取
+        SysOauth2AccessToken oauth2AccessToken=accessTokenCacheDAO.get(accessToken);
+        if (Objects.nonNull(oauth2AccessToken)){
+            return oauth2AccessToken;
+        }
+
+        //缓存中没有获取到查询数据库
+        oauth2AccessToken= oauth2AccessTokenMapper.queryAccessByAccessToken(accessToken);
+        if (Objects.nonNull(oauth2AccessToken)&& !DateUtils.isExpired(oauth2AccessToken.getExpiresTime())){
+            accessTokenCacheDAO.set(oauth2AccessToken);
+        }
+        return oauth2AccessToken;
     }
 
     @Override

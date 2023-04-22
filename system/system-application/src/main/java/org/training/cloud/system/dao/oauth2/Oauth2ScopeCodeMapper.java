@@ -10,7 +10,7 @@ import org.training.cloud.system.entity.oauth2.SysScopeCode;
 /**
  * 授权资源管理
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-16 15:33
  */
 @Mapper

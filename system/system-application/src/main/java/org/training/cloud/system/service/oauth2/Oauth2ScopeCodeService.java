@@ -7,7 +7,7 @@ import org.training.cloud.system.vo.oauth2.Oauth2ScopeCodeVO;
 /**
  * 授权资源的管理
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-16 15:46
  */
 public interface Oauth2ScopeCodeService {

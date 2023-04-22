@@ -14,7 +14,7 @@ import org.training.cloud.system.api.oauth2.Oauth2TokenApi;
 /**
  * 自动加载类配置文件
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-09 18:27
  */
 @AutoConfiguration

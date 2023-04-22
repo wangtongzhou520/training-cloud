@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.training.cloud.common.mybatis.dao.BaseDO;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class SysOauth2AccessToken extends BaseDO {
     /**
      * 过期时间
      */
-    private Date expiresTime;
+    private LocalDateTime expiresTime;
 
     /**
      * 授权范围
