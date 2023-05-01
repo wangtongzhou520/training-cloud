@@ -34,6 +34,7 @@
         <module>common</module>
         <module>system</module>
         <module>study</module>
+        <module>gateway</module>
     </modules>
 
     <!--统一版本号管理-->

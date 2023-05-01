@@ -24,7 +24,7 @@ public class SecurityUtils {
     /**
      * 此标识网关或者feign传过来
      */
-    public static final String USER_TOKE="user-token";
+    public static final String USER_INFO = "user-info";
 
 
     public static String getAuthorization(HttpServletRequest request,

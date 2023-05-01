@@ -1,0 +1,35 @@
+server:
+  port: 8888
+
+
+spring:
+  application:
+    name: gateway-application
+  main:
+    allow-circular-references: true
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        enabled: true
+    gateway:
+      default-filters:
+        # 多重跨域 Access-Control-Allow-Origin *，出现重复的 * ，导致跨域失效问题处理
+        - DedupeResponseHeader=Vary Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_FIRST
+        # 保留唯一的，出现重复的属性值，会保留一个
+        - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_FIRST
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        # 服务
+        - id: system-admin
+          # 服务地址
+          uri: lb://system-application
+          # 拦截的路由
+          predicates:
+            - Path=/sys/admin/**
+          # 配置转发
+          filters:
+            - RewritePath=/sys/admin/v3/api-docs, /v3/api-docs

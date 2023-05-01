@@ -11,3 +11,6 @@ public class SystemRedisKeyConstants {
     public final static String OAUTH2_ACCESS_TOKEN="oauth2:access:token:";
 
 }
+
+
+

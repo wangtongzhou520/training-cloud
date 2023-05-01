@@ -11,9 +11,12 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
   cloud:
+    discovery:
+      enabled: true
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+        enabled: true
   # redis配置
   redis:
     host: 127.0.0.1
@@ -31,11 +34,7 @@ logging:
 
 
 
-#soul:
-#  springcloud:
-#    admin-url: http://127.0.0.1:9095
-#    context-path: /system-api
-#    app-name: system
+
 auth:
   security:
     not-auth-urls:
@@ -60,6 +59,8 @@ training:
     base-package: org.training.cloud.system
 server:
   port: 8080
+  address: 0.0.0.0
+
 
 
 

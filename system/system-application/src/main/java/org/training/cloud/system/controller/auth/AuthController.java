@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.training.cloud.common.security.core.annotations.NotAuthentication;
 import org.training.cloud.common.core.vo.CommonResponse;
+import org.training.cloud.common.security.core.annotations.NotAuthentication;
 import org.training.cloud.system.dto.auth.AuthLoginDTO;
 import org.training.cloud.system.service.auth.AuthService;
 import org.training.cloud.system.vo.auth.AuthLoginVO;
@@ -22,7 +22,7 @@ import javax.validation.Valid;
  * @since 2020-11-09 16:52
  */
 @RestController
-@RequestMapping("/sys")
+@RequestMapping("/sys/admin")
 @Tag(name = "管理员登录")
 public class AuthController {
 

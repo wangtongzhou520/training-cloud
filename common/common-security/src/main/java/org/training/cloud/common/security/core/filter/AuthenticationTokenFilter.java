@@ -77,7 +77,7 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
     }
 
     private AuthUser getHeaderAuthUser(HttpServletRequest request) {
-        String userToken = request.getHeader(SecurityUtils.USER_TOKE);
+        String userToken = request.getHeader(SecurityUtils.USER_INFO);
         return StringUtils.isNotBlank(userToken) ?
                 JsonUtils.parseObject(userToken, AuthUser.class) : null;
     }
