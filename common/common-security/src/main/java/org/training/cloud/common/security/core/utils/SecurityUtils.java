@@ -14,7 +14,7 @@ import java.util.Collections;
 /**
  * 安全框架工具类
  *
- * @author wangtongzhou 
+ * @author wangtongzhou
  * @since 2023-03-29 21:44
  */
 public class SecurityUtils {
@@ -28,7 +28,7 @@ public class SecurityUtils {
 
 
     public static String getAuthorization(HttpServletRequest request,
-                                        String header) {
+                                          String header) {
         String authorization = request.getHeader(header);
         if (!StringUtils.hasText(authorization)) {
             return null;
@@ -54,14 +54,23 @@ public class SecurityUtils {
         return context.getAuthentication();
     }
 
+    /**
+     * 获取用户Id
+     *
+     * @return
+     */
+    public static Long getUserId() {
+        AuthUser authUser = getAuthUser();
+        return authUser != null ? authUser.getId() : null;
+    }
 
     /**
      * 获取用户详情
      *
      * @return
      */
-    public static AuthUser getAuthUser(){
-        Authentication authentication=getAuthentication();
+    public static AuthUser getAuthUser() {
+        Authentication authentication = getAuthentication();
         if (authentication == null) {
             return null;
         }

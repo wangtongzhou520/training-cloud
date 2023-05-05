@@ -21,7 +21,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * java 8 时间默认序列化
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou 
  * @since 2023-04-22 08:38
  */
 public class Java8TimeModule extends SimpleModule {

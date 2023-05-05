@@ -6,6 +6,8 @@ import org.training.cloud.system.dto.oauth2.ModifyOauth2ClientDTO;
 import org.training.cloud.system.dto.oauth2.Oauth2ClientDTO;
 import org.training.cloud.system.entity.oauth2.SysOauth2Client;
 
+import java.util.Collection;
+
 /**
  * Oauth2客户端服务
  *
@@ -61,4 +63,15 @@ public interface Oauth2ClientService {
      * @return
      */
     PageResponse<SysOauth2Client> pageOauth2Client(Oauth2ClientDTO oauth2ClientDTO);
+
+    /**
+     * 检验clientId
+     * @param clientId
+     * @param clientSecret
+     * @param grantType
+     * @param scopes
+     * @param redirectUri
+     * @return
+     */
+    SysOauth2Client checkOauth2Client(String clientId, String clientSecret, String grantType, Collection<String> scopes, String redirectUri);
 }

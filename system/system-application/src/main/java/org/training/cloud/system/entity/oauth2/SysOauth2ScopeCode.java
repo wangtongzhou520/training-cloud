@@ -17,9 +17,9 @@ import org.training.cloud.common.mybatis.dao.BaseDO;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName(value = "sys_scope_code", autoResultMap = true)
+@TableName(value = "sys_oauth2_scope_code", autoResultMap = true)
 @Accessors(chain = true)
-public class SysScopeCode extends BaseDO {
+public class SysOauth2ScopeCode extends BaseDO {
 
     @TableId(type = IdType.AUTO)
     /**

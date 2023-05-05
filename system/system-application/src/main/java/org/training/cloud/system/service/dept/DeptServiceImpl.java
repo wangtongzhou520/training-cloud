@@ -13,7 +13,6 @@ import org.training.cloud.system.entity.dept.SysDept;
 import org.training.cloud.system.util.LevelUtil;
 import org.training.cloud.system.vo.dept.DeptTreeVO;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,7 +23,7 @@ import java.util.Objects;
  * @since 2020-06-15 20:28
  */
 @Service
-public class SysDeptServiceImpl implements SysDeptService {
+public class DeptServiceImpl implements DeptService {
 
     @Autowired
     private SysDeptMapper sysDeptMapper;

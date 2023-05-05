@@ -12,7 +12,7 @@ import java.util.List;
  * @author wangtongzhou
  * @since 2020-06-15 20:19
  */
-public interface SysDeptService {
+public interface DeptService {
 
     /**
      * 保存部门信息

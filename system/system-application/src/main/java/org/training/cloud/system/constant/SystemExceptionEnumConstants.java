@@ -19,10 +19,20 @@ public interface SystemExceptionEnumConstants {
     ExceptionCode OAUTH2_ACCESS_TOKEN_NOT_EXPIRED = new ExceptionCode(100001002, "访问令牌已过期");
     ExceptionCode OAUTH2_REFRESH_TOKEN_NOT_FOUND=new ExceptionCode(100001003,"刷新令牌不存在");
     ExceptionCode OAUTH2_REFRESH_TOKEN_NOT_EXPIRED= new ExceptionCode(100001004,"刷新令牌已过期");
+
     ExceptionCode OAUTH2_CLIENT_EXIST= new ExceptionCode(100001005, "授权客户端编号已存在");
     ExceptionCode OAUTH2_CLIENT_NOT_EXIST= new ExceptionCode(100001006, "授权客户端不存在");
     ExceptionCode OAUTH2_CLIENT_DISABLE= new ExceptionCode(100001007,
             "授权客户端被禁用");
+    ExceptionCode OAUTH2_CLIENT_SECRET_ERROR= new ExceptionCode(100001008,
+            "无效client_secret");
+    ExceptionCode OAUTH2_CLIENT_AUTHORIZED_GRANT_TYPE_NOT_EXISTS= new ExceptionCode(100001009,
+            "授权码类型不支持");
+    ExceptionCode OAUTH2_CLIENT_SCOPE_NOT_EXISTS= new ExceptionCode(100001009,
+            "授权码范围不支持");
+    ExceptionCode OAUTH2_CLIENT_REDIRECT_URI_NOT_MATCH=
+            new ExceptionCode(100001010,
+            "授权重定向地址不匹配");
 
 
 

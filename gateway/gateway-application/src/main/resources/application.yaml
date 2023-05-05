@@ -29,7 +29,7 @@ spring:
           uri: lb://system-application
           # 拦截的路由
           predicates:
-            - Path=/sys/admin/**
+            - Path=/sys/**
           # 配置转发
           filters:
-            - RewritePath=/sys/admin/v3/api-docs, /v3/api-docs
+            - RewritePath=/sys/v3/api-docs, /v3/api-docs

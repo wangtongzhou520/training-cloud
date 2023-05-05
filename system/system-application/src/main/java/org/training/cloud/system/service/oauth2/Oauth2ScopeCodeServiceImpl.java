@@ -6,7 +6,7 @@ import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.system.convert.oauth2.Oauth2ScopeCodeConvert;
 import org.training.cloud.system.dao.oauth2.Oauth2ScopeCodeMapper;
 import org.training.cloud.system.dto.oauth2.Oauth2ScopeCodeDTO;
-import org.training.cloud.system.entity.oauth2.SysScopeCode;
+import org.training.cloud.system.entity.oauth2.SysOauth2ScopeCode;
 import org.training.cloud.system.vo.oauth2.Oauth2ScopeCodeVO;
 
 /**
@@ -22,7 +22,7 @@ public class Oauth2ScopeCodeServiceImpl implements Oauth2ScopeCodeService {
 
     @Override
     public PageResponse<Oauth2ScopeCodeVO> pageOauth2ScopeCode(Oauth2ScopeCodeDTO oauth2ScopeCodeDTO) {
-        PageResponse<SysScopeCode> pageResponse =
+        PageResponse<SysOauth2ScopeCode> pageResponse =
                 oauth2ScopeCodeMapper.pageScopeCode(oauth2ScopeCodeDTO);
         return Oauth2ScopeCodeConvert.INSTANCE.convert(pageResponse);
     }

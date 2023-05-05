@@ -22,7 +22,7 @@ import javax.validation.Valid;
  * @since 2020-11-09 16:52
  */
 @RestController
-@RequestMapping("/sys/admin")
+@RequestMapping("/sys")
 @Tag(name = "管理员登录")
 public class AuthController {
 
