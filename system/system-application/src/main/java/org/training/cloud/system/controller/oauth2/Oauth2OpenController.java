@@ -94,6 +94,7 @@ public class Oauth2OpenController {
         //4. 按照不同的模式进行处理 处理授权码模式和简化模式
         if (auth2GrantTypeEnum==OAuth2GrantTypeEnum.AUTHORIZATION_CODE){
 
+            
         }
         //简化模式
         return null;
