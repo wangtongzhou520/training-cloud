@@ -10,7 +10,7 @@ import org.training.cloud.system.dao.dept.SysDeptMapper;
 import org.training.cloud.system.dto.dept.SaveDeptDTO;
 import org.training.cloud.system.dto.dept.UpdateDeptDTO;
 import org.training.cloud.system.entity.dept.SysDept;
-import org.training.cloud.system.util.LevelUtil;
+import org.training.cloud.system.utils.LevelUtil;
 import org.training.cloud.system.vo.dept.DeptTreeVO;
 
 import java.util.List;

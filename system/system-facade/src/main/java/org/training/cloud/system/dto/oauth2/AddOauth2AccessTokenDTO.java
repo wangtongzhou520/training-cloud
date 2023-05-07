@@ -3,6 +3,7 @@ package org.training.cloud.system.dto.oauth2;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 增加授权客户端
@@ -27,6 +28,12 @@ public class AddOauth2AccessTokenDTO implements Serializable {
      * 客户端id
      */
     private String clientId;
+
+
+    /**
+     * 授权
+     */
+    private List<String> scopes;
 
 
 

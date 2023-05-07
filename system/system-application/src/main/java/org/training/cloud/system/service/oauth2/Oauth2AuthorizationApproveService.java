@@ -23,4 +23,7 @@ public interface Oauth2AuthorizationApproveService {
      */
     boolean modifyAuthorizationApprove(Long userId, Integer userType, String clientId, Map<String, Boolean> scopes);
 
+
+
+
 }

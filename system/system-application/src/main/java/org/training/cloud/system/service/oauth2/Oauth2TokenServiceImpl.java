@@ -80,7 +80,7 @@ public class Oauth2TokenServiceImpl implements Oauth2TokenService {
                 .setUserId(addOauth2AccessTokenDTO.getUserId())
                 .setUserType(addOauth2AccessTokenDTO.getUserType())
                 .setClientId(addOauth2AccessTokenDTO.getClientId())
-                .setScopes(client.getScopes());
+                .setScopes(addOauth2AccessTokenDTO.getScopes());
         oauth2RefreshTokenMapper.insert(oauth2RefreshToken);
         return oauth2RefreshToken;
     }

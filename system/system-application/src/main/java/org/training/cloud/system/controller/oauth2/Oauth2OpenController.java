@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,17 +20,18 @@ import org.training.cloud.system.entity.oauth2.SysOauth2Client;
 import org.training.cloud.system.enums.oauth2.OAuth2GrantTypeEnum;
 import org.training.cloud.system.service.oauth2.Oauth2AuthorizationApproveService;
 import org.training.cloud.system.service.oauth2.Oauth2ClientService;
-import org.training.cloud.system.service.oauth2.Oauth2ScopeCodeService;
+import org.training.cloud.system.service.oauth2.Oauth2GrantService;
+import org.training.cloud.system.utils.Oauth2Util;
+import org.training.cloud.system.vo.oauth2.Oauth2AccessTokenVO;
 
 import javax.annotation.Resource;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import static org.training.cloud.common.core.constant.UserExceptionCode.BAD_REQUEST;
 import static org.training.cloud.common.security.core.utils.SecurityUtils.getAuthUser;
-import static org.training.cloud.common.security.core.utils.SecurityUtils.getUserId;
 
 /**
  * Oauth2授权申请
@@ -49,6 +51,9 @@ public class Oauth2OpenController {
     @Resource
     private Oauth2AuthorizationApproveService oauth2AuthorizationApproveService;
 
+    @Resource
+    private Oauth2GrantService oauth2GrantService;
+
 
     /**
      * 授权申请页面
@@ -56,8 +61,6 @@ public class Oauth2OpenController {
      * @param grantType
      * @param clientId
      * @param scope
-     * @param redirectUri
-     * @param approveState
      * @return
      */
     @PostMapping("/applyAuthorize")
@@ -66,15 +69,13 @@ public class Oauth2OpenController {
             @Parameter(name = "grant_type", required = true, description = "授权类型", example = "code"),
             @Parameter(name = "client_id", required = true, description = "客户端编号", example = "admin"),
             @Parameter(name = "scope", description = "授权范围", example = "read"),
-            @Parameter(name = "redirect_uri", required = true, description =
+            @Parameter(name = "redirect_url", required = true, description =
                     "重定向URI", example = "https://www.baidu.com"),
-            @Parameter(name = "approve_state", required = true, description = "授权是否通过", example = "true"),
     })
     public CommonResponse<String> applyAuthorize(@RequestParam("grant_type") String grantType,
                                                  @RequestParam("client_id") String clientId,
                                                  @RequestParam(value = "scope", required = false) String scope,
-                                                 @RequestParam("redirect_uri") String redirectUri,
-                                                 @RequestParam(value = "approve_state") Boolean approveState) {
+                                                 @RequestParam("redirect_url") String redirectUrl) {
         //1. 转化参数
         Map<String, Boolean> scopes = JsonUtils.parseObject(scope, Map.class);
         if (MapUtils.isEmpty(scopes)) {
@@ -83,22 +84,47 @@ public class Oauth2OpenController {
         //2. 参数检查
         OAuth2GrantTypeEnum auth2GrantTypeEnum = checkGrantTypeEnum(grantType);
         SysOauth2Client sysOauth2Client = oauth2ScopeCodeService.checkOauth2Client(clientId,
-                null, grantType, scopes.keySet(), redirectUri);
+                null, grantType, scopes.keySet(), redirectUrl);
         //3. 授权审批表记录
         AuthUser authUser = getAuthUser();
         assert authUser != null;
         if (!oauth2AuthorizationApproveService.modifyAuthorizationApprove(authUser.getId(),
-                authUser.getUserType(),clientId,scopes )) {
+                authUser.getUserType(), clientId, scopes)) {
             return CommonResponse.ok();
         }
         //4. 按照不同的模式进行处理 处理授权码模式和简化模式
-        if (auth2GrantTypeEnum==OAuth2GrantTypeEnum.AUTHORIZATION_CODE){
-
-            
+        List<String> approveScopes = new ArrayList<>(scopes.keySet());
+        if (auth2GrantTypeEnum == OAuth2GrantTypeEnum.AUTHORIZATION_CODE) {
+            return CommonResponse.ok(getAuthorizationCodeRedirect(authUser.getId(),
+                    authUser.getUserType(), sysOauth2Client, approveScopes, redirectUrl));
         }
         //简化模式
-        return null;
+        return CommonResponse.ok(getImplicitGrantRedirect(authUser.getId(),
+                authUser.getUserType(), sysOauth2Client, approveScopes, redirectUrl));
     }
+
+
+    private String getImplicitGrantRedirect(Long userId, Integer userType, SysOauth2Client client, List<String> scopes, String redirectUrl) {
+        // 1. 创建 access token 访问令牌
+        Oauth2AccessTokenVO accessTokenDO = oauth2GrantService.grantImplicit(userId, userType, client.getClientId(), scopes);
+        Assert.notNull(accessTokenDO, "访问令牌不能为空");
+        // 2. 拼接重定向的 URL
+        return Oauth2Util.buildImplicitRedirectUrl(redirectUrl, accessTokenDO.getAccessToken());
+    }
+
+
+
+    private String getAuthorizationCodeRedirect(Long userId, Integer userType, SysOauth2Client sysOauth2Client,
+                                                List<String> scopes, String redirectUrl) {
+        // 1. 创建 code 授权码
+        String authorizationCode = oauth2GrantService.grantAuthorizationCode(userId, userType,
+                sysOauth2Client.getClientId(), scopes, redirectUrl);
+        // 2. 拼接重定向的 URL
+        return Oauth2Util.buildAuthorizationCodeRedirectUrl(redirectUrl, authorizationCode);
+    }
+
+
+
 
     private OAuth2GrantTypeEnum checkGrantTypeEnum(String grantType) {
         if (StringUtils.equals(grantType,
