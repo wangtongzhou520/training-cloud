@@ -13,13 +13,16 @@ public interface SystemExceptionEnumConstants {
 
 
     /**
-     * Oauth2
+     * Oauth2 token
      */
     ExceptionCode OAUTH2_ACCESS_TOKEN_NOT_FOUND = new ExceptionCode(100001001, "访问令牌不存在");
     ExceptionCode OAUTH2_ACCESS_TOKEN_NOT_EXPIRED = new ExceptionCode(100001002, "访问令牌已过期");
     ExceptionCode OAUTH2_REFRESH_TOKEN_NOT_FOUND=new ExceptionCode(100001003,"刷新令牌不存在");
     ExceptionCode OAUTH2_REFRESH_TOKEN_NOT_EXPIRED= new ExceptionCode(100001004,"刷新令牌已过期");
 
+    /**
+     * Oauth2 client
+     */
     ExceptionCode OAUTH2_CLIENT_EXIST= new ExceptionCode(100001005, "授权客户端编号已存在");
     ExceptionCode OAUTH2_CLIENT_NOT_EXIST= new ExceptionCode(100001006, "授权客户端不存在");
     ExceptionCode OAUTH2_CLIENT_DISABLE= new ExceptionCode(100001007,
@@ -31,13 +34,26 @@ public interface SystemExceptionEnumConstants {
     ExceptionCode OAUTH2_CLIENT_SCOPE_NOT_EXISTS= new ExceptionCode(100001009,
             "授权码范围不支持");
     ExceptionCode OAUTH2_CLIENT_REDIRECT_URI_NOT_MATCH=
-            new ExceptionCode(100001010,
-            "授权重定向地址不匹配");
+            new ExceptionCode(100001010, "授权重定向地址不匹配");
+
+    /**
+     * Oauth2 Authorization Code
+     */
+    ExceptionCode OAUTH2_AUTHORIZATION_CODE_NOT_EXISTS=
+            new ExceptionCode(100001011, "授权码不存在");
+    ExceptionCode OAUTH2_AUTHORIZATION_CODE_NOT_EXPIRED=
+            new ExceptionCode(100001012, "授权码过期");
 
 
-
-
-
+    /**
+     * Oauth2 授权
+     */
+    ExceptionCode OAUTH2_GRANT_CLIENT_ID_NOT_MATCH=
+            new ExceptionCode(100001013, "授权客户端不匹配");
+    ExceptionCode OAUTH2_GRANT_REDIRECT_URL_NOT_MATCH=
+            new ExceptionCode(100001014, "授权重定向地址不匹配");
+    ExceptionCode OAUTH2_GRANT_STATE_NOT_MATCH=
+            new ExceptionCode(100001015, "授权状态不匹配");
     /**
      * auth
      */

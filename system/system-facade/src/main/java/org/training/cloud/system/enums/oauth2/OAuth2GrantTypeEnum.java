@@ -1,9 +1,12 @@
 package org.training.cloud.system.enums.oauth2;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * oauth2授权类型
  *
- * @author wangtongzhou 
+ * @author wangtongzhou
  * @since 2023-04-02 20:37
  */
 public enum OAuth2GrantTypeEnum {
@@ -35,6 +38,19 @@ public enum OAuth2GrantTypeEnum {
     private String desc;
 
 
+    private static Map<String, OAuth2GrantTypeEnum> descMap = new HashMap<>();
+
+
+    static {
+        for (OAuth2GrantTypeEnum value : OAuth2GrantTypeEnum.values()) {
+            descMap.put(value.getDesc(), value);
+        }
+    }
+
+
+    public static OAuth2GrantTypeEnum getByDesc(String desc) {
+        return descMap.get(desc);
+    }
 
 
 }

@@ -1,5 +1,6 @@
 package org.training.cloud.common.mybatis.dao;
 
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
@@ -35,7 +36,11 @@ public class BaseDO implements Serializable {
      */
     private String modifiedOperator;
 
-
+    /**
+     * 是否删除
+     */
+    @TableLogic
+    private Boolean deleteState;
 
 
     public LocalDateTime getGmtCreate() {
@@ -71,6 +76,15 @@ public class BaseDO implements Serializable {
 
     public BaseDO setModifiedOperator(String modifiedOperator) {
         this.modifiedOperator = modifiedOperator;
+        return this;
+    }
+
+    public Boolean getDeleteState() {
+        return deleteState;
+    }
+
+    public BaseDO setDeleteState(Boolean deleteState) {
+        this.deleteState = deleteState;
         return this;
     }
 

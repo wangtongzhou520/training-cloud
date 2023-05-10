@@ -17,9 +17,9 @@ import java.util.List;
  * @since 2020-06-15 21:13
  */
 @Mapper
-public interface SysDeptConvert {
+public interface DeptConvert {
 
-    SysDeptConvert INSTANCE = Mappers.getMapper(SysDeptConvert.class);
+    DeptConvert INSTANCE = Mappers.getMapper(DeptConvert.class);
 
     /**
      * saveDeptDTO convert sysDeptDO

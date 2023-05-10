@@ -37,4 +37,51 @@ public interface Oauth2GrantService {
      */
     Oauth2AccessTokenVO grantImplicit(Long userId, Integer userType, String clientId, List<String> scopes);
 
+
+    /**
+     * 授权码模式
+     *
+     * @param clientId
+     * @param authorizationCode
+     * @param redirectUrl
+     * @param state
+     * @return
+     */
+    Oauth2AccessTokenVO grantAuthorizationCodeAccessToken(String clientId, String authorizationCode,
+                                                          String redirectUrl, String state);
+
+
+    /**
+     * 密码模式
+     *
+     * @param username
+     * @param password
+     * @param clientId
+     * @param scopes
+     * @return
+     */
+    Oauth2AccessTokenVO grantPassWord(String username, String password,
+                                      String clientId, List<String> scopes);
+
+
+    /**
+     * 刷新令牌
+     *
+     * @param refreshToken
+     * @param clientId
+     * @return
+     */
+    Oauth2AccessTokenVO grantRefreshAccessToken(String refreshToken, String clientId);
+
+
+    /**
+     * 客户端模式
+     *
+     * @param refreshToken
+     * @param clientId
+     * @return
+     */
+    Oauth2AccessTokenVO grantClientCredentials(String refreshToken, String clientId);
+
+
 }

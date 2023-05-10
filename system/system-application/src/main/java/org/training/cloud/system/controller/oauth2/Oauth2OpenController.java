@@ -25,10 +25,9 @@ import org.training.cloud.system.utils.Oauth2Util;
 import org.training.cloud.system.vo.oauth2.Oauth2AccessTokenVO;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import javax.annotation.security.PermitAll;
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 import static org.training.cloud.common.core.constant.UserExceptionCode.BAD_REQUEST;
 import static org.training.cloud.common.security.core.utils.SecurityUtils.getAuthUser;
@@ -53,6 +52,9 @@ public class Oauth2OpenController {
 
     @Resource
     private Oauth2GrantService oauth2GrantService;
+
+    @Resource
+    private Oauth2ClientService oauth2ClientService;
 
 
     /**
@@ -98,9 +100,78 @@ public class Oauth2OpenController {
             return CommonResponse.ok(getAuthorizationCodeRedirect(authUser.getId(),
                     authUser.getUserType(), sysOauth2Client, approveScopes, redirectUrl));
         }
-        //简化模式
+        //简化模式 直接返回accessToken
         return CommonResponse.ok(getImplicitGrantRedirect(authUser.getId(),
                 authUser.getUserType(), sysOauth2Client, approveScopes, redirectUrl));
+    }
+
+
+    /**
+     * 获取授权令牌
+     *
+     * @param grantType
+     * @param code
+     * @param redirectUrl
+     * @param username
+     * @param password
+     * @param scope
+     * @param refreshToken
+     * @return
+     */
+    @PostMapping("/token")
+    @Operation(summary = "获得访问令牌")
+    @Parameters({
+            @Parameter(name = "client_id", required = true, description = "客户端ID", example = "code"),
+            @Parameter(name = "client_secret", required = true, description = "客户端秘钥", example = "code"),
+            @Parameter(name = "code", description = "授权范围", example = "read"),
+            @Parameter(name = "grant_type", required = true, description = "授权类型", example = "code"),
+            @Parameter(name = "code", description = "授权范围", example = "read"),
+            @Parameter(name = "redirect_url", description = "重定向 URI", example = "https://www.baidu.com"),
+            @Parameter(name = "state", description = "状态", example = "1"),
+            @Parameter(name = "username", example = "admin"),
+            @Parameter(name = "password", example = "123456"),
+            @Parameter(name = "scope", example = "user_info"),
+            @Parameter(name = "refresh_token", example = "123424233"),
+    })
+    public CommonResponse<Oauth2AccessTokenVO> queryAccessToken(@RequestParam("client_id") String clientId,
+                                                                @RequestParam("client_secret") String clientSecret,
+                                                                @RequestParam("grant_type") String grantType,
+                                                                @RequestParam(value = "code", required = false) String code,
+                                                                @RequestParam(value = "state", required = false) String state,
+                                                                @RequestParam(value = "redirect_url", required = false) String redirectUrl,
+                                                                @RequestParam(value = "username", required = false) String username,
+                                                                @RequestParam(value = "password", required = false) String password,
+                                                                @RequestParam(value = "scope", required = false) String scope,
+                                                                @RequestParam(value = "refresh_token", required = false) String refreshToken) {
+        //1. 参数校验
+        List<String> scopes = Arrays.asList(scope.split(","));
+        //授权类型检查
+        OAuth2GrantTypeEnum auth2GrantTypeEnum = OAuth2GrantTypeEnum.getByDesc(grantType);
+        if (Objects.isNull(auth2GrantTypeEnum)) {
+            throw new BusinessException(BAD_REQUEST.getCode(), grantType + "不支持该授权类型");
+        }
+        if (auth2GrantTypeEnum == OAuth2GrantTypeEnum.IMPLICIT) {
+            throw new BusinessException(BAD_REQUEST.getCode(), "implicit" +
+                    "模式不支持Token访问");
+        }
+        //客户端检查
+        SysOauth2Client sysOauth2Client = oauth2ClientService.checkOauth2Client(clientId, clientSecret, grantType, scopes, redirectUrl);
+        //2. 根据不同的模式进行处理
+        Oauth2AccessTokenVO result;
+        switch (auth2GrantTypeEnum) {
+            case AUTHORIZATION_CODE:
+                result = oauth2GrantService.grantAuthorizationCodeAccessToken(sysOauth2Client.getClientId(), code, redirectUrl, state);
+                break;
+            case PASSWORD:
+                result = oauth2GrantService.grantPassWord(username, password, sysOauth2Client.getClientId(), scopes);
+                break;
+            case REFRESH_TOKEN:
+                result = oauth2GrantService.grantRefreshAccessToken(refreshToken, sysOauth2Client.getClientId());
+                break;
+            default:
+                throw new IllegalArgumentException("暂不支持");
+        }
+        return CommonResponse.ok(result);
     }
 
 
@@ -113,7 +184,6 @@ public class Oauth2OpenController {
     }
 
 
-
     private String getAuthorizationCodeRedirect(Long userId, Integer userType, SysOauth2Client sysOauth2Client,
                                                 List<String> scopes, String redirectUrl) {
         // 1. 创建 code 授权码
@@ -122,8 +192,6 @@ public class Oauth2OpenController {
         // 2. 拼接重定向的 URL
         return Oauth2Util.buildAuthorizationCodeRedirectUrl(redirectUrl, authorizationCode);
     }
-
-
 
 
     private OAuth2GrantTypeEnum checkGrantTypeEnum(String grantType) {

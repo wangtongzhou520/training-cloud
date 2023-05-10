@@ -22,6 +22,9 @@ public class AuthLoginVO implements Serializable {
     @Schema(description = "用户编号", required = true)
     private Long userId;
 
+    @Schema(description = "用户类型", required = true)
+    private Integer userType;
+
     @Schema(description = "访问令牌", required = true)
     private String accessToken;
 

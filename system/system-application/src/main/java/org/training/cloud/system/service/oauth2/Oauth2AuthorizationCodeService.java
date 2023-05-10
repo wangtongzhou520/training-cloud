@@ -26,4 +26,14 @@ public interface Oauth2AuthorizationCodeService {
     SysOauth2AuthorizationCode addAuthorizationCode(Long userId, Integer userType, String clientId,
                                                     List<String> scopes, String redirectUrl);
 
+
+    /**
+     * 使用授权码
+     *
+     * @param authorizationCode
+     * @return
+     */
+    SysOauth2AuthorizationCode userAuthorizationCode(String authorizationCode);
+
+
 }

@@ -12,4 +12,14 @@ import org.training.cloud.system.entity.oauth2.SysOauth2AuthorizationCode;
  */
 @Mapper
 public interface Oauth2AuthorizationCodeMapper extends BaseMapperExtend<SysOauth2AuthorizationCode> {
+
+    /**
+     * 查询授权码信息
+     *
+     * @param authorizationCode
+     * @return
+     */
+    default SysOauth2AuthorizationCode queryByCode(String authorizationCode){
+        return selectOne(SysOauth2AuthorizationCode::getAuthorizationCode,authorizationCode);
+    }
 }

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.training.cloud.common.core.exception.BusinessException;
-import org.training.cloud.system.convert.dept.SysDeptConvert;
+import org.training.cloud.system.convert.dept.DeptConvert;
 import org.training.cloud.system.dao.dept.SysDeptMapper;
 import org.training.cloud.system.dto.dept.SaveDeptDTO;
 import org.training.cloud.system.dto.dept.UpdateDeptDTO;
@@ -35,7 +35,7 @@ public class DeptServiceImpl implements DeptService {
             throw new BusinessException("同一层级下存在相同的部门名称");
         }
         //参数转换
-        SysDept sysDept = SysDeptConvert.INSTANCE.convert(saveDeptDTO);
+        SysDept sysDept = DeptConvert.INSTANCE.convert(saveDeptDTO);
         String level = LevelUtil.calculateLevel(
                 queryLevelById(saveDeptDTO.getParentId()),
                 saveDeptDTO.getParentId());
@@ -105,7 +105,7 @@ public class DeptServiceImpl implements DeptService {
         List<SysDept> allDeptList = sysDeptMapper.queryAllDept();
         //转化实体 do转bo
         List<DeptTreeVO> deptBoList =
-                SysDeptConvert.INSTANCE.convert(allDeptList);
+                DeptConvert.INSTANCE.convert(allDeptList);
         //递归生成树
         return deptBoListConvertDeptTree(deptBoList);
     }

@@ -66,8 +66,7 @@ public class SysOauth2AuthorizationCode extends BaseDO {
 
 
     /**
-     * 状态，0：正常，1：删除
+     * 状态
      */
-    @TableLogic
-    private Integer status;
+    private String state;
 }

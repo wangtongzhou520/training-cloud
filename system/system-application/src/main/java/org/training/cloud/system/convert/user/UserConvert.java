@@ -17,9 +17,9 @@ import java.util.List;
  * @since 2020-08-13 22:00
  */
 @Mapper
-public interface SysUserConvert {
+public interface UserConvert {
 
-    SysUserConvert INSTANCE = Mappers.getMapper(SysUserConvert.class);
+    UserConvert INSTANCE = Mappers.getMapper(UserConvert.class);
 
 
     /**
