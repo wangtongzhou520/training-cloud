@@ -48,8 +48,7 @@ public class Oauth2TokenController {
     @DeleteMapping("/delete")
     @Operation(summary = "检验token合法性")
     public CommonResponse deleteAccessToken(@RequestParam("accessToken") String accessToken) {
-        auth2TokenService.removeToken(accessToken);
-        return CommonResponse.ok();
+        return CommonResponse.ok(auth2TokenService.removeToken(accessToken));
     }
 
 

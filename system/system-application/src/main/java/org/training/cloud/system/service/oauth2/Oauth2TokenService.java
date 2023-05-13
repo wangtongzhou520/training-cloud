@@ -63,6 +63,7 @@ public interface Oauth2TokenService {
      * 删除token
      *
      * @param accessToken
+     * @return
      */
-    void removeToken(String accessToken);
+    Boolean removeToken(String accessToken);
 }

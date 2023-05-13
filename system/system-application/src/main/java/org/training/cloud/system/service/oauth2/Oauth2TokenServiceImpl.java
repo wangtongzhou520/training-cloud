@@ -129,14 +129,14 @@ public class Oauth2TokenServiceImpl implements Oauth2TokenService {
     @Override
     public SysOauth2AccessToken queryAccessTokenByAccessToken(String accessToken) {
         //从缓存中获取
-        SysOauth2AccessToken oauth2AccessToken=accessTokenCacheDAO.get(accessToken);
-        if (Objects.nonNull(oauth2AccessToken)){
+        SysOauth2AccessToken oauth2AccessToken = accessTokenCacheDAO.get(accessToken);
+        if (Objects.nonNull(oauth2AccessToken)) {
             return oauth2AccessToken;
         }
 
         //缓存中没有获取到查询数据库
-        oauth2AccessToken= oauth2AccessTokenMapper.queryAccessByAccessToken(accessToken);
-        if (Objects.nonNull(oauth2AccessToken)&& !DateUtils.isExpired(oauth2AccessToken.getExpiresTime())){
+        oauth2AccessToken = oauth2AccessTokenMapper.queryAccessByAccessToken(accessToken);
+        if (Objects.nonNull(oauth2AccessToken) && !DateUtils.isExpired(oauth2AccessToken.getExpiresTime())) {
             accessTokenCacheDAO.set(oauth2AccessToken);
         }
         return oauth2AccessToken;
@@ -170,25 +170,26 @@ public class Oauth2TokenServiceImpl implements Oauth2TokenService {
             oauth2RefreshTokenMapper.deleteById(auth2RefreshTokenDO.getRefreshToken());
             throw new BusinessException(OAUTH2_REFRESH_TOKEN_NOT_EXPIRED);
         }
-        SysOauth2AccessToken accessToken= createOAuth2AccessToken(auth2RefreshTokenDO, sysOauth2Client);
+        SysOauth2AccessToken accessToken = createOAuth2AccessToken(auth2RefreshTokenDO, sysOauth2Client);
         return Oauth2TokenConvert.INSTANCE.convert(accessToken);
     }
 
     @Override
     public PageResponse<Oauth2AccessTokenVO> pageOauth2AccessToken(Oauth2AccessTokenDTO oauth2AccessTokenDTO) {
-        PageResponse<SysOauth2AccessToken> pageAccessToken= oauth2AccessTokenMapper.pageAccessToken(oauth2AccessTokenDTO);
+        PageResponse<SysOauth2AccessToken> pageAccessToken = oauth2AccessTokenMapper.pageAccessToken(oauth2AccessTokenDTO);
         return Oauth2TokenConvert.INSTANCE.convert(pageAccessToken);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void removeToken(String accessToken) {
-        SysOauth2AccessToken sysOauth2AccessToken=
+    public Boolean removeToken(String accessToken) {
+        SysOauth2AccessToken sysOauth2AccessToken =
                 oauth2AccessTokenMapper.queryAccessByAccessToken(accessToken);
-        if (Objects.isNull(sysOauth2AccessToken)){
-            return;
+        if (Objects.isNull(sysOauth2AccessToken)) {
+            return false;
         }
         oauth2AccessTokenMapper.deleteById(sysOauth2AccessToken.getId());
         oauth2RefreshTokenMapper.removeByRefreshToken(sysOauth2AccessToken.getRefreshToken());
+        return true;
     }
 }

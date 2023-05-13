@@ -1,5 +1,7 @@
 package org.training.cloud.system.service.oauth2;
 
+import org.training.cloud.system.entity.oauth2.SysOauth2AuthorizationApprove;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +26,15 @@ public interface Oauth2AuthorizationApproveService {
     boolean modifyAuthorizationApprove(Long userId, Integer userType, String clientId, Map<String, Boolean> scopes);
 
 
+    /**
+     * 查询审批通过列表 未过期不展示
+     *
+     * @param userId
+     * @param userType
+     * @param clientId
+     * @return
+     */
+    List<SysOauth2AuthorizationApprove> queryAuthorizationApproveList(Long userId, Integer userType, String clientId);
 
 
 }

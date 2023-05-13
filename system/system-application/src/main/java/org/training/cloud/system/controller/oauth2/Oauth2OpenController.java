@@ -8,21 +8,23 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.training.cloud.common.core.exception.BusinessException;
 import org.training.cloud.common.core.utils.josn.JsonUtils;
 import org.training.cloud.common.core.vo.CommonResponse;
 import org.training.cloud.common.security.core.model.AuthUser;
+import org.training.cloud.system.convert.oauth2.Oauth2OpenConvert;
+import org.training.cloud.system.entity.oauth2.SysOauth2AuthorizationApprove;
 import org.training.cloud.system.entity.oauth2.SysOauth2Client;
 import org.training.cloud.system.enums.oauth2.OAuth2GrantTypeEnum;
 import org.training.cloud.system.service.oauth2.Oauth2AuthorizationApproveService;
 import org.training.cloud.system.service.oauth2.Oauth2ClientService;
 import org.training.cloud.system.service.oauth2.Oauth2GrantService;
+import org.training.cloud.system.service.oauth2.Oauth2TokenService;
+import org.training.cloud.system.utils.HttpUtil;
 import org.training.cloud.system.utils.Oauth2Util;
 import org.training.cloud.system.vo.oauth2.Oauth2AccessTokenVO;
+import org.training.cloud.system.vo.oauth2.Oauth2AuthorizationInfoVO;
 
 import javax.annotation.Resource;
 import javax.annotation.security.PermitAll;
@@ -56,6 +58,26 @@ public class Oauth2OpenController {
     @Resource
     private Oauth2ClientService oauth2ClientService;
 
+    @Resource
+    private Oauth2TokenService oauth2TokenService;
+
+
+    @GetMapping("/authorize")
+    @Operation(summary = "获得授权信息", description = "适合授权码模式简化模式")
+    @Parameter(name = "clientId", required = true, description = "客户端编号", example = "admin")
+    public CommonResponse<Oauth2AuthorizationInfoVO> authorize(@RequestParam("clientId") String clientId) {
+        //验证客户端
+        SysOauth2Client sysOauth2Client = oauth2ClientService.checkOauth2Client(clientId, null,
+                null, null, null);
+        //获取客户端授权信息
+        AuthUser authUser = getAuthUser();
+        assert authUser != null;
+        List<SysOauth2AuthorizationApprove> authorizationApproves = oauth2AuthorizationApproveService
+                .queryAuthorizationApproveList(authUser.getId(), authUser.getUserType(), clientId);
+        return CommonResponse.ok(Oauth2OpenConvert.INSTANCE.convert(sysOauth2Client,
+                authorizationApproves));
+    }
+
 
     /**
      * 授权申请页面
@@ -72,7 +94,7 @@ public class Oauth2OpenController {
             @Parameter(name = "client_id", required = true, description = "客户端编号", example = "admin"),
             @Parameter(name = "scope", description = "授权范围", example = "read"),
             @Parameter(name = "redirect_url", required = true, description =
-                    "重定向URI", example = "https://www.baidu.com"),
+                    "重定向URL", example = "https://www.baidu.com"),
     })
     public CommonResponse<String> applyAuthorize(@RequestParam("grant_type") String grantType,
                                                  @RequestParam("client_id") String clientId,
@@ -121,8 +143,6 @@ public class Oauth2OpenController {
     @PostMapping("/token")
     @Operation(summary = "获得访问令牌")
     @Parameters({
-            @Parameter(name = "client_id", required = true, description = "客户端ID", example = "code"),
-            @Parameter(name = "client_secret", required = true, description = "客户端秘钥", example = "code"),
             @Parameter(name = "code", description = "授权范围", example = "read"),
             @Parameter(name = "grant_type", required = true, description = "授权类型", example = "code"),
             @Parameter(name = "code", description = "授权范围", example = "read"),
@@ -133,16 +153,15 @@ public class Oauth2OpenController {
             @Parameter(name = "scope", example = "user_info"),
             @Parameter(name = "refresh_token", example = "123424233"),
     })
-    public CommonResponse<Oauth2AccessTokenVO> queryAccessToken(@RequestParam("client_id") String clientId,
-                                                                @RequestParam("client_secret") String clientSecret,
-                                                                @RequestParam("grant_type") String grantType,
-                                                                @RequestParam(value = "code", required = false) String code,
-                                                                @RequestParam(value = "state", required = false) String state,
-                                                                @RequestParam(value = "redirect_url", required = false) String redirectUrl,
-                                                                @RequestParam(value = "username", required = false) String username,
-                                                                @RequestParam(value = "password", required = false) String password,
-                                                                @RequestParam(value = "scope", required = false) String scope,
-                                                                @RequestParam(value = "refresh_token", required = false) String refreshToken) {
+    public CommonResponse<Oauth2AccessTokenVO> postAccessToken(HttpServletRequest request,
+                                                               @RequestParam("grant_type") String grantType,
+                                                               @RequestParam(value = "code", required = false) String code,
+                                                               @RequestParam(value = "state", required = false) String state,
+                                                               @RequestParam(value = "redirect_url", required = false) String redirectUrl,
+                                                               @RequestParam(value = "username", required = false) String username,
+                                                               @RequestParam(value = "password", required = false) String password,
+                                                               @RequestParam(value = "scope", required = false) String scope,
+                                                               @RequestParam(value = "refresh_token", required = false) String refreshToken) {
         //1. 参数校验
         List<String> scopes = Arrays.asList(scope.split(","));
         //授权类型检查
@@ -155,7 +174,9 @@ public class Oauth2OpenController {
                     "模式不支持Token访问");
         }
         //客户端检查
-        SysOauth2Client sysOauth2Client = oauth2ClientService.checkOauth2Client(clientId, clientSecret, grantType, scopes, redirectUrl);
+        String[] clientIdAndSecret = getClientInfo(request);
+        SysOauth2Client sysOauth2Client = oauth2ClientService.checkOauth2Client(clientIdAndSecret[0],
+                clientIdAndSecret[1], grantType, scopes, redirectUrl);
         //2. 根据不同的模式进行处理
         Oauth2AccessTokenVO result;
         switch (auth2GrantTypeEnum) {
@@ -173,6 +194,35 @@ public class Oauth2OpenController {
         }
         return CommonResponse.ok(result);
     }
+
+
+    @PostMapping("/checkToken")
+    @Operation(summary = "校验访问令牌")
+    @Parameter(name = "token", required = true, description = "访问令牌", example = "admin")
+    public CommonResponse<Oauth2AccessTokenVO> checkToken(HttpServletRequest request,
+                                                          @RequestParam("token") String token) {
+        //检查客户端参数
+        String[] clientIdAndSecret = getClientInfo(request);
+        oauth2ClientService.checkOauth2Client(clientIdAndSecret[0],
+                clientIdAndSecret[1], null, null, null);
+        //检查token
+        Oauth2AccessTokenVO accessTokenDO = oauth2TokenService.checkAccessToken(token);
+        return CommonResponse.ok(accessTokenDO);
+    }
+
+    @DeleteMapping("/token")
+    @Operation(summary = "删除token")
+    @Parameter(name = "token", required = true, description = "访问令牌", example = "admin")
+    public CommonResponse<Boolean> removeToken(HttpServletRequest request,
+                                               @RequestParam("token") String token) {
+        //检查客户端参数
+        String[] clientIdAndSecret = getClientInfo(request);
+        oauth2ClientService.checkOauth2Client(clientIdAndSecret[0],
+                clientIdAndSecret[1], null, null, null);
+        return CommonResponse.ok(oauth2TokenService.removeToken(token));
+    }
+
+
 
 
     private String getImplicitGrantRedirect(Long userId, Integer userType, SysOauth2Client client, List<String> scopes, String redirectUrl) {
@@ -206,4 +256,12 @@ public class Oauth2OpenController {
         throw new BusinessException(BAD_REQUEST.getCode(), "授权模式只支持授权码以及简化模式");
     }
 
+
+    private String[] getClientInfo(HttpServletRequest request) {
+        String[] clientIdAndSecret = HttpUtil.getClientInfo(request);
+        if (Objects.isNull(clientIdAndSecret) || clientIdAndSecret.length != 2) {
+            throw new BusinessException(BAD_REQUEST.getCode(), "客户端信息异常");
+        }
+        return clientIdAndSecret;
+    }
 }

@@ -4,12 +4,14 @@ import com.google.common.collect.Maps;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.springframework.stereotype.Service;
+import org.training.cloud.common.core.utils.date.DateUtils;
 import org.training.cloud.system.dao.oauth2.Oauth2AuthorizationApproveMapper;
 import org.training.cloud.system.entity.oauth2.SysOauth2AuthorizationApprove;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -46,7 +48,14 @@ public class Oauth2AuthorizationApproveServiceImpl implements Oauth2Authorizatio
         return result;
     }
 
-
+    @Override
+    public List<SysOauth2AuthorizationApprove> queryAuthorizationApproveList(Long userId, Integer userType, String clientId) {
+        List<SysOauth2AuthorizationApprove> oauth2AuthorizationApproves =
+                authorizationApproveMapper.selectByUserAndClientId(userId, userType, clientId);
+        //筛选出来过期的信息
+        oauth2AuthorizationApproves.removeIf(x -> DateUtils.isExpired(x.getExpiresTime()));
+        return oauth2AuthorizationApproves;
+    }
 
 
     /**

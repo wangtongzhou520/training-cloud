@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
  */
 @Data
 @Accessors(chain = true)
-public class Oauth2AccessTokenVO {
+public class Oauth2AccessTokenVO implements Serializable {
 
     @Schema(description = "编号", required = true, example = "1024")
     private Long id;

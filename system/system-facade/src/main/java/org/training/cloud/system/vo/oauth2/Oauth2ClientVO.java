@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 展示信息
+ * oauth2 client 展示信息
  *
  * @author wangtongzhou 
  * @since 2023-04-02 17:15

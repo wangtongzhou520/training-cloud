@@ -58,9 +58,4 @@ public class SysOauth2AuthorizationApprove extends BaseDO {
      */
     private LocalDateTime expiresTime;
 
-
-    /**
-     * 状态，0：正常，1：删除
-     */
-    private int status;
 }
