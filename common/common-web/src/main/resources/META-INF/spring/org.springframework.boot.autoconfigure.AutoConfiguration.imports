@@ -1,1 +1,2 @@
 org.training.cloud.common.web.config.WebAutoConfiguration
+org.training.cloud.common.jackson.JacksonAutoConfiguration

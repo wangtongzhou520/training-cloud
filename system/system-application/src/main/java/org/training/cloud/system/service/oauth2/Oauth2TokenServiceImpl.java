@@ -47,7 +47,6 @@ public class Oauth2TokenServiceImpl implements Oauth2TokenService {
     @Autowired
     private Oauth2ClientService oauth2ClientService;
 
-
     @Autowired
     private Oauth2AccessTokenCacheDAO accessTokenCacheDAO;
 
@@ -56,6 +55,7 @@ public class Oauth2TokenServiceImpl implements Oauth2TokenService {
     public Oauth2AccessTokenVO createAccessToken(AddOauth2AccessTokenDTO addOauth2AccessTokenDTO) {
         //检查授权客户端
         SysOauth2Client sysOauth2Client = oauth2ClientService.queryOauth2ClientByClientId(addOauth2AccessTokenDTO.getClientId());
+
         //插入刷新令牌
         SysOauth2RefreshToken oauth2RefreshToken =
                 createOAuth2RefreshToken(sysOauth2Client, addOauth2AccessTokenDTO);
@@ -118,7 +118,6 @@ public class Oauth2TokenServiceImpl implements Oauth2TokenService {
             throw new BusinessException(OAUTH2_ACCESS_TOKEN_NOT_FOUND);
         }
         //检查token过期时间
-
         if (LocalDateTime.now().isAfter(oAuth2AccessTokenSys.getExpiresTime())) {
             throw new BusinessException(OAUTH2_ACCESS_TOKEN_NOT_EXPIRED);
         }

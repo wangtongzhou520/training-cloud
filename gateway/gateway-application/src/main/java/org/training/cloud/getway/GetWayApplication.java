@@ -12,7 +12,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-//@EnableFeignClients(clients = {Oauth2TokenApi.class})
 public class GetWayApplication {
 
 

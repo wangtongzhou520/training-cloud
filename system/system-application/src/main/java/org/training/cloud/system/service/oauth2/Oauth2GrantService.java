@@ -21,9 +21,12 @@ public interface Oauth2GrantService {
      * @param clientId
      * @param scopes
      * @param redirectUrl
+     * @param state
      * @return
      */
-    String grantAuthorizationCode(Long userId, Integer userType, String clientId, List<String> scopes, String redirectUrl);
+    String grantAuthorizationCode(Long userId, Integer userType,
+                                  String clientId, List<String> scopes,
+                                  String redirectUrl,String state);
 
 
     /**

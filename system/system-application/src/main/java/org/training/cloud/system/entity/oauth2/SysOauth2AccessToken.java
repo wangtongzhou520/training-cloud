@@ -65,9 +65,4 @@ public class SysOauth2AccessToken extends BaseDO {
     @TableField(typeHandler = JacksonTypeHandler.class)
     private List<String> scopes;
 
-    /**
-     * 状态，0：正常，1：删除
-     */
-    @TableLogic
-    private Integer status;
 }

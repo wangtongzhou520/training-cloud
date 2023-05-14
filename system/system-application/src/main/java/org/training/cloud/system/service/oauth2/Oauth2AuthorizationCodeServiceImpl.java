@@ -32,7 +32,8 @@ public class Oauth2AuthorizationCodeServiceImpl implements Oauth2AuthorizationCo
     private Oauth2AuthorizationCodeMapper authorizationCodeMapper;
 
     @Override
-    public SysOauth2AuthorizationCode addAuthorizationCode(Long userId, Integer userType, String clientId, List<String> scopes, String redirectUrl) {
+    public SysOauth2AuthorizationCode addAuthorizationCode(Long userId, Integer userType, String clientId,
+                                                           List<String> scopes, String redirectUrl,String state) {
         SysOauth2AuthorizationCode authorizationCode = new SysOauth2AuthorizationCode()
                 .setAuthorizationCode(UUID.randomUUID().toString())
                 .setClientId(clientId)
@@ -40,6 +41,7 @@ public class Oauth2AuthorizationCodeServiceImpl implements Oauth2AuthorizationCo
                 .setUserId(userId)
                 .setUserType(userType)
                 .setExpiresTime(LocalDateTime.now().plusSeconds(TIMEOUT))
+                .setState(state)
                 .setScopes(scopes);
         authorizationCodeMapper.insert(authorizationCode);
         return authorizationCode;

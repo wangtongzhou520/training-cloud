@@ -37,10 +37,4 @@ public class SysOauth2ScopeCode extends BaseDO {
      */
     private String scopeDescription;
 
-
-    /**
-     * 状态，0：正常，1：删除
-     */
-    @TableLogic
-    private Integer status;
 }

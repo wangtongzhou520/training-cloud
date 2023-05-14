@@ -58,7 +58,7 @@ public class Oauth2ClientServiceImpl implements Oauth2ClientService {
         //检查id是否存在
         SysOauth2Client sysOauth2Client = checkExists(id);
         //更新
-        sysOauth2Client.setStatus(Oauth2ClientStateEnum.DISABLE.getCode());
+        sysOauth2Client.setState(Oauth2ClientStateEnum.DISABLE.getCode());
         oauth2ClientMapper.updateById(sysOauth2Client);
         //TODO 刷新缓存
     }
@@ -76,7 +76,7 @@ public class Oauth2ClientServiceImpl implements Oauth2ClientService {
             throw new BusinessException(OAUTH2_CLIENT_NOT_EXIST);
         }
         //检查客户端状态
-        if (Oauth2ClientStateEnum.DISABLE.getCode().equals(sysOauth2Client.getStatus())) {
+        if (Oauth2ClientStateEnum.DISABLE.getCode().equals(sysOauth2Client.getState())) {
             throw new BusinessException(OAUTH2_CLIENT_DISABLE);
         }
         return sysOauth2Client;
@@ -94,7 +94,7 @@ public class Oauth2ClientServiceImpl implements Oauth2ClientService {
             throw new BusinessException(OAUTH2_CLIENT_EXIST);
         }
         //状态检查
-        if (Oauth2ClientStateEnum.DISABLE.getCode().equals(sysOauth2Client.getStatus())) {
+        if (Oauth2ClientStateEnum.DISABLE.getCode().equals(sysOauth2Client.getState())) {
             throw new BusinessException(OAUTH2_CLIENT_DISABLE);
         }
         //客户端密钥检查

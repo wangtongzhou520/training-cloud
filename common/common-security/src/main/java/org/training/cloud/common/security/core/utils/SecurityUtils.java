@@ -74,7 +74,7 @@ public class SecurityUtils {
         if (authentication == null) {
             return null;
         }
-        return authentication.getPrincipal() instanceof Authentication ?
+        return authentication.getPrincipal() instanceof AuthUser ?
                 (AuthUser) authentication.getPrincipal() : null;
     }
 

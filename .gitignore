@@ -10,3 +10,5 @@ build
 *dev.properties
 logs
 *.lock
+.env
+

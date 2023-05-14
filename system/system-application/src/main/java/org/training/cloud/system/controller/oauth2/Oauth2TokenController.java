@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.training.cloud.common.core.vo.CommonResponse;
 import org.training.cloud.common.core.vo.PageResponse;
+import org.training.cloud.common.security.core.annotations.NotAuthentication;
 import org.training.cloud.system.dto.oauth2.Oauth2AccessTokenDTO;
 import org.training.cloud.system.service.oauth2.Oauth2TokenService;
 import org.training.cloud.system.vo.oauth2.Oauth2AccessTokenVO;
@@ -24,6 +25,7 @@ public class Oauth2TokenController {
     @Autowired
     private Oauth2TokenService auth2TokenService;
 
+    @NotAuthentication
     @GetMapping("/checkAccessToken/{accessToken}")
     @Operation(summary = "检验token合法性")
     public CommonResponse<Oauth2AccessTokenVO> checkAccessToken(@PathVariable("accessToken") String accessToken) {

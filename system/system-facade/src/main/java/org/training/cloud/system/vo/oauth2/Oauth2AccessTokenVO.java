@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class Oauth2AccessTokenVO implements Serializable {
      * 过期时间
      */
     @Schema(description = "过期时间", required = true)
-    private Date expiresTime;
+    private LocalDateTime expiresTime;
 
 
     @Schema(description = "用户类型", required = true)

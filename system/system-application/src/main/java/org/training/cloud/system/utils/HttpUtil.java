@@ -80,10 +80,10 @@ public class HttpUtil {
         String clientSecret = null;
         // 先从 Header 中获取
         String authorization = request.getHeader("Authorization");
-        if (authorization.contains("Bearer")) {
+        if (authorization.contains("Basic")) {
             String[] auth = authorization.split(" ");
             if (auth.length == 2) {
-                authorization = Base64Utils.encodeToString(auth[1].getBytes(StandardCharsets.UTF_8));
+                authorization = new String(Base64Utils.decodeFromString(auth[1]));
                 if (authorization.contains(":")) {
                     String[] client = authorization.split(":");
                     clientId = client[0];

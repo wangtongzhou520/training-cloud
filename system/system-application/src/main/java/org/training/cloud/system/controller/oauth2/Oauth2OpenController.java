@@ -1,5 +1,6 @@
 package org.training.cloud.system.controller.oauth2;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.training.cloud.common.core.exception.BusinessException;
 import org.training.cloud.common.core.utils.josn.JsonUtils;
 import org.training.cloud.common.core.vo.CommonResponse;
+import org.training.cloud.common.security.core.annotations.NotAuthentication;
 import org.training.cloud.common.security.core.model.AuthUser;
 import org.training.cloud.system.convert.oauth2.Oauth2OpenConvert;
 import org.training.cloud.system.entity.oauth2.SysOauth2AuthorizationApprove;
@@ -99,7 +101,8 @@ public class Oauth2OpenController {
     public CommonResponse<String> applyAuthorize(@RequestParam("grant_type") String grantType,
                                                  @RequestParam("client_id") String clientId,
                                                  @RequestParam(value = "scope", required = false) String scope,
-                                                 @RequestParam("redirect_url") String redirectUrl) {
+                                                 @RequestParam("redirect_url") String redirectUrl,
+                                                 @RequestParam(value = "state", required = false) String state) {
         //1. 转化参数
         Map<String, Boolean> scopes = JsonUtils.parseObject(scope, Map.class);
         if (MapUtils.isEmpty(scopes)) {
@@ -120,7 +123,8 @@ public class Oauth2OpenController {
         List<String> approveScopes = new ArrayList<>(scopes.keySet());
         if (auth2GrantTypeEnum == OAuth2GrantTypeEnum.AUTHORIZATION_CODE) {
             return CommonResponse.ok(getAuthorizationCodeRedirect(authUser.getId(),
-                    authUser.getUserType(), sysOauth2Client, approveScopes, redirectUrl));
+                    authUser.getUserType(), sysOauth2Client, approveScopes,
+                    redirectUrl, state));
         }
         //简化模式 直接返回accessToken
         return CommonResponse.ok(getImplicitGrantRedirect(authUser.getId(),
@@ -142,6 +146,7 @@ public class Oauth2OpenController {
      */
     @PostMapping("/token")
     @Operation(summary = "获得访问令牌")
+    @NotAuthentication
     @Parameters({
             @Parameter(name = "code", description = "授权范围", example = "read"),
             @Parameter(name = "grant_type", required = true, description = "授权类型", example = "code"),
@@ -163,7 +168,10 @@ public class Oauth2OpenController {
                                                                @RequestParam(value = "scope", required = false) String scope,
                                                                @RequestParam(value = "refresh_token", required = false) String refreshToken) {
         //1. 参数校验
-        List<String> scopes = Arrays.asList(scope.split(","));
+        List<String> scopes = Lists.newArrayList();
+        if (StringUtils.isNotBlank(scope)) {
+            scopes = Arrays.asList(scope.split(","));
+        }
         //授权类型检查
         OAuth2GrantTypeEnum auth2GrantTypeEnum = OAuth2GrantTypeEnum.getByDesc(grantType);
         if (Objects.isNull(auth2GrantTypeEnum)) {
@@ -195,7 +203,7 @@ public class Oauth2OpenController {
         return CommonResponse.ok(result);
     }
 
-
+    @PermitAll
     @PostMapping("/checkToken")
     @Operation(summary = "校验访问令牌")
     @Parameter(name = "token", required = true, description = "访问令牌", example = "admin")
@@ -211,6 +219,7 @@ public class Oauth2OpenController {
     }
 
     @DeleteMapping("/token")
+    @PermitAll
     @Operation(summary = "删除token")
     @Parameter(name = "token", required = true, description = "访问令牌", example = "admin")
     public CommonResponse<Boolean> removeToken(HttpServletRequest request,
@@ -223,8 +232,6 @@ public class Oauth2OpenController {
     }
 
 
-
-
     private String getImplicitGrantRedirect(Long userId, Integer userType, SysOauth2Client client, List<String> scopes, String redirectUrl) {
         // 1. 创建 access token 访问令牌
         Oauth2AccessTokenVO accessTokenDO = oauth2GrantService.grantImplicit(userId, userType, client.getClientId(), scopes);
@@ -235,12 +242,14 @@ public class Oauth2OpenController {
 
 
     private String getAuthorizationCodeRedirect(Long userId, Integer userType, SysOauth2Client sysOauth2Client,
-                                                List<String> scopes, String redirectUrl) {
+                                                List<String> scopes,
+                                                String redirectUrl,
+                                                String state) {
         // 1. 创建 code 授权码
         String authorizationCode = oauth2GrantService.grantAuthorizationCode(userId, userType,
-                sysOauth2Client.getClientId(), scopes, redirectUrl);
+                sysOauth2Client.getClientId(), scopes, redirectUrl, state);
         // 2. 拼接重定向的 URL
-        return Oauth2Util.buildAuthorizationCodeRedirectUrl(redirectUrl, authorizationCode);
+        return Oauth2Util.buildAuthorizationCodeRedirectUrl(redirectUrl, authorizationCode, state);
     }
 
 

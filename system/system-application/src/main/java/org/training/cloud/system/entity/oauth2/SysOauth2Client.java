@@ -83,7 +83,8 @@ public class SysOauth2Client extends BaseDO {
     private Long refreshTokenValiditySeconds;
 
     /**
-     * 状态，0：正常，1：删除
+     * 状态
      */
-    private Integer status;
+    private Integer state;
+
 }

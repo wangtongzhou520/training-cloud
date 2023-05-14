@@ -25,7 +25,7 @@ public interface Oauth2TokenApi {
     String CHECK_TOKEN = "http://" + ApiConstants.NAME + "/sys/oauth2token/checkAccessToken";
 
 
-    @GetMapping("/sys/oauth2token/checkAccessToken/{accessToken}")
+    @GetMapping("/sys/oauth2/token/checkAccessToken/{accessToken}")
     @Operation(summary = "校验访问令牌")
     CommonResponse<Oauth2AccessTokenVO> checkAccessToken(@PathVariable("accessToken") String accessToken);
 

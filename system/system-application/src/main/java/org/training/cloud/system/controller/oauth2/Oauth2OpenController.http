@@ -1,0 +1,54 @@
+
+
+###密码模式认证
+POST http://localhost:8080/sys/oauth2/token
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+grant_type=password&username=admin&password=123456&scope=read
+
+
+
+###授权码模式验证
+
+###获取授权码
+POST http://localhost:8080/sys/oauth2/applyAuthorize
+Content-Type: application/x-www-form-urlencoded
+Authorization: Bearer 866bde0e-5c5d-4e96-8eeb-54b5f48111ba
+
+grant_type=authorization_code&client_id=admin&scope={"read": true}&redirect_url=http://localhost:8080&state=www
+
+
+###授权码认证
+POST http://localhost:8080/sys/oauth2/token
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+grant_type=authorization_code&code=d4a44f44-4ff2-4653-8714-3edba8e9f5e5&scope=read&redirect_url=http://localhost:8080&state=www
+
+
+
+
+###简化模式认证
+
+###获取授权码
+POST http://localhost:8080/sys/oauth2/applyAuthorize
+Content-Type: application/x-www-form-urlencoded
+Authorization: Bearer 866bde0e-5c5d-4e96-8eeb-54b5f48111ba
+
+grant_type=implicit&client_id=admin&scope={"read": true}&redirect_url=http://localhost:8080
+
+
+
+###刷新令牌
+
+POST http://localhost:8080/sys/oauth2/token
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+grant_type=refresh_token&refresh_token=4843e186-afbf-4106-9186-b8efd995420d
+
+
+
+
+

@@ -1,4 +1,4 @@
-package org.training.cloud.common.swagger;
+package org.training.cloud.common.swagger.config;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;

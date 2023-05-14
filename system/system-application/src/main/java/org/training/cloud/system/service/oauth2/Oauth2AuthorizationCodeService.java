@@ -21,10 +21,13 @@ public interface Oauth2AuthorizationCodeService {
      * @param clientId
      * @param scopes
      * @param redirectUrl
+     * @param state
      * @return
      */
     SysOauth2AuthorizationCode addAuthorizationCode(Long userId, Integer userType, String clientId,
-                                                    List<String> scopes, String redirectUrl);
+                                                    List<String> scopes,
+                                                    String redirectUrl,
+                                                    String state);
 
 
     /**

@@ -34,9 +34,10 @@ public class Oauth2GrantServiceImpl implements Oauth2GrantService {
     private AuthService authService;
 
     @Override
-    public String grantAuthorizationCode(Long userId, Integer userType, String clientId, List<String> scopes, String redirectUrl) {
+    public String grantAuthorizationCode(Long userId, Integer userType, String clientId,
+                                         List<String> scopes, String redirectUrl,String state) {
         return authorizationCodeService.addAuthorizationCode(userId,userType,
-                clientId,scopes,redirectUrl).getAuthorizationCode();
+                clientId,scopes,redirectUrl,state).getAuthorizationCode();
     }
 
     @Override

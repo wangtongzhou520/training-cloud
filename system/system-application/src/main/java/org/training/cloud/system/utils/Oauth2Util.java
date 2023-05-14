@@ -14,8 +14,8 @@ import java.util.Map;
  */
 public class Oauth2Util {
 
-    public static String buildAuthorizationCodeRedirectUrl(String redirectUrl, String authorizationCode) {
-        return redirectUrl + "?code=" + authorizationCode;
+    public static String buildAuthorizationCodeRedirectUrl(String redirectUrl, String authorizationCode, String state) {
+        return redirectUrl + "?code=" + authorizationCode + "&state" + state;
     }
 
 
