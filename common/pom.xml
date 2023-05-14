@@ -19,6 +19,7 @@
         <module>common-feign</module>
         <module>common-swagger</module>
         <module>common-redis</module>
+        <module>common-log</module>
     </modules>
 
 
