@@ -1,4 +1,4 @@
-package org.training.cloud.system.controller.oauth2;
+package org.training.cloud.system.controller.admin.oauth2;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.training.cloud.common.core.vo.CommonResponse;
 import org.training.cloud.common.core.vo.PageResponse;
-import org.training.cloud.system.dto.oauth2.Oauth2AccessTokenDTO;
 import org.training.cloud.system.dto.oauth2.Oauth2ScopeCodeDTO;
 import org.training.cloud.system.service.oauth2.Oauth2ScopeCodeService;
-import org.training.cloud.system.vo.oauth2.Oauth2AccessTokenVO;
 import org.training.cloud.system.vo.oauth2.Oauth2ScopeCodeVO;
 
 /**

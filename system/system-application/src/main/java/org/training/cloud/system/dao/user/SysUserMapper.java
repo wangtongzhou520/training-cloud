@@ -3,10 +3,14 @@ package org.training.cloud.system.dao.user;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.training.cloud.common.core.vo.PageParam;
+import org.training.cloud.common.core.vo.PageResponse;
+import org.training.cloud.common.mybatis.extend.LambdaQueryWrapperExtend;
 import org.training.cloud.common.mybatis.mapper.BaseMapperExtend;
+import org.training.cloud.system.dto.admin.user.AdminUserDTO;
 import org.training.cloud.system.entity.user.SysUser;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import org.training.cloud.system.enums.user.UserTypeEnum;
 
 import java.util.List;
 
@@ -21,49 +25,47 @@ public interface SysUserMapper extends BaseMapperExtend<SysUser> {
 
 
     /**
+     * 根据邮箱查询用户
+     *
+     * @param mail
+     * @return
+     */
+    default SysUser selectByMail(String mail) {
+        return selectOne(SysUser::getMail, mail);
+    }
+
+    /**
+     * 根据电话查询用户
+     *
+     * @param telephone
+     * @return
+     */
+    default SysUser selectByPhone(String telephone) {
+        return selectOne(SysUser::getTelephone, telephone);
+    }
+
+
+    /**
      * 根据用户名查询用户
      *
      * @param username
      * @return
      */
-    default SysUser queryByUserName(String username) {
+    default SysUser selectByUserName(String username) {
         return selectOne(SysUser::getUsername, username);
     }
 
-//    /**
-//     * 查询mail有没有注册过
-//     *
-//     * @param mail mail
-//     * @param id   用户id
-//     * @return 数量
-//     */
-//    int countByMail(@Param("mail") String mail, @Param("id") Integer id);
-//
-//    /**
-//     * 查询mail有没有注册过
-//     *
-//     * @param telephone telephone
-//     * @param id        id
-//     * @return 数量
-//     */
-//    int countByTelephone(@Param("telephone") String telephone,
-//                         @Param("id") Integer id);
-//
-//    /**
-//     * 根据部门名称分页查询用户信息
-//     *
-//     * @param deptId    deptId
-//     * @param pageParam pageParam
-//     * @return 用户信息
-//     */
-//    List<SysUser> queryPageByDeptId(@Param("deptId") String deptId,
-//                                    @Param("pageParam") PageParam pageParam);
-//
-//    /**
-//     * 根据部门查询总条数
-//     *
-//     * @param deptId deptId
-//     * @return 用户信息
-//     */
-//    Long countByDeptId(@Param("deptId") String deptId);
+    /**
+     * 管理端分页查询
+     *
+     * @param adminUserDTO
+     * @return
+     */
+    default PageResponse<SysUser> selectPage(AdminUserDTO adminUserDTO) {
+        return selectPage(adminUserDTO, new LambdaQueryWrapperExtend<SysUser>()
+                .likeIfPresent(SysUser::getUsername, adminUserDTO.getUserName())
+                .eqIfPresent(SysUser::getDeptId, adminUserDTO.getDeptId())
+                .eq(SysUser::getUserType, UserTypeEnum.USER.getCode())
+        );
+    }
 }

@@ -1,4 +1,4 @@
-package org.training.cloud.system.controller.auth;
+package org.training.cloud.system.controller.admin.auth;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -1,12 +1,9 @@
 package org.training.cloud.system.service.user;
 
-import org.training.cloud.common.core.vo.PageParam;
-import org.training.cloud.system.dto.user.SaveUserDTO;
-import org.training.cloud.system.dto.user.UpdateUserDTO;
+import org.training.cloud.common.core.vo.PageResponse;
+import org.training.cloud.system.dto.admin.user.AddAdminUserDTO;
+import org.training.cloud.system.dto.admin.user.AdminUserDTO;
 import org.training.cloud.system.entity.user.SysUser;
-import org.training.cloud.system.vo.user.SysUserVO;
-
-import java.util.List;
 
 /**
  * 用户相关
@@ -16,12 +13,12 @@ import java.util.List;
  */
 public interface UserService {
 
-//    /**
-//     * 保存用户信息
-//     *
-//     * @param saveUserDTO saveUserDTO
-//     */
-//    void saveUser(SaveUserDTO saveUserDTO);
+    /**
+     * 保存用户信息
+     *
+     * @param addAdminUserDTO
+     */
+    void addUser(AddAdminUserDTO addAdminUserDTO);
 //
 //    /**
 //     * 更新用户信息
@@ -37,16 +34,14 @@ public interface UserService {
      * @return 用户信息
      */
     SysUser querySysByUserName(String userName);
-//
-//    /**
-//     * 分页查询用户信息
-//     *
-//     * @param deptId    deptId
-//     * @param pageParam pageParam
-//     * @return 用户分页信息
-//     */
-//    List<SysUserVO> querySysUsersByDeptId(String deptId,
-//                                          PageParam pageParam);
+
+    /**
+     * 分页查询用户信息
+     *
+     * @param adminUserDTO
+     * @return 用户分页信息
+     */
+    PageResponse<SysUser> pageAdminUser(AdminUserDTO adminUserDTO);
 //
 //    /**
 //     * 部门id

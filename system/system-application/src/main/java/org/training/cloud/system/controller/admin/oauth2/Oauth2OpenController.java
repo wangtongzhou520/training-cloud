@@ -1,4 +1,4 @@
-package org.training.cloud.system.controller.oauth2;
+package org.training.cloud.system.controller.admin.oauth2;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;

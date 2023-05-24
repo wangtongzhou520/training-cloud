@@ -1,4 +1,4 @@
-package org.training.cloud.system.dto.user;
+package org.training.cloud.system.dto.admin.user;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -15,7 +15,7 @@ import java.io.Serializable;
  */
 @Data
 @Accessors(chain = true)
-public class SaveUserDTO implements Serializable {
+public class AddAdminUserDTO implements Serializable {
 
 
     /**
@@ -24,6 +24,14 @@ public class SaveUserDTO implements Serializable {
     @Schema(description = "用户名称", required = true, example = "xxxx")
     @NotEmpty(message = "用户名称不能为空")
     private String username;
+
+
+    /**
+     * 密码
+     */
+    @Schema(description = "用户密码", required = true, example = "xxxx")
+    @NotEmpty(message = "用户密码不能为空")
+    private String password;
 
     /**
      * 手机号

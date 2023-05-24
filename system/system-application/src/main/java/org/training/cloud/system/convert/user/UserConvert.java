@@ -1,14 +1,13 @@
 package org.training.cloud.system.convert.user;
 
-import org.training.cloud.system.dto.user.SaveUserDTO;
+import org.training.cloud.common.core.vo.PageResponse;
+import org.training.cloud.system.dto.admin.user.AddAdminUserDTO;
 import org.training.cloud.system.dto.user.UpdateUserDTO;
 import org.training.cloud.system.entity.user.SysUser;
 import org.training.cloud.system.vo.user.SysUserVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
-
-import java.util.List;
 
 /**
  * user dto covert do
@@ -25,11 +24,11 @@ public interface UserConvert {
     /**
      * saveUserDTO convert sysUserDO
      *
-     * @param saveUserDTO saveUserDTO
+     * @param addAdminUserDTO saveUserDTO
      * @return sysUserDO
      */
     @Mappings({})
-    SysUser convert(SaveUserDTO saveUserDTO);
+    SysUser convert(AddAdminUserDTO addAdminUserDTO);
 
 
     /**
@@ -51,11 +50,11 @@ public interface UserConvert {
     SysUserVO convert(SysUser sysUser);
 
     /**
-     * sysUserDOList convert  sysUserBOList
+     * PageResponse<SysUser> convert PageResponse<SysUserVO>
      *
-     * @param sysUserList sysUserDOList
-     * @return sysUserBOList
+     * @param pageResponse
+     * @return
      */
-    List<SysUserVO> convert(List<SysUser> sysUserList);
+    PageResponse<SysUserVO> convert(PageResponse<SysUser> pageResponse);
 
 }

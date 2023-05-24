@@ -64,4 +64,13 @@ public interface SystemExceptionEnumConstants {
     ExceptionCode AUTH_ACCOUNT_DISABLE = new ExceptionCode(100002003,
             "登录失败，用户名不可用");
 
+
+    /**
+     * user
+     */
+    ExceptionCode USER_PHONE_EXISTS = new ExceptionCode(100002001,
+            "用户电话已经存在");
+    ExceptionCode USER_MAIL_EXISTS = new ExceptionCode(100002001,
+            "用户邮箱已经存在");
+
 }
