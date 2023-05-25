@@ -8,19 +8,20 @@ import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 /**
- * 添加部门
+ * 修改用户的实体
  *
  * @author wangtongzhou
- * @since 2020-06-15 20:53
+ * @since 2020-08-07 17:52
  */
 @Data
 @Accessors(chain = true)
-public class SaveDeptDTO implements Serializable {
+public class ModifyDeptDTO implements Serializable {
     /**
      * 部门id
      */
     @Schema(description = "部门id")
-    private Integer id;
+    @NotEmpty(message = "部门id不能为空")
+    private Long id;
 
     /**
      * 部门名称
@@ -34,7 +35,7 @@ public class SaveDeptDTO implements Serializable {
      */
     @Schema(description = "上级部门id", required = true, example = "**部门")
     @NotEmpty(message = "上级部门id不能为空")
-    private Integer parentId;
+    private Long parentId;
 
     /**
      * 部门在当前层级下的顺序，由小到大

@@ -1,4 +1,4 @@
-package org.training.cloud.system.dto.admin.user;
+package org.training.cloud.system.dto.user;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -14,7 +14,7 @@ import org.training.cloud.common.core.vo.PageParam;
 @Data
 @Accessors(chain = true)
 @Schema(description = "管理员查询")
-public class AdminUserDTO extends PageParam {
+public class UserDTO extends PageParam {
 
     @Schema(description = "姓名", required = true, example = "AAA")
     private String userName;

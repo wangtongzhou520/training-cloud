@@ -1,6 +1,8 @@
 package org.training.cloud.system.dao.role;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.training.cloud.common.mybatis.mapper.BaseMapperExtend;
+import org.training.cloud.system.dao.dept.SysDeptMapper;
 import org.training.cloud.system.entity.role.SysRole;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,7 +13,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2023-01-13 18:05
  */
 @Mapper
-public interface SysRoleMapper extends BaseMapper<SysRole> {
+public interface SysRoleMapper extends BaseMapperExtend<SysRole> {
 
 
 

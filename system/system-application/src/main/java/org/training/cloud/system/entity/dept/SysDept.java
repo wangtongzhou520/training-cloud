@@ -23,7 +23,7 @@ public class SysDept extends BaseDO {
      * 部门id
      */
     @TableId(type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 部门名称
@@ -33,7 +33,7 @@ public class SysDept extends BaseDO {
     /**
      * 上级部门id
      */
-    private Integer parentId;
+    private Long parentId;
 
     /**
      * 部门层级

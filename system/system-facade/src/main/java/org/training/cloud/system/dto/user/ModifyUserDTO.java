@@ -1,4 +1,4 @@
-package org.training.cloud.system.dto.admin.user;
+package org.training.cloud.system.dto.user;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -8,15 +8,21 @@ import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 /**
- * save user dto
+ * 更新
  *
  * @author wangtongzhou
- * @since 2020-08-13 21:25
+ * @since 2020-08-14 22:00
  */
 @Data
 @Accessors(chain = true)
-public class AddAdminUserDTO implements Serializable {
-
+@Schema(description = "更新用户")
+public class ModifyUserDTO implements Serializable {
+    /**
+     * 用户id
+     */
+    @Schema(description = "用户id")
+    @NotEmpty(message = "用户名称不能为空")
+    private Long id;
 
     /**
      * 用户名称
@@ -24,14 +30,6 @@ public class AddAdminUserDTO implements Serializable {
     @Schema(description = "用户名称", required = true, example = "xxxx")
     @NotEmpty(message = "用户名称不能为空")
     private String username;
-
-
-    /**
-     * 密码
-     */
-    @Schema(description = "用户密码", required = true, example = "xxxx")
-    @NotEmpty(message = "用户密码不能为空")
-    private String password;
 
     /**
      * 手机号

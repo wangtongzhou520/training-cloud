@@ -1,18 +1,12 @@
 package org.training.cloud.system.dao.user;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-import org.training.cloud.common.core.vo.PageParam;
 import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.common.mybatis.extend.LambdaQueryWrapperExtend;
 import org.training.cloud.common.mybatis.mapper.BaseMapperExtend;
-import org.training.cloud.system.dto.admin.user.AdminUserDTO;
+import org.training.cloud.system.dto.user.UserDTO;
 import org.training.cloud.system.entity.user.SysUser;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 import org.training.cloud.system.enums.user.UserTypeEnum;
-
-import java.util.List;
 
 /**
  * user mapper
@@ -58,13 +52,13 @@ public interface SysUserMapper extends BaseMapperExtend<SysUser> {
     /**
      * 管理端分页查询
      *
-     * @param adminUserDTO
+     * @param userDTO
      * @return
      */
-    default PageResponse<SysUser> selectPage(AdminUserDTO adminUserDTO) {
-        return selectPage(adminUserDTO, new LambdaQueryWrapperExtend<SysUser>()
-                .likeIfPresent(SysUser::getUsername, adminUserDTO.getUserName())
-                .eqIfPresent(SysUser::getDeptId, adminUserDTO.getDeptId())
+    default PageResponse<SysUser> selectPage(UserDTO userDTO) {
+        return selectPage(userDTO, new LambdaQueryWrapperExtend<SysUser>()
+                .likeIfPresent(SysUser::getUsername, userDTO.getUserName())
+                .eqIfPresent(SysUser::getDeptId, userDTO.getDeptId())
                 .eq(SysUser::getUserType, UserTypeEnum.USER.getCode())
         );
     }

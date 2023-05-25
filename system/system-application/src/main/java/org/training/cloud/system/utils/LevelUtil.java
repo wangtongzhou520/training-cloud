@@ -24,7 +24,7 @@ public class LevelUtil {
      * @param parentId    父级id
      * @return 层级
      */
-    public static String calculateLevel(String parentLevel, int parentId) {
+    public static String calculateLevel(String parentLevel, Long parentId) {
         //如果首层返会0
         if (StringUtils.isBlank(parentLevel)) {
             return ROOT;

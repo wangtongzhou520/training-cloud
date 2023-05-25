@@ -1,7 +1,7 @@
 package org.training.cloud.system.convert.dept;
 
-import org.training.cloud.system.dto.dept.SaveDeptDTO;
-import org.training.cloud.system.dto.dept.UpdateDeptDTO;
+import org.training.cloud.system.dto.dept.AddDeptDTO;
+import org.training.cloud.system.dto.dept.ModifyDeptDTO;
 import org.training.cloud.system.entity.dept.SysDept;
 import org.training.cloud.system.vo.dept.DeptTreeVO;
 import org.mapstruct.Mapper;
@@ -24,11 +24,11 @@ public interface DeptConvert {
     /**
      * saveDeptDTO convert sysDeptDO
      *
-     * @param saveDeptDTO saveDeptDTO
+     * @param addDeptDTO saveDeptDTO
      * @return sysDeptDO
      */
     @Mappings({})
-    SysDept convert(SaveDeptDTO saveDeptDTO);
+    SysDept convert(AddDeptDTO addDeptDTO);
 
     /**
      * deptTreeBO convert queryDeptBO
@@ -51,11 +51,11 @@ public interface DeptConvert {
     /**
      * updateDeptDTO convert sysDeptDO
      *
-     * @param updateDeptDTO updateDeptDTO
+     * @param modifyDeptDTO updateDeptDTO
      * @return sysDeptDO
      */
     @Mappings({})
-    SysDept convert(UpdateDeptDTO updateDeptDTO);
+    SysDept convert(ModifyDeptDTO modifyDeptDTO);
 
 
 

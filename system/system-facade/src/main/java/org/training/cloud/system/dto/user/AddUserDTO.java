@@ -8,20 +8,15 @@ import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 /**
- * 更新
+ * save user dto
  *
  * @author wangtongzhou
- * @since 2020-08-14 22:00
+ * @since 2020-08-13 21:25
  */
 @Data
 @Accessors(chain = true)
-@Schema(description = "更新用户")
-public class UpdateUserDTO implements Serializable {
-    /**
-     * 用户id
-     */
-    @Schema(description = "用户id")
-    private Integer id;
+public class AddUserDTO implements Serializable {
+
 
     /**
      * 用户名称
@@ -29,6 +24,14 @@ public class UpdateUserDTO implements Serializable {
     @Schema(description = "用户名称", required = true, example = "xxxx")
     @NotEmpty(message = "用户名称不能为空")
     private String username;
+
+
+    /**
+     * 密码
+     */
+    @Schema(description = "用户密码", required = true, example = "xxxx")
+    @NotEmpty(message = "用户密码不能为空")
+    private String password;
 
     /**
      * 手机号

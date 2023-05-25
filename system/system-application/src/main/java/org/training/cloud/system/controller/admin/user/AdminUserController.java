@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import org.training.cloud.common.core.vo.CommonResponse;
 import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.system.convert.user.UserConvert;
-import org.training.cloud.system.dto.admin.user.AddAdminUserDTO;
-import org.training.cloud.system.dto.admin.user.AdminUserDTO;
+import org.training.cloud.system.dto.user.AddUserDTO;
+import org.training.cloud.system.dto.user.ModifyUserDTO;
+import org.training.cloud.system.dto.user.UserDTO;
 import org.training.cloud.system.entity.user.SysUser;
 import org.training.cloud.system.service.user.UserService;
 import org.training.cloud.system.vo.user.SysUserVO;
@@ -31,28 +32,28 @@ public class AdminUserController {
     /**
      * 保存用户信息
      *
-     * @param addAdminUserDTO saveUserDTO
+     * @param addUserDTO saveUserDTO
      * @return true or false
      */
-    @PostMapping("/add")
+    @PostMapping("/user")
     @Operation(summary = "添加用户信息")
-    public CommonResponse<?> saveUser(@RequestBody @Validated AddAdminUserDTO addAdminUserDTO) {
-        userService.addUser(addAdminUserDTO);
+    public CommonResponse<?> saveUser(@RequestBody @Validated AddUserDTO addUserDTO) {
+        userService.addUser(addUserDTO);
         return CommonResponse.ok();
     }
 
-//    /**
-//     * 更新用户信息
-//     *
-//     * @param updateUserDTO updateUserDTO
-//     * @return true or false
-//     */
-//    @PutMapping("/user")
-//    @Operation(summary = "添加用户信息")
-//    public CommonResponse<?> updateUser(@RequestBody @Validated UpdateUserDTO updateUserDTO) {
-//        userService.updateUser(updateUserDTO);
-//        return CommonResponse.ok();
-//    }
+    /**
+     * 更新用户信息
+     *
+     * @param modifyUserDTO
+     * @return
+     */
+    @PutMapping("/user")
+    @Operation(summary = "添加用户信息")
+    public CommonResponse<?> updateUser(@RequestBody @Validated ModifyUserDTO modifyUserDTO) {
+        userService.updateUser(modifyUserDTO);
+        return CommonResponse.ok();
+    }
 
 
     /**
@@ -62,8 +63,8 @@ public class AdminUserController {
      */
     @GetMapping("/page")
     @Operation(summary = "分页查询管理端用户信息")
-    public CommonResponse<PageResponse<SysUserVO>> pageAdminUser(@RequestBody AdminUserDTO adminUserDTO) {
-        PageResponse<SysUser> pageResponse = userService.pageAdminUser(adminUserDTO);
+    public CommonResponse<PageResponse<SysUserVO>> pageAdminUser(@RequestBody UserDTO userDTO) {
+        PageResponse<SysUser> pageResponse = userService.pageAdminUser(userDTO);
         return CommonResponse.ok(UserConvert.INSTANCE.convert(pageResponse));
     }
 }
