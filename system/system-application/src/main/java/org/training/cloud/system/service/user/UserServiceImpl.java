@@ -63,11 +63,13 @@ public class UserServiceImpl implements UserService {
         return sysUserMapper.selectPage(userDTO);
     }
 
+    @Override
+    public void removeUserById(Long id) {
+        checkId(id);
+        sysUserMapper.deleteById(id);
+        //删除权限等相关信息
+    }
 
-//    @Override
-//    public Long countSysUsersByDeptId(String deptId) {
-//        return sysUserMapper.countByDeptId(deptId);
-//    }
 
     @Override
     public boolean matchPassWord(String passWord, String encodedPassword) {

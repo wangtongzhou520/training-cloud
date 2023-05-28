@@ -24,7 +24,7 @@ public class SysRole extends BaseDO {
      * 角色id
      */
     @TableId(type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * name
@@ -32,14 +32,10 @@ public class SysRole extends BaseDO {
     private String name;
 
     /**
-     * 角色的数据权限，1：管理员角色，2：其他
+     * 角色类型，1：管理员角色，2：其他
      */
-    private Boolean type;
+    private Integer type;
 
-    /**
-     * 状态，1：可用，0：冻结
-     */
-    private Boolean status;
 
     /**
      * 角色权限字符串
@@ -51,13 +47,4 @@ public class SysRole extends BaseDO {
      */
     private String remark;
 
-    /**
-     * 创建者
-     */
-    private String createOperator;
-
-    /**
-     * 修改者
-     */
-    private String modifiedOperator;
 }

@@ -1,4 +1,4 @@
-package org.training.cloud.system.vo.role;
+package org.training.cloud.system.vo.permission;
 
 /**
  * 角色列表

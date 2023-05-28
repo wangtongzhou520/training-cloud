@@ -1,22 +1,21 @@
-package org.training.cloud.system.enums.user;
+package org.training.cloud.system.enums.permission;
 
 /**
- * 用户类型 此处可以设计不同的分类然后针对企业端和高校端设置不同的类型
+ * 角色类型
  *
  * @author wangtongzhou
- * @since 2023-05-21 21:28
+ * @since 2023-05-26 07:24
  */
-public enum UserTypeEnum {
-
-    USER(0, "C端"),
-    ADMIN(1, "管理端"),
-    ;
+public enum RoleTypeEnum {
+    ADMIN(1, "管理员"),
+    OTHER(0, "其他"),
+            ;
 
     private Integer code;
 
     private String desc;
 
-    UserTypeEnum(Integer code, String desc) {
+    RoleTypeEnum(Integer code, String desc) {
         this.code = code;
         this.desc = desc;
     }

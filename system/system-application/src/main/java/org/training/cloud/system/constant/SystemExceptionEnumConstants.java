@@ -81,5 +81,21 @@ public interface SystemExceptionEnumConstants {
     ExceptionCode DEPT_NOT_EXISTS = new ExceptionCode(100004002, "部门不存在");
 
 
+    /**
+     * 角色
+     */
+    ExceptionCode ROLE_ADMIN_CODE_ERROR = new ExceptionCode(100005001,
+            "超级管理员不允许创建");
+
+    ExceptionCode ROLE_NAME_EXISTS = new ExceptionCode(100005002,
+            "角色信息已经存在");
+
+    ExceptionCode ROLE_CODE_EXISTS = new ExceptionCode(100005003,
+            "角色code已经存在");
+    ExceptionCode ROLE_NOT_EXISTS = new ExceptionCode(100005004,
+            "角色信息不存在");
+    ExceptionCode ROLE_SYSTEM_NOT_MODIFY = new ExceptionCode(100005004,
+            "角色信息不存在");
+
 
 }

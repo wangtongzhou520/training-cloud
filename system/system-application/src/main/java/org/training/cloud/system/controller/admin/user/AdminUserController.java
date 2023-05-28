@@ -22,7 +22,7 @@ import org.training.cloud.system.vo.user.SysUserVO;
  * @since 2020-08-13 18:49
  */
 @RestController
-@RequestMapping("/sys/admin/user")
+@RequestMapping("/sys/admin")
 @Tag(name = "管理员相关信息")
 public class AdminUserController {
 
@@ -66,5 +66,20 @@ public class AdminUserController {
     public CommonResponse<PageResponse<SysUserVO>> pageAdminUser(@RequestBody UserDTO userDTO) {
         PageResponse<SysUser> pageResponse = userService.pageAdminUser(userDTO);
         return CommonResponse.ok(UserConvert.INSTANCE.convert(pageResponse));
+    }
+
+
+
+    /**
+     * 删除用户
+     *
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/user")
+    @Operation(summary = "删除部门")
+    public CommonResponse<?> delDept(@RequestParam Long id) {
+        userService.removeUserById(id);
+        return CommonResponse.ok();
     }
 }

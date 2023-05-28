@@ -43,14 +43,13 @@ public interface UserService {
      * @return 用户分页信息
      */
     PageResponse<SysUser> pageAdminUser(UserDTO userDTO);
-//
-//    /**
-//     * 部门id
-//     *
-//     * @param deptId deptId
-//     * @return 总数
-//     */
-//    Long countSysUsersByDeptId(String deptId);
+
+    /**
+     * 删除用户
+     *
+     * @param id
+     */
+    void removeUserById(Long id);
 
     /**
      * 检查密码是否匹配

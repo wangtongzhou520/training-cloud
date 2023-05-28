@@ -73,7 +73,7 @@ public class AdminDeptController {
      */
     @DeleteMapping("/dept")
     @Operation(summary = "部门树")
-    public CommonResponse<?> delDept(@RequestBody Long id) {
+    public CommonResponse<?> delDept(@RequestParam Long id) {
         deptService.removeDeptById(id);
         return CommonResponse.ok();
     }
