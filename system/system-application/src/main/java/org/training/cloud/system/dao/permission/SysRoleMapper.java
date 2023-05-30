@@ -1,14 +1,11 @@
-package org.training.cloud.system.dao.role;
+package org.training.cloud.system.dao.permission;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.common.mybatis.extend.LambdaQueryWrapperExtend;
 import org.training.cloud.common.mybatis.mapper.BaseMapperExtend;
-import org.training.cloud.system.dao.dept.SysDeptMapper;
 import org.training.cloud.system.dto.permission.RoleDTO;
-import org.training.cloud.system.entity.role.SysRole;
+import org.training.cloud.system.entity.permission.SysRole;
 import org.apache.ibatis.annotations.Mapper;
-import org.training.cloud.system.entity.user.SysUser;
 
 /**
  * 角色

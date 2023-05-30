@@ -198,7 +198,7 @@ public class DeptServiceImpl implements DeptService {
      * @return
      */
     private void checkDeptNameExist(Long parentId, String name) {
-        int count = sysDeptMapper.countByNameAndParentId(parentId, name);
+        Long count = sysDeptMapper.countByNameAndParentId(parentId, name);
         if (count > 0) {
             throw new BusinessException(DEPT_NAME_EXISTS);
         }

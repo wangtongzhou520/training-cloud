@@ -4,11 +4,11 @@ import org.springframework.stereotype.Service;
 import org.training.cloud.common.core.exception.BusinessException;
 import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.system.convert.permission.RoleConvert;
-import org.training.cloud.system.dao.role.SysRoleMapper;
+import org.training.cloud.system.dao.permission.SysRoleMapper;
 import org.training.cloud.system.dto.permission.AddRoleDTO;
 import org.training.cloud.system.dto.permission.ModifyRoleDTO;
 import org.training.cloud.system.dto.permission.RoleDTO;
-import org.training.cloud.system.entity.role.SysRole;
+import org.training.cloud.system.entity.permission.SysRole;
 import org.training.cloud.system.enums.permission.RoleCodeEnum;
 import org.training.cloud.system.enums.permission.RoleTypeEnum;
 

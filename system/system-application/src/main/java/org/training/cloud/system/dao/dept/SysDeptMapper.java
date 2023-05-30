@@ -1,14 +1,10 @@
 package org.training.cloud.system.dao.dept;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 import org.training.cloud.common.mybatis.extend.LambdaQueryWrapperExtend;
 import org.training.cloud.common.mybatis.mapper.BaseMapperExtend;
 import org.training.cloud.system.entity.dept.SysDept;
-import org.training.cloud.system.entity.role.SysRole;
 
 import java.util.List;
 
@@ -29,7 +25,7 @@ public interface SysDeptMapper extends BaseMapperExtend<SysDept> {
      * @param name
      * @return
      */
-    default Integer countByNameAndParentId(Long parentId, String name) {
+    default Long countByNameAndParentId(Long parentId, String name) {
         return selectCount(new LambdaQueryWrapperExtend<SysDept>()
                 .eq(SysDept::getParentId, parentId)
                 .eq(SysDept::getName, name));
@@ -57,7 +53,7 @@ public interface SysDeptMapper extends BaseMapperExtend<SysDept> {
     }
 
 
-    default Integer countByParentId(Long id) {
+    default Long countByParentId(Long id) {
         return selectCount(SysDept::getParentId, id);
     }
 

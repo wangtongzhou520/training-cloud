@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/sys/admin")
 @Tag(name ="部门信息")
-public class AdminDeptController {
+public class DeptController {
 
     @Autowired
     private DeptService deptService;

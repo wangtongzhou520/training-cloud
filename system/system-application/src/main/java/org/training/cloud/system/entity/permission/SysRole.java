@@ -1,4 +1,4 @@
-package org.training.cloud.system.entity.role;
+package org.training.cloud.system.entity.permission;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

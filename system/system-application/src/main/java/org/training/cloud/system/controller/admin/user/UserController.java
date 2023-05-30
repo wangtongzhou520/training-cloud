@@ -24,7 +24,7 @@ import org.training.cloud.system.vo.user.SysUserVO;
 @RestController
 @RequestMapping("/sys/admin")
 @Tag(name = "管理员相关信息")
-public class AdminUserController {
+public class UserController {
 
     @Autowired
     private UserService userService;

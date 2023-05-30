@@ -8,16 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import org.training.cloud.common.core.vo.CommonResponse;
 import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.system.convert.permission.RoleConvert;
-import org.training.cloud.system.convert.user.UserConvert;
 import org.training.cloud.system.dto.permission.AddRoleDTO;
 import org.training.cloud.system.dto.permission.ModifyRoleDTO;
 import org.training.cloud.system.dto.permission.RoleDTO;
-import org.training.cloud.system.dto.user.UserDTO;
-import org.training.cloud.system.entity.role.SysRole;
-import org.training.cloud.system.entity.user.SysUser;
+import org.training.cloud.system.entity.permission.SysRole;
 import org.training.cloud.system.service.permission.RoleService;
 import org.training.cloud.system.vo.permission.RoleVO;
-import org.training.cloud.system.vo.user.SysUserVO;
 
 /**
  * 角色
@@ -28,7 +24,7 @@ import org.training.cloud.system.vo.user.SysUserVO;
 @RestController
 @RequestMapping("/sys/admin/")
 @Tag(name = "角色信息")
-public class AdminRoleController {
+public class RoleController {
 
 
     @Autowired
@@ -68,7 +64,7 @@ public class AdminRoleController {
     @DeleteMapping("/user")
     @Operation(summary = "删除部门")
     public CommonResponse<?> delDept(@RequestParam Long id) {
-//        userService.removeUserById(id);
+        roleService.removeByRoleId(id);
         return CommonResponse.ok();
     }
 

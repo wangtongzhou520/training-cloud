@@ -4,15 +4,10 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 import org.training.cloud.common.core.vo.PageResponse;
-import org.training.cloud.system.convert.user.UserConvert;
 import org.training.cloud.system.dto.permission.AddRoleDTO;
 import org.training.cloud.system.dto.permission.ModifyRoleDTO;
-import org.training.cloud.system.dto.user.AddUserDTO;
-import org.training.cloud.system.dto.user.ModifyUserDTO;
-import org.training.cloud.system.entity.role.SysRole;
-import org.training.cloud.system.entity.user.SysUser;
+import org.training.cloud.system.entity.permission.SysRole;
 import org.training.cloud.system.vo.permission.RoleVO;
-import org.training.cloud.system.vo.user.SysUserVO;
 
 /**
  * 角色

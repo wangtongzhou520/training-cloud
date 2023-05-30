@@ -4,7 +4,7 @@ import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.system.dto.permission.AddRoleDTO;
 import org.training.cloud.system.dto.permission.ModifyRoleDTO;
 import org.training.cloud.system.dto.permission.RoleDTO;
-import org.training.cloud.system.entity.role.SysRole;
+import org.training.cloud.system.entity.permission.SysRole;
 
 /**
  * 角色管理
