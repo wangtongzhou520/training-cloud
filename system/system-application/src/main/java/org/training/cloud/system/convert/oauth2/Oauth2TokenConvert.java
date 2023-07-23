@@ -1,9 +1,9 @@
 package org.training.cloud.system.convert.oauth2;
 
-import org.training.cloud.common.core.vo.PageResponse;
-import org.training.cloud.system.entity.oauth2.SysOauth2AccessToken;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+import org.training.cloud.common.core.vo.PageResponse;
+import org.training.cloud.system.entity.oauth2.SysOauth2AccessToken;
 import org.training.cloud.system.vo.oauth2.Oauth2AccessTokenVO;
 
 /**

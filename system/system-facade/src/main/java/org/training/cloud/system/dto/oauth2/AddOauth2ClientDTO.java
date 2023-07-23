@@ -1,7 +1,5 @@
 package org.training.cloud.system.dto.oauth2;
 
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -18,7 +16,6 @@ import java.util.List;
  * @since 2023-04-02 14:25
  */
 @Data
-@Accessors(chain = true)
 @Schema(description = "新增授权客户端")
 public class AddOauth2ClientDTO implements Serializable {
 

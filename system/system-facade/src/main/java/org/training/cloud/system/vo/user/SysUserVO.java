@@ -12,7 +12,6 @@ import java.util.Date;
  * @since 2020-09-01 22:15
  */
 @Data
-@Accessors(chain = true)
 public class SysUserVO {
     /**
      * 用户id

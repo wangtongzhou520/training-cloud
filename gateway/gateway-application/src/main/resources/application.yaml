@@ -2,6 +2,7 @@ server:
   port: 8888
 
 
+
 spring:
   application:
     name: gateway-application
@@ -10,8 +11,10 @@ spring:
   cloud:
     nacos:
       discovery:
+        namespace: 6a0743bc-014a-4f5f-846c-a75a02b4c315
         server-addr: 127.0.0.1:8848
-        enabled: true
+        username: nacos
+        password: nacos
     gateway:
       default-filters:
         # 多重跨域 Access-Control-Allow-Origin *，出现重复的 * ，导致跨域失效问题处理
@@ -24,7 +27,7 @@ spring:
           lower-case-service-id: true
       routes:
         # 服务
-        - id: system-admin
+        - id: system-application
           # 服务地址
           uri: lb://system-application
           # 拦截的路由

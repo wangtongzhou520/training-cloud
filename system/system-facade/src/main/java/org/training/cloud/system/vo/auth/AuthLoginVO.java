@@ -14,7 +14,6 @@ import java.util.Date;
  * @since 2020-11-11 20:53
  */
 @Data
-@Accessors(chain = true)
 @Schema(description = "登录")
 public class AuthLoginVO implements Serializable {
 

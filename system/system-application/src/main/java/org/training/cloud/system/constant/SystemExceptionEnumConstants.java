@@ -98,4 +98,19 @@ public interface SystemExceptionEnumConstants {
             "角色信息不存在");
 
 
+    /**
+     * 菜单
+     */
+    ExceptionCode MENU_PARENT_ERROR = new ExceptionCode(100006001,
+            "不允许设置自己为父节点");
+    ExceptionCode MENU_PARENT_NOT_EXISTS = new ExceptionCode(100006002,
+            "父菜单不存在");
+    ExceptionCode MENU_PARENT_IS_MENU_DIR = new ExceptionCode(100006003,
+            "父菜单类型必须是菜单或者目录");
+    ExceptionCode MENU_NAME_EXISTS = new ExceptionCode(100006004,
+            "菜单名称已存在");
+    ExceptionCode MENU_NOT_EXISTS = new ExceptionCode(100006005,
+            "菜单不存在");
+    ExceptionCode MENU_EXISTS_CHILD = new ExceptionCode(100006006,
+            "存在子菜单不允许删除");
 }

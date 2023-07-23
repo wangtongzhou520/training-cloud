@@ -1,6 +1,6 @@
 package org.training.cloud.system.dao.permission;
 
-import org.mapstruct.Mapper;
+import org.apache.ibatis.annotations.Mapper;
 import org.training.cloud.common.mybatis.extend.LambdaQueryWrapperExtend;
 import org.training.cloud.common.mybatis.mapper.BaseMapperExtend;
 import org.training.cloud.system.entity.permission.SysUserRole;

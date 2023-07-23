@@ -9,42 +9,66 @@ import lombok.experimental.Accessors;
 import org.training.cloud.common.mybatis.dao.BaseDO;
 
 /**
- * 角色
+ * 菜单
  *
  * @author wangtongzhou
- * @since 2020-11-09 14:25
+ * @since 2023-05-30 21:55
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName(value = "sys_role")
-public class SysRole extends BaseDO {
+@TableName(value = "sys_menu")
+public class SysMenu extends BaseDO {
 
     @TableId(type = IdType.AUTO)
     /**
-     * 角色id
+     * 唯一键
      */
     private Long id;
 
     /**
-     * name
+     * 菜单名称
      */
     private String name;
 
     /**
-     * 角色类型，1：管理员角色，2：其他
+     * 权限标识
      */
-    private Integer type;
-
-
-    /**
-     * 角色权限字符串
-     */
-    private String code;
+    private String permission;
 
     /**
-     * 备注
+     * 菜单类型
      */
-    private String remark;
+    private int type;
+
+    /**
+     * 显示顺序
+     */
+    private Integer sort;
+
+    /**
+     * 父菜单id
+     */
+    private Long parentId;
+
+    /**
+     * 路由地址
+     */
+    private String path;
+
+    /**
+     * 菜单图标
+     */
+    private String icon;
+
+    /**
+     * 组件路径
+     */
+    private String component;
+
+    /**
+     * 是否可见
+     */
+    private String visible;
 
 }

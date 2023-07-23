@@ -61,7 +61,7 @@ public class UserController {
      *
      * @return 分页用户信息
      */
-    @GetMapping("/page")
+    @PostMapping("/page")
     @Operation(summary = "分页查询管理端用户信息")
     public CommonResponse<PageResponse<SysUserVO>> pageAdminUser(@RequestBody UserDTO userDTO) {
         PageResponse<SysUser> pageResponse = userService.pageAdminUser(userDTO);

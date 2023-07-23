@@ -50,14 +50,5 @@ public class SysDept extends BaseDO {
      */
     private String remark;
 
-    /**
-     * 创建者
-     */
-    private String createOperator;
-
-    /**
-     * 修改者
-     */
-    private String modifiedOperator;
 
 }

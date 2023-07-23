@@ -12,7 +12,6 @@ import java.util.List;
  * @since 2020-08-11 13:32
  */
 @Data
-@Accessors(chain = true)
 public class DeptTreeVO extends QueryDeptVO {
 
     /**

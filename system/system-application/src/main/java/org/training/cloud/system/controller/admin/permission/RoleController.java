@@ -39,7 +39,7 @@ public class RoleController {
     }
 
 
-    @PutMapping("/user")
+    @PutMapping("/role")
     @Operation(summary = "修改角色信息")
     public CommonResponse<?> modifyUser(@RequestBody @Validated ModifyRoleDTO modifyRoleDTO) {
         roleService.modifyRole(modifyRoleDTO);
@@ -49,25 +49,24 @@ public class RoleController {
 
     @GetMapping("/page")
     @Operation(summary = "分页查询角色信息")
-    public CommonResponse<PageResponse<RoleVO>> pageAdminUser(@RequestBody RoleDTO roleDTO) {
+    public CommonResponse<PageResponse<RoleVO>> pageAdminUser(RoleDTO roleDTO) {
         PageResponse<SysRole> pageResponse = roleService.pageRole(roleDTO);
         return CommonResponse.ok(RoleConvert.INSTANCE.convert(pageResponse));
     }
 
 
     /**
-     * 删除用户
+     * 删除角色
      *
      * @param id
      * @return
      */
-    @DeleteMapping("/user")
-    @Operation(summary = "删除部门")
-    public CommonResponse<?> delDept(@RequestParam Long id) {
+    @DeleteMapping("/role")
+    @Operation(summary = "删除角色")
+    public CommonResponse<?> delRole(@RequestParam Long id) {
         roleService.removeByRoleId(id);
         return CommonResponse.ok();
     }
-
 
 
 }
