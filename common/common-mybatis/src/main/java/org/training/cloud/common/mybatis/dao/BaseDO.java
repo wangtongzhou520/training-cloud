@@ -1,7 +1,13 @@
 package org.training.cloud.common.mybatis.dao;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.ibatis.type.JdbcType;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -14,26 +20,32 @@ import java.util.Date;
  * @author wangtongzhou
  * @since 2020-05-25 08:02
  */
-public class BaseDO implements Serializable {
+@Data
+@ToString(callSuper = true)
+public abstract class BaseDO implements Serializable {
 
     /**
      * 创建时间
      */
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime gmtCreate;
 
     /**
      * 更新时间
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime gmtModified;
 
     /**
      * 创建者
      */
+    @TableField(fill = FieldFill.INSERT, jdbcType = JdbcType.VARCHAR)
     private String createOperator;
 
     /**
      * 修改者
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE, jdbcType = JdbcType.VARCHAR)
     private String modifiedOperator;
 
     /**
@@ -43,54 +55,5 @@ public class BaseDO implements Serializable {
     private Boolean deleteState;
 
 
-    public LocalDateTime getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public BaseDO setGmtCreate(LocalDateTime gmtCreate) {
-        this.gmtCreate = gmtCreate;
-        return this;
-    }
-
-    public LocalDateTime getGmtModified() {
-        return gmtModified;
-    }
-
-    public BaseDO setGmtModified(LocalDateTime gmtModified) {
-        this.gmtModified = gmtModified;
-        return this;
-    }
-
-    public String getCreateOperator() {
-        return createOperator;
-    }
-
-    public BaseDO setCreateOperator(String createOperator) {
-        this.createOperator = createOperator;
-        return this;
-    }
-
-    public String getModifiedOperator() {
-        return modifiedOperator;
-    }
-
-    public BaseDO setModifiedOperator(String modifiedOperator) {
-        this.modifiedOperator = modifiedOperator;
-        return this;
-    }
-
-    public Boolean getDeleteState() {
-        return deleteState;
-    }
-
-    public BaseDO setDeleteState(Boolean deleteState) {
-        this.deleteState = deleteState;
-        return this;
-    }
-
-    @Override
-    public String toString() {
-        return (new ToStringBuilder(this)).toString();
-    }
 
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -31,5 +32,5 @@ public class AuthLoginVO implements Serializable {
     private String refreshToken;
 
     @Schema(description = "过期时间", required = true)
-    private Date expiresTime;
+    private LocalDateTime expiresTime;
 }
