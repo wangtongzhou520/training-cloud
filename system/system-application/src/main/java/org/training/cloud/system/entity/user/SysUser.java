@@ -60,15 +60,6 @@ public class SysUser extends BaseDO {
      */
     private String remark;
 
-    /**
-     * 创建者
-     */
-    private String createOperator;
-
-    /**
-     * 修改者
-     */
-    private String modifiedOperator;
 
     /**
      * 用户类型 0 C端 1 管理端

@@ -16,7 +16,6 @@ import java.util.List;
  * @since 2020-09-18
  */
 @Data
-@Accessors(chain = true)
 public class Oauth2AccessTokenVO implements Serializable {
 
     @Schema(description = "编号", required = true, example = "1024")

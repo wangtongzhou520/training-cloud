@@ -75,12 +75,14 @@ public class Oauth2TokenServiceImpl implements Oauth2TokenService {
     private SysOauth2RefreshToken createOAuth2RefreshToken(SysOauth2Client client, AddOauth2AccessTokenDTO addOauth2AccessTokenDTO) {
         SysOauth2RefreshToken oauth2RefreshToken = new SysOauth2RefreshToken();
         oauth2RefreshToken
-                .setExpiresTime(org.apache.commons.lang3.time.DateUtils.addSeconds(new Date(), client.getRefreshTokenValiditySeconds().intValue()))
+                .setExpiresTime(LocalDateTime.now().plusSeconds(client.getRefreshTokenValiditySeconds()))
                 .setRefreshToken(UUID.randomUUID().toString())
                 .setUserId(addOauth2AccessTokenDTO.getUserId())
                 .setUserType(addOauth2AccessTokenDTO.getUserType())
-                .setClientId(addOauth2AccessTokenDTO.getClientId())
-                .setScopes(addOauth2AccessTokenDTO.getScopes());
+                .setClientId(client.getClientId())
+                .setScopes(client.getScopes())
+                .setModifiedOperator(addOauth2AccessTokenDTO.getUserId().toString())
+                .setCreateOperator(addOauth2AccessTokenDTO.getUserId().toString());
         oauth2RefreshTokenMapper.insert(oauth2RefreshToken);
         return oauth2RefreshToken;
     }
@@ -102,7 +104,9 @@ public class Oauth2TokenServiceImpl implements Oauth2TokenService {
                 .setUserId(oauth2RefreshToken.getUserId())
                 .setUserType(oauth2RefreshToken.getUserType())
                 .setScopes(oauth2RefreshToken.getScopes())
-                .setClientId(oauth2RefreshToken.getClientId());
+                .setClientId(oauth2RefreshToken.getClientId())
+                .setModifiedOperator(oauth2RefreshToken.getUserId().toString())
+                .setCreateOperator(oauth2RefreshToken.getUserId().toString());
         oauth2AccessTokenMapper.insert(oauth2AccessToken);
         return oauth2AccessToken;
 
@@ -164,7 +168,7 @@ public class Oauth2TokenServiceImpl implements Oauth2TokenService {
             //缓存补充
         }
         //检验刷新token是否过期
-        if (auth2RefreshTokenDO.getExpiresTime().getTime() < System.currentTimeMillis()) {
+        if (auth2RefreshTokenDO.getExpiresTime().isBefore(LocalDateTime.now())) {
             //如果过期删除刷新令牌抛出异常
             oauth2RefreshTokenMapper.deleteById(auth2RefreshTokenDO.getRefreshToken());
             throw new BusinessException(OAUTH2_REFRESH_TOKEN_NOT_EXPIRED);

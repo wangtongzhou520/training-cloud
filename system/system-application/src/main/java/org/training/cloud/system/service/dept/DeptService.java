@@ -1,7 +1,8 @@
 package org.training.cloud.system.service.dept;
 
-import org.training.cloud.system.dto.dept.SaveDeptDTO;
-import org.training.cloud.system.dto.dept.UpdateDeptDTO;
+import org.training.cloud.system.dto.dept.AddDeptDTO;
+import org.training.cloud.system.dto.dept.ModifyDeptDTO;
+import org.training.cloud.system.entity.dept.SysDept;
 import org.training.cloud.system.vo.dept.DeptTreeVO;
 
 import java.util.List;
@@ -17,17 +18,17 @@ public interface DeptService {
     /**
      * 保存部门信息
      *
-     * @param saveDeptDTO 添加部门
+     * @param addDeptDTO 添加部门
      */
-    void saveDept(SaveDeptDTO saveDeptDTO);
+    void addDept(AddDeptDTO addDeptDTO);
 
 
     /**
      * 更新用户信息
      *
-     * @param updateDeptDTO 用户信息
+     * @param modifyDeptDTO 用户信息
      */
-    void updateDept(UpdateDeptDTO updateDeptDTO);
+    void modifyDept(ModifyDeptDTO modifyDeptDTO);
 
 
     /**
@@ -40,7 +41,15 @@ public interface DeptService {
     /**
      * 删除部门信息
      *
-     * @param id deptId
+     * @param id
      */
-    void delDeptById(Integer id);
+    void removeDeptById(Long id);
+
+    /**
+     * 获取部门信息
+     *
+     * @param id
+     * @return
+     */
+    SysDept getDeptId(Long id);
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -14,7 +15,6 @@ import java.util.Date;
  * @since 2020-11-11 20:53
  */
 @Data
-@Accessors(chain = true)
 @Schema(description = "登录")
 public class AuthLoginVO implements Serializable {
 
@@ -32,5 +32,5 @@ public class AuthLoginVO implements Serializable {
     private String refreshToken;
 
     @Schema(description = "过期时间", required = true)
-    private Date expiresTime;
+    private LocalDateTime expiresTime;
 }

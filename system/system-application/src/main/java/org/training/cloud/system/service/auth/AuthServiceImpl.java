@@ -8,12 +8,11 @@ import org.training.cloud.system.convert.auth.AuthConvert;
 import org.training.cloud.system.dto.auth.AuthLoginDTO;
 import org.training.cloud.system.dto.oauth2.AddOauth2AccessTokenDTO;
 import org.training.cloud.system.entity.user.SysUser;
-import org.training.cloud.system.enums.UserStateEnum;
+import org.training.cloud.system.enums.user.UserStateEnum;
 import org.training.cloud.system.service.oauth2.Oauth2TokenService;
 import org.training.cloud.system.service.user.UserService;
 import org.training.cloud.system.vo.auth.AuthLoginVO;
 import org.training.cloud.system.vo.oauth2.Oauth2AccessTokenVO;
-import org.training.cloud.system.vo.user.SysUserVO;
 
 import java.util.Objects;
 

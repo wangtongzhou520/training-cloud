@@ -1,0 +1,63 @@
+package org.training.cloud.system.dto.permission;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.experimental.Accessors;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
+
+/**
+ * 修改菜单信息
+ *
+ * @author wangtongzhou
+ * @since 2023-06-01 20:56
+ */
+@Data
+@Accessors(chain = true)
+@Schema(description = "修改菜单信息")
+public class ModifyMenuDTO implements Serializable {
+
+
+    @Schema(description = "菜单编号", required = true, example = "菜单编号")
+    @NotBlank(message = "菜单编号不能为空")
+    private Long id;
+
+    @Schema(description = "菜单名称", required = true, example = "用户菜单")
+    @NotBlank(message = "菜单名称不能为空")
+    @Size(max = 50, message = "菜单长度不能超过50个字符")
+    private String name;
+
+    @Schema(description = "权限标识 菜单和按钮类型时候传", example = "sys:menu:add")
+    @Size(max = 100)
+    private String permission;
+
+    @Schema(description = "菜单类型 1 目录 2 菜单 3按钮", required = true, example = "1")
+    @NotNull(message = "菜单类型不能为空")
+    private Integer type;
+
+    @Schema(description = "显示顺序不能为空", required = true, example = "1")
+    @NotNull(message = "显示顺序不能为空")
+    private Integer sort;
+
+    @Schema(description = "父ID", required = true, example = "1")
+    @NotNull(message = "父ID不能为空")
+    private Long parentId;
+
+    @Schema(description = "路由地址", example = "post")
+    @Size(max = 200, message = "路由地址不能超过200个字符")
+    private String path;
+
+    @Schema(description = "菜单图标", example = "/menu/list")
+    private String icon;
+
+    @Schema(description = "组件路径", example = "system/post/index")
+    @Size(max = 255, message = "组件路径不能超过255个字符")
+    private String component;
+
+
+    @Schema(description = "是否可见", example = "false")
+    private Boolean visible;
+}

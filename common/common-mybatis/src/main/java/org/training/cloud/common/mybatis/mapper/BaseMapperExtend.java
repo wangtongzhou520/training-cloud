@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
+import com.baomidou.mybatisplus.extension.toolkit.Db;
 import org.apache.ibatis.annotations.Param;
 import org.training.cloud.common.core.vo.PageParam;
 import org.training.cloud.common.core.vo.PageResponse;
@@ -74,7 +75,7 @@ public interface BaseMapperExtend<T> extends BaseMapper<T> {
      * @param value
      * @return
      */
-    default Integer selectCount(String field, Object value) {
+    default Long selectCount(String field, Object value) {
         return selectCount(new QueryWrapper<T>().eq(field, value));
     }
 
@@ -85,7 +86,7 @@ public interface BaseMapperExtend<T> extends BaseMapper<T> {
      * @param value
      * @return
      */
-    default Integer selectCount(SFunction<T, ?> field, Object value) {
+    default Long selectCount(SFunction<T, ?> field, Object value) {
         return selectCount(new LambdaQueryWrapper<T>().eq(field, value));
     }
 
@@ -141,5 +142,16 @@ public interface BaseMapperExtend<T> extends BaseMapper<T> {
     default List<T> selectList(SFunction<T, ?> field, Collection<?> values) {
         return selectList(new LambdaQueryWrapper<T>().in(field, values));
     }
+
+
+    /**
+     * 批量插入
+     *
+     * @param entities
+     */
+    default void insertBatch(Collection<T> entities) {
+        Db.saveBatch(entities);
+    }
+
 
 }

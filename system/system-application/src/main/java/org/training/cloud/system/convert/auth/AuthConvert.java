@@ -1,5 +1,6 @@
 package org.training.cloud.system.convert.auth;
 
+import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import org.training.cloud.system.vo.auth.AuthLoginVO;
 import org.training.cloud.system.vo.oauth2.Oauth2AccessTokenVO;
@@ -10,6 +11,7 @@ import org.training.cloud.system.vo.oauth2.Oauth2AccessTokenVO;
  * @author wangtongzhou
  * @since 2023-05-10 07:11
  */
+@Mapper
 public interface AuthConvert {
 
     AuthConvert INSTANCE = Mappers.getMapper(AuthConvert.class);

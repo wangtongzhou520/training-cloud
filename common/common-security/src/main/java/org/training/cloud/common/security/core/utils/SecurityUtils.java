@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.training.cloud.common.security.core.model.AuthUser;
+import org.training.cloud.common.web.utils.WebUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
@@ -89,6 +90,8 @@ public class SecurityUtils {
         //创建Authentication，并设置到上下文
         Authentication authentication = buildAuthentication(authUser, request);
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        WebUtil.setLoginUserId(request, authUser.getId());
     }
 
     private static Authentication buildAuthentication(AuthUser authUser, HttpServletRequest request) {

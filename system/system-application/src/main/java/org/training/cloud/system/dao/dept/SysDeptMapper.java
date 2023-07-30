@@ -1,8 +1,9 @@
 package org.training.cloud.system.dao.dept;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
+import org.training.cloud.common.mybatis.extend.LambdaQueryWrapperExtend;
+import org.training.cloud.common.mybatis.mapper.BaseMapperExtend;
 import org.training.cloud.system.entity.dept.SysDept;
 
 import java.util.List;
@@ -13,33 +14,48 @@ import java.util.List;
  * @author wangtongzhou
  * @since 2020-06-15 20:22
  */
-@Repository
-public interface SysDeptMapper extends BaseMapper<SysDept> {
+@Mapper
+public interface SysDeptMapper extends BaseMapperExtend<SysDept> {
+
 
     /**
      * 查询同一层级下有没有相同的部门
      *
-     * @param parentId 上级id
-     * @param name     部门名称
-     * @return 行数
+     * @param parentId
+     * @param name
+     * @return
      */
-    int countByNameAndParentId(@Param("parentId") Integer parentId, @Param("name") String name);
+    default Long countByNameAndParentId(Long parentId, String name) {
+        return selectCount(new LambdaQueryWrapperExtend<SysDept>()
+                .eq(SysDept::getParentId, parentId)
+                .eq(SysDept::getName, name));
+    }
 
     /**
-     * 查询所有的的部门信息
-     *
-     * @return 部门信息
-     */
-    List<SysDept> queryAllDept();
-
-
-    /**
-     * 根据level查询下级信息
+     * 查询子集所有部门
      *
      * @param level
-     * @return 部门信息
+     * @return
      */
-    List<SysDept> queryChildDeptByLevel(@Param("level") String level);
+    default List<SysDept> selectByChildDeptByLevel(String level) {
+        return selectList(new LambdaQueryWrapperExtend<SysDept>()
+                .likeIfPresent(SysDept::getLevel, level)
+        );
+    }
+
+    /**
+     * 查询部门树
+     *
+     * @return
+     */
+    default List<SysDept> selectAllDept() {
+        return selectList();
+    }
+
+
+    default Long countByParentId(Long id) {
+        return selectCount(SysDept::getParentId, id);
+    }
 
 
     /**
@@ -47,14 +63,7 @@ public interface SysDeptMapper extends BaseMapper<SysDept> {
      *
      * @param sysDeptList
      */
-    void batchUpdateLevel(List<SysDept> sysDeptList);
+    void batchUpdateLevel(@Param("list") List<SysDept> sysDeptList);
 
-    /**
-     * 根据父级id求总数
-     *
-     * @param parentId parentId
-     * @return count
-     */
-    int countByParentId(@Param("parentId") Integer parentId);
 
 }

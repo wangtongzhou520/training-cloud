@@ -3,6 +3,7 @@ package org.training.cloud.system.vo.dept;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -12,12 +13,11 @@ import java.util.Date;
  * @since 2020-08-11 15：39
  */
 @Data
-@Accessors(chain = true)
-public class QueryDeptVO {
+public class QueryDeptVO implements Serializable {
     /**
      * 部门id
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 部门名称
@@ -27,7 +27,7 @@ public class QueryDeptVO {
     /**
      * 上级部门id
      */
-    private Integer parentId;
+    private Long parentId;
 
     /**
      * 部门层级

@@ -17,7 +17,8 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-                id,
+        id
+        ,
                 name,
                 parent_id,
                 level,
@@ -29,28 +30,8 @@
                 gmt_modified
     </sql>
 
-    <select id="countByNameAndParentId" resultType="integer">
-        select
-        count (1)
-        from sys_dept
-        where parent_id=#{parentId}
-        and name=#{name}
-    </select>
 
-    <select id="queryAllDept" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from sys_dept
-    </select>
-
-    <select id="queryChildDeptByLevel" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from sys_dept
-        where level like #{level} || '.%'
-    </select>
-
-    <update id="batchUpdateLevel" parameterType="map">
+    <update id="batchUpdateLevel">
         <foreach collection="list" item="item" separator=";">
             update sys_dept
             set level=#{item.level}
@@ -58,11 +39,5 @@
         </foreach>
     </update>
 
-    <select id="countByParentId" resultType="integer">
-        select
-        count (1)
-        from sys_dept
-        where parent_id =#{parentId}
-    </select>
 
 </mapper>

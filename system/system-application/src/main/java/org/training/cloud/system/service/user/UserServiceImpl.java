@@ -1,18 +1,23 @@
 package org.training.cloud.system.service.user;
 
+import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.training.cloud.common.core.vo.PageParam;
+import org.training.cloud.common.core.exception.BusinessException;
+import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.system.convert.user.UserConvert;
 import org.training.cloud.system.dao.user.SysUserMapper;
-import org.training.cloud.system.dto.user.SaveUserDTO;
-import org.training.cloud.system.dto.user.UpdateUserDTO;
+import org.training.cloud.system.dto.user.AddUserDTO;
+import org.training.cloud.system.dto.user.ModifyUserDTO;
+import org.training.cloud.system.dto.user.UserDTO;
 import org.training.cloud.system.entity.user.SysUser;
-import org.training.cloud.system.vo.user.SysUserVO;
+import org.training.cloud.system.enums.user.UserTypeEnum;
 
-import java.util.List;
+import java.util.Objects;
+
+import static org.training.cloud.system.constant.SystemExceptionEnumConstants.*;
 
 /**
  * 用户实现类
@@ -28,71 +33,87 @@ public class UserServiceImpl implements UserService {
 
     private static final PasswordEncoder ENCODER = new BCryptPasswordEncoder();
 
-//    @Override
-//    public void saveUser(SaveUserDTO saveUserDTO) {
-////        if (checkTelephoneExist(saveUserDTO.getTelephone(),
-////                saveUserDTO.getTelephone())) {
-////            throw new BusinessException("电话已被占用");
-////        }
-////        if (checkEmailExist(saveUserDTO.getMail(), saveUserDTO.getId())) {
-////            throw new BusinessException("邮箱已经被占用");
-////        }
-////        String encryptedPassword = MD5Util.encrypt("123456");
-////        SysUser sysUser = SysUserConvert.INSTANCE.convert(saveUserDTO);
-////        sysUser.setCreateOperator("")
-////                .setPassword(encryptedPassword)
-////                .setModifiedOperator("")
-////                .setGmtCreate(new Date())
-////                .setGmtModified(new Date());
-////        sysUserMapper.insert(sysUser);
-//    }
-//
-//    @Override
-//    public void updateUser(UpdateUserDTO updateUserDTO) {
-////        if (checkTelephoneExist(updateUserDTO.getTelephone(), updateUserDTO.getId())) {
-////            throw new BusinessException("电话已被占用");
-////        }
-////        if (checkEmailExist(updateUserDTO.getMail(), updateUserDTO.getId())) {
-////            throw new BusinessException("邮箱已经被占用");
-////        }
-////        SysUser before = sysUserMapper.selectById(updateUserDTO.getId());
-////        Preconditions.checkNotNull(before, "待更新用户信息不存在");
-////        SysUser after = SysUserConvert.INSTANCE.convert(updateUserDTO);
-////        after.setModifiedOperator("")
-////                .setGmtModified(new Date());
-////        sysUserMapper.updateById(after);
-//    }
+    @Override
+    public void addUser(AddUserDTO addUserDTO) {
+        checkTelephoneExist(addUserDTO.getTelephone(), null);
+        checkEmailExist(addUserDTO.getMail(), null);
+        String encryptedPassword = ENCODER.encode(addUserDTO.getPassword());
+        SysUser sysUser = UserConvert.INSTANCE.convert(addUserDTO);
+        sysUser.setUserType(UserTypeEnum.ADMIN.getCode())
+                .setPassword(encryptedPassword);
+        sysUserMapper.insert(sysUser);
+    }
+
+    @Override
+    public void updateUser(ModifyUserDTO modifyUserDTO) {
+        checkId(modifyUserDTO.getId());
+        checkTelephoneExist(modifyUserDTO.getTelephone(), modifyUserDTO.getId());
+        checkEmailExist(modifyUserDTO.getMail(), modifyUserDTO.getId());
+        SysUser sysUser = UserConvert.INSTANCE.convert(modifyUserDTO);
+        sysUserMapper.updateById(sysUser);
+    }
 
     @Override
     public SysUser querySysByUserName(String userName) {
-        return sysUserMapper.queryByUserName(userName);
+        return sysUserMapper.selectByUserName(userName);
     }
 
-//    @Override
-//    public List<SysUserVO> querySysUsersByDeptId(String deptId,
-//                                                 PageParam pageParam) {
-//        List<SysUser> sysUserList =
-//                sysUserMapper.queryPageByDeptId(deptId, pageParam);
-//        List<SysUserVO> sysUserBOList =
-//                UserConvert.INSTANCE.convert(sysUserList);
-//        return sysUserBOList;
-//    }
-//
-//    @Override
-//    public Long countSysUsersByDeptId(String deptId) {
-//        return sysUserMapper.countByDeptId(deptId);
-//    }
+    @Override
+    public SysUser getUserById(Long id) {
+        SysUser sysUser= sysUserMapper.selectById(id);
+        if (Objects.isNull(sysUser)) {
+            throw new BusinessException(USER_NOT_EXISTS);
+        }
+        return sysUser;
+    }
+
+    @Override
+    public PageResponse<SysUser> pageAdminUser(UserDTO userDTO) {
+        return sysUserMapper.selectPage(userDTO);
+    }
+
+    @Override
+    public void removeUserById(Long id) {
+        checkId(id);
+        sysUserMapper.deleteById(id);
+        //删除权限等相关信息
+    }
+
 
     @Override
     public boolean matchPassWord(String passWord, String encodedPassword) {
         return ENCODER.matches(passWord, encodedPassword);
     }
 
-//    private boolean checkEmailExist(String mail, Integer id) {
-//        return sysUserMapper.countByMail(mail, id) > 0;
-//    }
-//
-//    private boolean checkTelephoneExist(String telephone, Integer id) {
-//        return sysUserMapper.countByTelephone(telephone, id) > 0;
-//    }
+
+    private void checkId(Long id) {
+        SysUser sysUser = sysUserMapper.selectById(id);
+        if (Objects.isNull(sysUser)) {
+            throw new BusinessException(USER_NOT_EXISTS);
+        }
+    }
+
+    private void checkEmailExist(String mail, Long id) {
+        SysUser sysUser = sysUserMapper.selectByMail(mail);
+        if (Objects.nonNull(sysUser)) {
+            if (sysUser.getId().equals(id)) {
+                throw new BusinessException(USER_MAIL_EXISTS);
+            }
+            if (id == null) {
+                throw new BusinessException(USER_MAIL_EXISTS);
+            }
+        }
+    }
+
+    private void checkTelephoneExist(String telephone, Long id) {
+        SysUser sysUser = sysUserMapper.selectByPhone(telephone);
+        if (Objects.nonNull(sysUser)) {
+            if (sysUser.getId().equals(id)) {
+                throw new BusinessException(USER_PHONE_EXISTS);
+            }
+            if (id == null) {
+                throw new BusinessException(USER_PHONE_EXISTS);
+            }
+        }
+    }
 }
