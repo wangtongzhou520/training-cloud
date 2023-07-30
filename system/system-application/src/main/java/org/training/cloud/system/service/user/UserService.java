@@ -37,6 +37,14 @@ public interface UserService {
     SysUser querySysByUserName(String userName);
 
     /**
+     * 根据 userID 查询用户
+     *
+     * @param id
+     * @return
+     */
+    SysUser getUserById(Long id);
+
+    /**
      * 分页查询用户信息
      *
      * @param userDTO

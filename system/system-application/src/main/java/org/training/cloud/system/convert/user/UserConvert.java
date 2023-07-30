@@ -4,7 +4,7 @@ import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.system.dto.user.AddUserDTO;
 import org.training.cloud.system.dto.user.ModifyUserDTO;
 import org.training.cloud.system.entity.user.SysUser;
-import org.training.cloud.system.vo.user.SysUserVO;
+import org.training.cloud.system.vo.user.UserVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
@@ -46,8 +46,7 @@ public interface UserConvert {
      * @param sysUser sysUserDO
      * @return sysUserBO
      */
-    @Mappings({})
-    SysUserVO convert(SysUser sysUser);
+    UserVO convert(SysUser sysUser);
 
     /**
      * PageResponse<SysUser> convert PageResponse<SysUserVO>
@@ -55,6 +54,6 @@ public interface UserConvert {
      * @param pageResponse
      * @return
      */
-    PageResponse<SysUserVO> convert(PageResponse<SysUser> pageResponse);
+    PageResponse<UserVO> convert(PageResponse<SysUser> pageResponse);
 
 }

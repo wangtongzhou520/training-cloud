@@ -121,6 +121,15 @@ public class DeptServiceImpl implements DeptService {
         sysDeptMapper.deleteById(id);
     }
 
+    @Override
+    public SysDept getDeptId(Long id) {
+        SysDept dept = sysDeptMapper.selectById(id);
+        if (Objects.isNull(dept)) {
+            throw new BusinessException(DEPT_NOT_EXISTS);
+        }
+        return dept;
+    }
+
     /**
      * 转化部门树
      *

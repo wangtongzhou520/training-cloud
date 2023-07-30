@@ -3,6 +3,7 @@ package org.training.cloud.system.vo.user;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Date;
  * @since 2020-09-01 22:15
  */
 @Data
-public class SysUserVO {
+public class UserVO implements Serializable {
     /**
      * 用户id
      */
@@ -34,14 +35,14 @@ public class SysUserVO {
     private String mail;
 
     /**
-     * 加密后的密码
+     * 部门id
      */
-    private String password;
+    private Long deptId;
 
     /**
      * 用户所在部门的id
      */
-    private Integer deptName;
+    private String deptName;
 
     /**
      * 状态，0：正常，1 禁用

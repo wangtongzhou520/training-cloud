@@ -2,6 +2,7 @@ package org.training.cloud.system.service.dept;
 
 import org.training.cloud.system.dto.dept.AddDeptDTO;
 import org.training.cloud.system.dto.dept.ModifyDeptDTO;
+import org.training.cloud.system.entity.dept.SysDept;
 import org.training.cloud.system.vo.dept.DeptTreeVO;
 
 import java.util.List;
@@ -43,4 +44,12 @@ public interface DeptService {
      * @param id
      */
     void removeDeptById(Long id);
+
+    /**
+     * 获取部门信息
+     *
+     * @param id
+     * @return
+     */
+    SysDept getDeptId(Long id);
 }

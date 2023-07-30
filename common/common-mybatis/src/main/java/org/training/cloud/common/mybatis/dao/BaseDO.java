@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.ibatis.type.JdbcType;
 
@@ -22,6 +23,7 @@ import java.util.Date;
  */
 @Data
 @ToString(callSuper = true)
+@Accessors(chain = true)
 public abstract class BaseDO implements Serializable {
 
     /**

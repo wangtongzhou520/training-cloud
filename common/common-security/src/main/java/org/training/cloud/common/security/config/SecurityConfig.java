@@ -28,7 +28,6 @@ import org.training.cloud.common.security.core.service.SecuritySecurityCheckServ
  * @since 2023-03-03 21:27
  */
 @AutoConfiguration
-@EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
@@ -43,6 +42,8 @@ public class SecurityConfig {
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+
         //支持跨域
         http.cors().and()
                 //csrf关闭
@@ -55,10 +56,10 @@ public class SecurityConfig {
                 .exceptionHandling()
                 //异常认证
                 .authenticationEntryPoint(new CustomizeAuthExceptionEntryPoint())
-                .accessDeniedHandler(new CustomizeAccessDeniedHandler());
-        //token校验
-        http.addFilterBefore(authenticationTokenFilter,
+                .accessDeniedHandler(new CustomizeAccessDeniedHandler())
+                .and().addFilterBefore(authenticationTokenFilter,
                 UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 

@@ -80,7 +80,9 @@ public class Oauth2TokenServiceImpl implements Oauth2TokenService {
                 .setUserId(addOauth2AccessTokenDTO.getUserId())
                 .setUserType(addOauth2AccessTokenDTO.getUserType())
                 .setClientId(client.getClientId())
-                .setScopes(client.getScopes());
+                .setScopes(client.getScopes())
+                .setModifiedOperator(addOauth2AccessTokenDTO.getUserId().toString())
+                .setCreateOperator(addOauth2AccessTokenDTO.getUserId().toString());
         oauth2RefreshTokenMapper.insert(oauth2RefreshToken);
         return oauth2RefreshToken;
     }
@@ -102,7 +104,9 @@ public class Oauth2TokenServiceImpl implements Oauth2TokenService {
                 .setUserId(oauth2RefreshToken.getUserId())
                 .setUserType(oauth2RefreshToken.getUserType())
                 .setScopes(oauth2RefreshToken.getScopes())
-                .setClientId(oauth2RefreshToken.getClientId());
+                .setClientId(oauth2RefreshToken.getClientId())
+                .setModifiedOperator(oauth2RefreshToken.getUserId().toString())
+                .setCreateOperator(oauth2RefreshToken.getUserId().toString());
         oauth2AccessTokenMapper.insert(oauth2AccessToken);
         return oauth2AccessToken;
 

@@ -59,6 +59,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public SysUser getUserById(Long id) {
+        SysUser sysUser= sysUserMapper.selectById(id);
+        if (Objects.isNull(sysUser)) {
+            throw new BusinessException(USER_NOT_EXISTS);
+        }
+        return sysUser;
+    }
+
+    @Override
     public PageResponse<SysUser> pageAdminUser(UserDTO userDTO) {
         return sysUserMapper.selectPage(userDTO);
     }
