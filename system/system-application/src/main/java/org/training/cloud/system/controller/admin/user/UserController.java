@@ -68,13 +68,19 @@ public class UserController {
      *
      * @return 分页用户信息
      */
-    @PostMapping("/page")
+    @PostMapping("/user/page")
     @Operation(summary = "分页查询管理端用户信息")
     public CommonResponse<PageResponse<UserVO>> pageAdminUser(@RequestBody UserDTO userDTO) {
         PageResponse<SysUser> pageResponse = userService.pageAdminUser(userDTO);
         return CommonResponse.ok(UserConvert.INSTANCE.convert(pageResponse));
     }
 
+    /**
+     * 获取用户信息
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/getUserInfo")
     @Operation(summary = "获取用户信息")
     public CommonResponse<UserVO> getUserInfo(@RequestParam("id") Long id) {
