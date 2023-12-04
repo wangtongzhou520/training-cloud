@@ -21,7 +21,7 @@ import java.util.List;
  * @since 2023-05-30 21:58
  */
 @RestController
-@RequestMapping("/sys/admin/")
+@RequestMapping("/sys")
 @Tag(name = "菜单相关接口")
 public class MenuController {
 
@@ -55,6 +55,7 @@ public class MenuController {
     @GetMapping("/list")
     @Operation(summary = "菜单信息")
     public CommonResponse<List<MenuVO>> menuList(MenuDTO menuDTO) {
+
         return CommonResponse.ok();
     }
 

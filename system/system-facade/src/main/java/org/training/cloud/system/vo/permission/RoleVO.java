@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 角色列表
@@ -33,4 +34,9 @@ public class RoleVO implements Serializable {
      * 角色权限字符串
      */
     private String code;
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime gmtCreate;
 }

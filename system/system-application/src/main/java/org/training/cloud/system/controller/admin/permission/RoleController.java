@@ -22,7 +22,7 @@ import org.training.cloud.system.vo.permission.RoleVO;
  * @since 2020-11-09 14:33
  */
 @RestController
-@RequestMapping("/sys/admin/")
+@RequestMapping("/sys")
 @Tag(name = "角色信息")
 public class RoleController {
 
@@ -47,9 +47,9 @@ public class RoleController {
     }
 
 
-    @GetMapping("/page")
+    @PostMapping("/role/page")
     @Operation(summary = "分页查询角色信息")
-    public CommonResponse<PageResponse<RoleVO>> pageAdminUser(RoleDTO roleDTO) {
+    public CommonResponse<PageResponse<RoleVO>> pageAdminUser(@RequestBody RoleDTO roleDTO) {
         PageResponse<SysRole> pageResponse = roleService.pageRole(roleDTO);
         return CommonResponse.ok(RoleConvert.INSTANCE.convert(pageResponse));
     }
