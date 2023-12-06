@@ -1,7 +1,12 @@
 package org.training.cloud.system.service.permission;
 
 import org.training.cloud.system.dto.permission.AddMenuDTO;
+import org.training.cloud.system.dto.permission.MenuDTO;
 import org.training.cloud.system.dto.permission.ModifyMenuDTO;
+import org.training.cloud.system.entity.permission.SysMenu;
+import org.training.cloud.system.vo.permission.MenuVO;
+
+import java.util.List;
 
 /**
  * 菜单
@@ -33,5 +38,12 @@ public interface MenuService {
     void removeMenu(Long id);
 
 
-    
+    /**
+     * 查询菜单树
+     *
+     * @param menuDTO
+     * @return
+     */
+    List<SysMenu> menuList(MenuDTO menuDTO);
+
 }

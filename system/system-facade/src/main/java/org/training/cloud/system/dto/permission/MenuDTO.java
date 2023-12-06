@@ -20,6 +20,10 @@ import java.io.Serializable;
 @Schema(description = "查询菜单信息")
 public class MenuDTO implements Serializable {
 
-    @Schema(description = "菜单名称", required = true, example = "芋道")
+    @Schema(description = "菜单名称", required = false, example = "菜单名称")
     private String name;
+
+    @Schema(description = "是否可见", required = false, example = "是否可见")
+    private Boolean visible;
+
 }

@@ -5,9 +5,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.training.cloud.common.core.vo.CommonResponse;
+import org.training.cloud.system.convert.permission.MenuConvert;
 import org.training.cloud.system.dto.permission.AddMenuDTO;
 import org.training.cloud.system.dto.permission.MenuDTO;
 import org.training.cloud.system.dto.permission.ModifyMenuDTO;
+import org.training.cloud.system.entity.permission.SysMenu;
 import org.training.cloud.system.service.permission.MenuService;
 import org.training.cloud.system.vo.permission.MenuVO;
 
@@ -52,11 +54,11 @@ public class MenuController {
     }
 
 
-    @GetMapping("/list")
+    @PostMapping("/menu/list")
     @Operation(summary = "菜单信息")
-    public CommonResponse<List<MenuVO>> menuList(MenuDTO menuDTO) {
-
-        return CommonResponse.ok();
+    public CommonResponse<List<MenuVO>> menuList(@RequestBody MenuDTO menuDTO) {
+        List<SysMenu> sysMenus = menuService.menuList(menuDTO);
+        return CommonResponse.ok(MenuConvert.INSTANCE.convert(sysMenus));
     }
 
 }

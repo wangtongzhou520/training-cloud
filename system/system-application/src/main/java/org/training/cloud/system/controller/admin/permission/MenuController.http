@@ -1,0 +1,7 @@
+POST http://localhost:8080/sys/menu/list
+Content-Type: application/json
+Authorization: Bearer 333c4adb-320a-4fe0-8c9c-405d74ba7950
+
+{
+
+}

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 菜单列表
@@ -25,4 +26,8 @@ public class MenuVO implements Serializable {
 
     @Schema(description = "菜单类型 1 目录 2 菜单 3按钮", required = true, example = "1")
     private Integer type;
+
+    @Schema(description = "权限标识", required = true, example = "1")
+    private String permission;
+    
 }
