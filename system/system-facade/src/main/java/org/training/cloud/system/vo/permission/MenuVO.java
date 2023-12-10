@@ -29,5 +29,8 @@ public class MenuVO implements Serializable {
 
     @Schema(description = "权限标识", required = true, example = "1")
     private String permission;
-    
+
+    @Schema(description = "是否可见", required = true, example = "true or false")
+    private Boolean visible;
+
 }

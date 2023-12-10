@@ -69,6 +69,6 @@ public class SysMenu extends BaseDO {
     /**
      * 是否可见
      */
-    private String visible;
+    private Boolean visible;
 
 }
