@@ -15,6 +15,7 @@ import org.training.cloud.system.entity.permission.SysRole;
 import org.training.cloud.system.service.permission.RoleService;
 import org.training.cloud.system.vo.permission.RoleVO;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -35,7 +36,7 @@ public class RoleController {
 
     @PostMapping("/role")
     @Operation(summary = "添加角色信息")
-    public CommonResponse<?> addRole(@RequestBody @Validated AddRoleDTO addRoleDTO) {
+    public CommonResponse<?> addRole(@RequestBody @Valid AddRoleDTO addRoleDTO) {
         roleService.addRole(addRoleDTO);
         return CommonResponse.ok();
     }
@@ -43,7 +44,7 @@ public class RoleController {
 
     @PutMapping("/role")
     @Operation(summary = "修改角色信息")
-    public CommonResponse<?> modifyUser(@RequestBody @Validated ModifyRoleDTO modifyRoleDTO) {
+    public CommonResponse<?> modifyUser(@RequestBody @Valid ModifyRoleDTO modifyRoleDTO) {
         roleService.modifyRole(modifyRoleDTO);
         return CommonResponse.ok();
     }

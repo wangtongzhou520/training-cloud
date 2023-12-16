@@ -3,7 +3,6 @@ package org.training.cloud.system.controller.admin.user;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.training.cloud.common.core.vo.CommonResponse;
 import org.training.cloud.common.core.vo.PageResponse;
@@ -18,7 +17,6 @@ import org.training.cloud.system.service.user.UserService;
 import org.training.cloud.system.vo.user.UserVO;
 
 import javax.validation.Valid;
-import java.util.Objects;
 
 /**
  * 用户相关接口

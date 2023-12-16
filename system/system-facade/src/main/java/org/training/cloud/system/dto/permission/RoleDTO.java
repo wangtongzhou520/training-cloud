@@ -22,13 +22,11 @@ public class RoleDTO extends PageParam {
      * name
      */
     @Schema(description = "角色名称", required = true, example = "角色名称")
-    @NotEmpty(message = "角色名称不允许为空")
     private String name;
 
 
 
     @Schema(description = "角色类型 1：管理员角色，0：其他", required = true, example = "1")
-    @NotEmpty(message = "角色名称不允许为空")
     private Integer type;
 
 }
