@@ -17,6 +17,7 @@ import org.training.cloud.system.service.dept.DeptService;
 import org.training.cloud.system.service.user.UserService;
 import org.training.cloud.system.vo.user.UserVO;
 
+import javax.validation.Valid;
 import java.util.Objects;
 
 /**
@@ -44,7 +45,7 @@ public class UserController {
      */
     @PostMapping("/user")
     @Operation(summary = "添加用户信息")
-    public CommonResponse<?> saveUser(@RequestBody @Validated AddUserDTO addUserDTO) {
+    public CommonResponse<?> saveUser(@RequestBody @Valid AddUserDTO addUserDTO) {
         userService.addUser(addUserDTO);
         return CommonResponse.ok();
     }
@@ -56,8 +57,8 @@ public class UserController {
      * @return
      */
     @PutMapping("/user")
-    @Operation(summary = "添加用户信息")
-    public CommonResponse<?> updateUser(@RequestBody @Validated ModifyUserDTO modifyUserDTO) {
+    @Operation(summary = "更新用户信息")
+    public CommonResponse<?> updateUser(@RequestBody @Valid ModifyUserDTO modifyUserDTO) {
         userService.updateUser(modifyUserDTO);
         return CommonResponse.ok();
     }

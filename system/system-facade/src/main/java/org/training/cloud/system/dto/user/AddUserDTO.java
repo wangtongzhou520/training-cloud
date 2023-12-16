@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 
 /**
@@ -22,7 +22,7 @@ public class AddUserDTO implements Serializable {
      * 用户名称
      */
     @Schema(description = "用户名称", required = true, example = "xxxx")
-    @NotEmpty(message = "用户名称不能为空")
+    @NotBlank(message = "用户名称不能为空")
     private String username;
 
 
@@ -30,28 +30,29 @@ public class AddUserDTO implements Serializable {
      * 密码
      */
     @Schema(description = "用户密码", required = true, example = "xxxx")
-    @NotEmpty(message = "用户密码不能为空")
+//    @NotBlank(message = "用户密码不能为空")
     private String password;
 
     /**
      * 手机号
      */
     @Schema(description = "手机号", required = true, example = "12345678900")
-    @NotEmpty(message = "手机号不能为空")
+    @NotBlank(message = "手机号不能为空")
     private String telephone;
 
     /**
      * 邮箱
      */
     @Schema(description = "邮箱", required = true, example = "xxx@xxx.com")
-    @NotEmpty(message = "邮箱不能为空")
+    @Email(message = "邮箱格式不正确")
+    @Size(max = 50, message = "邮箱长度不能超过 50 个字符")
     private String mail;
 
     /**
      * 用户所在部门的id
      */
     @Schema(description = "部门id", required = true, example = "123")
-    @NotEmpty(message = "部门id不能为空")
+    @NotNull(message = "部门id不能为空")
     private Integer deptId;
 
     /**

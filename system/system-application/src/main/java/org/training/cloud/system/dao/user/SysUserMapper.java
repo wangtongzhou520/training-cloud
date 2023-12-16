@@ -59,7 +59,6 @@ public interface SysUserMapper extends BaseMapperExtend<SysUser> {
         return selectPage(userDTO, new LambdaQueryWrapperExtend<SysUser>()
                 .likeIfPresent(SysUser::getUsername, userDTO.getUserName())
                 .eqIfPresent(SysUser::getDeptId, userDTO.getDeptId())
-                .eq(SysUser::getUserType, UserTypeEnum.USER.getCode())
         );
     }
 }
