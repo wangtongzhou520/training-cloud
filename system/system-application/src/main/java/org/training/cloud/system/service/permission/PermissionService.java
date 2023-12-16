@@ -1,6 +1,7 @@
 package org.training.cloud.system.service.permission;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 用户角色信息
@@ -17,5 +18,14 @@ public interface PermissionService {
      * @param roleIds
      */
     void addUserRole(Long userId, List<Long> roleIds);
+
+    /**
+     * 获取用户所有的角色信息
+     *
+     * @param userId
+     * @return
+     */
+    Set<Long> getRoleIdListByUserId(Long userId);
+
 
 }

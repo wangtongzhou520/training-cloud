@@ -15,6 +15,8 @@ import org.training.cloud.system.entity.permission.SysRole;
 import org.training.cloud.system.service.permission.RoleService;
 import org.training.cloud.system.vo.permission.RoleVO;
 
+import java.util.List;
+
 /**
  * 角色
  *
@@ -49,9 +51,16 @@ public class RoleController {
 
     @PostMapping("/role/page")
     @Operation(summary = "分页查询角色信息")
-    public CommonResponse<PageResponse<RoleVO>> pageAdminUser(@RequestBody RoleDTO roleDTO) {
+    public CommonResponse<PageResponse<RoleVO>> pageRoles(@RequestBody RoleDTO roleDTO) {
         PageResponse<SysRole> pageResponse = roleService.pageRole(roleDTO);
         return CommonResponse.ok(RoleConvert.INSTANCE.convert(pageResponse));
+    }
+
+    @GetMapping("/role/all")
+    @Operation(summary = "获取所有的角色信息")
+    public CommonResponse<List<RoleVO>> allRoles() {
+        List<SysRole> allRoles = roleService.allRoles();
+        return CommonResponse.ok(RoleConvert.INSTANCE.convert(allRoles));
     }
 
 
@@ -61,9 +70,9 @@ public class RoleController {
      * @param id
      * @return
      */
-    @DeleteMapping("/role")
+    @DeleteMapping("/role/{id}")
     @Operation(summary = "删除角色")
-    public CommonResponse<?> delRole(@RequestParam Long id) {
+    public CommonResponse<?> delRole(@PathVariable("id") Long id) {
         roleService.removeByRoleId(id);
         return CommonResponse.ok();
     }

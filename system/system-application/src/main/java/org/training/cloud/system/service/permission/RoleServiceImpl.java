@@ -14,6 +14,7 @@ import org.training.cloud.system.enums.permission.RoleTypeEnum;
 
 import javax.annotation.Resource;
 
+import java.util.List;
 import java.util.Objects;
 
 import static org.training.cloud.system.constant.SystemExceptionEnumConstants.*;
@@ -48,6 +49,11 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public PageResponse<SysRole> pageRole(RoleDTO roleDTO) {
         return sysRoleMapper.selectPage(roleDTO);
+    }
+
+    @Override
+    public List<SysRole> allRoles() {
+        return sysRoleMapper.selectAllRoles();
     }
 
     @Override

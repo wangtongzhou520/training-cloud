@@ -6,6 +6,8 @@ import org.training.cloud.system.dto.permission.ModifyRoleDTO;
 import org.training.cloud.system.dto.permission.RoleDTO;
 import org.training.cloud.system.entity.permission.SysRole;
 
+import java.util.List;
+
 /**
  * 角色管理
  *
@@ -34,6 +36,14 @@ public interface RoleService {
      * @param roleDTO
      */
     PageResponse<SysRole> pageRole(RoleDTO roleDTO);
+
+    /**
+     * 获取所有的角色信息
+     *
+     * @return
+     */
+    List<SysRole> allRoles();
+
 
     /**
      * 删除角色

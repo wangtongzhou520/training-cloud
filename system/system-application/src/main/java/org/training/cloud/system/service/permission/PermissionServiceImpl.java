@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * 用户角色信息
@@ -24,6 +25,7 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Resource
     private SysUserRoleMapper sysUserRoleMapper;
+
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -51,8 +53,17 @@ public class PermissionServiceImpl implements PermissionService {
         result.clear();
         result.addAll(hasRoles);
         result.removeAll(paramsRoles);
-        if (CollectionUtils.isNotEmpty(result)){
-            sysUserRoleMapper.removeByUserIdAndRoleIds(userId,result);
+        if (CollectionUtils.isNotEmpty(result)) {
+            sysUserRoleMapper.removeByUserIdAndRoleIds(userId, result);
         }
+    }
+
+    @Override
+    public Set<Long> getRoleIdListByUserId(Long userId) {
+        List<SysUserRole> sysUserRoles = sysUserRoleMapper.selectByUserId(userId);
+        if (CollectionUtils.isEmpty(sysUserRoles)) {
+            return null;
+        }
+        return sysUserRoles.stream().map(SysUserRole::getRoleId).collect(Collectors.toSet());
     }
 }
