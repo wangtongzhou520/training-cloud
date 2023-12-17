@@ -21,7 +21,7 @@ import java.io.Serializable;
 public class ModifyRoleDTO implements Serializable {
 
     @Schema(description = "角色ID", required = true, example = "角色ID")
-    @NotBlank(message = "角色ID不允许为空")
+    @NotNull(message = "角色ID不允许为空")
     private Long id;
 
     /**
