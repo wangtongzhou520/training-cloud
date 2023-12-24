@@ -6,6 +6,7 @@ import org.training.cloud.system.dto.permission.ModifyRoleDTO;
 import org.training.cloud.system.dto.permission.RoleDTO;
 import org.training.cloud.system.entity.permission.SysRole;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -51,6 +52,18 @@ public interface RoleService {
      * @param id
      */
     void removeByRoleId(Long id);
+
+
+    /**
+     * 判断是否是超级管理员
+     *
+     * @param ids
+     * @return
+     */
+    boolean hasAnySuperAdmin(Collection<Long> ids);
+
+
+
 
 
 }

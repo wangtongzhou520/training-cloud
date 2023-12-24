@@ -28,4 +28,22 @@ public interface PermissionService {
     Set<Long> getRoleIdListByUserId(Long userId);
 
 
+    /**
+     * 根据角色ID查看具有权限信息
+     *
+     * @param roleId
+     * @return
+     */
+    Set<Long> getMenuIdListByRoleId(Long roleId);
+
+
+    /**
+     * 为菜单赋权
+     *
+     * @param roleId
+     * @param menuIds
+     */
+    void addRoleMenu(Long roleId,List<Long> menuIds);
+
+
 }

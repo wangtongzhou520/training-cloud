@@ -14,6 +14,7 @@ import org.training.cloud.system.service.permission.MenuService;
 import org.training.cloud.system.vo.permission.MenuVO;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ public class MenuController {
 
     @PostMapping("/menu")
     @Operation(summary = "添加菜单信息")
-    public CommonResponse<?> addMenu(@RequestBody @Validated AddMenuDTO addMenuDTO) {
+    public CommonResponse<?> addMenu(@RequestBody @Valid AddMenuDTO addMenuDTO) {
         menuService.addMenu(addMenuDTO);
         return CommonResponse.ok();
     }
@@ -40,7 +41,7 @@ public class MenuController {
 
     @PutMapping("/menu")
     @Operation(summary = "修改菜单信息")
-    public CommonResponse<?> modifyMenu(@RequestBody @Validated ModifyMenuDTO modifyMenuDTO) {
+    public CommonResponse<?> modifyMenu(@RequestBody @Valid ModifyMenuDTO modifyMenuDTO) {
         menuService.modifyMenu(modifyMenuDTO);
         return CommonResponse.ok();
     }
