@@ -55,6 +55,14 @@ public class MenuController {
     }
 
 
+    @GetMapping("/menu")
+    @Operation(summary = "获取菜单信息")
+    public CommonResponse<?> getMenuInfo(@RequestParam("id") Long id) {
+        SysMenu sysMenu=menuService.getMenuById(id);
+        return CommonResponse.ok(MenuConvert.INSTANCE.convert(sysMenu));
+    }
+
+
     @PostMapping("/menu/list")
     @Operation(summary = "菜单信息")
     public CommonResponse<List<MenuVO>> menuList(@RequestBody MenuDTO menuDTO) {

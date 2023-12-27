@@ -65,10 +65,6 @@ public class SysMenu extends BaseDO {
      * 组件路径
      */
     private String component;
-
-    /**
-     * 是否可见
-     */
-    private Boolean visible;
+    
 
 }

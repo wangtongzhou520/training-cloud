@@ -51,7 +51,6 @@ public interface SysMenuMapper extends BaseMapperExtend<SysMenu> {
     default List<SysMenu> selectList(MenuDTO menuDTO){
         return selectList(new LambdaQueryWrapperExtend<SysMenu>()
                 .likeIfPresent(SysMenu::getName,menuDTO.getName())
-                .eqIfPresent(SysMenu::getVisible,menuDTO.getVisible())
         );
     }
 }

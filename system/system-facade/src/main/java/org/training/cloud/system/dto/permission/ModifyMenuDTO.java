@@ -22,7 +22,7 @@ public class ModifyMenuDTO implements Serializable {
 
 
     @Schema(description = "菜单编号", required = true, example = "菜单编号")
-    @NotBlank(message = "菜单编号不能为空")
+    @NotNull(message = "菜单编号不能为空")
     private Long id;
 
     @Schema(description = "菜单名称", required = true, example = "用户菜单")
@@ -58,6 +58,7 @@ public class ModifyMenuDTO implements Serializable {
     private String component;
 
 
-    @Schema(description = "是否可见", example = "false")
-    private Boolean visible;
+    @Schema(description = "组件路径名称", example = "用户列表")
+    private String componentName;
+
 }

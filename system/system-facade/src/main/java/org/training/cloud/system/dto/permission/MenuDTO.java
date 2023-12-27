@@ -23,7 +23,5 @@ public class MenuDTO implements Serializable {
     @Schema(description = "菜单名称", required = false, example = "菜单名称")
     private String name;
 
-    @Schema(description = "是否可见", required = false, example = "是否可见")
-    private Boolean visible;
 
 }

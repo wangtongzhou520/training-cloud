@@ -33,4 +33,16 @@ public class MenuVO implements Serializable {
     @Schema(description = "是否可见", required = true, example = "true or false")
     private Boolean visible;
 
+    @Schema(description = "路由地址", required = true)
+    private String path;
+
+    @Schema(description = "组件路径", required = true)
+    private String component;
+
+    @Schema(description = "组件名称", required = true)
+    private String componentName;
+
+    @Schema(description = "显示顺序", required = true)
+    private Integer sort;
+
 }

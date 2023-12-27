@@ -52,7 +52,4 @@ public class AddMenuDTO implements Serializable {
     @Size(max = 255, message = "组件路径不能超过255个字符")
     private String component;
 
-
-    @Schema(description = "是否可见", example = "false")
-    private Boolean visible;
 }

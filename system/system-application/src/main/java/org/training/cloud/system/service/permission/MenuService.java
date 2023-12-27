@@ -30,6 +30,15 @@ public interface MenuService {
      */
     void modifyMenu(ModifyMenuDTO modifyMenuDTO);
 
+
+    /**
+     * 根据id获取菜单信息
+     *
+     * @param id
+     * @return
+     */
+    SysMenu getMenuById(Long id);
+
     /**
      * 删除菜单
      *

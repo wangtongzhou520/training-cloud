@@ -64,6 +64,11 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    public SysMenu getMenuById(Long id) {
+        return sysMenuMapper.selectById(id);
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void removeMenu(Long id) {
         //查询菜单下面是否存在子菜单
