@@ -1,6 +1,7 @@
 package org.training.cloud.system.service.permission;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.training.cloud.common.core.exception.BusinessException;
@@ -14,9 +15,7 @@ import org.training.cloud.system.enums.permission.MenuTypeEnum;
 import org.training.cloud.system.vo.permission.MenuVO;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 import static org.training.cloud.system.constant.SystemExceptionEnumConstants.*;
 
@@ -66,6 +65,14 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public SysMenu getMenuById(Long id) {
         return sysMenuMapper.selectById(id);
+    }
+
+    @Override
+    public List<SysMenu> getMenuListByIds(Collection<Long> ids) {
+        if (CollectionUtils.isEmpty(ids)){
+            return Collections.emptyList();
+        }
+        return sysMenuMapper.selectMenuListByIds(ids);
     }
 
     @Override

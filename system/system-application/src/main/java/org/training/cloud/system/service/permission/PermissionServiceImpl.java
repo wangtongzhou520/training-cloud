@@ -74,7 +74,7 @@ public class PermissionServiceImpl implements PermissionService {
     public Set<Long> getRoleIdListByUserId(Long userId) {
         List<SysUserRole> sysUserRoles = sysUserRoleMapper.selectByUserId(userId);
         if (CollectionUtils.isEmpty(sysUserRoles)) {
-            return null;
+            return Collections.emptySet();
         }
         return sysUserRoles.stream().map(SysUserRole::getRoleId).collect(Collectors.toSet());
     }
@@ -85,10 +85,19 @@ public class PermissionServiceImpl implements PermissionService {
             List<SysMenu> menuList = menuService.menuList(new MenuDTO());
             return menuList.stream().map(SysMenu::getId).collect(Collectors.toSet());
         }
-        List<SysRoleMenu> sysRoleMenuList=sysRoleMenuMapper.selectByRoleId(roleId);
-        if (CollectionUtils.isEmpty(sysRoleMenuList)){
+        List<SysRoleMenu> sysRoleMenuList = sysRoleMenuMapper.selectByRoleId(roleId);
+        if (CollectionUtils.isEmpty(sysRoleMenuList)) {
             return null;
         }
+        return sysRoleMenuList.stream().map(SysRoleMenu::getMenuId).collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<Long> getMenuIdListByRoleIds(Set<Long> roleIds) {
+        if (CollectionUtils.isEmpty(roleIds)) {
+            return Collections.emptySet();
+        }
+        List<SysRoleMenu> sysRoleMenuList = sysRoleMenuMapper.selectByRoleIds(roleIds);
         return sysRoleMenuList.stream().map(SysRoleMenu::getMenuId).collect(Collectors.toSet());
     }
 

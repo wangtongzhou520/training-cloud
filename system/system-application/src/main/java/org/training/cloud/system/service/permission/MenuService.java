@@ -6,6 +6,7 @@ import org.training.cloud.system.dto.permission.ModifyMenuDTO;
 import org.training.cloud.system.entity.permission.SysMenu;
 import org.training.cloud.system.vo.permission.MenuVO;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -38,6 +39,15 @@ public interface MenuService {
      * @return
      */
     SysMenu getMenuById(Long id);
+
+
+    /**
+     * 根据菜单列表获取菜单信息
+     *
+     * @param ids
+     * @return
+     */
+    List<SysMenu> getMenuListByIds(Collection<Long> ids);
 
     /**
      * 删除菜单

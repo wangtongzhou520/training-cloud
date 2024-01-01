@@ -1,6 +1,7 @@
 package org.training.cloud.system.service.auth;
 
 import org.training.cloud.system.dto.auth.AuthLoginDTO;
+import org.training.cloud.system.dto.auth.AuthPermissionVO;
 import org.training.cloud.system.entity.user.SysUser;
 import org.training.cloud.system.vo.auth.AuthLoginVO;
 
@@ -29,6 +30,15 @@ public interface AuthService {
      * @return
      */
     SysUser authenticate(String username, String password);
+
+
+    /**
+     * 获取用户的权限信息
+     * 
+     * @param userId
+     * @return
+     */
+    AuthPermissionVO getUserPermission(Long userId);
 
 
 

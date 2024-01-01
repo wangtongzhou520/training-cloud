@@ -45,6 +45,14 @@ public interface RoleService {
      */
     List<SysRole> allRoles();
 
+    /**
+     * 根据角色ID查询角色信息
+     *
+     * @param ids
+     * @return
+     */
+    List<SysRole> getRoleListByIds(Collection<Long> ids);
+
 
     /**
      * 删除角色

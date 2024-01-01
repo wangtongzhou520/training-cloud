@@ -20,6 +20,13 @@ import org.training.cloud.common.mybatis.dao.BaseDO;
 @TableName(value = "sys_menu")
 public class SysMenu extends BaseDO {
 
+
+    /**
+     * 根节点
+     */
+    public static final Long ROOT = 0L;
+
+
     @TableId(type = IdType.AUTO)
     /**
      * 唯一键
@@ -39,7 +46,7 @@ public class SysMenu extends BaseDO {
     /**
      * 菜单类型
      */
-    private int type;
+    private Integer type;
 
     /**
      * 显示顺序
@@ -65,6 +72,11 @@ public class SysMenu extends BaseDO {
      * 组件路径
      */
     private String component;
-    
+
+    /**
+     * 组件名称
+     */
+    private String componentName;
+
 
 }

@@ -38,6 +38,16 @@ public interface PermissionService {
 
 
     /**
+     * 根据多个角色信息获取所有的权限信息
+     *
+     * @param roleIds
+     * @return
+     */
+    Set<Long> getMenuIdListByRoleIds(Set<Long> roleIds);
+
+
+
+    /**
      * 为菜单赋权
      *
      * @param roleId

@@ -7,6 +7,7 @@ import org.training.cloud.system.dto.permission.RoleDTO;
 import org.training.cloud.system.entity.permission.SysRole;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -53,6 +54,15 @@ public interface SysRoleMapper extends BaseMapperExtend<SysRole> {
         );
     }
 
+    /**
+     * 根据角色ID查询角色列表
+     *
+     * @param ids
+     * @return
+     */
+    default List<SysRole> selectRoleListByIds(Collection<Long> ids) {
+        return selectList(SysRole::getId, ids);
+    }
 
     /**
      * 获取所有未删除的角色信息

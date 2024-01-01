@@ -18,13 +18,23 @@ import java.util.Set;
 public interface SysRoleMenuMapper extends BaseMapperExtend<SysRoleMenu> {
 
     /**
-     * 根据角色ID查询菜单列表
+     * 根据角色ID查询权限信息
      *
      * @param roleId
      * @return
      */
     default List<SysRoleMenu> selectByRoleId(Long roleId) {
         return selectList(SysRoleMenu::getRoleId, roleId);
+    }
+
+    /**
+     * 根据角色列表获取所有的权限信息
+     *
+     * @param roleIds
+     * @return
+     */
+    default List<SysRoleMenu> selectByRoleIds(Set<Long> roleIds) {
+        return selectList(SysRoleMenu::getRoleId, roleIds);
     }
 
     /**

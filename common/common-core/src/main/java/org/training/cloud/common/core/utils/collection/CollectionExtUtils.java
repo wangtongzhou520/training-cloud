@@ -4,6 +4,7 @@ import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -27,5 +28,13 @@ public class CollectionExtUtils {
             return new ArrayList<>();
         }
         return from.stream().map(func).filter(Objects::nonNull).collect(Collectors.toList());
+    }
+
+
+    public static <T> List<T> filterList(Collection<T> from, Predicate<T> predicate) {
+        if (CollectionUtils.isEmpty(from)) {
+            return new ArrayList<>();
+        }
+        return from.stream().filter(predicate).collect(Collectors.toList());
     }
 }

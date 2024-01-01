@@ -15,6 +15,7 @@ import org.training.cloud.system.enums.permission.RoleTypeEnum;
 
 import javax.annotation.Resource;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,6 +56,14 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<SysRole> allRoles() {
         return sysRoleMapper.selectAllRoles();
+    }
+
+    @Override
+    public List<SysRole> getRoleListByIds(Collection<Long> ids) {
+        if (CollectionUtils.isEmpty(ids)){
+            return Collections.emptyList();
+        }
+        return sysRoleMapper.selectRoleListByIds(ids);
     }
 
     @Override
