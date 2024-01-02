@@ -15,7 +15,7 @@ import java.util.Set;
 /**
  * 用户的权限信息
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou
  * @since 2023-12-31 09:33
  */
 @Schema(description = "用户的权限信息")

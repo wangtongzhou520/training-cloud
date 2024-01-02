@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * 用户角色信息
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou
  * @since 2023-05-28 18:58
  */
 public interface PermissionService {

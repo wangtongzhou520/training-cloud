@@ -12,7 +12,7 @@ import java.io.Serializable;
 /**
  * 新增菜单
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou
  * @since 2023-05-31 07:45
  */
 @Data

@@ -11,7 +11,7 @@ import org.training.cloud.common.mybatis.dao.BaseDO;
 /**
  * 角色菜单信息
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou
  * @since 2023-12-24 15:48
  */
 @Data
