@@ -60,7 +60,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<SysRole> getRoleListByIds(Collection<Long> ids) {
-        if (CollectionUtils.isEmpty(ids)){
+        if (CollectionUtils.isEmpty(ids)) {
             return Collections.emptyList();
         }
         return sysRoleMapper.selectRoleListByIds(ids);
@@ -109,8 +109,8 @@ public class RoleServiceImpl implements RoleService {
             throw new BusinessException(ROLE_NOT_EXISTS);
         }
 
-        if (RoleTypeEnum.ADMIN.getCode().equals(role.getType())) {
-            throw new BusinessException(ROLE_SYSTEM_NOT_MODIFY);
+        if (RoleTypeEnum.getByCode(role.getType()) == null) {
+            throw new BusinessException(ROLE_TYPE_NOT_EXISTS);
         }
     }
 }

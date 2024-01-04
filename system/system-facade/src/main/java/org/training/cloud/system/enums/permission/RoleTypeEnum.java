@@ -1,5 +1,8 @@
 package org.training.cloud.system.enums.permission;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 角色类型
  *
@@ -35,4 +38,24 @@ public enum RoleTypeEnum {
     public void setDesc(String desc) {
         this.desc = desc;
     }
+
+    private static Map<Integer, RoleTypeEnum> map = new HashMap<>();
+    private static Map<String, RoleTypeEnum> descMap = new HashMap<>();
+
+
+    static {
+        for (RoleTypeEnum value : RoleTypeEnum.values()) {
+            map.put(value.getCode(), value);
+            descMap.put(value.getDesc(), value);
+        }
+    }
+
+    public static RoleTypeEnum getByCode(Integer code) {
+        return map.get(code);
+    }
+
+    public static RoleTypeEnum getByDesc(String desc) {
+        return descMap.get(desc);
+    }
+
 }
