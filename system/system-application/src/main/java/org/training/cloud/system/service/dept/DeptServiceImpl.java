@@ -10,10 +10,12 @@ import org.training.cloud.common.core.exception.BusinessException;
 import org.training.cloud.system.convert.dept.DeptConvert;
 import org.training.cloud.system.dao.dept.SysDeptMapper;
 import org.training.cloud.system.dto.dept.AddDeptDTO;
+import org.training.cloud.system.dto.dept.DeptDTO;
 import org.training.cloud.system.dto.dept.ModifyDeptDTO;
 import org.training.cloud.system.entity.dept.SysDept;
 import org.training.cloud.system.utils.LevelUtil;
 import org.training.cloud.system.vo.dept.DeptTreeVO;
+import org.training.cloud.system.vo.dept.DeptVO;
 
 import java.util.Comparator;
 import java.util.List;
@@ -54,7 +56,7 @@ public class DeptServiceImpl implements DeptService {
     @Transactional(rollbackFor = Exception.class)
     public void modifyDept(ModifyDeptDTO modifyDeptDTO) {
         //检查传入的部门id是否存在
-        SysDept before=checkDeptExistById(modifyDeptDTO.getId());
+        SysDept before = checkDeptExistById(modifyDeptDTO.getId());
         //检查同一层级下面是否存在相同的部门
         checkDeptNameExist(modifyDeptDTO.getParentId(), modifyDeptDTO.getName());
         //组合do
@@ -88,7 +90,7 @@ public class DeptServiceImpl implements DeptService {
                         sysDept.setLevel(level);
                     }
                 });
-                sysDeptMapper.batchUpdateLevel(sysDeptList);
+                sysDeptMapper.insertBatch(sysDeptList);
             }
         }
         //更新自己
@@ -97,27 +99,14 @@ public class DeptServiceImpl implements DeptService {
 
 
     @Override
-    public List<DeptTreeVO> deptTrees() {
-        List<SysDept> allDeptList = sysDeptMapper.selectAllDept();
-        //转化实体 do转bo
-        List<DeptTreeVO> deptBoList =
-                DeptConvert.INSTANCE.convert(allDeptList);
-        //递归生成树
-        return deptBoListConvertDeptTree(deptBoList);
-    }
-
-    @Override
     public void removeDeptById(Long id) {
         //查询部门是否存在
-        SysDept before=checkDeptExistById(id);
+        SysDept before = checkDeptExistById(id);
         //检查该部门下面是否存在子部门
         if (sysDeptMapper.countByParentId(id) > 0) {
             throw new BusinessException("当前部门下面还存在子部门");
         }
         //检查该部门下是否还存在用户信息
-
-
-
         sysDeptMapper.deleteById(id);
     }
 
@@ -128,6 +117,11 @@ public class DeptServiceImpl implements DeptService {
             throw new BusinessException(DEPT_NOT_EXISTS);
         }
         return dept;
+    }
+
+    @Override
+    public List<SysDept> getAllDept(DeptDTO deptDTO) {
+        return sysDeptMapper.selectDeptList(deptDTO);
     }
 
     /**
@@ -190,8 +184,7 @@ public class DeptServiceImpl implements DeptService {
     }
 
 
-
-    private SysDept checkDeptExistById(Long deptId){
+    private SysDept checkDeptExistById(Long deptId) {
         SysDept dept = sysDeptMapper.selectById(deptId);
         if (Objects.isNull(dept)) {
             throw new BusinessException(DEPT_NOT_EXISTS);

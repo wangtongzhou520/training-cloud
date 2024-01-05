@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.training.cloud.common.mybatis.extend.LambdaQueryWrapperExtend;
 import org.training.cloud.common.mybatis.mapper.BaseMapperExtend;
+import org.training.cloud.system.dto.dept.DeptDTO;
 import org.training.cloud.system.entity.dept.SysDept;
 
 import java.util.List;
@@ -28,7 +29,8 @@ public interface SysDeptMapper extends BaseMapperExtend<SysDept> {
     default Long countByNameAndParentId(Long parentId, String name) {
         return selectCount(new LambdaQueryWrapperExtend<SysDept>()
                 .eq(SysDept::getParentId, parentId)
-                .eq(SysDept::getName, name));
+                .eq(SysDept::getName, name)
+                .eq(SysDept::getDeleteState,false));
     }
 
     /**
@@ -40,6 +42,7 @@ public interface SysDeptMapper extends BaseMapperExtend<SysDept> {
     default List<SysDept> selectByChildDeptByLevel(String level) {
         return selectList(new LambdaQueryWrapperExtend<SysDept>()
                 .likeIfPresent(SysDept::getLevel, level)
+                .eq(SysDept::getDeleteState,false)
         );
     }
 
@@ -48,22 +51,28 @@ public interface SysDeptMapper extends BaseMapperExtend<SysDept> {
      *
      * @return
      */
-    default List<SysDept> selectAllDept() {
-        return selectList();
-    }
-
-
-    default Long countByParentId(Long id) {
-        return selectCount(SysDept::getParentId, id);
+    default List<SysDept> selectDeptList(DeptDTO deptDTO) {
+        return selectList(new LambdaQueryWrapperExtend<SysDept>()
+                .likeIfPresent(SysDept::getName, deptDTO.getName())
+                .eqIfPresent(SysDept::getDeleteState,false)
+        );
     }
 
 
     /**
-     * 批量更新部门level信息
-     *
-     * @param sysDeptList
+     * 根据父节点查询个数
+     * 
+     * @param id
+     * @return
      */
-    void batchUpdateLevel(@Param("list") List<SysDept> sysDeptList);
+    default Long countByParentId(Long id) {
+        return selectCount(new LambdaQueryWrapperExtend<SysDept>()
+                .eq(SysDept::getParentId, id)
+                .eq(SysDept::getDeleteState,false)
+        );
+    }
+
+
 
 
 }

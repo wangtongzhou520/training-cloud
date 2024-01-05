@@ -6,11 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.training.cloud.common.core.vo.CommonResponse;
+import org.training.cloud.system.convert.dept.DeptConvert;
 import org.training.cloud.system.dto.dept.AddDeptDTO;
+import org.training.cloud.system.dto.dept.DeptDTO;
 import org.training.cloud.system.dto.dept.ModifyDeptDTO;
+import org.training.cloud.system.entity.dept.SysDept;
 import org.training.cloud.system.service.dept.DeptService;
 import org.training.cloud.system.vo.dept.DeptTreeVO;
+import org.training.cloud.system.vo.dept.DeptVO;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -35,7 +40,7 @@ public class DeptController {
      */
     @PostMapping("/dept")
     @Operation(summary = "添加部门信息")
-    public CommonResponse<?> saveDept(@RequestBody @Validated AddDeptDTO addDeptDTO) {
+    public CommonResponse<?> saveDept(@RequestBody @Valid AddDeptDTO addDeptDTO) {
         deptService.addDept(addDeptDTO);
         return CommonResponse.ok();
     }
@@ -48,7 +53,7 @@ public class DeptController {
      */
     @PutMapping("/dept")
     @Operation(summary = "修改部门信息")
-    public CommonResponse<?> updateDept(@RequestBody ModifyDeptDTO modifyDeptDTO) {
+    public CommonResponse<?> updateDept(@RequestBody @Valid ModifyDeptDTO modifyDeptDTO) {
         deptService.modifyDept(modifyDeptDTO);
         return CommonResponse.ok();
     }
@@ -58,11 +63,11 @@ public class DeptController {
      *
      * @return 部门树
      */
-    @GetMapping("/depts")
+    @PostMapping("/deptList")
     @Operation(summary = "部门树")
-    public CommonResponse<List<DeptTreeVO>> queryDeptTree() {
-        List<DeptTreeVO> treeVoList = deptService.deptTrees();
-        return CommonResponse.ok(treeVoList);
+    public CommonResponse<List<DeptVO>> deptList(@RequestBody  DeptDTO deptDTO) {
+        List<SysDept> depts = deptService.getAllDept(deptDTO);
+        return CommonResponse.ok(DeptConvert.INSTANCE.convert(depts));
     }
 
     /**
@@ -72,7 +77,7 @@ public class DeptController {
      * @return
      */
     @DeleteMapping("/dept")
-    @Operation(summary = "部门树")
+    @Operation(summary = "删除部门")
     public CommonResponse<?> delDept(@RequestParam Long id) {
         deptService.removeDeptById(id);
         return CommonResponse.ok();

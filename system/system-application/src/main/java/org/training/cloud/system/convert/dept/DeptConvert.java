@@ -7,6 +7,7 @@ import org.training.cloud.system.vo.dept.DeptTreeVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
+import org.training.cloud.system.vo.dept.DeptVO;
 
 import java.util.List;
 
@@ -30,23 +31,16 @@ public interface DeptConvert {
     @Mappings({})
     SysDept convert(AddDeptDTO addDeptDTO);
 
-    /**
-     * deptTreeBO convert queryDeptBO
-     *
-     * @param sysDept 部门信息
-     * @return deptTreeBO
-     */
+
     @Mappings({})
-    DeptTreeVO convert(SysDept sysDept);
-
+    DeptVO convert(SysDept sysDept);
 
     /**
-     * deptTreeBOList convert queryDeptBOList
      *
-     * @param deptDOList 部门信息
-     * @return deptTreeBOList
+     * @param sysDeptList
+     * @return
      */
-    List<DeptTreeVO> convert(List<SysDept> deptDOList);
+    List<DeptVO> convert(List<SysDept> sysDeptList);
 
     /**
      * updateDeptDTO convert sysDeptDO
