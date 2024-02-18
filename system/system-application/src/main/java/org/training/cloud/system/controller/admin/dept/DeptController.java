@@ -3,16 +3,12 @@ package org.training.cloud.system.controller.admin.dept;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.training.cloud.common.core.vo.CommonResponse;
-import org.training.cloud.system.convert.dept.DeptConvert;
 import org.training.cloud.system.dto.dept.AddDeptDTO;
 import org.training.cloud.system.dto.dept.DeptDTO;
 import org.training.cloud.system.dto.dept.ModifyDeptDTO;
-import org.training.cloud.system.entity.dept.SysDept;
 import org.training.cloud.system.service.dept.DeptService;
-import org.training.cloud.system.vo.dept.DeptTreeVO;
 import org.training.cloud.system.vo.dept.DeptVO;
 
 import javax.validation.Valid;
@@ -25,8 +21,8 @@ import java.util.List;
  * @since 2020-06-03 20:22
  */
 @RestController
-@RequestMapping("/sys/admin")
-@Tag(name ="部门信息")
+@RequestMapping("/sys")
+@Tag(name = "部门信息")
 public class DeptController {
 
     @Autowired
@@ -65,9 +61,8 @@ public class DeptController {
      */
     @PostMapping("/deptList")
     @Operation(summary = "部门树")
-    public CommonResponse<List<DeptVO>> deptList(@RequestBody  DeptDTO deptDTO) {
-        List<SysDept> depts = deptService.getAllDept(deptDTO);
-        return CommonResponse.ok(DeptConvert.INSTANCE.convert(depts));
+    public CommonResponse<List<DeptVO>> deptList(@RequestBody DeptDTO deptDTO) {
+        return CommonResponse.ok(deptService.getAllDept(deptDTO));
     }
 
     /**

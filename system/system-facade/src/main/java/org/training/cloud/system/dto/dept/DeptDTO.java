@@ -25,7 +25,7 @@ public class DeptDTO implements Serializable {
     private String name;
 
 
-    @Schema(description = "是否启用")
+    @Schema(description = "是否使用")
     private Boolean deleteState;
 
 }

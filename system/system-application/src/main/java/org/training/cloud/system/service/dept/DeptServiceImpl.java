@@ -7,12 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.training.cloud.common.core.exception.BusinessException;
+import org.training.cloud.common.core.utils.collection.CollectionExtUtils;
 import org.training.cloud.system.convert.dept.DeptConvert;
 import org.training.cloud.system.dao.dept.SysDeptMapper;
 import org.training.cloud.system.dto.dept.AddDeptDTO;
 import org.training.cloud.system.dto.dept.DeptDTO;
 import org.training.cloud.system.dto.dept.ModifyDeptDTO;
 import org.training.cloud.system.entity.dept.SysDept;
+import org.training.cloud.system.entity.permission.SysRoleMenu;
+import org.training.cloud.system.entity.user.SysUser;
+import org.training.cloud.system.service.user.UserService;
 import org.training.cloud.system.utils.LevelUtil;
 import org.training.cloud.system.vo.dept.DeptTreeVO;
 import org.training.cloud.system.vo.dept.DeptVO;
@@ -39,6 +43,9 @@ public class DeptServiceImpl implements DeptService {
     @Autowired
     private SysDeptMapper sysDeptMapper;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public void addDept(AddDeptDTO addDeptDTO) {
         //判断同一层级下面是否包含相同的部门名称
@@ -57,8 +64,8 @@ public class DeptServiceImpl implements DeptService {
     public void modifyDept(ModifyDeptDTO modifyDeptDTO) {
         //检查传入的部门id是否存在
         SysDept before = checkDeptExistById(modifyDeptDTO.getId());
-        //检查同一层级下面是否存在相同的部门
-        checkDeptNameExist(modifyDeptDTO.getParentId(), modifyDeptDTO.getName());
+//        //检查同一层级下面是否存在相同的部门
+//        checkDeptNameExist(modifyDeptDTO.getParentId(), modifyDeptDTO.getName());
         //组合do
         SysDept after = DeptConvert.INSTANCE.convert(modifyDeptDTO);
         String level = LevelUtil.calculateLevel(
@@ -120,8 +127,15 @@ public class DeptServiceImpl implements DeptService {
     }
 
     @Override
-    public List<SysDept> getAllDept(DeptDTO deptDTO) {
-        return sysDeptMapper.selectDeptList(deptDTO);
+    public List<DeptVO> getAllDept(DeptDTO deptDTO) {
+        List<SysDept> sysDeptList = sysDeptMapper.selectDeptList(deptDTO);
+        if (CollectionUtils.isEmpty(sysDeptList)) {
+            return null;
+        }
+        //查询负责人列表
+        List<SysUser> sysUserList = userService.getUserByIds(CollectionExtUtils.convertSet(sysDeptList,
+                SysDept::getManageId));
+       return DeptConvert.INSTANCE.convert(sysDeptList,sysUserList);
     }
 
     /**

@@ -54,5 +54,6 @@ public interface DeptService {
      *
      * @return
      */
-    List<SysDept> getAllDept(DeptDTO deptDTO);
+    List<DeptVO> getAllDept(DeptDTO deptDTO);
+
 }

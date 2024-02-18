@@ -15,6 +15,8 @@ import org.training.cloud.system.dto.user.UserDTO;
 import org.training.cloud.system.entity.user.SysUser;
 import org.training.cloud.system.enums.user.UserTypeEnum;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 import static org.training.cloud.system.constant.SystemExceptionEnumConstants.*;
@@ -65,6 +67,11 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException(USER_NOT_EXISTS);
         }
         return sysUser;
+    }
+
+    @Override
+    public List<SysUser> getUserByIds(Collection<Long> ids) {
+        return sysUserMapper.selectUserListByIds(ids);
     }
 
     @Override

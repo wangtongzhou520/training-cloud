@@ -8,6 +8,9 @@ import org.training.cloud.system.dto.user.UserDTO;
 import org.training.cloud.system.entity.user.SysUser;
 import org.training.cloud.system.enums.user.UserTypeEnum;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
  * user mapper
  *
@@ -38,6 +41,16 @@ public interface SysUserMapper extends BaseMapperExtend<SysUser> {
         return selectOne(SysUser::getTelephone, telephone);
     }
 
+    /**
+     * 根据ID列表查询用户信息
+     *
+     * @param ids
+     * @return
+     */
+    default List<SysUser> selectUserListByIds(Collection<Long> ids) {
+        return selectList(SysUser::getId, ids);
+    }
+
 
     /**
      * 根据用户名查询用户
@@ -57,6 +70,7 @@ public interface SysUserMapper extends BaseMapperExtend<SysUser> {
      */
     default PageResponse<SysUser> selectPage(UserDTO userDTO) {
         return selectPage(userDTO, new LambdaQueryWrapperExtend<SysUser>()
+                .eqIfPresent(SysUser::getId,userDTO.getId())
                 .likeIfPresent(SysUser::getUsername, userDTO.getUserName())
                 .eqIfPresent(SysUser::getDeptId, userDTO.getDeptId())
         );
