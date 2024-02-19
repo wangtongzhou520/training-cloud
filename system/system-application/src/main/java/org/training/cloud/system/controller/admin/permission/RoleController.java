@@ -15,6 +15,9 @@ import org.training.cloud.system.entity.permission.SysRole;
 import org.training.cloud.system.service.permission.RoleService;
 import org.training.cloud.system.vo.permission.RoleVO;
 
+import javax.validation.Valid;
+import java.util.List;
+
 /**
  * 角色
  *
@@ -22,7 +25,7 @@ import org.training.cloud.system.vo.permission.RoleVO;
  * @since 2020-11-09 14:33
  */
 @RestController
-@RequestMapping("/sys/admin/")
+@RequestMapping("/sys")
 @Tag(name = "角色信息")
 public class RoleController {
 
@@ -33,7 +36,7 @@ public class RoleController {
 
     @PostMapping("/role")
     @Operation(summary = "添加角色信息")
-    public CommonResponse<?> addRole(@RequestBody @Validated AddRoleDTO addRoleDTO) {
+    public CommonResponse<?> addRole(@RequestBody @Valid AddRoleDTO addRoleDTO) {
         roleService.addRole(addRoleDTO);
         return CommonResponse.ok();
     }
@@ -41,17 +44,24 @@ public class RoleController {
 
     @PutMapping("/role")
     @Operation(summary = "修改角色信息")
-    public CommonResponse<?> modifyUser(@RequestBody @Validated ModifyRoleDTO modifyRoleDTO) {
+    public CommonResponse<?> modifyUser(@RequestBody @Valid ModifyRoleDTO modifyRoleDTO) {
         roleService.modifyRole(modifyRoleDTO);
         return CommonResponse.ok();
     }
 
 
-    @GetMapping("/page")
+    @PostMapping("/role/page")
     @Operation(summary = "分页查询角色信息")
-    public CommonResponse<PageResponse<RoleVO>> pageAdminUser(RoleDTO roleDTO) {
+    public CommonResponse<PageResponse<RoleVO>> pageRoles(@RequestBody RoleDTO roleDTO) {
         PageResponse<SysRole> pageResponse = roleService.pageRole(roleDTO);
         return CommonResponse.ok(RoleConvert.INSTANCE.convert(pageResponse));
+    }
+
+    @GetMapping("/role/all")
+    @Operation(summary = "获取所有的角色信息")
+    public CommonResponse<List<RoleVO>> allRoles() {
+        List<SysRole> allRoles = roleService.allRoles();
+        return CommonResponse.ok(RoleConvert.INSTANCE.convert(allRoles));
     }
 
 
@@ -61,9 +71,9 @@ public class RoleController {
      * @param id
      * @return
      */
-    @DeleteMapping("/role")
+    @DeleteMapping("/role/{id}")
     @Operation(summary = "删除角色")
-    public CommonResponse<?> delRole(@RequestParam Long id) {
+    public CommonResponse<?> delRole(@PathVariable("id") Long id) {
         roleService.removeByRoleId(id);
         return CommonResponse.ok();
     }

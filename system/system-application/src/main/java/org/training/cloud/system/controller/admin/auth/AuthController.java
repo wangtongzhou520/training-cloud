@@ -3,13 +3,12 @@ package org.training.cloud.system.controller.admin.auth;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.training.cloud.common.core.vo.CommonResponse;
 import org.training.cloud.common.security.core.annotations.NotAuthentication;
+import org.training.cloud.common.web.utils.WebUtil;
 import org.training.cloud.system.dto.auth.AuthLoginDTO;
+import org.training.cloud.system.dto.auth.AuthPermissionVO;
 import org.training.cloud.system.service.auth.AuthService;
 import org.training.cloud.system.vo.auth.AuthLoginVO;
 
@@ -22,7 +21,7 @@ import javax.validation.Valid;
  * @since 2020-11-09 16:52
  */
 @RestController
-@RequestMapping("/sys")
+@RequestMapping("/sys/auth")
 @Tag(name = "管理员登录")
 public class AuthController {
 
@@ -40,6 +39,16 @@ public class AuthController {
     @NotAuthentication
     public CommonResponse<AuthLoginVO> login(@RequestBody @Valid AuthLoginDTO authLoginDTO) {
         return CommonResponse.ok(service.login(authLoginDTO));
+    }
+
+    @GetMapping("/getUserPermission")
+    @Operation(summary = "获取用户的权限信息")
+    public CommonResponse<AuthPermissionVO> getUserPermission() {
+        Long userId = WebUtil.getLoginUserId();
+        if (userId == null) {
+            return null;
+        }
+        return CommonResponse.ok(service.getUserPermission(userId));
     }
 
     /**

@@ -6,6 +6,9 @@ import org.training.cloud.system.dto.user.ModifyUserDTO;
 import org.training.cloud.system.dto.user.UserDTO;
 import org.training.cloud.system.entity.user.SysUser;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
  * 用户相关
  *
@@ -43,6 +46,14 @@ public interface UserService {
      * @return
      */
     SysUser getUserById(Long id);
+
+    /**
+     * 根据用户ID查询列表
+     *
+     * @param ids
+     * @return
+     */
+    List<SysUser> getUserByIds(Collection<Long> ids);
 
     /**
      * 分页查询用户信息

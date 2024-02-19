@@ -1,17 +1,21 @@
 package org.training.cloud.system.service.permission;
 
+import com.google.common.collect.Lists;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.training.cloud.common.core.exception.BusinessException;
 import org.training.cloud.system.convert.permission.MenuConvert;
 import org.training.cloud.system.dao.permission.SysMenuMapper;
 import org.training.cloud.system.dto.permission.AddMenuDTO;
+import org.training.cloud.system.dto.permission.MenuDTO;
 import org.training.cloud.system.dto.permission.ModifyMenuDTO;
 import org.training.cloud.system.entity.permission.SysMenu;
 import org.training.cloud.system.enums.permission.MenuTypeEnum;
+import org.training.cloud.system.vo.permission.MenuVO;
 
 import javax.annotation.Resource;
-import java.util.Objects;
+import java.util.*;
 
 import static org.training.cloud.system.constant.SystemExceptionEnumConstants.*;
 
@@ -59,6 +63,19 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    public SysMenu getMenuById(Long id) {
+        return sysMenuMapper.selectById(id);
+    }
+
+    @Override
+    public List<SysMenu> getMenuListByIds(Collection<Long> ids) {
+        if (CollectionUtils.isEmpty(ids)){
+            return Collections.emptyList();
+        }
+        return sysMenuMapper.selectMenuListByIds(ids);
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void removeMenu(Long id) {
         //查询菜单下面是否存在子菜单
@@ -70,6 +87,24 @@ public class MenuServiceImpl implements MenuService {
         //删除角色信息
 
     }
+
+    @Override
+    public List<SysMenu> menuList(MenuDTO menuDTO) {
+        return sysMenuMapper.selectList(menuDTO);
+    }
+
+//    private List<MenuVO> getMenuTree(Long parentId, List<MenuVO> menuList) {
+//        List<MenuVO> result = Lists.newArrayList();
+//        Optional.ofNullable(menuList).ifPresent(menus -> menus.stream()
+//                .filter(menu -> parentId.equals(menu.getParentId()))
+//                .forEach(menu -> {
+//                    // 递归获取子节点
+//                    List<MenuVO> children = getMenuTree(menu.getId(), menuList);
+//                    menu.setChildren(children);
+//                    result.add(menu);
+//                }));
+//        return result;
+//    }
 
 
     private void checkParentMenu(Long parentId, Long childId) {

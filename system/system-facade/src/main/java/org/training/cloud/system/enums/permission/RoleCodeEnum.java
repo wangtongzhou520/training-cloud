@@ -9,7 +9,7 @@ package org.training.cloud.system.enums.permission;
 public enum RoleCodeEnum {
 
     SUPER_ADMIN("super_admin", "超级管理员"),
-            ;
+    ;
 
     private String code;
 
@@ -34,5 +34,14 @@ public enum RoleCodeEnum {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    /**
+     * 判断是否是超级管理员
+     * @param code
+     * @return
+     */
+    public static boolean isSuperAdmin(String code) {
+        return SUPER_ADMIN.code.equals(code);
     }
 }

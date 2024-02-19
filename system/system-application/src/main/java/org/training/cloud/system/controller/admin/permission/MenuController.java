@@ -5,13 +5,16 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.training.cloud.common.core.vo.CommonResponse;
+import org.training.cloud.system.convert.permission.MenuConvert;
 import org.training.cloud.system.dto.permission.AddMenuDTO;
 import org.training.cloud.system.dto.permission.MenuDTO;
 import org.training.cloud.system.dto.permission.ModifyMenuDTO;
+import org.training.cloud.system.entity.permission.SysMenu;
 import org.training.cloud.system.service.permission.MenuService;
 import org.training.cloud.system.vo.permission.MenuVO;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -21,7 +24,7 @@ import java.util.List;
  * @since 2023-05-30 21:58
  */
 @RestController
-@RequestMapping("/sys/admin/")
+@RequestMapping("/sys")
 @Tag(name = "菜单相关接口")
 public class MenuController {
 
@@ -30,7 +33,7 @@ public class MenuController {
 
     @PostMapping("/menu")
     @Operation(summary = "添加菜单信息")
-    public CommonResponse<?> addMenu(@RequestBody @Validated AddMenuDTO addMenuDTO) {
+    public CommonResponse<?> addMenu(@RequestBody @Valid AddMenuDTO addMenuDTO) {
         menuService.addMenu(addMenuDTO);
         return CommonResponse.ok();
     }
@@ -38,7 +41,7 @@ public class MenuController {
 
     @PutMapping("/menu")
     @Operation(summary = "修改菜单信息")
-    public CommonResponse<?> modifyMenu(@RequestBody @Validated ModifyMenuDTO modifyMenuDTO) {
+    public CommonResponse<?> modifyMenu(@RequestBody @Valid ModifyMenuDTO modifyMenuDTO) {
         menuService.modifyMenu(modifyMenuDTO);
         return CommonResponse.ok();
     }
@@ -52,10 +55,19 @@ public class MenuController {
     }
 
 
-    @GetMapping("/list")
+    @GetMapping("/menu")
+    @Operation(summary = "获取菜单信息")
+    public CommonResponse<?> getMenuInfo(@RequestParam("id") Long id) {
+        SysMenu sysMenu=menuService.getMenuById(id);
+        return CommonResponse.ok(MenuConvert.INSTANCE.convert(sysMenu));
+    }
+
+
+    @PostMapping("/menu/list")
     @Operation(summary = "菜单信息")
-    public CommonResponse<List<MenuVO>> menuList(MenuDTO menuDTO) {
-        return CommonResponse.ok();
+    public CommonResponse<List<MenuVO>> menuList(@RequestBody MenuDTO menuDTO) {
+        List<SysMenu> sysMenus = menuService.menuList(menuDTO);
+        return CommonResponse.ok(MenuConvert.INSTANCE.convert(sysMenus));
     }
 
 }

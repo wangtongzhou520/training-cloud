@@ -7,17 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.training.cloud.common.core.exception.BusinessException;
+import org.training.cloud.common.core.utils.collection.CollectionExtUtils;
 import org.training.cloud.system.convert.dept.DeptConvert;
 import org.training.cloud.system.dao.dept.SysDeptMapper;
 import org.training.cloud.system.dto.dept.AddDeptDTO;
+import org.training.cloud.system.dto.dept.DeptDTO;
 import org.training.cloud.system.dto.dept.ModifyDeptDTO;
 import org.training.cloud.system.entity.dept.SysDept;
+import org.training.cloud.system.entity.permission.SysRoleMenu;
+import org.training.cloud.system.entity.user.SysUser;
+import org.training.cloud.system.service.user.UserService;
 import org.training.cloud.system.utils.LevelUtil;
 import org.training.cloud.system.vo.dept.DeptTreeVO;
+import org.training.cloud.system.vo.dept.DeptVO;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.training.cloud.system.constant.SystemExceptionEnumConstants.DEPT_NAME_EXISTS;
@@ -37,6 +41,9 @@ public class DeptServiceImpl implements DeptService {
     @Autowired
     private SysDeptMapper sysDeptMapper;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public void addDept(AddDeptDTO addDeptDTO) {
         //判断同一层级下面是否包含相同的部门名称
@@ -54,9 +61,9 @@ public class DeptServiceImpl implements DeptService {
     @Transactional(rollbackFor = Exception.class)
     public void modifyDept(ModifyDeptDTO modifyDeptDTO) {
         //检查传入的部门id是否存在
-        SysDept before=checkDeptExistById(modifyDeptDTO.getId());
-        //检查同一层级下面是否存在相同的部门
-        checkDeptNameExist(modifyDeptDTO.getParentId(), modifyDeptDTO.getName());
+        SysDept before = checkDeptExistById(modifyDeptDTO.getId());
+//        //检查同一层级下面是否存在相同的部门
+//        checkDeptNameExist(modifyDeptDTO.getParentId(), modifyDeptDTO.getName());
         //组合do
         SysDept after = DeptConvert.INSTANCE.convert(modifyDeptDTO);
         String level = LevelUtil.calculateLevel(
@@ -88,7 +95,7 @@ public class DeptServiceImpl implements DeptService {
                         sysDept.setLevel(level);
                     }
                 });
-                sysDeptMapper.batchUpdateLevel(sysDeptList);
+                sysDeptMapper.insertBatch(sysDeptList);
             }
         }
         //更新自己
@@ -97,27 +104,14 @@ public class DeptServiceImpl implements DeptService {
 
 
     @Override
-    public List<DeptTreeVO> deptTrees() {
-        List<SysDept> allDeptList = sysDeptMapper.selectAllDept();
-        //转化实体 do转bo
-        List<DeptTreeVO> deptBoList =
-                DeptConvert.INSTANCE.convert(allDeptList);
-        //递归生成树
-        return deptBoListConvertDeptTree(deptBoList);
-    }
-
-    @Override
     public void removeDeptById(Long id) {
         //查询部门是否存在
-        SysDept before=checkDeptExistById(id);
+        SysDept before = checkDeptExistById(id);
         //检查该部门下面是否存在子部门
         if (sysDeptMapper.countByParentId(id) > 0) {
             throw new BusinessException("当前部门下面还存在子部门");
         }
         //检查该部门下是否还存在用户信息
-
-
-
         sysDeptMapper.deleteById(id);
     }
 
@@ -128,6 +122,26 @@ public class DeptServiceImpl implements DeptService {
             throw new BusinessException(DEPT_NOT_EXISTS);
         }
         return dept;
+    }
+
+    @Override
+    public List<SysDept> getDeptListByIds(Collection<Long> ids) {
+        if (CollectionUtils.isEmpty(ids)){
+            return Collections.emptyList();
+        }
+        return sysDeptMapper.selectDeptListByIds(ids);
+    }
+
+    @Override
+    public List<DeptVO> getAllDept(DeptDTO deptDTO) {
+        List<SysDept> sysDeptList = sysDeptMapper.selectDeptList(deptDTO);
+        if (CollectionUtils.isEmpty(sysDeptList)) {
+            return null;
+        }
+        //查询负责人列表
+        List<SysUser> sysUserList = userService.getUserByIds(CollectionExtUtils.convertSet(sysDeptList,
+                SysDept::getManageId));
+       return DeptConvert.INSTANCE.convert(sysDeptList,sysUserList);
     }
 
     /**
@@ -190,8 +204,7 @@ public class DeptServiceImpl implements DeptService {
     }
 
 
-
-    private SysDept checkDeptExistById(Long deptId){
+    private SysDept checkDeptExistById(Long deptId) {
         SysDept dept = sysDeptMapper.selectById(deptId);
         if (Objects.isNull(dept)) {
             throw new BusinessException(DEPT_NOT_EXISTS);

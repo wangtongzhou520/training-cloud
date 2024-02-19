@@ -17,17 +17,17 @@
 #    password: 123456
 
 
-#logging:
-#  level:
-#    org:
-#      training:
-#        cloud:
-#          system: DEBUG
-#
-#
-#
-#
-#
+logging:
+  level:
+    org:
+      training:
+        cloud:
+          system: DEBUG
+
+
+
+
+
 #auth:
 #  security:
 #    not-auth-urls:

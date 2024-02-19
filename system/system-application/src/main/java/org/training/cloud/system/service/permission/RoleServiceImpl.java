@@ -1,5 +1,6 @@
 package org.training.cloud.system.service.permission;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.training.cloud.common.core.exception.BusinessException;
 import org.training.cloud.common.core.vo.PageResponse;
@@ -13,7 +14,9 @@ import org.training.cloud.system.enums.permission.RoleCodeEnum;
 import org.training.cloud.system.enums.permission.RoleTypeEnum;
 
 import javax.annotation.Resource;
-
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 import static org.training.cloud.system.constant.SystemExceptionEnumConstants.*;
@@ -51,11 +54,37 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public List<SysRole> allRoles() {
+        return sysRoleMapper.selectAllRoles();
+    }
+
+    @Override
+    public List<SysRole> getRoleListByIds(Collection<Long> ids) {
+        if (CollectionUtils.isEmpty(ids)) {
+            return Collections.emptyList();
+        }
+        return sysRoleMapper.selectRoleListByIds(ids);
+    }
+
+    @Override
     public void removeByRoleId(Long id) {
         checkExistById(id);
         sysRoleMapper.deleteById(id);
         //删除相关数据
 
+    }
+
+    @Override
+    public boolean hasAnySuperAdmin(Collection<Long> ids) {
+        if (CollectionUtils.isEmpty(ids)) {
+            return false;
+        }
+        //根据code查找超级管理员id
+        SysRole sysRole = sysRoleMapper.selectByRoleCode(RoleCodeEnum.SUPER_ADMIN.getCode());
+        if (Objects.isNull(sysRole)) {
+            return false;
+        }
+        return ids.stream().anyMatch(x -> sysRole.getId().equals(x));
     }
 
 
@@ -80,8 +109,8 @@ public class RoleServiceImpl implements RoleService {
             throw new BusinessException(ROLE_NOT_EXISTS);
         }
 
-        if (RoleTypeEnum.ADMIN.getCode().equals(role.getType())) {
-            throw new BusinessException(ROLE_SYSTEM_NOT_MODIFY);
+        if (RoleTypeEnum.getByCode(role.getType()) == null) {
+            throw new BusinessException(ROLE_TYPE_NOT_EXISTS);
         }
     }
 }

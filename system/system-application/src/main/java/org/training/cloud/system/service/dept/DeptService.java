@@ -1,10 +1,13 @@
 package org.training.cloud.system.service.dept;
 
 import org.training.cloud.system.dto.dept.AddDeptDTO;
+import org.training.cloud.system.dto.dept.DeptDTO;
 import org.training.cloud.system.dto.dept.ModifyDeptDTO;
 import org.training.cloud.system.entity.dept.SysDept;
 import org.training.cloud.system.vo.dept.DeptTreeVO;
+import org.training.cloud.system.vo.dept.DeptVO;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -31,12 +34,6 @@ public interface DeptService {
     void modifyDept(ModifyDeptDTO modifyDeptDTO);
 
 
-    /**
-     * 返回部门树信息
-     *
-     * @return 部门树
-     */
-    List<DeptTreeVO> deptTrees();
 
     /**
      * 删除部门信息
@@ -52,4 +49,20 @@ public interface DeptService {
      * @return
      */
     SysDept getDeptId(Long id);
+
+    /**
+     * 查询部门列表
+     *
+     * @param ids
+     * @return
+     */
+    List<SysDept> getDeptListByIds(Collection<Long> ids);
+
+    /**
+     * 部门列表
+     *
+     * @return
+     */
+    List<DeptVO> getAllDept(DeptDTO deptDTO);
+
 }

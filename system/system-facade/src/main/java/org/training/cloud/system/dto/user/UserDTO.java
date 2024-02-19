@@ -16,6 +16,9 @@ import org.training.cloud.common.core.vo.PageParam;
 @Schema(description = "管理员查询")
 public class UserDTO extends PageParam {
 
+    @Schema(description = "id", required = true, example = "1")
+    private Long id;
+
     @Schema(description = "姓名", required = true, example = "AAA")
     private String userName;
 

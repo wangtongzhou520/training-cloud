@@ -51,4 +51,10 @@ public class SysDept extends BaseDO {
     private String remark;
 
 
+    /**
+     * 管理者ID
+     */
+    private Long manageId;
+
+
 }

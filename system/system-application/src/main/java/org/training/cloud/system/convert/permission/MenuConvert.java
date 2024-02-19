@@ -6,6 +6,9 @@ import org.mapstruct.factory.Mappers;
 import org.training.cloud.system.dto.permission.AddMenuDTO;
 import org.training.cloud.system.dto.permission.ModifyMenuDTO;
 import org.training.cloud.system.entity.permission.SysMenu;
+import org.training.cloud.system.vo.permission.MenuVO;
+
+import java.util.List;
 
 /**
  * 菜单
@@ -35,5 +38,22 @@ public interface MenuConvert {
      */
     @Mappings({})
     SysMenu convert(ModifyMenuDTO modifyMenuDTO);
+
+    /**
+     * SysMenu convert MenuVO
+     *
+     * @param sysMenu
+     * @return
+     */
+    @Mappings({})
+    MenuVO convert(SysMenu sysMenu);
+
+    /**
+     * sysMenus convert menuVos
+     *
+     * @param sysMenus
+     * @return
+     */
+    List<MenuVO> convert(List<SysMenu> sysMenus);
 
 }

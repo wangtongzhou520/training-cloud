@@ -1,6 +1,7 @@
 package org.training.cloud.common.web.handler;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -28,6 +29,7 @@ import java.nio.file.AccessDeniedException;
  */
 @RestControllerAdvice
 @AllArgsConstructor
+@Slf4j
 public class GlobalExceptionHandler {
 
 
@@ -78,7 +80,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(BindException.class)
     public CommonResponse<?> bindExceptionHandler(BindException ex) {
-//        log.warn("[handleBindException]", ex);
+        log.warn("[handleBindException]", ex);
         FieldError fieldError = ex.getFieldError();
         assert fieldError != null;
         return CommonResponse.error(UserExceptionCode.BAD_REQUEST.getCode(), String.format("请求参数不正确:%s", fieldError.getDefaultMessage()));
@@ -90,7 +92,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = ConstraintViolationException.class)
     public CommonResponse<?> constraintViolationExceptionHandler(ConstraintViolationException ex) {
-//        log.warn("[constraintViolationExceptionHandler]", ex);
+        log.warn("[constraintViolationExceptionHandler]", ex);
         ConstraintViolation<?> constraintViolation = ex.getConstraintViolations().iterator().next();
         return CommonResponse.error(UserExceptionCode.BAD_REQUEST.getCode(), String.format("请求参数不正确:%s", constraintViolation.getMessage()));
     }
@@ -103,7 +105,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public CommonResponse<?> httpRequestMethodNotSupportedExceptionHandler(HttpRequestMethodNotSupportedException ex) {
-//        log.warn("[httpRequestMethodNotSupportedExceptionHandler]", ex);
+        log.warn("[httpRequestMethodNotSupportedExceptionHandler]", ex);
         return CommonResponse.error(UserExceptionCode.METHOD_NOT_ALLOWED.getCode(), String.format("请求方法不正确:%s", ex.getMessage()));
     }
 
@@ -116,7 +118,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(NoHandlerFoundException.class)
     public CommonResponse<?> noHandlerFoundExceptionHandler(NoHandlerFoundException ex) {
-//        log.warn("[noHandlerFoundExceptionHandler]", ex);
+        log.warn("[noHandlerFoundExceptionHandler]", ex);
         return CommonResponse.error(UserExceptionCode.NOT_FOUND.getCode(), String.format("请求地址不存在:%s", ex.getRequestURL()));
     }
 
@@ -144,7 +146,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler({BusinessException.class})
     public CommonResponse businessExceptionExceptionHandler(BusinessException ex) {
-//        logger.debug("BusinessException", ex);
+        log.debug("BusinessException", ex);
         return CommonResponse.error(ex.getCode(), ex.getMessage());
     }
 
@@ -156,7 +158,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler({ServerException.class})
     public CommonResponse serverExceptionExceptionHandler(ServerException ex) {
-//        logger.debug("ServerException", ex);
+        log.debug("ServerException", ex);
         return CommonResponse.error(ex.getCode(), ex.getMessage());
     }
 
@@ -166,6 +168,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = Exception.class)
     public CommonResponse<?> serviceExceptionHandler(HttpServletRequest req, Throwable ex) {
+        log.error("serviceExceptionHandler",ex);
         return CommonResponse.error(UserExceptionCode.SERVER_ERROR.getCode(),
                 UserExceptionCode.SERVER_ERROR.getMessage());
     }

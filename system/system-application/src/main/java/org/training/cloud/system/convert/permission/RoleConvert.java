@@ -9,6 +9,8 @@ import org.training.cloud.system.dto.permission.ModifyRoleDTO;
 import org.training.cloud.system.entity.permission.SysRole;
 import org.training.cloud.system.vo.permission.RoleVO;
 
+import java.util.List;
+
 /**
  * 角色
  *
@@ -55,5 +57,13 @@ public interface RoleConvert {
      * @return
      */
     PageResponse<RoleVO> convert(PageResponse<SysRole> pageResponse);
+
+    /**
+     * List<SysRole> convert List<RoleVO>
+     *
+     * @param roles
+     * @return
+     */
+    List<RoleVO> convert(List<SysRole> roles);
 
 }

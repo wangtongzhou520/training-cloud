@@ -94,8 +94,8 @@ public interface SystemExceptionEnumConstants {
             "角色code已经存在");
     ExceptionCode ROLE_NOT_EXISTS = new ExceptionCode(100005004,
             "角色信息不存在");
-    ExceptionCode ROLE_SYSTEM_NOT_MODIFY = new ExceptionCode(100005004,
-            "角色信息不存在");
+    ExceptionCode ROLE_TYPE_NOT_EXISTS = new ExceptionCode(100005004,
+            "角色类型不存在");
 
 
     /**
