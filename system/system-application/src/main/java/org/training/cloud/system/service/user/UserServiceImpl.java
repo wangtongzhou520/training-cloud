@@ -8,12 +8,14 @@ import org.springframework.stereotype.Service;
 import org.training.cloud.common.core.exception.BusinessException;
 import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.system.convert.user.UserConvert;
+import org.training.cloud.system.dao.permission.SysUserRoleMapper;
 import org.training.cloud.system.dao.user.SysUserMapper;
 import org.training.cloud.system.dto.user.AddUserDTO;
 import org.training.cloud.system.dto.user.ModifyUserDTO;
 import org.training.cloud.system.dto.user.UserDTO;
 import org.training.cloud.system.entity.user.SysUser;
 import org.training.cloud.system.enums.user.UserTypeEnum;
+import org.training.cloud.system.service.permission.PermissionService;
 
 import java.util.Collection;
 import java.util.List;
@@ -32,6 +34,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private SysUserMapper sysUserMapper;
+
+    @Autowired
+    private PermissionService permissionService;
 
     private static final PasswordEncoder ENCODER = new BCryptPasswordEncoder();
 
@@ -83,7 +88,8 @@ public class UserServiceImpl implements UserService {
     public void removeUserById(Long id) {
         checkId(id);
         sysUserMapper.deleteById(id);
-        //删除权限等相关信息
+        //删除角色信息等相关信息
+        permissionService.removeUserRole(id);
     }
 
 

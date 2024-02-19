@@ -107,7 +107,7 @@ public class UserController {
      * @return
      */
     @DeleteMapping("/user/{id}")
-    @Operation(summary = "删除部门")
+    @Operation(summary = "删除用户")
     public CommonResponse<?> delUser(@PathVariable("id") Long id) {
         userService.removeUserById(id);
         return CommonResponse.ok();

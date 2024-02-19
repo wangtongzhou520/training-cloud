@@ -20,6 +20,13 @@ public interface PermissionService {
     void addUserRole(Long userId, List<Long> roleIds);
 
     /**
+     * 删除用户的角色信息
+     *
+     * @param userId
+     */
+    void removeUserRole(Long userId);
+
+    /**
      * 获取用户所有的角色信息
      *
      * @param userId

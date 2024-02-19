@@ -43,7 +43,6 @@ public class PermissionServiceImpl implements PermissionService {
     public void addUserRole(Long userId, List<Long> roleIds) {
         //查询用户已拥有的角色信息
         List<SysUserRole> sysUserRoles = sysUserRoleMapper.selectByUserId(userId);
-        //TODO 此处可以封装一个扩展方法
         Set<Long> hasRoles = CollectionExtUtils.convertSet(sysUserRoles, SysUserRole::getRoleId);
         Set<Long> paramsRoles = new HashSet<>(roleIds);
         //查找新增和删除的角色信息
@@ -68,6 +67,11 @@ public class PermissionServiceImpl implements PermissionService {
         if (CollectionUtils.isNotEmpty(result)) {
             sysUserRoleMapper.removeByUserIdAndRoleIds(userId, result);
         }
+    }
+
+    @Override
+    public void removeUserRole(Long userId) {
+        sysUserRoleMapper.deleteListByUserId(userId);
     }
 
     @Override
