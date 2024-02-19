@@ -47,7 +47,7 @@ public class MenuController {
     }
 
 
-    @DeleteMapping("/menu")
+    @DeleteMapping("/menu/{id}")
     @Operation(summary = "删除菜单信息")
     public CommonResponse<?> removeMenu(@RequestParam("id") Long id) {
         menuService.removeMenu(id);

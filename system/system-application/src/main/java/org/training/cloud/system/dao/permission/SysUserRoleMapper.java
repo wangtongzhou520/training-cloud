@@ -48,7 +48,7 @@ public interface SysUserRoleMapper extends BaseMapperExtend<SysUserRole> {
      *
      * @param userId
      */
-    default void deleteListByUserId(Long userId) {
+    default void removeListByUserId(Long userId) {
         delete(new LambdaQueryWrapper<SysUserRole>().eq(SysUserRole::getUserId, userId));
     }
 

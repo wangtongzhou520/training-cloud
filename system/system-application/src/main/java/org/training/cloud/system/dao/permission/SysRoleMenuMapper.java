@@ -1,5 +1,6 @@
 package org.training.cloud.system.dao.permission;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.training.cloud.common.mybatis.extend.LambdaQueryWrapperExtend;
 import org.training.cloud.common.mybatis.mapper.BaseMapperExtend;
@@ -47,5 +48,15 @@ public interface SysRoleMenuMapper extends BaseMapperExtend<SysRoleMenu> {
                 .eq(SysRoleMenu::getRoleId, roleId)
                 .in(SysRoleMenu::getMenuId, result)
         );
+    }
+
+
+    /**
+     * 移除菜单关联的角色信息
+     *
+     * @param menuId
+     */
+    default void removeListByMenuId(Long menuId) {
+        delete(new LambdaQueryWrapper<SysRoleMenu>().eq(SysRoleMenu::getMenuId, menuId));
     }
 }

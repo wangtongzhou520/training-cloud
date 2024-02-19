@@ -71,7 +71,7 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public void removeUserRole(Long userId) {
-        sysUserRoleMapper.deleteListByUserId(userId);
+        sysUserRoleMapper.removeListByUserId(userId);
     }
 
     @Override
@@ -134,5 +134,10 @@ public class PermissionServiceImpl implements PermissionService {
         if (CollectionUtils.isNotEmpty(result)) {
             sysRoleMenuMapper.removeByRoleIdAndMenuIds(roleId, result);
         }
+    }
+
+    @Override
+    public void removeListByMenuId(Long menuId) {
+        sysRoleMenuMapper.removeListByMenuId(menuId);
     }
 }
