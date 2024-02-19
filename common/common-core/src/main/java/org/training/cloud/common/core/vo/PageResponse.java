@@ -1,6 +1,7 @@
 package org.training.cloud.common.core.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +21,20 @@ public class PageResponse<T> implements Serializable {
      * 总量
      */
     private Long total;
+
+
+    public PageResponse() {
+    }
+
+    public PageResponse(List<T> list, Long total) {
+        this.list = list;
+        this.total = total;
+    }
+
+    public PageResponse(Long total) {
+        this.list = new ArrayList<>();
+        this.total = total;
+    }
 
 
     public List<T> getList() {

@@ -21,9 +21,7 @@ import org.training.cloud.system.utils.LevelUtil;
 import org.training.cloud.system.vo.dept.DeptTreeVO;
 import org.training.cloud.system.vo.dept.DeptVO;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.training.cloud.system.constant.SystemExceptionEnumConstants.DEPT_NAME_EXISTS;
@@ -124,6 +122,14 @@ public class DeptServiceImpl implements DeptService {
             throw new BusinessException(DEPT_NOT_EXISTS);
         }
         return dept;
+    }
+
+    @Override
+    public List<SysDept> getDeptListByIds(Collection<Long> ids) {
+        if (CollectionUtils.isEmpty(ids)){
+            return Collections.emptyList();
+        }
+        return sysDeptMapper.selectDeptListByIds(ids);
     }
 
     @Override

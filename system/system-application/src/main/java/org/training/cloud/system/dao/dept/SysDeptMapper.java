@@ -6,7 +6,9 @@ import org.training.cloud.common.mybatis.extend.LambdaQueryWrapperExtend;
 import org.training.cloud.common.mybatis.mapper.BaseMapperExtend;
 import org.training.cloud.system.dto.dept.DeptDTO;
 import org.training.cloud.system.entity.dept.SysDept;
+import org.training.cloud.system.entity.user.SysUser;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -70,6 +72,17 @@ public interface SysDeptMapper extends BaseMapperExtend<SysDept> {
                 .eq(SysDept::getParentId, id)
                 .eq(SysDept::getDeleteState,false)
         );
+    }
+
+
+    /**
+     * 根据id查询部门列表
+     *
+     * @param ids
+     * @return
+     */
+    default List<SysDept> selectDeptListByIds(Collection<Long> ids) {
+        return selectList(SysDept::getId, ids);
     }
 
 

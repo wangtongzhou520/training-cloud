@@ -37,4 +37,6 @@ public class CollectionExtUtils {
         }
         return from.stream().filter(predicate).collect(Collectors.toList());
     }
+
+
 }

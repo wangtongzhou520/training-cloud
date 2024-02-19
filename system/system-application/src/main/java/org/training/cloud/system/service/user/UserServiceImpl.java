@@ -49,8 +49,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(ModifyUserDTO modifyUserDTO) {
         checkId(modifyUserDTO.getId());
-        checkTelephoneExist(modifyUserDTO.getTelephone(), modifyUserDTO.getId());
-        checkEmailExist(modifyUserDTO.getMail(), modifyUserDTO.getId());
+//        checkTelephoneExist(modifyUserDTO.getTelephone(), modifyUserDTO.getId());
+//        checkEmailExist(modifyUserDTO.getMail(), modifyUserDTO.getId());
         SysUser sysUser = UserConvert.INSTANCE.convert(modifyUserDTO);
         sysUserMapper.updateById(sysUser);
     }

@@ -71,9 +71,9 @@ public class DeptController {
      * @param id
      * @return
      */
-    @DeleteMapping("/dept")
+    @DeleteMapping("/dept/{id}")
     @Operation(summary = "删除部门")
-    public CommonResponse<?> delDept(@RequestParam Long id) {
+    public CommonResponse<?> delDept(@PathVariable("id") Long id) {
         deptService.removeDeptById(id);
         return CommonResponse.ok();
     }

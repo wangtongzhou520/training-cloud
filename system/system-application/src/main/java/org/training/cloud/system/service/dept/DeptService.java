@@ -7,6 +7,7 @@ import org.training.cloud.system.entity.dept.SysDept;
 import org.training.cloud.system.vo.dept.DeptTreeVO;
 import org.training.cloud.system.vo.dept.DeptVO;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -48,6 +49,14 @@ public interface DeptService {
      * @return
      */
     SysDept getDeptId(Long id);
+
+    /**
+     * 查询部门列表
+     *
+     * @param ids
+     * @return
+     */
+    List<SysDept> getDeptListByIds(Collection<Long> ids);
 
     /**
      * 部门列表
