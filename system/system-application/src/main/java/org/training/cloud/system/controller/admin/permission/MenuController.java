@@ -47,17 +47,17 @@ public class MenuController {
     }
 
 
-    @DeleteMapping("/menu")
+    @DeleteMapping("/menu/{id}")
     @Operation(summary = "删除菜单信息")
-    public CommonResponse<?> removeMenu(@RequestParam("id") Long id) {
+    public CommonResponse<?> removeMenu(@PathVariable("id") Long id) {
         menuService.removeMenu(id);
         return CommonResponse.ok();
     }
 
 
-    @GetMapping("/menu")
+    @GetMapping("/menu/{id}")
     @Operation(summary = "获取菜单信息")
-    public CommonResponse<?> getMenuInfo(@RequestParam("id") Long id) {
+    public CommonResponse<?> getMenuInfo(@PathVariable("id") Long id) {
         SysMenu sysMenu=menuService.getMenuById(id);
         return CommonResponse.ok(MenuConvert.INSTANCE.convert(sysMenu));
     }

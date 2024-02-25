@@ -21,6 +21,7 @@
         <druid.version>1.1.21</druid.version>
         <mybatis-spring-boot-starter.version>2.0.0</mybatis-spring-boot-starter.version>
         <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
+        <mybatis-plus-generator.version>3.5.3.2</mybatis-plus-generator.version>
         <mybatis.version>3.5.1</mybatis.version>
         <hibernate-validator.version>6.0.16.Final</hibernate-validator.version>
         <validation.version>2.0.1.Final</validation.version>
@@ -36,6 +37,7 @@
         <module>system</module>
         <module>study</module>
         <module>gateway</module>
+        <module>tool</module>
     </modules>
 
     <!--统一版本号管理-->
@@ -130,6 +132,12 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
+            </dependency>
+            <!-- 代码生成器，使用它解析表结构 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis-plus-generator.version}</version>
             </dependency>
             <!-- 参数校验 -->
             <dependency>

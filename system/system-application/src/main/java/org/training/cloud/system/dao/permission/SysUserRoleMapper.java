@@ -1,5 +1,6 @@
 package org.training.cloud.system.dao.permission;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.training.cloud.common.mybatis.extend.LambdaQueryWrapperExtend;
 import org.training.cloud.common.mybatis.mapper.BaseMapperExtend;
@@ -39,6 +40,27 @@ public interface SysUserRoleMapper extends BaseMapperExtend<SysUserRole> {
                 .eq(SysUserRole::getUserId, userId)
                 .in(SysUserRole::getRoleId, roleIds)
         );
+    }
+
+
+    /**
+     * 删除用户的角色信息
+     *
+     * @param userId
+     */
+    default void removeListByUserId(Long userId) {
+        delete(new LambdaQueryWrapper<SysUserRole>().eq(SysUserRole::getUserId, userId));
+    }
+
+
+    /**
+     * 删除角色关联的用户信息
+     *
+     * @param roleId
+     */
+    default void removeListByRoleId(Long roleId) {
+        delete(new LambdaQueryWrapper<SysUserRole>().eq(SysUserRole::getRoleId,
+                roleId));
     }
 
 

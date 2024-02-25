@@ -31,6 +31,9 @@ public class MenuServiceImpl implements MenuService {
     @Resource
     private SysMenuMapper sysMenuMapper;
 
+    @Resource
+    private PermissionService permissionService;
+
     /**
      * root节点
      */
@@ -84,8 +87,8 @@ public class MenuServiceImpl implements MenuService {
         checkExistById(id);
         //删除
         sysMenuMapper.deleteById(id);
-        //删除角色信息
-
+        //删除菜单关联角色信息
+        permissionService.removeListByMenuId(id);
     }
 
     @Override
