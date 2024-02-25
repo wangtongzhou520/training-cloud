@@ -69,5 +69,12 @@ public interface PermissionService {
      */
     void removeListByMenuId(Long menuId);
 
+    /**
+     * 删除角色和菜单信息
+     *
+     * @param roleId
+     */
+    void removeListByRoleId(Long roleId);
+
 
 }

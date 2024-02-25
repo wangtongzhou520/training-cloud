@@ -59,4 +59,15 @@ public interface SysRoleMenuMapper extends BaseMapperExtend<SysRoleMenu> {
     default void removeListByMenuId(Long menuId) {
         delete(new LambdaQueryWrapper<SysRoleMenu>().eq(SysRoleMenu::getMenuId, menuId));
     }
+
+
+    /**
+     * 移除角色关联的菜单信息
+     *
+     * @param roleId
+     */
+    default void removeListByRoleId(Long roleId) {
+        delete(new LambdaQueryWrapper<SysRoleMenu>().eq(SysRoleMenu::getRoleId,
+                roleId));
+    }
 }

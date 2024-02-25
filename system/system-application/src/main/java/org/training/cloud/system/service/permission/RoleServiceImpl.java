@@ -2,6 +2,7 @@ package org.training.cloud.system.service.permission;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.training.cloud.common.core.exception.BusinessException;
 import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.system.convert.permission.RoleConvert;
@@ -32,6 +33,9 @@ public class RoleServiceImpl implements RoleService {
 
     @Resource
     private SysRoleMapper sysRoleMapper;
+
+    @Resource
+    private PermissionService permissionService;
 
     @Override
     public void addRole(AddRoleDTO addRoleDTO) {
@@ -67,11 +71,12 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void removeByRoleId(Long id) {
         checkExistById(id);
         sysRoleMapper.deleteById(id);
         //删除相关数据
-
+        permissionService.removeListByRoleId(id);
     }
 
     @Override

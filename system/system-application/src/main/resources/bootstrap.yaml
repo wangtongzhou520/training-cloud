@@ -1,6 +1,8 @@
 spring:
   application:
     name: system-application
+  main:
+    allow-circular-references: true
   cloud:
     discovery:
       enabled: true

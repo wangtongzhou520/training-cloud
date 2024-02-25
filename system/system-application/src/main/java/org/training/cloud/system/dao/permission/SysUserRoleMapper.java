@@ -53,4 +53,15 @@ public interface SysUserRoleMapper extends BaseMapperExtend<SysUserRole> {
     }
 
 
+    /**
+     * 删除角色关联的用户信息
+     *
+     * @param roleId
+     */
+    default void removeListByRoleId(Long roleId) {
+        delete(new LambdaQueryWrapper<SysUserRole>().eq(SysUserRole::getRoleId,
+                roleId));
+    }
+
+
 }

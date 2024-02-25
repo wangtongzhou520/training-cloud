@@ -106,6 +106,7 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void addRoleMenu(Long roleId, List<Long> menuIds) {
         //查询用户已拥菜单信息
         List<SysRoleMenu> sysRoleMenus = sysRoleMenuMapper.selectByRoleId(roleId);
@@ -139,5 +140,12 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public void removeListByMenuId(Long menuId) {
         sysRoleMenuMapper.removeListByMenuId(menuId);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void removeListByRoleId(Long roleId) {
+        sysUserRoleMapper.removeListByRoleId(roleId);
+        sysRoleMenuMapper.removeListByRoleId(roleId);
     }
 }
