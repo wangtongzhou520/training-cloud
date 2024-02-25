@@ -15,8 +15,6 @@ import org.training.cloud.common.mybatis.dao.BaseDO;
  * @since 2020-06-03 21:44
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-@Accessors(chain = true)
 @TableName(value = "sys_dept")
 public class SysDept extends BaseDO {
     /**

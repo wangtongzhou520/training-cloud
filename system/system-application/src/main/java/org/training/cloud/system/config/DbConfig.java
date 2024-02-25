@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * @author wangtongzhou
  * @since 2020-07-14 21:40
  */
-@Configuration
-@MapperScan("org.training.cloud.system.dao")
-public class DbConfig {
-}
+//@Configuration
+//@MapperScan("org.training.cloud.system.dao")
+//public class DbConfig {
+//}
