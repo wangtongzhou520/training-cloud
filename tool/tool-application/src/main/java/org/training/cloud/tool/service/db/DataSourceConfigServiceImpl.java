@@ -7,7 +7,7 @@ import org.training.cloud.tool.convert.db.DataSourceConfigConvert;
 import org.training.cloud.tool.dao.db.DataSourceConfigMapper;
 import org.training.cloud.tool.dto.db.AddDataSourceConfigDTO;
 import org.training.cloud.tool.dto.db.ModifyDataSourceConfigDTO;
-import org.training.cloud.tool.entity.db.DataSourceConfig;
+import org.training.cloud.tool.entity.db.ToolDataSourceConfig;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -29,13 +29,13 @@ public class DataSourceConfigServiceImpl implements DataSourceConfigService {
 
     @Override
     public Long createDataSourceConfig(AddDataSourceConfigDTO addDataSourceConfigDTO) {
-        DataSourceConfig config = DataSourceConfigConvert.INSTANCE.convert(addDataSourceConfigDTO);
+        ToolDataSourceConfig config = DataSourceConfigConvert.INSTANCE.convert(addDataSourceConfigDTO);
         checkConnection(config);
         dataSourceConfigMapper.insert(config);
         return config.getId();
     }
 
-    private void checkConnection(DataSourceConfig config) {
+    private void checkConnection(ToolDataSourceConfig config) {
         boolean success = JdbcUtils.isConnectionSuccess(config.getUrl(), config.getUsername(), config.getPassword());
         if (!success) {
             throw new BusinessException(DATA_SOURCE_CONFIG_ERROR);
@@ -45,7 +45,7 @@ public class DataSourceConfigServiceImpl implements DataSourceConfigService {
     @Override
     public void updateDataSourceConfig(ModifyDataSourceConfigDTO modifyDataSourceConfigDTO) {
         checkDataSourceConfigExists(modifyDataSourceConfigDTO.getId());
-        DataSourceConfig config = DataSourceConfigConvert.INSTANCE.convert(modifyDataSourceConfigDTO);
+        ToolDataSourceConfig config = DataSourceConfigConvert.INSTANCE.convert(modifyDataSourceConfigDTO);
         checkConnection(config);
         dataSourceConfigMapper.updateById(config);
     }
@@ -63,12 +63,12 @@ public class DataSourceConfigServiceImpl implements DataSourceConfigService {
     }
 
     @Override
-    public DataSourceConfig getDataSourceConfig(Long id) {
+    public ToolDataSourceConfig getDataSourceConfig(Long id) {
         return dataSourceConfigMapper.selectById(id);
     }
 
     @Override
-    public List<DataSourceConfig> getDataSourceConfigList() {
+    public List<ToolDataSourceConfig> getDataSourceConfigList() {
         return dataSourceConfigMapper.selectList();
     }
 }

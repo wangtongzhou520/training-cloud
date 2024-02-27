@@ -2,9 +2,8 @@ package org.training.cloud.tool.service.db;
 
 import org.training.cloud.tool.dto.db.AddDataSourceConfigDTO;
 import org.training.cloud.tool.dto.db.ModifyDataSourceConfigDTO;
-import org.training.cloud.tool.entity.db.DataSourceConfig;
+import org.training.cloud.tool.entity.db.ToolDataSourceConfig;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -44,12 +43,12 @@ public interface DataSourceConfigService {
      * @param id
      * @return
      */
-    DataSourceConfig getDataSourceConfig(Long id);
+    ToolDataSourceConfig getDataSourceConfig(Long id);
 
     /**
      * 获得数据源配置列表
      *
      * @return
      */
-    List<DataSourceConfig> getDataSourceConfigList();
+    List<ToolDataSourceConfig> getDataSourceConfigList();
 }
