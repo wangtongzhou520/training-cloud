@@ -7,6 +7,7 @@ import org.training.cloud.common.core.constant.ExceptionCode;
  * 系统-模块-错误码 9位数
  * 系统
  * 100  用户系统
+ * 101  工具系统
  * <p>
  * 模块
  * 001  认证模块
