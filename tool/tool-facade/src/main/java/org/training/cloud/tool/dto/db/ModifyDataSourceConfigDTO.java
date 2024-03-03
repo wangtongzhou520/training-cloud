@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * 修改数据源信息
@@ -13,7 +14,7 @@ import javax.validation.constraints.NotNull;
  */
 @Schema(description = "修改数据源配置")
 @Data
-public class ModifyDataSourceConfigDTO {
+public class ModifyDataSourceConfigDTO implements Serializable {
 
     @Schema(description = "主键编号", example = "1024")
     @NotNull(message = "数据源主键不能为空")

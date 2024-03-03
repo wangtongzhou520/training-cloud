@@ -3,6 +3,8 @@ package org.training.cloud.tool.dto.db;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 数据表
  *
@@ -11,7 +13,7 @@ import lombok.Data;
  */
 @Schema(description = "数据表查询")
 @Data
-public class DatabaseTableDTO {
+public class DatabaseTableDTO implements Serializable {
 
     @Schema(description = "数据库连接id",  example = "1")
     private Long dataSourceConfigId;

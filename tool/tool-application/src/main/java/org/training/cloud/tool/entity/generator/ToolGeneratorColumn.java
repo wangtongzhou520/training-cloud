@@ -54,9 +54,9 @@ public class ToolGeneratorColumn extends BaseDO {
      */
     private Boolean autoIncrement;
     /**
-     * 排序
+     * 字段排序
      */
-    private Integer ordinalPosition;
+    private Integer columnSort;
 
 
     /**
