@@ -78,7 +78,7 @@ public class GeneratorColumnUtil {
         int index = 1;
         for (ToolGeneratorColumn column : columns) {
             column.setTableId(tableId);
-            column.setOrdinalPosition(index++);
+            column.setColumnSort(index++);
             // 特殊处理：Byte => Integer
             if (Byte.class.getSimpleName().equals(column.getJavaType())) {
                 column.setJavaType(Integer.class.getSimpleName());

@@ -1,26 +1,36 @@
 package org.training.cloud.tool.service.generator;
 
+import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.training.cloud.common.core.exception.BusinessException;
+import org.training.cloud.common.core.utils.collection.CollectionExtUtils;
+import org.training.cloud.common.core.vo.PageResponse;
+import org.training.cloud.tool.convert.generator.GeneratorColumnConvert;
+import org.training.cloud.tool.convert.generator.GeneratorTableConvert;
 import org.training.cloud.tool.dao.generator.GeneratorColumnMapper;
 import org.training.cloud.tool.dao.generator.GeneratorTableMapper;
 import org.training.cloud.tool.dto.db.DatabaseTableDTO;
 import org.training.cloud.tool.dto.generator.AddGeneratorDTO;
 import org.training.cloud.tool.dto.generator.ModifyGeneratorDTO;
+import org.training.cloud.tool.dto.generator.table.GeneratorTableDTO;
 import org.training.cloud.tool.entity.generator.ToolGeneratorColumn;
 import org.training.cloud.tool.entity.generator.ToolGeneratorTable;
 import org.training.cloud.tool.enums.generator.GeneratorSceneEnum;
 import org.training.cloud.tool.service.db.DatabaseTableService;
 import org.training.cloud.tool.utils.GeneratorColumnUtil;
 import org.training.cloud.tool.utils.GeneratorTableUtil;
+import org.training.cloud.tool.vo.db.DatabaseTableVO;
+import org.training.cloud.tool.vo.generator.GeneratorVO;
+import org.training.cloud.tool.vo.generator.table.GeneratorTableVO;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.function.BiPredicate;
+import java.util.stream.Collectors;
 
 import static org.training.cloud.tool.constant.ToolExceptionEnumConstants.*;
 
@@ -55,8 +65,118 @@ public class GeneratorServiceImpl implements GeneratorService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void modifyGenerator(ModifyGeneratorDTO modifyGeneratorDTO) {
-        
+        // 校验是否已经存在
+        checkTableExistsById(modifyGeneratorDTO.getTable().getId());
+
+        ToolGeneratorTable toolGeneratorTable =
+                GeneratorTableConvert.INSTANCE.convert(modifyGeneratorDTO.getTable());
+        generatorTableMapper.updateById(toolGeneratorTable);
+
+
+        List<ToolGeneratorColumn> toolGeneratorColumns =
+                GeneratorColumnConvert.INSTANCE.convert(modifyGeneratorDTO.getColumns());
+        toolGeneratorColumns.forEach(x -> {
+            generatorColumnMapper.updateById(x);
+        });
+    }
+
+    @Override
+    public List<DatabaseTableVO> queryGeneratorTableList(DatabaseTableDTO databaseTableDTO) {
+
+        List<TableInfo> tableInfos = databaseTableService.getTableList(databaseTableDTO);
+        //查询已经生成过的表
+        List<ToolGeneratorTable> toolGeneratorTables =
+                generatorTableMapper.selectListByDataSourceConfigId(databaseTableDTO.getDataSourceConfigId());
+        Set<String> tableNames = CollectionExtUtils.convertSet(toolGeneratorTables,
+                ToolGeneratorTable::getTableName);
+        tableInfos.removeIf(x -> tableNames.contains(x.getName()));
+        return GeneratorTableConvert.INSTANCE.convertList(tableInfos);
+    }
+
+    @Override
+    public GeneratorVO queryGeneratorDetail(Long tableId) {
+        ToolGeneratorTable toolGeneratorTable = generatorTableMapper.selectById(tableId);
+        List<ToolGeneratorColumn> toolGeneratorColumns = generatorColumnMapper.selectListByTableId(tableId);
+        GeneratorVO generatorVO = new GeneratorVO();
+        generatorVO.setGeneratorTable(GeneratorTableConvert.INSTANCE.converVO(toolGeneratorTable));
+        generatorVO.setGeneratorColumns(GeneratorColumnConvert.INSTANCE.convertListVO(toolGeneratorColumns));
+        return generatorVO;
+    }
+
+    @Override
+    public PageResponse<GeneratorTableVO> pageGeneratorTable(GeneratorTableDTO generatorTableDTO) {
+        PageResponse<ToolGeneratorTable> pageResponse =
+                generatorTableMapper.selectPage(generatorTableDTO);
+        return GeneratorTableConvert.INSTANCE.convertPage(pageResponse);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void syncGeneratorDB(Long tableId) {
+        ToolGeneratorTable toolGeneratorTable = checkTableExistsById(tableId);
+        DatabaseTableDTO databaseTableDTO = new DatabaseTableDTO();
+        databaseTableDTO.setDataSourceConfigId(toolGeneratorTable.getDataSourceConfigId());
+        databaseTableDTO.setTableName(toolGeneratorTable.getTableName());
+        TableInfo tableInfo = databaseTableService.getTable(databaseTableDTO);
+        checkTable(tableInfo);
+        List<TableField> tableFields = tableInfo.getFields();
+
+        //字段名
+        List<ToolGeneratorColumn> generatorColumns =
+                generatorColumnMapper.selectListByTableId(tableId);
+        Map<String, ToolGeneratorColumn> generatorColumnMap =
+                CollectionExtUtils.convertMap(generatorColumns, ToolGeneratorColumn::getColumnName);
+
+        //条件检查
+        BiPredicate<TableField, ToolGeneratorColumn> filter =
+                (tableField, generatorColumn) -> tableField.getMetaInfo().getJdbcType().name().equals(generatorColumn.getDataType())
+                        && tableField.getMetaInfo().isNullable() == generatorColumn.getNullable()
+                        && tableField.isKeyFlag() == generatorColumn.getPrimaryKey()
+                        && tableField.getComment().equals(generatorColumn.getColumnComment());
+        //需要修改
+        Set<String> modifyFieldNames = tableFields.stream()
+                .filter(x -> generatorColumnMap.get(x.getColumnName()) != null
+                        && !filter.test(x, generatorColumnMap.get(x.getColumnName()))
+                ).map(TableField::getColumnName).collect(Collectors.toSet());
+        //需要删除
+        Set<String> tableFieldNames = CollectionExtUtils.convertSet(tableFields,
+                TableField::getName);
+        Set<Long> deleteColumnIds = generatorColumns.stream()
+                .filter(x -> (!tableFieldNames.contains(x.getColumnName())) || modifyFieldNames.contains(x.getColumnName()))
+                .map(ToolGeneratorColumn::getId).collect(Collectors.toSet());
+
+        //移除已经存在的字段
+        tableFields.removeIf(x -> generatorColumns.contains(x.getColumnName()) && (!modifyFieldNames.contains(x.getColumnName())));
+        if (CollectionUtils.isEmpty(tableFields) && CollectionUtils.isEmpty(deleteColumnIds)) {
+            throw new BusinessException(GENERATOR_SYNC_NOT_CHANGE);
+        }
+
+        // 插入新增的字段
+        List<ToolGeneratorColumn> columns = GeneratorColumnUtil.buildColumns(tableId, tableFields);
+        generatorColumnMapper.insertBatch(columns);
+        // 删除不存在的字段
+        if (CollectionUtils.isNotEmpty(deleteColumnIds)) {
+            generatorColumnMapper.deleteBatchIds(deleteColumnIds);
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void delGenerator(Long tableId) {
+        checkTableExistsById(tableId);
+        generatorTableMapper.deleteById(tableId);
+        generatorColumnMapper.deleteListByTableId(tableId);
+    }
+
+
+    private ToolGeneratorTable checkTableExistsById(Long tableId) {
+        ToolGeneratorTable generatorTable = generatorTableMapper.selectById(tableId);
+        if (Objects.isNull(generatorTable)) {
+            throw new BusinessException(GENERATOR_TABLE_NULL);
+        }
+        return generatorTable;
     }
 
     private Long addGenerator(Long dataSourceConfigId, String tableName) {

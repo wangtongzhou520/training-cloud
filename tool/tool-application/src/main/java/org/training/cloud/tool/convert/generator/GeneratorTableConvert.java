@@ -5,7 +5,13 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
+import org.training.cloud.common.core.vo.PageResponse;
+import org.training.cloud.tool.dto.generator.table.ModifyGeneratorTableDTO;
 import org.training.cloud.tool.entity.generator.ToolGeneratorTable;
+import org.training.cloud.tool.vo.db.DatabaseTableVO;
+import org.training.cloud.tool.vo.generator.table.GeneratorTableVO;
+
+import java.util.List;
 
 /**
  * 转换table
@@ -18,14 +24,24 @@ public interface GeneratorTableConvert {
     GeneratorTableConvert INSTANCE = Mappers.getMapper(GeneratorTableConvert.class);
 
 
-
     @Mappings({
             @Mapping(source = "name", target = "tableName"),
             @Mapping(source = "comment", target = "tableComment"),
     })
     ToolGeneratorTable convert(TableInfo bean);
 
+    GeneratorTableVO converVO(ToolGeneratorTable toolGeneratorTable);
 
 
+    ToolGeneratorTable convert(ModifyGeneratorTableDTO table);
+
+
+    DatabaseTableVO convertVO(TableInfo tableInfo);
+
+
+    List<DatabaseTableVO> convertList(List<TableInfo> tableInfos);
+
+
+    PageResponse<GeneratorTableVO> convertPage( PageResponse<ToolGeneratorTable> pageResponse);
 
 }

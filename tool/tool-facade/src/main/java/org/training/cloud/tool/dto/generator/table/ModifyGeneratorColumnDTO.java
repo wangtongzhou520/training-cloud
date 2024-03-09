@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @since 2024-03-03 17:57
  */
 @Data
-public class ModifyGeneratorColumn implements Serializable {
+public class ModifyGeneratorColumnDTO implements Serializable {
 
     @Schema(description = "编号", example = "1")
     @NotNull(message = "列表编号不能为空")

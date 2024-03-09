@@ -24,6 +24,10 @@ public interface ToolExceptionEnumConstants {
     ExceptionCode GENERATOR_TABLE_COMMENT_NULL = new ExceptionCode(101002004,
             "表注释不存在");
 
+    ExceptionCode GENERATOR_SYNC_NOT_CHANGE = new ExceptionCode(101002005,
+            "同步失败，不存在改变");
+
+
 
 
 

@@ -2,7 +2,7 @@ package org.training.cloud.tool.dto.generator;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import org.training.cloud.tool.dto.generator.table.ModifyGeneratorColumn;
+import org.training.cloud.tool.dto.generator.table.ModifyGeneratorColumnDTO;
 import org.training.cloud.tool.dto.generator.table.ModifyGeneratorTableDTO;
 
 import javax.validation.Valid;
@@ -26,5 +26,5 @@ public class ModifyGeneratorDTO implements Serializable {
 
     @Valid
     @NotNull(message = "字段定义不能为空")
-    private List<ModifyGeneratorColumn> columns;
+    private List<ModifyGeneratorColumnDTO> columns;
 }

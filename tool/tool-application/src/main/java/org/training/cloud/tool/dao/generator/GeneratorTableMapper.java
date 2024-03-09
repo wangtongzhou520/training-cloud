@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.common.mybatis.extend.LambdaQueryWrapperExtend;
 import org.training.cloud.common.mybatis.mapper.BaseMapperExtend;
+import org.training.cloud.tool.dto.generator.table.GeneratorTableDTO;
 import org.training.cloud.tool.entity.generator.ToolGeneratorTable;
 
 import java.util.List;
@@ -21,13 +22,13 @@ public interface GeneratorTableMapper extends BaseMapperExtend<ToolGeneratorTabl
                 ToolGeneratorTable::getDataSourceConfigId, dataSourceConfigId);
     }
 
-//    default PageResponse<ToolGeneratorTable> selectPage(CodegenTablePageReqVO pageReqVO) {
-//        return selectPage(pageReqVO, new LambdaQueryWrapperExtend<ToolGeneratorTable>()
-//                .likeIfPresent(ToolGeneratorTable::getTableName, pageReqVO.getTableName())
-//                .likeIfPresent(ToolGeneratorTable::getTableComment, pageReqVO.getTableComment())
-//                .likeIfPresent(ToolGeneratorTable::getClassName, pageReqVO.getClassName())
-//                .betweenIfPresent(ToolGeneratorTable::getCreateTime, pageReqVO.getCreateTime()));
-//    }
+    default PageResponse<ToolGeneratorTable> selectPage(GeneratorTableDTO generatorTableDTO) {
+        return selectPage(generatorTableDTO, new LambdaQueryWrapperExtend<ToolGeneratorTable>()
+                .likeIfPresent(ToolGeneratorTable::getTableName, generatorTableDTO.getTableName())
+                .likeIfPresent(ToolGeneratorTable::getTableComment, generatorTableDTO.getTableComment())
+                .likeIfPresent(ToolGeneratorTable::getClassName,
+                        generatorTableDTO.getClassName()));
+    }
 
     default List<ToolGeneratorTable> selectListByDataSourceConfigId(Long dataSourceConfigId) {
         return selectList(ToolGeneratorTable::getDataSourceConfigId, dataSourceConfigId);

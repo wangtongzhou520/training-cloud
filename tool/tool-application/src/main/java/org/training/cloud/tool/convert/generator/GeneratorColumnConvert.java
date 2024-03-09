@@ -5,7 +5,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
+import org.training.cloud.tool.dto.generator.table.ModifyGeneratorColumnDTO;
 import org.training.cloud.tool.entity.generator.ToolGeneratorColumn;
+import org.training.cloud.tool.vo.generator.column.GeneratorColumnVO;
 
 import java.util.List;
 
@@ -34,5 +36,14 @@ public interface GeneratorColumnConvert {
             @Mapping(source = "propertyName", target = "javaField"),
     })
     ToolGeneratorColumn convert(TableField bean);
+
+
+    ToolGeneratorColumn convert(ModifyGeneratorColumnDTO modifyGeneratorColumnDTO);
+
+    List<ToolGeneratorColumn> convert(List<ModifyGeneratorColumnDTO> modifyGeneratorColumns);
+
+    GeneratorColumnVO convertVO(ToolGeneratorColumn toolGeneratorColumn);
+
+    List<GeneratorColumnVO> convertListVO(List<ToolGeneratorColumn> toolGeneratorColumns);
 
 }
