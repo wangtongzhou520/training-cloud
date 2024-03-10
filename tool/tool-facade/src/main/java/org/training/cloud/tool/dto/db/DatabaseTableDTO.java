@@ -15,12 +15,12 @@ import java.io.Serializable;
 @Data
 public class DatabaseTableDTO implements Serializable {
 
-    @Schema(description = "数据库连接id",  example = "1")
+    @Schema(description = "数据库连接id", example = "1")
     private Long dataSourceConfigId;
 
-    @Schema(description = "表名",  example = "sys_user")
+    @Schema(description = "表名", example = "sys_user")
     private String tableName;
 
-    @Schema(description = "表描述",  example = "sys_user")
+    @Schema(description = "表描述", example = "sys_user")
     private String tableDesc;
 }

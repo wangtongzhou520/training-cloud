@@ -95,24 +95,24 @@ public class GeneratorColumnUtil {
 
 
     private static void processColumnOperation(ToolGeneratorColumn column) {
-        // 处理 createOperation 字段
-        column.setCreateOperation(!CREATE_OPERATION_EXCLUDE_COLUMN.contains(column.getJavaField())
-                && !column.getPrimaryKey()); // 对于主键，创建时无需传递
-        // 处理 updateOperation 字段
-        column.setUpdateOperation(!UPDATE_OPERATION_EXCLUDE_COLUMN.contains(column.getJavaField())
+        // 处理新增字段
+        column.setAddField(!CREATE_OPERATION_EXCLUDE_COLUMN.contains(column.getJavaField())
+                && !column.getPrimaryKey());
+        // 处理修改字段
+        column.setModifyField(!UPDATE_OPERATION_EXCLUDE_COLUMN.contains(column.getJavaField())
                 || column.getPrimaryKey()); // 对于主键，更新时需要传递
-        // 处理 listOperation 字段
-        column.setListOperation(!LIST_OPERATION_EXCLUDE_COLUMN.contains(column.getJavaField())
+        // 处理查询字段
+        column.setQueryField(!LIST_OPERATION_EXCLUDE_COLUMN.contains(column.getJavaField())
                 && !column.getPrimaryKey()); // 对于主键，列表过滤不需要传递
-        // 处理 listOperationCondition 字段
+        // 处理查询条件字段
         COLUMN_LIST_OPERATION_CONDITION_MAPPINGS.entrySet().stream()
                 .filter(entry -> StringUtils.endsWithIgnoreCase(column.getJavaField(), entry.getKey()))
-                .findFirst().ifPresent(entry -> column.setListOperationCondition(entry.getValue().getCondition()));
-        if (column.getListOperationCondition() == null) {
-            column.setListOperationCondition(GeneratorColumnListConditionEnum.EQ.getCondition());
+                .findFirst().ifPresent(entry -> column.setQueryConditionField(entry.getValue().getCondition()));
+        if (column.getQueryConditionField() == null) {
+            column.setQueryConditionField(GeneratorColumnListConditionEnum.EQ.getCondition());
         }
-        // 处理 listOperationResult 字段
-        column.setListOperationResult(!LIST_OPERATION_RESULT_EXCLUDE_COLUMN.contains(column.getJavaField()));
+        // 处理查询返回字段
+        column.setQueryResultField(!LIST_OPERATION_RESULT_EXCLUDE_COLUMN.contains(column.getJavaField()));
     }
 
 

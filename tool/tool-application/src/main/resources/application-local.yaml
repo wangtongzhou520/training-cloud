@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
   address: 0.0.0.0
 
 auth:
@@ -20,10 +20,10 @@ auth:
 # Swagger 配置项
 training:
   swagger:
-    title: system
-    description: 用户相关系统
+    title: tool
+    description: 工具相关系统
     version: 1.0.0
-    base-package: org.training.cloud.system
+    base-package: org.training.cloud.tool
 
 
 

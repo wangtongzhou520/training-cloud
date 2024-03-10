@@ -84,32 +84,6 @@ public class ToolGeneratorTable extends BaseDO {
 //     */
 //    private Integer frontType;
 
-    // ========== 菜单相关字段 ==========
-
-    /**
-     * 父菜单编号
-     */
-    private Long parentMenuId;
-
-    /**
-     * 主表的编号
-     */
-    private Long masterTableId;
-//    /**
-//     * 【自己】子表关联主表的字段编号
-//     *
-//     * 关联 {@link CodegenColumnDO#getId()}
-//     */
-//    private Long subJoinColumnId;
-//    /**
-//     * 主表与子表是否一对多
-//     *
-//     * true：一对多
-//     * false：一对一
-//     */
-//    private Boolean subJoinMany;
-
-    // ========== 树表相关字段 ==========
 
     /**
      * 树表的父字段编号

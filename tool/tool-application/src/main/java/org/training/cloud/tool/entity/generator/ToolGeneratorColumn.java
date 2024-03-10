@@ -78,28 +78,27 @@ public class ToolGeneratorColumn extends BaseDO {
 
 
     /**
-     * 是否为 Create 创建操作的字段
+     * 是否为新增操作字段
      */
-    private Boolean createOperation;
+    private Boolean addField;
     /**
-     * 是否为 Update 更新操作的字段
+     * 是否为更新操作字段
      */
-    private Boolean updateOperation;
+    private Boolean modifyField;
     /**
-     * 是否为 List 查询操作的字段
+     * 是否为查询字段
      */
-    private Boolean listOperation;
+    private Boolean queryField;
 
     /**
-     * List 查询操作的条件类型
+     * 查询条件
      */
-    private String listOperationCondition;
+    private String queryConditionField;
     /**
-     * 是否为 List 查询操作的返回字段
+     * 是否为查询返回字段
      */
-    private Boolean listOperationResult;
+    private Boolean queryResultField;
 
-    // ========== UI 相关字段 ==========
 
     /**
      * 显示类型

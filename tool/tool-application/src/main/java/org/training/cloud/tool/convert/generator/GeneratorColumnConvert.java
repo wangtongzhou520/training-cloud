@@ -27,7 +27,7 @@ public interface GeneratorColumnConvert {
 
     @Mappings({
             @Mapping(source = "name", target = "columnName"),
-            @Mapping(source = "metaInfo.jdbcType", target = "dataType", qualifiedByName = "getDataType"),
+            @Mapping(source = "metaInfo.jdbcType", target = "dataType"),
             @Mapping(source = "comment", target = "columnComment"),
             @Mapping(source = "metaInfo.nullable", target = "nullable"),
             @Mapping(source = "keyFlag", target = "primaryKey"),
