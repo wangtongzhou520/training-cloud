@@ -10,6 +10,8 @@ import org.training.cloud.tool.entity.db.ToolDataSourceConfig;
 import org.training.cloud.tool.vo.db.DataSourceConfigVO;
 import org.training.cloud.tool.vo.db.DatabaseTableVO;
 
+import java.util.List;
+
 /**
  * DataSourceConfig Convert
  *
@@ -46,5 +48,8 @@ public interface DataSourceConfigConvert {
 
 
     DataSourceConfigVO convert(ToolDataSourceConfig toolDataSourceConfig);
+
+
+    List<DataSourceConfigVO> convert(List<ToolDataSourceConfig> toolDataSourceConfigs);
 
 }

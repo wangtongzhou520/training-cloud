@@ -1,5 +1,7 @@
 package org.training.cloud.tool.service.db;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.training.cloud.common.core.exception.BusinessException;
 import org.training.cloud.common.core.vo.PageResponse;
@@ -32,10 +34,16 @@ public class DataSourceConfigServiceImpl implements DataSourceConfigService {
     @Resource
     private DataSourceConfigMapper dataSourceConfigMapper;
 
+
+    private static final PasswordEncoder ENCODER = new BCryptPasswordEncoder();
+
+
     @Override
     public Long addDataSourceConfig(AddDataSourceConfigDTO addDataSourceConfigDTO) {
         ToolDataSourceConfig config = DataSourceConfigConvert.INSTANCE.convert(addDataSourceConfigDTO);
         checkConnection(config);
+        String encryptedPassword = ENCODER.encode(addDataSourceConfigDTO.getPassword());
+        config.setPassword(encryptedPassword);
         dataSourceConfigMapper.insert(config);
         return config.getId();
     }
@@ -52,6 +60,8 @@ public class DataSourceConfigServiceImpl implements DataSourceConfigService {
         checkDataSourceConfigExists(modifyDataSourceConfigDTO.getId());
         ToolDataSourceConfig config = DataSourceConfigConvert.INSTANCE.convert(modifyDataSourceConfigDTO);
         checkConnection(config);
+        String encryptedPassword = ENCODER.encode(modifyDataSourceConfigDTO.getPassword());
+        config.setPassword(encryptedPassword);
         dataSourceConfigMapper.updateById(config);
     }
 

@@ -55,13 +55,12 @@ public class GeneratorServiceImpl implements GeneratorService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<Long> addGeneratorList(Long userId, AddGeneratorDTO addGeneratorDTO) {
+    public void addGeneratorList(AddGeneratorDTO addGeneratorDTO) {
 
         List<Long> ids = new ArrayList<>(addGeneratorDTO.getTableNames().size());
         addGeneratorDTO.getTableNames().forEach(x ->
                 ids.add(addGenerator(addGeneratorDTO.getDataSourceConfigId(), x))
         );
-        return null;
     }
 
     @Override

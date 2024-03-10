@@ -16,23 +16,22 @@ import java.io.Serializable;
 public class GeneratorTableVO implements Serializable {
 
     @Schema(description = "编号", example = "1")
-    @NotNull(message = "表单编号不能为空")
     private Long id;
+
+    @Schema(description = "数据源名称", example = "系统管理")
+    private String dataSourceConfigName;
 
     /**
      * 生成场景
      */
     @Schema(description = "生成场景", example = "1")
-    @NotNull(message = "导入类型不能为空")
     private Integer scene;
 
 
     @Schema(description = "表名称", example = "sys_user")
-    @NotNull(message = "表名称不能为空")
     private String tableName;
 
     @Schema(description = "表描述", example = "用户表")
-    @NotNull(message = "表描述不能为空")
     private String tableComment;
 
 
@@ -41,19 +40,15 @@ public class GeneratorTableVO implements Serializable {
 
 
     @Schema(description = "模块名",  example = "system")
-    @NotNull(message = "模块名不能为空")
     private String moduleName;
 
     @Schema(description = "业务名", example = "user")
-    @NotNull(message = "业务名不能为空")
     private String businessName;
 
     @Schema(description = "类名称", example = "User")
-    @NotNull(message = "类名称不能为空")
     private String className;
 
     @Schema(description = "类描述",  example = "用户表")
-    @NotNull(message = "类描述不能为空")
     private String classComment;
 
     @Schema(description = "作者",  example = "wtz")

@@ -15,6 +15,7 @@ import org.training.cloud.tool.vo.db.DataSourceConfigVO;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 数据源配置
@@ -96,6 +97,15 @@ public class DataSourceConfigController {
 
     }
 
+
+
+    @GetMapping("/dataSourceConfig/list")
+    @Operation(summary = "获得数据源配置")
+    public CommonResponse<List<DataSourceConfigVO>> getDataSourceConfigList() {
+        List<ToolDataSourceConfig> configs = dataSourceConfigService.getDataSourceConfigList();
+        return CommonResponse.ok(DataSourceConfigConvert.INSTANCE.convert(configs));
+
+    }
 
 
 }

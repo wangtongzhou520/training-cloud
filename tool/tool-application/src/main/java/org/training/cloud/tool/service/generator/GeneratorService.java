@@ -23,11 +23,10 @@ public interface GeneratorService {
     /**
      * 创建代码生成器列表
      *
-     * @param userId
      * @param addGeneratorDTO
      * @return
      */
-    List<Long> addGeneratorList(Long userId, AddGeneratorDTO addGeneratorDTO);
+    void addGeneratorList(AddGeneratorDTO addGeneratorDTO);
 
 
     /**
