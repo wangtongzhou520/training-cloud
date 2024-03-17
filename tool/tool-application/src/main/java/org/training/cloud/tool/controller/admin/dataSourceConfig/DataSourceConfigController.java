@@ -104,7 +104,6 @@ public class DataSourceConfigController {
     public CommonResponse<List<DataSourceConfigVO>> getDataSourceConfigList() {
         List<ToolDataSourceConfig> configs = dataSourceConfigService.getDataSourceConfigList();
         return CommonResponse.ok(DataSourceConfigConvert.INSTANCE.convert(configs));
-
     }
 
 

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.training.cloud.common.mybatis.dao.BaseDO;
+import org.training.cloud.common.mybatis.handler.EncryptTypeHandler;
 
 /**
  * 数据库配置
@@ -14,7 +15,7 @@ import org.training.cloud.common.mybatis.dao.BaseDO;
  * @author wangtongzhou
  * @since 2024-02-25 21:21
  */
-@TableName(value = "tool_data_source_config")
+@TableName(value = "tool_data_source_config", autoResultMap = true)
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
@@ -40,6 +41,7 @@ public class ToolDataSourceConfig extends BaseDO {
     /**
      * 密码
      */
+    @TableField(typeHandler = EncryptTypeHandler.class)
     private String password;
 
 }

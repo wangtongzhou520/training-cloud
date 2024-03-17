@@ -21,7 +21,7 @@
         <druid.version>1.1.21</druid.version>
         <mybatis-spring-boot-starter.version>2.0.0</mybatis-spring-boot-starter.version>
         <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
-        <mybatis-plus-generator.version>3.5.3.2</mybatis-plus-generator.version>
+        <mybatis-plus-generator.version>3.5.3.1</mybatis-plus-generator.version>
         <mybatis.version>3.5.1</mybatis.version>
         <hibernate-validator.version>6.0.16.Final</hibernate-validator.version>
         <validation.version>2.0.1.Final</validation.version>

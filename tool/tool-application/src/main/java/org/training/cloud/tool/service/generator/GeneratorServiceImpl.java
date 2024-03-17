@@ -19,7 +19,6 @@ import org.training.cloud.tool.dto.generator.ModifyGeneratorDTO;
 import org.training.cloud.tool.dto.generator.table.GeneratorTableDTO;
 import org.training.cloud.tool.entity.generator.ToolGeneratorColumn;
 import org.training.cloud.tool.entity.generator.ToolGeneratorTable;
-import org.training.cloud.tool.enums.generator.GeneratorSceneEnum;
 import org.training.cloud.tool.service.db.DatabaseTableService;
 import org.training.cloud.tool.utils.GeneratorColumnUtil;
 import org.training.cloud.tool.utils.GeneratorTableUtil;
@@ -190,8 +189,8 @@ public class GeneratorServiceImpl implements GeneratorService {
 
         ToolGeneratorTable table = GeneratorTableUtil.buildTable(tableInfo);
         table.setDataSourceConfigId(dataSourceConfigId);
-        table.setScene(GeneratorSceneEnum.ADMIN.getCode());
-        //待设置
+//        table.setScene(GeneratorSceneEnum.ADMIN.getCode());
+        //TODO 待设置
         table.setAuthor("");
         generatorTableMapper.insert(table);
 

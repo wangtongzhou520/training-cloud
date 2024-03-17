@@ -29,10 +29,10 @@ public class ToolGeneratorTable extends BaseDO {
      */
     private Long dataSourceConfigId;
 
-    /**
-     * 生成场景
-     */
-    private Integer scene;
+//    /**
+//     * 生成场景
+//     */
+//    private Integer scene;
 
 
     /**

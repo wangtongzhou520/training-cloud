@@ -1,7 +1,5 @@
 package org.training.cloud.tool.service.db;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.training.cloud.common.core.exception.BusinessException;
 import org.training.cloud.common.core.vo.PageResponse;
@@ -10,11 +8,9 @@ import org.training.cloud.tool.convert.db.DataSourceConfigConvert;
 import org.training.cloud.tool.dao.db.DataSourceConfigMapper;
 import org.training.cloud.tool.dto.db.AddDataSourceConfigDTO;
 import org.training.cloud.tool.dto.db.DataSourceConfigDTO;
-import org.training.cloud.tool.dto.db.DatabaseTableDTO;
 import org.training.cloud.tool.dto.db.ModifyDataSourceConfigDTO;
 import org.training.cloud.tool.entity.db.ToolDataSourceConfig;
 import org.training.cloud.tool.vo.db.DataSourceConfigVO;
-import org.training.cloud.tool.vo.db.DatabaseTableVO;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -35,15 +31,12 @@ public class DataSourceConfigServiceImpl implements DataSourceConfigService {
     private DataSourceConfigMapper dataSourceConfigMapper;
 
 
-    private static final PasswordEncoder ENCODER = new BCryptPasswordEncoder();
 
 
     @Override
     public Long addDataSourceConfig(AddDataSourceConfigDTO addDataSourceConfigDTO) {
         ToolDataSourceConfig config = DataSourceConfigConvert.INSTANCE.convert(addDataSourceConfigDTO);
         checkConnection(config);
-        String encryptedPassword = ENCODER.encode(addDataSourceConfigDTO.getPassword());
-        config.setPassword(encryptedPassword);
         dataSourceConfigMapper.insert(config);
         return config.getId();
     }
@@ -60,8 +53,6 @@ public class DataSourceConfigServiceImpl implements DataSourceConfigService {
         checkDataSourceConfigExists(modifyDataSourceConfigDTO.getId());
         ToolDataSourceConfig config = DataSourceConfigConvert.INSTANCE.convert(modifyDataSourceConfigDTO);
         checkConnection(config);
-        String encryptedPassword = ENCODER.encode(modifyDataSourceConfigDTO.getPassword());
-        config.setPassword(encryptedPassword);
         dataSourceConfigMapper.updateById(config);
     }
 

@@ -24,7 +24,7 @@ public interface DatabaseTableService {
 
 
     /**
-     * 获取当个表
+     * 获取单个表
      *
      * @param databaseTableDTO
      * @return
