@@ -41,7 +41,7 @@ public class GeneratorColumnVO implements Serializable {
 
 
     @Schema(description = "排序",  example = "10")
-    private Integer ordinalPosition;
+    private Integer columnSort;
 
 
     @Schema(description = "Java属性类型", example = "Integer")
