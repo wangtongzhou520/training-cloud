@@ -36,3 +36,13 @@ spring:
           # 配置转发
           filters:
             - RewritePath=/sys/v3/api-docs, /v3/api-docs
+        # 服务
+        - id: tool-application
+          # 服务地址
+          uri: lb://tool-application
+          # 拦截的路由
+          predicates:
+            - Path=/tool/**
+          # 配置转发
+          filters:
+            - RewritePath=/tool/v3/api-docs, /v3/api-docs

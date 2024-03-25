@@ -3,11 +3,14 @@ package org.training.cloud.tool.convert.db;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
-import org.training.cloud.system.dto.user.AddUserDTO;
-import org.training.cloud.system.dto.user.ModifyUserDTO;
+import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.tool.dto.db.AddDataSourceConfigDTO;
 import org.training.cloud.tool.dto.db.ModifyDataSourceConfigDTO;
-import org.training.cloud.tool.entity.db.DataSourceConfig;
+import org.training.cloud.tool.entity.db.ToolDataSourceConfig;
+import org.training.cloud.tool.vo.db.DataSourceConfigVO;
+import org.training.cloud.tool.vo.db.DatabaseTableVO;
+
+import java.util.List;
 
 /**
  * DataSourceConfig Convert
@@ -27,7 +30,7 @@ public interface DataSourceConfigConvert {
      * @return sysUserDO
      */
     @Mappings({})
-    DataSourceConfig convert(AddDataSourceConfigDTO addDataSourceConfigDTO);
+    ToolDataSourceConfig convert(AddDataSourceConfigDTO addDataSourceConfigDTO);
 
 
     /**
@@ -37,5 +40,16 @@ public interface DataSourceConfigConvert {
      * @return
      */
     @Mappings({})
-    DataSourceConfig convert(ModifyDataSourceConfigDTO modifyDataSourceConfigDTO);
+    ToolDataSourceConfig convert(ModifyDataSourceConfigDTO modifyDataSourceConfigDTO);
+
+
+
+    PageResponse<DataSourceConfigVO> convert(PageResponse<ToolDataSourceConfig> configPageResponse);
+
+
+    DataSourceConfigVO convert(ToolDataSourceConfig toolDataSourceConfig);
+
+
+    List<DataSourceConfigVO> convert(List<ToolDataSourceConfig> toolDataSourceConfigs);
+
 }

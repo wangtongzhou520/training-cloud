@@ -14,7 +14,7 @@ spring:
         server-addr: 127.0.0.1:8848
         namespace: 6a0743bc-014a-4f5f-846c-a75a02b4c315
         group: DEFAULT_GROUP
-        prefix: system-local
+        prefix: tool-local
         file-extension: yaml
   profiles:
     active: local

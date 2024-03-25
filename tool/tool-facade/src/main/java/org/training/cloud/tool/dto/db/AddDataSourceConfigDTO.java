@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * 新增数据源
@@ -13,7 +14,7 @@ import javax.validation.constraints.NotNull;
  */
 @Schema(description = "数据源配置创建")
 @Data
-public class AddDataSourceConfigDTO {
+public class AddDataSourceConfigDTO implements Serializable {
 
     @Schema(description = "数据源名称",  example = "test")
     @NotNull(message = "数据源名称不能为空")
