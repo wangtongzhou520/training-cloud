@@ -9,6 +9,7 @@ import org.training.cloud.tool.entity.db.ToolDataSourceConfig;
 import org.training.cloud.tool.vo.db.DataSourceConfigVO;
 import org.training.cloud.tool.vo.db.DatabaseTableVO;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -57,6 +58,14 @@ public interface DataSourceConfigService {
      * @return
      */
     ToolDataSourceConfig getDataSourceConfig(Long id);
+
+    /**
+     * 获取数据源列表
+     *
+     * @param ids
+     * @return
+     */
+    List<ToolDataSourceConfig> getDataSourceConfigByIds(Collection<Long> ids);
 
     /**
      * 获得数据源配置列表

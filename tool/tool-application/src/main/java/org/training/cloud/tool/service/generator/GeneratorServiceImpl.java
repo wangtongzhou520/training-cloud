@@ -17,8 +17,10 @@ import org.training.cloud.tool.dto.db.DatabaseTableDTO;
 import org.training.cloud.tool.dto.generator.AddGeneratorDTO;
 import org.training.cloud.tool.dto.generator.ModifyGeneratorDTO;
 import org.training.cloud.tool.dto.generator.table.GeneratorTableDTO;
+import org.training.cloud.tool.entity.db.ToolDataSourceConfig;
 import org.training.cloud.tool.entity.generator.ToolGeneratorColumn;
 import org.training.cloud.tool.entity.generator.ToolGeneratorTable;
+import org.training.cloud.tool.service.db.DataSourceConfigService;
 import org.training.cloud.tool.service.db.DatabaseTableService;
 import org.training.cloud.tool.utils.GeneratorColumnUtil;
 import org.training.cloud.tool.utils.GeneratorTableUtil;
@@ -44,6 +46,9 @@ public class GeneratorServiceImpl implements GeneratorService {
 
     @Resource
     private DatabaseTableService databaseTableService;
+
+    @Resource
+    private DataSourceConfigService dataSourceConfigService;
 
     @Resource
     private GeneratorTableMapper generatorTableMapper;
@@ -105,9 +110,25 @@ public class GeneratorServiceImpl implements GeneratorService {
 
     @Override
     public PageResponse<GeneratorTableVO> pageGeneratorTable(GeneratorTableDTO generatorTableDTO) {
-        PageResponse<ToolGeneratorTable> pageResponse =
-                generatorTableMapper.selectPage(generatorTableDTO);
-        return GeneratorTableConvert.INSTANCE.convertPage(pageResponse);
+        PageResponse<ToolGeneratorTable> pageResponse = generatorTableMapper.selectPage(generatorTableDTO);
+        //转换
+        PageResponse<GeneratorTableVO> result = GeneratorTableConvert.INSTANCE.convertPage(pageResponse);
+        if (CollectionUtils.isNotEmpty(result.getList())) {
+            //查询数据源名称
+            Set<Long> dataSourceIds = CollectionExtUtils.convertSet(result.getList(),
+                    GeneratorTableVO::getId);
+            List<ToolDataSourceConfig> toolDataSourceConfigs =
+                    dataSourceConfigService.getDataSourceConfigByIds(dataSourceIds);
+            Map<Long, String> dataSourceMap = toolDataSourceConfigs.stream()
+                    .collect(Collectors.toMap(ToolDataSourceConfig::getId, ToolDataSourceConfig::getName));
+            result.getList().forEach(x -> {
+                String dataSourceName = dataSourceMap.get(x.getId());
+                if (StringUtils.isNotBlank(dataSourceName)) {
+                    x.setDataSourceConfigName(dataSourceName);
+                }
+            });
+        }
+        return result;
     }
 
     @Override
