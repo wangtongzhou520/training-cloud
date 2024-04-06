@@ -57,7 +57,6 @@ public interface GeneratorService {
     /**
      * 分页查询
      *
-     *
      * @param generatorTableDTO
      * @return
      */
@@ -78,6 +77,13 @@ public interface GeneratorService {
      * @param tableId
      */
     void delGenerator(Long tableId);
+
+    /**
+     * 预览生成的代码
+     *
+     * @param tableId
+     */
+    void previewGeneratorCode(Long tableId);
 
 
 }

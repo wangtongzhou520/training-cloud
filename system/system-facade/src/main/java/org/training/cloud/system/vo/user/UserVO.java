@@ -1,11 +1,9 @@
 package org.training.cloud.system.vo.user;
 
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * 用户信息

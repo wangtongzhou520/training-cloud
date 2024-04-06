@@ -17,18 +17,19 @@ public interface ToolExceptionEnumConstants {
     // ========== 代码生成器 101002000 ==========
     ExceptionCode GENERATOR_TABLE_EXISTS = new ExceptionCode(101002001, "表已经存在");
 
-    ExceptionCode GENERATOR_TABLE_NULL = new ExceptionCode(101002002, "表不存在");
+    ExceptionCode GENERATOR_TABLE_NULL = new ExceptionCode(101002002, "导入表不存在");
 
-    ExceptionCode GENERATOR_TABLE_COLUMN_NULL = new ExceptionCode(101002003, "表字段不存在");
+    ExceptionCode GENERATOR_TABLE_COLUMN_NULL = new ExceptionCode(101002003,
+            "导入表字段不存在");
 
     ExceptionCode GENERATOR_TABLE_COMMENT_NULL = new ExceptionCode(101002004,
-            "表注释不存在");
+            "导入表注释不存在");
 
     ExceptionCode GENERATOR_SYNC_NOT_CHANGE = new ExceptionCode(101002005,
             "同步失败，不存在改变");
 
-
-
+    ExceptionCode GENERATOR_COLUMN_NOT_EXISTS = new ExceptionCode(101002005,
+            "字段不存在");
 
 
 

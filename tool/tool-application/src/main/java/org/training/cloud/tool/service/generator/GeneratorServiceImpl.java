@@ -189,6 +189,16 @@ public class GeneratorServiceImpl implements GeneratorService {
         generatorColumnMapper.deleteListByTableId(tableId);
     }
 
+    @Override
+    public void previewGeneratorCode(Long tableId) {
+        ToolGeneratorTable table=checkTableExistsById(tableId);
+        List<ToolGeneratorColumn> columns = generatorColumnMapper.selectListByTableId(tableId);
+        if (CollectionUtils.isEmpty(columns)){
+            throw new BusinessException(GENERATOR_COLUMN_NOT_EXISTS);
+        }
+
+    }
+
 
     private ToolGeneratorTable checkTableExistsById(Long tableId) {
         ToolGeneratorTable generatorTable = generatorTableMapper.selectById(tableId);
