@@ -10,28 +10,29 @@ import lombok.experimental.Accessors;
 import ${BaseDO};
 
 ##BigDecimal
-#foreach ($column in $columns)
+<#list columns as column>
     #if (${column.javaType} == "BigDecimal")
     import java.math.BigDecimal;
         #break
     #end
-#end
+</#list>
+
 ##LocalDateTime
-#foreach ($column in $columns)
+<#list columns as column>
     #if (${column.javaType} == "LocalDateTime")
     import java.time.LocalDateTime;
         #break
     #end
-#end
+</#list>
 
 
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName(value = "${table.tableName.toLowerCase()}", autoResultMap = true)
+@TableName(value = "${table.tableName}", autoResultMap = true)
 @Accessors(chain = true)
 public class ${table.className} extends BaseDO {
-#foreach ($column in $columns)
+<#list columns as column>
     ## 排除BaseDO
     #if (${column.javaField} != "gmtCreate" && ${column.javaField} !=
         "gmtModified" && ${column.javaField} !=
@@ -51,7 +52,7 @@ public class ${table.className} extends BaseDO {
         #end
     private ${column.javaType} ${column.javaField};
     #end
-#end
+</#list>
 
 }
 

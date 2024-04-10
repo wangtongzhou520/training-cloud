@@ -1,6 +1,12 @@
 spring:
   application:
     name: tool-application
+  freemarker:
+    cache:
+      template_update_delay: 0
+    suffix: .ftl
+    template-loader-path: classpath:/generator
+
   main:
     allow-circular-references: true
   cloud:
@@ -18,6 +24,11 @@ spring:
         file-extension: yaml
   profiles:
     active: local
+
+tool:
+  codegen:
+    base-package: org.training.cloud
+
 
 
 

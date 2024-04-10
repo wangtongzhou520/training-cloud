@@ -10,6 +10,7 @@ import org.training.cloud.tool.vo.generator.GeneratorVO;
 import org.training.cloud.tool.vo.generator.table.GeneratorTableVO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 代码生成器
@@ -83,7 +84,10 @@ public interface GeneratorService {
      *
      * @param tableId
      */
-    void previewGeneratorCode(Long tableId);
+    Map<String, String> previewGeneratorCode(Long tableId);
+
+
+
 
 
 }

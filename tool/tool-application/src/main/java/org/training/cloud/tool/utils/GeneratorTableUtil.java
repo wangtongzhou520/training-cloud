@@ -2,6 +2,10 @@ package org.training.cloud.tool.utils;
 
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.google.common.collect.Maps;
+import freemarker.core.ParseException;
+import freemarker.template.*;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.training.cloud.common.core.utils.date.DateUtils;
 import org.training.cloud.common.core.vo.CommonResponse;
@@ -17,10 +21,13 @@ import org.training.cloud.tool.entity.generator.ToolGeneratorTable;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * 生成表工具类
@@ -29,6 +36,7 @@ import java.util.Map;
  * @since 2024-03-03 15:31
  */
 @Component
+@Slf4j
 public class GeneratorTableUtil {
 
 
@@ -74,6 +82,10 @@ public class GeneratorTableUtil {
     private final Map<String, Object> globalBindingMap = new HashMap<>();
 
 
+    @Resource
+    private Configuration configuration;
+
+
     @PostConstruct
     void initMap() {
         //全局配置
@@ -93,17 +105,15 @@ public class GeneratorTableUtil {
         //服务端模版初始化
         //dal
         //entity
-        SERVER_MAP.put(javaTemplatePath("dal/entity"),
-                javaEntityFilePath("application"));
+        SERVER_MAP.put(javaTemplatePath("entity"), javaEntityFilePath("application"));
 
 
         //dto
-        SERVER_MAP.put(javaTemplatePath("dto/pageParam"),
-                javaModuleImplFilePath("", "DTO"));
-        SERVER_MAP.put(javaTemplatePath("dto/add"), javaModuleImplFilePath("Add", "DTO"));
-        SERVER_MAP.put(javaTemplatePath("dto/modify"), javaModuleImplFilePath("Modify", "DTO"));
+        SERVER_MAP.put(javaTemplatePath("pageParam"), javaModuleImplFilePath("", "DTO"));
+        SERVER_MAP.put(javaTemplatePath("add"), javaModuleImplFilePath("Add", "DTO"));
+        SERVER_MAP.put(javaTemplatePath("modify"), javaModuleImplFilePath("Modify", "DTO"));
         //vo
-        SERVER_MAP.put(javaTemplatePath("dto/vo"), javaModuleImplFilePath("", "VO"));
+        SERVER_MAP.put(javaTemplatePath("vo"), javaModuleImplFilePath("", "VO"));
         //controller
 
 
@@ -129,42 +139,64 @@ public class GeneratorTableUtil {
     }
 
 
-    public void execute(ToolGeneratorTable table, List<ToolGeneratorColumn> columns) {
+    public Map<String, String> execute(ToolGeneratorTable table, List<ToolGeneratorColumn> columns) {
         //初始化
         Map<String, Object> bindingMap = initBindingMap(table, columns);
 
         //获取对应模版
         Map<String, String> templates = getTemplates();
 
+        Map<String, String> result = Maps.newLinkedHashMapWithExpectedSize(templates.size());
         templates.forEach((key, value) -> {
-
+            generateCode(result, key, value, bindingMap);
         });
+        return result;
+    }
 
+    private void generateCode(Map<String, String> result, String vmPath, String filePath, Map<String, Object> bindingMap) {
+        filePath = formatFilePath(filePath, bindingMap);
+        try {
+            StringWriter writer = new StringWriter();
+            Template template = configuration.getTemplate(vmPath);
+            template.process(bindingMap, writer);
+            result.put(filePath, writer.toString());
+        } catch (Exception exception) {
+            log.error(vmPath + "模版加载异常" + exception);
+        }
+//        // 格式化代码
+//        content = prettyCode(content);
+    }
+
+    private String formatFilePath(String filePath, Map<String, Object> bindingMap) {
+        filePath = StringUtils.replace(filePath, "${basePackage}",
+                bindingMap.get("basePackage").toString().replaceAll("\\.", "/"));
+//        filePath = StringUtils.replace(filePath, "${classNameVar}", bindingMap.get("classNameVar").toString());
+//        filePath = StringUtils.replace(filePath, "${simpleClassName}", bindingMap.get("simpleClassName").toString());
+        // table 包含的字段
+        ToolGeneratorTable table = (ToolGeneratorTable) bindingMap.get("table");
+        filePath = StringUtils.replace(filePath, "${table.moduleName}", table.getModuleName());
+        filePath = StringUtils.replace(filePath, "${table.businessName}", table.getBusinessName());
+        filePath = StringUtils.replace(filePath, "${table.className}", table.getClassName());
+        return filePath;
     }
 
 
     private static String javaTemplatePath(String path) {
-        return "generator/java/" + path + ".vm";
+        return  path + ".ftl";
     }
 
 
     private static String javaEntityFilePath(String module) {
-        return "${table.moduleName}/" +
-                "${table.moduleName}-" + module + "/" +
-                "src/main/java/${basePackage}/${table.moduleName}" +
-                "/entity/${table.moduleName}/${table.className}.java";
+        return "${table.moduleName}/" + "${table.moduleName}-" + module + "/" + "src/main/java/${basePackage}/${table.moduleName}" + "/entity/${table.moduleName}/${table.className}.java";
     }
 
 
     private static String javaModuleImplFilePath(String prefix, String suffix) {
-        return javaModuleFilePath(prefix + "${table.className}" + suffix,
-                "facade", suffix);
+        return javaModuleFilePath(prefix + "${table.className}" + suffix, "facade", suffix);
     }
 
 
     private static String javaModuleFilePath(String path, String module, String suffix) {
-        return "${table.moduleName}/" +
-                "${table.moduleName}-" + module + "/" +
-                "src/main/java/${basePackage}/${table.moduleName}/" + suffix + "/" + path + ".java";
+        return "${table.moduleName}/" + "${table.moduleName}-" + module + "/" + "src/main/java/${basePackage}/${table.moduleName}/" + suffix + "/" + path + ".java";
     }
 }

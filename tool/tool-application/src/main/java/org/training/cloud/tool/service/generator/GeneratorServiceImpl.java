@@ -56,6 +56,9 @@ public class GeneratorServiceImpl implements GeneratorService {
     @Resource
     private GeneratorColumnMapper generatorColumnMapper;
 
+    @Resource
+    private GeneratorTableUtil generatorTableUtil;
+
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -190,13 +193,13 @@ public class GeneratorServiceImpl implements GeneratorService {
     }
 
     @Override
-    public void previewGeneratorCode(Long tableId) {
-        ToolGeneratorTable table=checkTableExistsById(tableId);
+    public Map<String, String> previewGeneratorCode(Long tableId) {
+        ToolGeneratorTable table = checkTableExistsById(tableId);
         List<ToolGeneratorColumn> columns = generatorColumnMapper.selectListByTableId(tableId);
-        if (CollectionUtils.isEmpty(columns)){
+        if (CollectionUtils.isEmpty(columns)) {
             throw new BusinessException(GENERATOR_COLUMN_NOT_EXISTS);
         }
-
+        return generatorTableUtil.execute(table, columns);
     }
 
 
