@@ -9,22 +9,19 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import ${BaseDO};
 
-##BigDecimal
 <#list columns as column>
-    #if (${column.javaType} == "BigDecimal")
-    import java.math.BigDecimal;
-        #break
-    #end
+    <#if column.javaType == "BigDecimal">
+        import java.math.BigDecimal;
+        <#break>
+    </#if>
 </#list>
 
-##LocalDateTime
 <#list columns as column>
-    #if (${column.javaType} == "LocalDateTime")
-    import java.time.LocalDateTime;
-        #break
-    #end
+    <#if column.javaType == "LocalDateTime">
+        import java.time.LocalDateTime;
+        <#break>
+    </#if>
 </#list>
-
 
 
 @Data
@@ -33,25 +30,20 @@ import ${BaseDO};
 @Accessors(chain = true)
 public class ${table.className} extends BaseDO {
 <#list columns as column>
-    ## 排除BaseDO
-    #if (${column.javaField} != "gmtCreate" && ${column.javaField} !=
-        "gmtModified" && ${column.javaField} !=
-        "createOperator" && ${column.javaField} !=
-        "modifiedOperator" && ${column.javaField} !=
-        "deleteState")
-    /**
-    * ${column.columnComment}
-        ##处理枚举值
-        #if ("$!column.dictType" != "")
-        *
-        * 枚举 {@link TODO ${column.dictType} 对应的类}
-        #end
-    */
-        #if (${column.primaryKey})
-        @TableId#if (${column.javaType} == 'String')(type = IdType.INPUT)#end
-        #end
-    private ${column.javaType} ${column.javaField};
-    #end
+    <#assign excludedFields = ["gmtCreate", "gmtModified", "createOperator", "modifiedOperator", "deleteState"]>
+    <#if !excludedFields?seq_contains(column.javaField) >
+        /**
+         * ${column.columnComment}
+        <#if column.dictType != "">
+            *
+            * 枚举 {@link TODO ${column.dictType} 对应的类}
+        </#if>
+         */
+        <#if column.primaryKey >
+            @TableId <#if column.javaType == 'String'> (type = IdType.INPUT) </#if>
+        </#if>
+         private ${column.javaType} ${column.javaField};
+    </#if>
 </#list>
 
 }
