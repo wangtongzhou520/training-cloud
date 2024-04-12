@@ -16,22 +16,19 @@ import static ${DateUtils}.DATE_TIME_PATTERN;
 @Accessors(chain = true)
 @Schema(description = "${table.classComment}分页查询")
 public class ${table.className}DTO extends PageParam {
+<#list columns as column>
+    <#if column.queryResultField>
+        <#if column.queryConditionField == "BETWEEN">
+            @Schema(description = "${column.columnComment}"<#if column.example! != "">, example = "${column.example}"</#if>)
+            @DateTimeFormat(pattern = DATE_TIME_PATTERN)
+            private ${column.javaType}[] ${column.javaField};
+        <#else>
+            @Schema(description = "${column.columnComment}" <#if column.example! != "">, example = "${column.example}"</#if>)
+            private ${column.javaType} ${column.javaField};
+        </#if>
 
-
-#foreach ($column in $columns)
-    ##查询操作
-    #if (${column.queryResultField})
-        ##时间范围查询
-        #if (${column.queryConditionField} == "BETWEEN")
-        @Schema(description = "${column.columnComment}"#if ("$!column.example" != ""), example = "${column.example}"#end)
-        @DateTimeFormat(pattern = DATE_TIME_PATTERN)
-        private ${column.javaType}[] ${column.javaField};
-        #else
-        @Schema(description = "${column.columnComment}"#if ("$!column.example" != ""), example = "${column.example}"#end)
-        private ${column.javaType} ${column.javaField};
-        #end
-    #end
-#end
+    </#if>
+</#list>
 
 
 }
