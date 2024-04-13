@@ -13,6 +13,7 @@ import org.training.cloud.tool.entity.db.ToolDataSourceConfig;
 import org.training.cloud.tool.vo.db.DataSourceConfigVO;
 
 import javax.annotation.Resource;
+import java.util.Collection;
 import java.util.List;
 
 import static org.training.cloud.tool.constant.ToolExceptionEnumConstants.DATA_SOURCE_CONFIG_ERROR;
@@ -29,8 +30,6 @@ public class DataSourceConfigServiceImpl implements DataSourceConfigService {
 
     @Resource
     private DataSourceConfigMapper dataSourceConfigMapper;
-
-
 
 
     @Override
@@ -78,6 +77,11 @@ public class DataSourceConfigServiceImpl implements DataSourceConfigService {
     @Override
     public ToolDataSourceConfig getDataSourceConfig(Long id) {
         return dataSourceConfigMapper.selectById(id);
+    }
+
+    @Override
+    public List<ToolDataSourceConfig> getDataSourceConfigByIds(Collection<Long> ids) {
+        return dataSourceConfigMapper.selectBatchIds(ids);
     }
 
     @Override

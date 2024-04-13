@@ -2,7 +2,6 @@ package org.training.cloud.system.service.oauth2;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.training.cloud.common.core.exception.BusinessException;
 import org.training.cloud.common.core.vo.PageResponse;
@@ -14,6 +13,7 @@ import org.training.cloud.system.dto.oauth2.Oauth2ClientDTO;
 import org.training.cloud.system.entity.oauth2.SysOauth2Client;
 import org.training.cloud.system.enums.oauth2.Oauth2ClientStateEnum;
 
+import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -28,7 +28,7 @@ import static org.training.cloud.system.constant.SystemExceptionEnumConstants.*;
 @Service
 public class Oauth2ClientServiceImpl implements Oauth2ClientService {
 
-    @Autowired
+    @Resource
     private Oauth2ClientMapper oauth2ClientMapper;
 
     @Override

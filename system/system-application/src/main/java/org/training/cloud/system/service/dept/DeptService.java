@@ -4,7 +4,6 @@ import org.training.cloud.system.dto.dept.AddDeptDTO;
 import org.training.cloud.system.dto.dept.DeptDTO;
 import org.training.cloud.system.dto.dept.ModifyDeptDTO;
 import org.training.cloud.system.entity.dept.SysDept;
-import org.training.cloud.system.vo.dept.DeptTreeVO;
 import org.training.cloud.system.vo.dept.DeptVO;
 
 import java.util.Collection;

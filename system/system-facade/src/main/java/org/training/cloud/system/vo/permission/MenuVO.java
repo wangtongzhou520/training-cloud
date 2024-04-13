@@ -2,10 +2,8 @@ package org.training.cloud.system.vo.permission;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 菜单列表

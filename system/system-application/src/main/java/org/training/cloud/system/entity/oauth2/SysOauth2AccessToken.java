@@ -1,6 +1,9 @@
 package org.training.cloud.system.entity.oauth2;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -8,7 +11,6 @@ import lombok.experimental.Accessors;
 import org.training.cloud.common.mybatis.dao.BaseDO;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 /**

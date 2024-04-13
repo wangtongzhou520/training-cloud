@@ -51,7 +51,7 @@ public class ModifyGeneratorColumnDTO implements Serializable {
 
     @Schema(description = "排序",  example = "10")
     @NotNull(message = "排序不能为空")
-    private Integer ordinalPosition;
+    private Integer columnSort;
 
 
     @Schema(description = "Java属性类型", example = "Integer")
@@ -72,24 +72,24 @@ public class ModifyGeneratorColumnDTO implements Serializable {
 
     @Schema(description = "是否新增字段",  example = "true")
     @NotNull(message = "是否新增字段不允许为空")
-    private Boolean createOperation;
+    private Boolean addField;
 
     @Schema(description = "是否修改字段",  example = "true")
     @NotNull(message = "是否修改字段不允许为空")
-    private Boolean updateOperation;
+    private Boolean modifyField;
 
     @Schema(description = "是否查询字段",  example = "true")
     @NotNull(message = "是否查询字段不允许为空")
-    private Boolean listOperation;
+    private Boolean queryField;
 
     @Schema(description = "查询方式",  example = "true")
     @NotNull(message = "查询方式字段不允许为空")
-    private String listOperationCondition;
+    private String queryConditionField;
 
 
     @Schema(description = "是否查询返回字段",  example = "true")
     @NotNull(message = "查询返回字段不能为空")
-    private Boolean listOperationResult;
+    private Boolean queryResultField;
 
 
     @Schema(description = "显示类型",  example = "input")

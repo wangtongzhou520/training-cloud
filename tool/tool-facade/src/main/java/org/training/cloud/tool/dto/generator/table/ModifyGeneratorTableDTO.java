@@ -24,7 +24,6 @@ public class ModifyGeneratorTableDTO implements Serializable {
      * 生成场景
      */
     @Schema(description = "生成场景", example = "1")
-    @NotNull(message = "导入类型不能为空")
     private Integer scene;
 
 
