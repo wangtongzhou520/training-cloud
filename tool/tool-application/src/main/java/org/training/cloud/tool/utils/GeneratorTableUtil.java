@@ -7,6 +7,7 @@ import freemarker.template.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
+import org.training.cloud.common.core.utils.collection.CollectionExtUtils;
 import org.training.cloud.common.core.utils.date.DateUtils;
 import org.training.cloud.common.core.vo.CommonResponse;
 import org.training.cloud.common.core.vo.PageParam;
@@ -68,7 +69,7 @@ public class GeneratorTableUtil {
                 className.append(Character.toUpperCase(firstChar)).append(arrays[i].substring(1));
             }
         }
-        table.setClassName(className.toString().toLowerCase());
+        table.setClassName(className.toString());
         //类描述
         table.setClassComment(table.getTableComment());
     }
@@ -90,6 +91,8 @@ public class GeneratorTableUtil {
     void initMap() {
         //全局配置
         globalBindingMap.put("basePackage", generatorProperties.getBasePackage());
+
+
         //返回结果
         globalBindingMap.put("CommonResponse", CommonResponse.class.getName());
         globalBindingMap.put("PageResponseClassName", PageResponse.class.getName());
@@ -102,19 +105,28 @@ public class GeneratorTableUtil {
         globalBindingMap.put("BaseMapperExtend", BaseMapperExtend.class.getName());
         //工具类
         globalBindingMap.put("DateUtils", DateUtils.class.getName());
+        globalBindingMap.put("CollectionExtUtils", CollectionExtUtils.class.getName());
         //服务端模版初始化
         //dal
         //entity
         SERVER_MAP.put(javaTemplatePath("entity"), javaEntityFilePath("application"));
-
-
         //dto
-        SERVER_MAP.put(javaTemplatePath("pageParam"), javaModuleImplFilePath("", "DTO"));
-        SERVER_MAP.put(javaTemplatePath("add"), javaModuleImplFilePath("Add", "DTO"));
-        SERVER_MAP.put(javaTemplatePath("modify"), javaModuleImplFilePath("Modify", "DTO"));
+        SERVER_MAP.put(javaTemplatePath("pageParam"), javaClassNameFilePath("", "DTO"));
+        SERVER_MAP.put(javaTemplatePath("add"), javaClassNameFilePath("Add", "DTO"));
+        SERVER_MAP.put(javaTemplatePath("modify"), javaClassNameFilePath("Modify", "DTO"));
         //vo
-        SERVER_MAP.put(javaTemplatePath("vo"), javaModuleImplFilePath("", "VO"));
+        SERVER_MAP.put(javaTemplatePath("vo"), javaClassNameFilePath("", "VO"));
+        //mapper
+        SERVER_MAP.put(javaTemplatePath("mapper"), javaClassNameFilePath("", "Mapper"));
+        //convert
+        SERVER_MAP.put(javaTemplatePath("convert"), javaClassNameFilePath("", "Convert"));
+        //enum
+        SERVER_MAP.put(javaTemplatePath("exceptionenum"), javaModuleFilePath("", "ExceptionEnumConstants"));
+        //service
+        SERVER_MAP.put(javaTemplatePath("service"), javaClassNameFilePath("", "Service"));
+        SERVER_MAP.put(javaTemplatePath("serviceImpl"), javaClassNameFilePath("", "ServiceImpl"));
         //controller
+        SERVER_MAP.put(javaTemplatePath("controller"), javaClassNameFilePath("", "Controller"));
 
 
     }
@@ -125,8 +137,27 @@ public class GeneratorTableUtil {
         Map<String, Object> paramsMap = new HashMap<>(globalBindingMap);
         paramsMap.put("table", table);
         paramsMap.put("columns", columns);
+        String[] arrays = table.getTableName().split("_");
+        StringBuilder symbolCase = new StringBuilder();
+        StringBuilder upperCase = new StringBuilder();
+        for (int i = 1; i < arrays.length; i++) {
+            symbolCase.append(arrays[i]);
+            symbolCase.append("-");
 
-        //单独处理树表
+            upperCase.append(Character.toUpperCase(arrays[i].charAt(0))).append(arrays[i].substring(1));
+            upperCase.append("-");
+        }
+        //sys_oauth2_authorization_code  ->  oauth2-authorization-code
+        paramsMap.put("symbolCaseClassName", symbolCase.substring(0, symbolCase.length() - 1));
+        //Oauth2AuthorizationCode -> oauth2AuthorizationCode
+        paramsMap.put("firstLowerClassName",
+                Character.toLowerCase(table.getClassName().charAt(0)) + table.getClassName().substring(1));
+        //system -> System
+        paramsMap.put("firstUpperModuleName",
+                Character.toUpperCase(table.getModuleName().charAt(0)) + table.getModuleName().substring(1));
+        //sys_oauth2_authorization_code  ->  Oauth2_Authorization_Code
+        paramsMap.put("upperCaseClassName", upperCase.substring(0, upperCase.length() - 1));
+
         return paramsMap;
     }
 
@@ -163,15 +194,11 @@ public class GeneratorTableUtil {
         } catch (Exception exception) {
             log.error(vmPath + "模版加载异常" + exception);
         }
-//        // 格式化代码
-//        content = prettyCode(content);
     }
 
     private String formatFilePath(String filePath, Map<String, Object> bindingMap) {
         filePath = StringUtils.replace(filePath, "${basePackage}",
                 bindingMap.get("basePackage").toString().replaceAll("\\.", "/"));
-//        filePath = StringUtils.replace(filePath, "${classNameVar}", bindingMap.get("classNameVar").toString());
-//        filePath = StringUtils.replace(filePath, "${simpleClassName}", bindingMap.get("simpleClassName").toString());
         // table 包含的字段
         ToolGeneratorTable table = (ToolGeneratorTable) bindingMap.get("table");
         filePath = StringUtils.replace(filePath, "${table.moduleName}", table.getModuleName());
@@ -182,7 +209,7 @@ public class GeneratorTableUtil {
 
 
     private static String javaTemplatePath(String path) {
-        return  path + ".ftl";
+        return path + ".ftl";
     }
 
 
@@ -191,7 +218,12 @@ public class GeneratorTableUtil {
     }
 
 
-    private static String javaModuleImplFilePath(String prefix, String suffix) {
+    private static String javaModuleFilePath(String prefix, String suffix) {
+        return javaModuleFilePath(prefix + "${table.businessName}" + suffix, "facade", suffix);
+    }
+
+
+    private static String javaClassNameFilePath(String prefix, String suffix) {
         return javaModuleFilePath(prefix + "${table.className}" + suffix, "facade", suffix);
     }
 

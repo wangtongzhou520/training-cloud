@@ -1,16 +1,14 @@
 package org.training.cloud.system.convert.user;
 
 import com.google.common.collect.Lists;
-import org.training.cloud.common.core.utils.collection.CollectionExtUtils;
-import org.training.cloud.common.core.vo.PageResponse;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mappings;
+import org.mapstruct.factory.Mappers;
 import org.training.cloud.system.dto.user.AddUserDTO;
 import org.training.cloud.system.dto.user.ModifyUserDTO;
 import org.training.cloud.system.entity.dept.SysDept;
 import org.training.cloud.system.entity.user.SysUser;
 import org.training.cloud.system.vo.user.UserVO;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mappings;
-import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 import java.util.Map;

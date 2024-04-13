@@ -3,7 +3,6 @@ package org.training.cloud.system.controller.admin.user;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.training.cloud.common.core.utils.collection.CollectionExtUtils;
 import org.training.cloud.common.core.vo.CommonResponse;
@@ -18,6 +17,7 @@ import org.training.cloud.system.service.dept.DeptService;
 import org.training.cloud.system.service.user.UserService;
 import org.training.cloud.system.vo.user.UserVO;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -32,10 +32,10 @@ import java.util.List;
 @Tag(name = "管理员相关信息")
 public class UserController {
 
-    @Autowired
+    @Resource
     private UserService userService;
 
-    @Autowired
+    @Resource
     private DeptService deptService;
 
     /**
@@ -77,10 +77,8 @@ public class UserController {
         if (CollectionUtils.isEmpty(pageResponse.getList())) {
             return CommonResponse.ok();
         }
-        List<SysDept> deptList = deptService.getDeptListByIds(CollectionExtUtils.convertSet(pageResponse.getList(),
-                SysUser::getDeptId));
-        return CommonResponse.ok(new PageResponse<>(UserConvert.INSTANCE.convert(pageResponse.getList(),
-                deptList),pageResponse.getTotal()));
+        List<SysDept> deptList = deptService.getDeptListByIds(CollectionExtUtils.convertSet(pageResponse.getList(), SysUser::getDeptId));
+        return CommonResponse.ok(new PageResponse<>(UserConvert.INSTANCE.convert(pageResponse.getList(), deptList), pageResponse.getTotal()));
     }
 
     /**

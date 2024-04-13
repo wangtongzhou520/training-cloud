@@ -4,7 +4,7 @@ package ${basePackage}.${table.moduleName}.dto.${table.businessName}
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.training.cloud.common.core.vo.PageParam;
+import ${PageParam};
 import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
 

@@ -3,7 +3,6 @@ package ${basePackage}.${table.moduleName}.vo.${table.businessName}
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.training.cloud.common.core.vo.PageParam;
 <#list columns as column>
     <#if column.queryField && column.javaType == "BigDecimal">
         import java.math.BigDecimal;
