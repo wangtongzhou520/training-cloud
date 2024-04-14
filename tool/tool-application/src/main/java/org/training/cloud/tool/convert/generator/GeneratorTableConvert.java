@@ -9,9 +9,12 @@ import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.tool.dto.generator.table.ModifyGeneratorTableDTO;
 import org.training.cloud.tool.entity.generator.ToolGeneratorTable;
 import org.training.cloud.tool.vo.db.DatabaseTableVO;
+import org.training.cloud.tool.vo.generator.GeneratorPreviewCodeVO;
 import org.training.cloud.tool.vo.generator.table.GeneratorTableVO;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 转换table
@@ -43,5 +46,14 @@ public interface GeneratorTableConvert {
 
 
     PageResponse<GeneratorTableVO> convertPage( PageResponse<ToolGeneratorTable> pageResponse);
+
+    default List<GeneratorPreviewCodeVO> convert(Map<String, String> codeMap){
+        return codeMap.entrySet().stream().map(entry -> {
+            GeneratorPreviewCodeVO vo = new GeneratorPreviewCodeVO();
+            vo.setCode(entry.getValue());
+            vo.setFilePath(entry.getKey());
+            return vo;
+        }).collect(Collectors.toList());
+    }
 
 }

@@ -8,12 +8,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.training.cloud.common.core.vo.CommonResponse;
 import org.training.cloud.common.core.vo.PageResponse;
+import org.training.cloud.tool.convert.generator.GeneratorTableConvert;
 import org.training.cloud.tool.dto.db.DatabaseTableDTO;
 import org.training.cloud.tool.dto.generator.AddGeneratorDTO;
 import org.training.cloud.tool.dto.generator.ModifyGeneratorDTO;
 import org.training.cloud.tool.dto.generator.table.GeneratorTableDTO;
 import org.training.cloud.tool.service.generator.GeneratorService;
 import org.training.cloud.tool.vo.db.DatabaseTableVO;
+import org.training.cloud.tool.vo.generator.GeneratorPreviewCodeVO;
 import org.training.cloud.tool.vo.generator.GeneratorVO;
 import org.training.cloud.tool.vo.generator.table.GeneratorTableVO;
 
@@ -21,6 +23,7 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.training.cloud.common.web.utils.WebUtil.getLoginUserId;
 
@@ -34,7 +37,7 @@ import static org.training.cloud.common.web.utils.WebUtil.getLoginUserId;
 @RequestMapping("/tool")
 @Tag(name = "代码生成器")
 public class GeneratorController {
-    
+
     @Resource
     private GeneratorService generatorService;
 
@@ -93,25 +96,35 @@ public class GeneratorController {
     }
 
 
-
     @GetMapping("/generator/table/list")
     @Operation(summary = "获得数据库表,已导入的会过滤")
     @Parameters({
             @Parameter(name = "dataSourceConfigId", description = "数据源配置的编号", required = true, example = "1"),
-            @Parameter(name = "name", description = "表名，模糊匹配", example = "yudao"),
-            @Parameter(name = "comment", description = "描述，模糊匹配", example = "芋道")
+            @Parameter(name = "name", description = "表名，模糊匹配", example = "表名"),
+            @Parameter(name = "comment", description = "描述，模糊匹配", example =
+                    "描述")
     })
     public CommonResponse<List<DatabaseTableVO>> queryDatabaseTableList(
             @RequestParam(value = "dataSourceConfigId") Long dataSourceConfigId,
             @RequestParam(value = "tableName", required = false) String tableName,
             @RequestParam(value = "tableDesc", required = false) String tableDesc) {
-        DatabaseTableDTO databaseTableDTO=new DatabaseTableDTO();
+        DatabaseTableDTO databaseTableDTO = new DatabaseTableDTO();
         databaseTableDTO.setTableName(tableName);
         databaseTableDTO.setTableDesc(tableDesc);
         databaseTableDTO.setDataSourceConfigId(dataSourceConfigId);
         return CommonResponse.ok(generatorService.queryGeneratorTableList(databaseTableDTO));
     }
 
+
+    @GetMapping("/generator/preview")
+    @Operation(summary = "代码预览")
+    @Parameters({
+            @Parameter(name = "tableId", description = "表单ID", required = true, example = "1"),
+    })
+    public CommonResponse<List<GeneratorPreviewCodeVO>> previewCodegen(@RequestParam("tableId") Long tableId) {
+        Map<String, String> codeMap = generatorService.previewGeneratorCode(tableId);
+        return CommonResponse.ok(GeneratorTableConvert.INSTANCE.convert(codeMap));
+    }
 
 
 }
