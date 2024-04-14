@@ -43,6 +43,26 @@ public class GeneratorTableUtil {
     @Resource
     private GeneratorProperties generatorProperties;
 
+    /**
+     * 服务端模版
+     */
+    private static final Map<String, String> SERVER_MAP = Maps.newLinkedHashMap();
+
+    /**
+     * 前端模版
+     */
+    private static final Map<String, String> FRONT_MAP = Maps.newLinkedHashMap();
+
+
+    /**
+     * 全局映射
+     */
+    private final Map<String, Object> globalBindingMap = new HashMap<>();
+
+
+    @Resource
+    private Configuration configuration;
+
     public static ToolGeneratorTable buildTable(TableInfo tableInfo) {
         ToolGeneratorTable table = GeneratorTableConvert.INSTANCE.convert(tableInfo);
         initTableDefault(table);
@@ -74,16 +94,6 @@ public class GeneratorTableUtil {
     }
 
 
-    private static final Map<String, String> SERVER_MAP = Maps.newLinkedHashMap();
-
-    /**
-     * 全局映射
-     */
-    private final Map<String, Object> globalBindingMap = new HashMap<>();
-
-
-    @Resource
-    private Configuration configuration;
 
 
     @PostConstruct
@@ -120,12 +130,20 @@ public class GeneratorTableUtil {
         //convert
         SERVER_MAP.put(javaTemplatePath("convert"), javaClassNameFilePath("", "Convert", "convert", "application"));
         //enum
-        SERVER_MAP.put(javaTemplatePath("exceptionenum"), javaClassNameFilePath("", "ExceptionEnumConstants", "constant", "application"));
+        SERVER_MAP.put(javaTemplatePath("exceptionEnum"), javaClassNameFilePath("", "ExceptionEnumConstants", "constant", "application"));
         //service
         SERVER_MAP.put(javaTemplatePath("service"), javaClassNameFilePath("", "Srvice", "service", "application"));
         SERVER_MAP.put(javaTemplatePath("serviceImpl"), javaClassNameFilePath("", "ServiceImpl", "service", "application"));
         //controller
         SERVER_MAP.put(javaTemplatePath("controller"), javaClassNameFilePath("", "Controller", "controller", "application"));
+
+        //前端代码初始化
+        //vue
+
+        //from vue
+
+        //api
+
 
 
     }
@@ -210,18 +228,17 @@ public class GeneratorTableUtil {
     }
 
 
+    private static String vueTemplatePath(String path) {
+        return  path + ".vm";
+    }
+
+
     private static String javaTemplatePath(String path) {
         return path + ".ftl";
     }
 
-
     private static String javaEntityFilePath(String module) {
         return "${table.moduleName}/" + "${table.moduleName}-" + module + "/" + "src/main/java/${basePackage}/${table.moduleName}" + "/entity/${smallClassName}/${table.className}.java";
-    }
-
-
-    private static String javaModuleFilePath(String prefix, String suffix) {
-        return javaModuleFilePath(prefix + "${table.businessName}" + suffix, "facade", suffix);
     }
 
 
