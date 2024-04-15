@@ -177,6 +177,9 @@ public class GeneratorTableUtil {
         paramsMap.put("upperCaseClassName", upperCase.substring(0, upperCase.length() - 1));
         //sys_oauth2_authorization_code  ->  oauth2authorizationcode
         paramsMap.put("smallClassName", smallClassName.toString());
+        //类名小驼峰
+        paramsMap.put("lowerCameClassName", Character.toLowerCase(table.getClassName().charAt(0))+table.getClassName().substring(1));
+
 
         return paramsMap;
     }

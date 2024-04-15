@@ -68,14 +68,64 @@
         </el-card>
         <el-card>
           <el-table :data="tableData" v-loading="loading" border style="width: 100%">
-
+              <el-table-column label="#" type="index" />
+              <#list columns as column>
+                  <#if column.javaType == "LocalDateTime">
+                 <el-table-column
+                   label="${column.columnComment}"
+                   align="center"
+                   prop="${column.javaField}"
+                   :formatter="dateFormatter"
+                   width="180px"
+                 />
+                      <#else>
+                <el-table-column label="${column.columnComment}" align="center" prop="${column.javaField}" />
+                  </#if>
+              </#list>
+              <el-table-column label="操作" align="center">
+                <el-button
+                  type="info"
+                  size="small"
+                  @click="handleModify(row)"
+                  v-permission="['${permissionPrefix}:role-menu']"
+                >编辑角色</el-button>
+                <el-button
+                  link
+                  type="danger"
+                  @click="handleDelete(row)"
+                  v-hasPermi="['${permissionPrefix}:delete']"
+                >删除</el-button>
+              </el-table-column>
           </el-table>
+          <el-pagination
+            class="pagination"
+            v-model:current-page="queryParams.pageNo"
+            v-model:page-size="queryParams.pageSize"
+            :page-sizes="[10, 20]"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="total"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+          >
+          </el-pagination>
         </el-card>
+        <${table.className}Dialog
+          v-model="${lowerCameClassName}FormVisible"
+          :selectRow="selectRow"
+          @success="getListData()"
+        />
     </div>
 </template>
 
 
 <script setup>
+import { ref, reactive } from 'vue'
+import ${table.className}Dialog from '../${smallClassName}/${table.className}From.vue'
+import { page${table.className}List, delete${table.className} } from '@/api/${smallClassName}/${smallClassName}'
+
+
+
+
 
 </script>
 
