@@ -94,8 +94,6 @@ public class GeneratorTableUtil {
     }
 
 
-
-
     @PostConstruct
     void initMap() {
         //全局配置
@@ -118,34 +116,32 @@ public class GeneratorTableUtil {
         //服务端模版初始化
         //dal
         //entity
-        SERVER_MAP.put(javaTemplatePath("entity"), javaEntityFilePath("application"));
+        SERVER_MAP.put(templatePath("entity"), javaEntityFilePath("application"));
         //dto
-        SERVER_MAP.put(javaTemplatePath("pageParam"), javaClassNameFilePath("", "DTO", "dto", "application"));
-        SERVER_MAP.put(javaTemplatePath("add"), javaClassNameFilePath("Add", "DTO", "dto", "facade"));
-        SERVER_MAP.put(javaTemplatePath("modify"), javaClassNameFilePath("Modify", "DTO", "dto", "facade"));
+        SERVER_MAP.put(templatePath("pageParam"), javaClassNameFilePath("", "DTO", "dto", "application"));
+        SERVER_MAP.put(templatePath("add"), javaClassNameFilePath("Add", "DTO", "dto", "facade"));
+        SERVER_MAP.put(templatePath("modify"), javaClassNameFilePath("Modify", "DTO", "dto", "facade"));
         //vo
-        SERVER_MAP.put(javaTemplatePath("vo"), javaClassNameFilePath("", "VO", "vo", "facade"));
+        SERVER_MAP.put(templatePath("vo"), javaClassNameFilePath("", "VO", "vo", "facade"));
         //mapper
-        SERVER_MAP.put(javaTemplatePath("mapper"), javaClassNameFilePath("", "Mapper", "mapper", "application"));
+        SERVER_MAP.put(templatePath("mapper"), javaClassNameFilePath("", "Mapper", "mapper", "application"));
         //convert
-        SERVER_MAP.put(javaTemplatePath("convert"), javaClassNameFilePath("", "Convert", "convert", "application"));
+        SERVER_MAP.put(templatePath("convert"), javaClassNameFilePath("", "Convert", "convert", "application"));
         //enum
-        SERVER_MAP.put(javaTemplatePath("exceptionEnum"), javaClassNameFilePath("", "ExceptionEnumConstants", "constant", "application"));
+        SERVER_MAP.put(templatePath("exceptionEnum"), javaClassNameFilePath("", "ExceptionEnumConstants", "constant", "application"));
         //service
-        SERVER_MAP.put(javaTemplatePath("service"), javaClassNameFilePath("", "Srvice", "service", "application"));
-        SERVER_MAP.put(javaTemplatePath("serviceImpl"), javaClassNameFilePath("", "ServiceImpl", "service", "application"));
+        SERVER_MAP.put(templatePath("service"), javaClassNameFilePath("", "Srvice", "service", "application"));
+        SERVER_MAP.put(templatePath("serviceImpl"), javaClassNameFilePath("", "ServiceImpl", "service", "application"));
         //controller
-        SERVER_MAP.put(javaTemplatePath("controller"), javaClassNameFilePath("", "Controller", "controller", "application"));
+        SERVER_MAP.put(templatePath("controller"), javaClassNameFilePath("", "Controller", "controller", "application"));
 
         //前端代码初始化
         //vue
-
+        FRONT_MAP.put(templatePath("indexVue"), vueFilePath("/views/${table.moduleName}/${smallClassName}/index.vue"));
         //from vue
-
+        FRONT_MAP.put(templatePath("formVue"), vueFilePath("/views/${table.moduleName}/${smallClassName}/${table.className}Form.vue"));
         //api
-
-
-
+        FRONT_MAP.put(templatePath("api"), vueFilePath("/api/${table.moduleName}/${smallClassName}/smallClassName.js"));
     }
 
 
@@ -178,7 +174,9 @@ public class GeneratorTableUtil {
         //sys_oauth2_authorization_code  ->  oauth2authorizationcode
         paramsMap.put("smallClassName", smallClassName.toString());
         //类名小驼峰
-        paramsMap.put("lowerCameClassName", Character.toLowerCase(table.getClassName().charAt(0))+table.getClassName().substring(1));
+        paramsMap.put("lowerCameClassName", Character.toLowerCase(table.getClassName().charAt(0)) + table.getClassName().substring(1));
+        //权限前缀
+        paramsMap.put("permissionPrefix", table.getModuleName() + ":" + smallClassName);
 
 
         return paramsMap;
@@ -188,7 +186,7 @@ public class GeneratorTableUtil {
     private Map<String, String> getTemplates() {
         Map<String, String> templates = new LinkedHashMap<>();
         templates.putAll(SERVER_MAP);
-//        templates.putAll(FRONT_TEMPLATES.row(frontType));
+        templates.putAll(FRONT_MAP);
         return templates;
     }
 
@@ -231,14 +229,15 @@ public class GeneratorTableUtil {
     }
 
 
-    private static String vueTemplatePath(String path) {
-        return  path + ".vm";
-    }
-
-
-    private static String javaTemplatePath(String path) {
+    private static String templatePath(String path) {
         return path + ".ftl";
     }
+
+
+    private static String vueFilePath(String path) {
+        return "training-admin-vue/src" + path;
+    }
+
 
     private static String javaEntityFilePath(String module) {
         return "${table.moduleName}/" + "${table.moduleName}-" + module + "/" + "src/main/java/${basePackage}/${table.moduleName}" + "/entity/${smallClassName}/${table.className}.java";

@@ -28,7 +28,7 @@
                 </el-form-item>
                 </#if>
                 <#if column.htmlType == "datetime">
-                    <#if column.listOperationCondition != "BETWEEN">
+                    <#if column.queryConditionField != "BETWEEN">
                 <el-form-item label="${column.columnComment}" prop="${column.javaField}">
                   <el-date-picker
                     v-model="queryParams.${column.javaField}"
@@ -123,8 +123,111 @@ import { ref, reactive } from 'vue'
 import ${table.className}Dialog from '../${smallClassName}/${table.className}From.vue'
 import { page${table.className}List, delete${table.className} } from '@/api/${smallClassName}/${smallClassName}'
 
+/**
+ * 列表内容
+ */
+const tableData = ref([])
+/**
+ * 总数
+ */
+const total = ref(0)
+
+/**
+ * 选中的数据
+ */
+const selectRow = ref({})
+/**
+ * 查询参数
+ */
+const queryParams = reactive({
+    <#list columns as column>
+        <#if column.queryField>
+            <#if column.queryConditionField != 'BETWEEN'>
+    ${column.javaField}:undefined,
+            </#if>
+            <#if column.htmlType == "datetime" || column.queryConditionField == "BETWEEN">
+    ${column.javaField}:[],
+            </#if>
+        </#if>
+    </#list>
+    pageNo: 1,
+    pageSize: 10
+})
+
+/**
+ * 获取数据
+ */
+const getListData = async () => {
+    const result = await page${table.className}List(queryParams)
+    tableData.value = result.list
+    total.value = result.total
+}
+
+/**
+ * 编辑
+ */
+const ${lowerCameClassName}FormVisible = ref(false)
+const handleModify = (row) => {
+    ${lowerCameClassName}FormVisible.value = true
+    selectRow.value = row
+}
+
+/**
+ * 新增
+ */
+const handleCreate = () => {
+    ${lowerCameClassName}FormVisible.value = true
+    selectRow.value = {}
+}
 
 
+// 分页相关
+/**
+ * size 改变触发
+ */
+const handleSizeChange = (currentSize) => {
+    size.value = currentSize
+    getListData()
+}
+
+/**
+ * 页码改变触发
+ */
+const handleCurrentChange = (currentPage) => {
+    page.value = currentPage
+    getListData()
+}
+
+
+/**
+ * 删除
+ */
+const handleDelete = (row) => {
+    ElMessageBox.confirm('您确定删除吗', {
+        type: 'warning'
+    }).then(async () => {
+        await delete${table.className}(row.id)
+        ElMessage.success('删除成功')
+        // 重新渲染数据
+        getListData()
+    })
+}
+
+
+/**
+ * 查询
+ */
+const handleQuery = () => {
+    getListData()
+}
+
+
+/**
+ * 初始化
+ */
+onMounted(() => {
+    getListData()
+})
 
 
 </script>
