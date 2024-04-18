@@ -27,8 +27,7 @@ public class ${table.className}Controller {
 
    @PostMapping("/add")
    @Operation(summary = "添加${table.classComment}信息")
-   public CommonResponse<?> add${table.className}(@RequestBody @Valid Add${table.className}DTO
-add${table.className}DTO) {
+   public CommonResponse<?> add${table.className}(@RequestBody @Valid Add${table.className}DTO add${table.className}DTO) {
      ${firstLowerClassName}Service.add${table.className}(add${table.className}DTO);
      return CommonResponse.ok();
    }
@@ -36,8 +35,7 @@ add${table.className}DTO) {
 
    @PutMapping("/update")
    @Operation(summary = "更新${table.classComment}信息")
-   public CommonResponse<?> update${table.className}(@RequestBody @Valid Modify${table.className}DTO
-modify${table.className}DTO) {
+   public CommonResponse<?> update${table.className}(@RequestBody @Valid Modify${table.className}DTO modify${table.className}DTO) {
      ${firstLowerClassName}Service.update${table.className}(modify${table.className}DTO);
      return CommonResponse.ok();
    }

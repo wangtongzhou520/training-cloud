@@ -98,7 +98,7 @@ const open = async () => {
   //初始化表单
   <#list columns as column>
   <#if column.addField || column.modifyField>
-  formData.${column.javaField}:props.selectRow.${column.javaField}
+  formData.${column.javaField}=props.selectRow.${column.javaField}
   </#if>
   </#list>
   title.value = formData.id !== undefined ? '编辑${table.tableComment}' : '新增${table.tableComment}'

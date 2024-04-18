@@ -16,15 +16,16 @@ import static ${DateUtils}.DATE_TIME_PATTERN;
 @Accessors(chain = true)
 @Schema(description = "${table.classComment}分页查询")
 public class ${table.className}DTO extends PageParam {
+
 <#list columns as column>
     <#if column.queryResultField>
         <#if column.queryConditionField == "BETWEEN">
-            @Schema(description = "${column.columnComment}"<#if column.example! != "">, example = "${column.example}"</#if>)
-            @DateTimeFormat(pattern = DATE_TIME_PATTERN)
-            private ${column.javaType}[] ${column.javaField};
+    @Schema(description = "${column.columnComment}"<#if column.example! != "">, example = "${column.example}"</#if>)
+    @DateTimeFormat(pattern = DATE_TIME_PATTERN)
+    private ${column.javaType}[] ${column.javaField};
         <#else>
-            @Schema(description = "${column.columnComment}" <#if column.example! != "">, example = "${column.example}"</#if>)
-            private ${column.javaType} ${column.javaField};
+    @Schema(description = "${column.columnComment}" <#if column.example! != "">, example = "${column.example}"</#if>)
+    private ${column.javaType} ${column.javaField};
         </#if>
 
     </#if>

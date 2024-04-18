@@ -11,18 +11,17 @@ import ${BaseDO};
 
 <#list columns as column>
     <#if column.javaType == "BigDecimal">
-        import java.math.BigDecimal;
+import java.math.BigDecimal;
         <#break>
     </#if>
 </#list>
 
 <#list columns as column>
     <#if column.javaType == "LocalDateTime">
-        import java.time.LocalDateTime;
+import java.time.LocalDateTime;
         <#break>
     </#if>
 </#list>
-
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -32,17 +31,17 @@ public class ${table.className} extends BaseDO {
 <#list columns as column>
     <#assign excludedFields = ["gmtCreate", "gmtModified", "createOperator", "modifiedOperator", "deleteState"]>
     <#if !excludedFields?seq_contains(column.javaField) >
-        /**
-         * ${column.columnComment}
+    /**
+     * ${column.columnComment}
         <#if column.dictType != "">
-            *
-            * 枚举 {@link TODO ${column.dictType} 对应的类}
+     *
+     * 枚举 {@link TODO ${column.dictType} 对应的类}
         </#if>
-         */
+     */
         <#if column.primaryKey >
-            @TableId <#if column.javaType == 'String'> (type = IdType.INPUT) </#if>
+    @TableId <#if column.javaType == 'String'> (type = IdType.INPUT) </#if>
         </#if>
-         private ${column.javaType} ${column.javaField};
+    private ${column.javaType} ${column.javaField};
     </#if>
 </#list>
 

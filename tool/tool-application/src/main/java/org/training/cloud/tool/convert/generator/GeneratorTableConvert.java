@@ -45,9 +45,9 @@ public interface GeneratorTableConvert {
     List<DatabaseTableVO> convertList(List<TableInfo> tableInfos);
 
 
-    PageResponse<GeneratorTableVO> convertPage( PageResponse<ToolGeneratorTable> pageResponse);
+    PageResponse<GeneratorTableVO> convertPage(PageResponse<ToolGeneratorTable> pageResponse);
 
-    default List<GeneratorPreviewCodeVO> convert(Map<String, String> codeMap){
+    default List<GeneratorPreviewCodeVO> convert(Map<String, String> codeMap) {
         return codeMap.entrySet().stream().map(entry -> {
             GeneratorPreviewCodeVO vo = new GeneratorPreviewCodeVO();
             vo.setCode(entry.getValue());

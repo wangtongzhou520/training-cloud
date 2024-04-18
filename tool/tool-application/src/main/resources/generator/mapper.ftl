@@ -45,12 +45,11 @@ import ${basePackage}.${table.moduleName}.entity.${table.businessName}.${table.c
 @Mapper
 public interface ${table.className}Mapper extends BaseMapperExtend<${table.className}> {
 
-    default PageResponse<${table.className}> selectPage(${table.className}DTO
-   ${firstLowerClassName}DTO) {
-       return selectPage(${firstLowerClassName}DTO, new
-          LambdaQueryWrapperExtend<${table.className}>().<@listCondition/>
+  default PageResponse<${table.className}> selectPage(${table.className}DTO ${firstLowerClassName}DTO) {
+       return selectPage(${firstLowerClassName}DTO,new LambdaQueryWrapperExtend<${table.className}>()
+           .<@listCondition/>
           .orderByDesc(${table.className}::getId)
        );
-    }
+  }
 
 }

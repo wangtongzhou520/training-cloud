@@ -18,6 +18,9 @@ public class GeneratorTableVO implements Serializable {
     @Schema(description = "编号", example = "1")
     private Long id;
 
+    @Schema(description = "数据源ID", example = "1")
+    private Long dataSourceConfigId;
+
     @Schema(description = "数据源名称", example = "系统管理")
     private String dataSourceConfigName;
 

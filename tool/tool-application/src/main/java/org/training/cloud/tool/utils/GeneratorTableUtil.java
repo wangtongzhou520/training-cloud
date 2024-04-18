@@ -118,7 +118,7 @@ public class GeneratorTableUtil {
         //entity
         SERVER_MAP.put(templatePath("entity"), javaEntityFilePath("application"));
         //dto
-        SERVER_MAP.put(templatePath("pageParam"), javaClassNameFilePath("", "DTO", "dto", "application"));
+        SERVER_MAP.put(templatePath("pageParam"), javaClassNameFilePath("", "DTO", "dto", "facade"));
         SERVER_MAP.put(templatePath("add"), javaClassNameFilePath("Add", "DTO", "dto", "facade"));
         SERVER_MAP.put(templatePath("modify"), javaClassNameFilePath("Modify", "DTO", "dto", "facade"));
         //vo
@@ -141,7 +141,7 @@ public class GeneratorTableUtil {
         //from vue
         FRONT_MAP.put(templatePath("formVue"), vueFilePath("/views/${table.moduleName}/${smallClassName}/${table.className}Form.vue"));
         //api
-        FRONT_MAP.put(templatePath("api"), vueFilePath("/api/${table.moduleName}/${smallClassName}/smallClassName.js"));
+        FRONT_MAP.put(templatePath("api"), vueFilePath("/api/${table.moduleName}/${smallClassName}/${smallClassName}.js"));
     }
 
 

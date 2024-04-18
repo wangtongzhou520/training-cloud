@@ -10,15 +10,15 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 <#list columns as column>
     <#if column.addField &&  column.javaType == "BigDecimal">
-        import java.math.BigDecimal;
+import java.math.BigDecimal;
         <#break>
     </#if>
 </#list>
 
 <#list columns as column>
     <#if column.addField && column.javaType == "LocalDateTime">
-        import org.springframework.format.annotation.DateTimeFormat;
-        import java.time.LocalDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDateTime;
         <#break>
     </#if>
 </#list>
@@ -31,15 +31,15 @@ public class Add${table.className}DTO implements Serializable {
 
 <#list columns as column>
     <#if column.addField>
-        @Schema(description = "${column.columnComment}"<#if !column.nullable>,requiredMode = Schema.RequiredMode.REQUIRED</#if><#if column.example! != "">, example = "${column.example}"</#if>)
+   @Schema(description = "${column.columnComment}"<#if !column.nullable>,requiredMode = Schema.RequiredMode.REQUIRED</#if><#if column.example! != "">, example = "${column.example}"</#if>)
         <#if !column.nullable && !column.primaryKey>
             <#if column.javaType == 'String'>
-                @NotBlank(message = "${column.columnComment}不能为空")
+   @NotBlank(message = "${column.columnComment}不能为空")
             <#else>
-                @NotNull(message = "${column.columnComment}不能为空")
+   @NotNull(message = "${column.columnComment}不能为空")
             </#if>
         </#if>
-        private ${column.javaType} ${column.javaField};
+   private ${column.javaType} ${column.javaField};
 
     </#if>
 </#list>
