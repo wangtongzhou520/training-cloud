@@ -14,28 +14,28 @@ import ${basePackage}.${table.moduleName}.entity.${table.businessName}.${table.c
     <#if column.queryField>
         <#assign JavaField = column.javaField?cap_first>
         <#if column.queryConditionField == "=">
-            .eqIfPresent(${table.className}DO::get${JavaField}, reqVO.get${JavaField}())
+            .eqIfPresent(${table.className}::get${JavaField}, ${firstLowerClassName}DTO.get${JavaField}())
         </#if>
         <#if column.queryConditionField == "!=">
-            .neIfPresent(${table.className}DO::get${JavaField}, reqVO.get${JavaField}())
+            .neIfPresent(${table.className}::get${JavaField}, ${firstLowerClassName}DTO.get${JavaField}())
         </#if>
         <#if column.queryConditionField == ">">
-            .gtIfPresent(${table.className}DO::get${JavaField}, reqVO.get${JavaField}())
+            .gtIfPresent(${table.className}::get${JavaField}, ${firstLowerClassName}DTO.get${JavaField}())
         </#if>
         <#if column.queryConditionField == ">=">
-            .geIfPresent(${table.className}DO::get${JavaField}, reqVO.get${JavaField}())
+            .geIfPresent(${table.className}::get${JavaField}, ${firstLowerClassName}DTO.get${JavaField}())
         </#if>
         <#if column.queryConditionField == "<">
-            .ltIfPresent(${table.className}DO::get${JavaField}, reqVO.get${JavaField}())
+            .ltIfPresent(${table.className}::get${JavaField}, ${firstLowerClassName}DTO.get${JavaField}())
         </#if>
         <#if column.queryConditionField == "<=">
-            .leIfPresent(${table.className}DO::get${JavaField}, reqVO.get${JavaField}())
+            .leIfPresent(${table.className}::get${JavaField}, ${firstLowerClassName}DTO.get${JavaField}())
         </#if>
         <#if column.queryConditionField == "LIKE">
-            .likeIfPresent(${table.className}DO::get${JavaField}, reqVO.get${JavaField}())
+            .likeIfPresent(${table.className}::get${JavaField}, ${firstLowerClassName}DTO.get${JavaField}())
         </#if>
         <#if column.queryConditionField == "BETWEEN">
-        .betweenIfPresent(${table.className}DO::get${JavaField}, reqVO.get${JavaField}())
+        .betweenIfPresent(${table.className}::get${JavaField}, ${firstLowerClassName}DTO.get${JavaField}())
         </#if>
     </#if>
 </#list>
@@ -47,7 +47,7 @@ public interface ${table.className}Mapper extends BaseMapperExtend<${table.class
 
   default PageResponse<${table.className}> selectPage(${table.className}DTO ${firstLowerClassName}DTO) {
        return selectPage(${firstLowerClassName}DTO,new LambdaQueryWrapperExtend<${table.className}>()
-           .<@listCondition/>
+<@listCondition/>
           .orderByDesc(${table.className}::getId)
        );
   }

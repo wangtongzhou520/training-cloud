@@ -28,7 +28,7 @@ public class Modify${table.className}DTO implements Serializable {
 
 <#list columns as column>
     <#if column.modifyField>
-   @Schema(description = "${column.columnComment}"<#if !column.nullable>,requiredMode = Schema.RequiredMode.REQUIRED</#if> <#if column.example! != "">, example = "${column.example}"</#if>)
+   @Schema(description = "${column.columnComment}"<#if column.example! != "">, example = "${column.example}"</#if>)
         <#if !column.nullable && !column.primaryKey>
             <#if column.javaType == 'String'>
    @NotBlank(message = "${column.columnComment}不能为空")

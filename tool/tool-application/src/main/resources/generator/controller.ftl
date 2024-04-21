@@ -11,6 +11,8 @@ import ${basePackage}.${table.moduleName}.convert.${table.businessName}.${table.
 import ${basePackage}.${table.moduleName}.dto.${table.businessName}.*;
 import ${basePackage}.${table.moduleName}.service.${table.businessName}.${table.className}Service;
 import ${basePackage}.${table.moduleName}.vo.${table.businessName}.${table.className}VO;
+import ${basePackage}.${table.moduleName}.entity.${table.businessName}..${table.className}
+
 
 
 import javax.annotation.Resource;
@@ -52,7 +54,7 @@ public class ${table.className}Controller {
     @Operation(summary = "获取${table.classComment}信息")
     public CommonResponse<?> get${table.className}ById(@PathVariable("id") Long id) {
       ${table.className} ${firstLowerClassName}=${firstLowerClassName}Service.get${table.className}ById(id);
-      return CommonResponse.ok(MenuConvert.INSTANCE.convert(${firstLowerClassName}));
+      return CommonResponse.ok(${table.className}Convert.INSTANCE.convert(${firstLowerClassName}));
     }
 
 

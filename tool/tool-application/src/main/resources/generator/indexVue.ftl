@@ -121,7 +121,7 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import ${table.className}Dialog from '../${smallClassName}/${table.className}From.vue'
-import { page${table.className}List, delete${table.className} } from '@/api/${smallClassName}/${smallClassName}'
+import { page${table.className}List, delete${table.className} } from '@/api/${smallClassName}'
 
 /**
  * 列表内容

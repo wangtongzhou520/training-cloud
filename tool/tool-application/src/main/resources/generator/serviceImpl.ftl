@@ -17,7 +17,7 @@ import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.Objects;
 
-import static ${basePackage}.${table.moduleName}.constant.${table.moduleName}ExceptionEnumConstants.*;
+import static ${basePackage}.${table.moduleName}.constant.${table.className}ExceptionEnumConstants.*;
 
 
 @Service
@@ -48,14 +48,22 @@ public class ${table.className}ServiceImpl implements ${table.className}Service 
 
 
     @Override
-    public void del${table.className}Id(Long id) {
+    public void del${table.className}(Long id) {
       checkExistById(id);
       ${firstLowerClassName}Mapper.deleteById(id);
     }
 
 
     @Override
-    public ${table.className} query${table.className}(Long id) {
+    public ${table.className} get${table.className}ById(Long id) {
       return ${firstLowerClassName}Mapper.selectById(id);
+    }
+
+
+    private void checkExistById(Long id) {
+       ${table.className} ${firstLowerClassName} = ${firstLowerClassName}Mapper.selectById(id);
+       if (Objects.isNull(${firstLowerClassName})) {
+          throw new BusinessException(${upperCaseClassName}_NOT_EXISTS);
+       }
     }
 }

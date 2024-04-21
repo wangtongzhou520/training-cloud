@@ -141,7 +141,7 @@ public class GeneratorTableUtil {
         //from vue
         FRONT_MAP.put(templatePath("formVue"), vueFilePath("/views/${table.moduleName}/${smallClassName}/${table.className}Form.vue"));
         //api
-        FRONT_MAP.put(templatePath("api"), vueFilePath("/api/${table.moduleName}/${smallClassName}/${smallClassName}.js"));
+        FRONT_MAP.put(templatePath("api"), vueFilePath("/api/${table.moduleName}/${smallClassName}.js"));
     }
 
 
@@ -158,7 +158,7 @@ public class GeneratorTableUtil {
             symbolCase.append(arrays[i]);
             symbolCase.append("-");
 
-            upperCase.append(Character.toUpperCase(arrays[i].charAt(0))).append(arrays[i].substring(1));
+            upperCase.append(arrays[i].toUpperCase());
             upperCase.append("-");
 
             smallClassName.append(arrays[i]);
@@ -168,8 +168,8 @@ public class GeneratorTableUtil {
         //Oauth2AuthorizationCode -> oauth2AuthorizationCode
         paramsMap.put("firstLowerClassName", Character.toLowerCase(table.getClassName().charAt(0)) + table.getClassName().substring(1));
         //system -> System
-        paramsMap.put("firstUpperModuleName", Character.toUpperCase(table.getModuleName().charAt(0)) + table.getModuleName().substring(1));
-        //sys_oauth2_authorization_code  ->  Oauth2_Authorization_Code
+        paramsMap.put("upperModuleName", Character.toLowerCase(table.getModuleName().charAt(0))+table.getModuleName().substring(1));
+        //sys_oauth2_authorization_code  ->  OAUTH2_AUTHORIZATION_CODE
         paramsMap.put("upperCaseClassName", upperCase.substring(0, upperCase.length() - 1));
         //sys_oauth2_authorization_code  ->  oauth2authorizationcode
         paramsMap.put("smallClassName", smallClassName.toString());
