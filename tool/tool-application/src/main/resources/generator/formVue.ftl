@@ -57,7 +57,7 @@
 </template>
 <script setup>
 import { defineProps, defineEmits } from 'vue'
-import { add${table.className}, modify${table.className} } from '@/api/${smallClassName}'
+import { add${table.className}, modify${table.className} } from '@/api/${table.moduleName}/${smallClassName}'
 import { ElMessage } from 'element-plus'
 
 /**

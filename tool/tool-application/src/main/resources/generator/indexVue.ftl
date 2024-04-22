@@ -120,8 +120,8 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
-import ${table.className}Dialog from '../${smallClassName}/${table.className}From.vue'
-import { page${table.className}List, delete${table.className} } from '@/api/${smallClassName}'
+import ${table.className}Dialog from '../${table.moduleName}/${table.className}From.vue'
+import { page${table.className}List, delete${table.className} } from '@/api/${table.moduleName}/${smallClassName}'
 
 /**
  * 列表内容

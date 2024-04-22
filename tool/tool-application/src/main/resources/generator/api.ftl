@@ -7,8 +7,8 @@ import request from '@/utils/request'
 export const page${table.className}List = (data) => {
   return request({
     url: '/${table.moduleName}/${symbolCaseClassName}/page',
-    method: 'POST',
-    data
+    method: 'GET',
+    params: data
   })
 }
 
