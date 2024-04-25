@@ -194,10 +194,8 @@ public class GeneratorTableUtil {
     public Map<String, String> execute(ToolGeneratorTable table, List<ToolGeneratorColumn> columns) {
         //初始化
         Map<String, Object> bindingMap = initBindingMap(table, columns);
-
         //获取对应模版
         Map<String, String> templates = getTemplates();
-
         Map<String, String> result = Maps.newLinkedHashMapWithExpectedSize(templates.size());
         templates.forEach((key, value) -> {
             generateCode(result, key, value, bindingMap);
