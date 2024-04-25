@@ -20,7 +20,7 @@ import java.io.Serializable;
 @Schema(description = "新增菜单")
 public class AddMenuDTO implements Serializable {
 
-    @Schema(description = "菜单名称", required = true, example = "芋道")
+    @Schema(description = "菜单名称", required = true, example = "哈哈")
     @NotBlank(message = "菜单名称不能为空")
     @Size(max = 50, message = "菜单长度不能超过50个字符")
     private String name;

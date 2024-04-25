@@ -223,7 +223,6 @@ public class GeneratorServiceImpl implements GeneratorService {
 
         ToolGeneratorTable table = GeneratorTableUtil.buildTable(tableInfo);
         table.setDataSourceConfigId(dataSourceConfigId);
-//        table.setScene(GeneratorSceneEnum.ADMIN.getCode());
         //TODO 待设置
         table.setAuthor("");
         generatorTableMapper.insert(table);
