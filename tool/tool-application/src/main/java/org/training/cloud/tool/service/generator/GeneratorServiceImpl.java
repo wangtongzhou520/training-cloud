@@ -119,13 +119,13 @@ public class GeneratorServiceImpl implements GeneratorService {
         if (CollectionUtils.isNotEmpty(result.getList())) {
             //查询数据源名称
             Set<Long> dataSourceIds = CollectionExtUtils.convertSet(result.getList(),
-                    GeneratorTableVO::getId);
+                    GeneratorTableVO::getDataSourceConfigId);
             List<ToolDataSourceConfig> toolDataSourceConfigs =
                     dataSourceConfigService.getDataSourceConfigByIds(dataSourceIds);
             Map<Long, String> dataSourceMap = toolDataSourceConfigs.stream()
                     .collect(Collectors.toMap(ToolDataSourceConfig::getId, ToolDataSourceConfig::getName));
             result.getList().forEach(x -> {
-                String dataSourceName = dataSourceMap.get(x.getId());
+                String dataSourceName = dataSourceMap.get(x.getDataSourceConfigId());
                 if (StringUtils.isNotBlank(dataSourceName)) {
                     x.setDataSourceConfigName(dataSourceName);
                 }

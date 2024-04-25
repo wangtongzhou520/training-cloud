@@ -2,8 +2,8 @@ package org.training.cloud.tool.utils;
 
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.google.common.collect.Maps;
-import freemarker.core.ParseException;
-import freemarker.template.*;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
@@ -22,7 +22,6 @@ import org.training.cloud.tool.entity.generator.ToolGeneratorTable;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -43,6 +42,26 @@ public class GeneratorTableUtil {
 
     @Resource
     private GeneratorProperties generatorProperties;
+
+    /**
+     * 服务端模版
+     */
+    private static final Map<String, String> SERVER_MAP = Maps.newLinkedHashMap();
+
+    /**
+     * 前端模版
+     */
+    private static final Map<String, String> FRONT_MAP = Maps.newLinkedHashMap();
+
+
+    /**
+     * 全局映射
+     */
+    private final Map<String, Object> globalBindingMap = new HashMap<>();
+
+
+    @Resource
+    private Configuration configuration;
 
     public static ToolGeneratorTable buildTable(TableInfo tableInfo) {
         ToolGeneratorTable table = GeneratorTableConvert.INSTANCE.convert(tableInfo);
@@ -75,18 +94,6 @@ public class GeneratorTableUtil {
     }
 
 
-    private static final Map<String, String> SERVER_MAP = Maps.newLinkedHashMap();
-
-    /**
-     * 全局映射
-     */
-    private final Map<String, Object> globalBindingMap = new HashMap<>();
-
-
-    @Resource
-    private Configuration configuration;
-
-
     @PostConstruct
     void initMap() {
         //全局配置
@@ -109,26 +116,32 @@ public class GeneratorTableUtil {
         //服务端模版初始化
         //dal
         //entity
-        SERVER_MAP.put(javaTemplatePath("entity"), javaEntityFilePath("application"));
+        SERVER_MAP.put(templatePath("entity"), javaEntityFilePath("application"));
         //dto
-        SERVER_MAP.put(javaTemplatePath("pageParam"), javaClassNameFilePath("", "DTO"));
-        SERVER_MAP.put(javaTemplatePath("add"), javaClassNameFilePath("Add", "DTO"));
-        SERVER_MAP.put(javaTemplatePath("modify"), javaClassNameFilePath("Modify", "DTO"));
+        SERVER_MAP.put(templatePath("pageParam"), javaClassNameFilePath("", "DTO", "dto", "facade"));
+        SERVER_MAP.put(templatePath("add"), javaClassNameFilePath("Add", "DTO", "dto", "facade"));
+        SERVER_MAP.put(templatePath("modify"), javaClassNameFilePath("Modify", "DTO", "dto", "facade"));
         //vo
-        SERVER_MAP.put(javaTemplatePath("vo"), javaClassNameFilePath("", "VO"));
+        SERVER_MAP.put(templatePath("vo"), javaClassNameFilePath("", "VO", "vo", "facade"));
         //mapper
-        SERVER_MAP.put(javaTemplatePath("mapper"), javaClassNameFilePath("", "Mapper"));
+        SERVER_MAP.put(templatePath("mapper"), javaClassNameFilePath("", "Mapper", "mapper", "application"));
         //convert
-        SERVER_MAP.put(javaTemplatePath("convert"), javaClassNameFilePath("", "Convert"));
+        SERVER_MAP.put(templatePath("convert"), javaClassNameFilePath("", "Convert", "convert", "application"));
         //enum
-        SERVER_MAP.put(javaTemplatePath("exceptionenum"), javaModuleFilePath("", "ExceptionEnumConstants"));
+        SERVER_MAP.put(templatePath("exceptionEnum"), javaClassNameFilePath("", "ExceptionEnumConstants", "constant", "application"));
         //service
-        SERVER_MAP.put(javaTemplatePath("service"), javaClassNameFilePath("", "Service"));
-        SERVER_MAP.put(javaTemplatePath("serviceImpl"), javaClassNameFilePath("", "ServiceImpl"));
+        SERVER_MAP.put(templatePath("service"), javaClassNameFilePath("", "Srvice", "service", "application"));
+        SERVER_MAP.put(templatePath("serviceImpl"), javaClassNameFilePath("", "ServiceImpl", "service", "application"));
         //controller
-        SERVER_MAP.put(javaTemplatePath("controller"), javaClassNameFilePath("", "Controller"));
+        SERVER_MAP.put(templatePath("controller"), javaClassNameFilePath("", "Controller", "controller", "application"));
 
-
+        //前端代码初始化
+        //vue
+        FRONT_MAP.put(templatePath("indexVue"), vueFilePath("/views/${table.moduleName}/${smallClassName}/index.vue"));
+        //from vue
+        FRONT_MAP.put(templatePath("formVue"), vueFilePath("/views/${table.moduleName}/${smallClassName}/${table.className}Form.vue"));
+        //api
+        FRONT_MAP.put(templatePath("api"), vueFilePath("/api/${table.moduleName}/${smallClassName}.js"));
     }
 
 
@@ -140,23 +153,31 @@ public class GeneratorTableUtil {
         String[] arrays = table.getTableName().split("_");
         StringBuilder symbolCase = new StringBuilder();
         StringBuilder upperCase = new StringBuilder();
+        StringBuilder smallClassName = new StringBuilder();
         for (int i = 1; i < arrays.length; i++) {
             symbolCase.append(arrays[i]);
             symbolCase.append("-");
 
-            upperCase.append(Character.toUpperCase(arrays[i].charAt(0))).append(arrays[i].substring(1));
+            upperCase.append(arrays[i].toUpperCase());
             upperCase.append("-");
+
+            smallClassName.append(arrays[i]);
         }
         //sys_oauth2_authorization_code  ->  oauth2-authorization-code
         paramsMap.put("symbolCaseClassName", symbolCase.substring(0, symbolCase.length() - 1));
         //Oauth2AuthorizationCode -> oauth2AuthorizationCode
-        paramsMap.put("firstLowerClassName",
-                Character.toLowerCase(table.getClassName().charAt(0)) + table.getClassName().substring(1));
+        paramsMap.put("firstLowerClassName", Character.toLowerCase(table.getClassName().charAt(0)) + table.getClassName().substring(1));
         //system -> System
-        paramsMap.put("firstUpperModuleName",
-                Character.toUpperCase(table.getModuleName().charAt(0)) + table.getModuleName().substring(1));
-        //sys_oauth2_authorization_code  ->  Oauth2_Authorization_Code
+        paramsMap.put("upperModuleName", Character.toLowerCase(table.getModuleName().charAt(0))+table.getModuleName().substring(1));
+        //sys_oauth2_authorization_code  ->  OAUTH2_AUTHORIZATION_CODE
         paramsMap.put("upperCaseClassName", upperCase.substring(0, upperCase.length() - 1));
+        //sys_oauth2_authorization_code  ->  oauth2authorizationcode
+        paramsMap.put("smallClassName", smallClassName.toString());
+        //类名小驼峰
+        paramsMap.put("lowerCameClassName", Character.toLowerCase(table.getClassName().charAt(0)) + table.getClassName().substring(1));
+        //权限前缀
+        paramsMap.put("permissionPrefix", table.getModuleName() + ":" + smallClassName);
+
 
         return paramsMap;
     }
@@ -165,7 +186,7 @@ public class GeneratorTableUtil {
     private Map<String, String> getTemplates() {
         Map<String, String> templates = new LinkedHashMap<>();
         templates.putAll(SERVER_MAP);
-//        templates.putAll(FRONT_TEMPLATES.row(frontType));
+        templates.putAll(FRONT_MAP);
         return templates;
     }
 
@@ -197,38 +218,38 @@ public class GeneratorTableUtil {
     }
 
     private String formatFilePath(String filePath, Map<String, Object> bindingMap) {
-        filePath = StringUtils.replace(filePath, "${basePackage}",
-                bindingMap.get("basePackage").toString().replaceAll("\\.", "/"));
+        filePath = StringUtils.replace(filePath, "${basePackage}", bindingMap.get("basePackage").toString().replaceAll("\\.", "/"));
         // table 包含的字段
         ToolGeneratorTable table = (ToolGeneratorTable) bindingMap.get("table");
         filePath = StringUtils.replace(filePath, "${table.moduleName}", table.getModuleName());
         filePath = StringUtils.replace(filePath, "${table.businessName}", table.getBusinessName());
         filePath = StringUtils.replace(filePath, "${table.className}", table.getClassName());
+        filePath = StringUtils.replace(filePath, "${smallClassName}", bindingMap.get("smallClassName").toString());
         return filePath;
     }
 
 
-    private static String javaTemplatePath(String path) {
+    private static String templatePath(String path) {
         return path + ".ftl";
     }
 
 
+    private static String vueFilePath(String path) {
+        return "training-admin-vue/src" + path;
+    }
+
+
     private static String javaEntityFilePath(String module) {
-        return "${table.moduleName}/" + "${table.moduleName}-" + module + "/" + "src/main/java/${basePackage}/${table.moduleName}" + "/entity/${table.moduleName}/${table.className}.java";
+        return "${table.moduleName}/" + "${table.moduleName}-" + module + "/" + "src/main/java/${basePackage}/${table.moduleName}" + "/entity/${smallClassName}/${table.className}.java";
     }
 
 
-    private static String javaModuleFilePath(String prefix, String suffix) {
-        return javaModuleFilePath(prefix + "${table.businessName}" + suffix, "facade", suffix);
+    private static String javaClassNameFilePath(String prefix, String suffix, String classify, String module) {
+        return javaModuleFilePath(prefix + "${table.className}" + suffix, module, classify);
     }
 
 
-    private static String javaClassNameFilePath(String prefix, String suffix) {
-        return javaModuleFilePath(prefix + "${table.className}" + suffix, "facade", suffix);
-    }
-
-
-    private static String javaModuleFilePath(String path, String module, String suffix) {
-        return "${table.moduleName}/" + "${table.moduleName}-" + module + "/" + "src/main/java/${basePackage}/${table.moduleName}/" + suffix + "/" + path + ".java";
+    private static String javaModuleFilePath(String path, String module, String classify) {
+        return "${table.moduleName}/" + "${table.moduleName}-" + module + "/" + "src/main/java/${basePackage}/${table.moduleName}/" + classify + "/${smallClassName}/" + path + ".java";
     }
 }

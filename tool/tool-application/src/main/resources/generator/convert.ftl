@@ -7,7 +7,7 @@ import ${PageResponseClassName};
 import ${basePackage}.${table.moduleName}.dto.${table.businessName}.Add${table.className}DTO;
 import ${basePackage}.${table.moduleName}.dto.${table.businessName}.Modify${table.className}DTO;
 import ${basePackage}.${table.moduleName}.entity.${table.businessName}.${table.className};
-import ${basePackage}.${table.moduleName}.vo.${table.businessName}.${table.className}tVO;
+import ${basePackage}.${table.moduleName}.vo.${table.businessName}.${table.className}VO;
 
 
 @Mapper
