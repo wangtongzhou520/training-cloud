@@ -3,6 +3,7 @@ package org.training.cloud.system.controller.admin.auth;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.training.cloud.common.core.vo.CommonResponse;
 import org.training.cloud.common.security.core.annotations.NotAuthentication;
@@ -43,6 +44,7 @@ public class AuthController {
 
     @GetMapping("/getUserPermission")
     @Operation(summary = "获取用户的权限信息")
+    @PreAuthorize("@ss.hasPermission('system:permission:list')")
     public CommonResponse<AuthPermissionVO> getUserPermission() {
         Long userId = WebUtil.getLoginUserId();
         if (userId == null) {
@@ -59,6 +61,7 @@ public class AuthController {
      */
     @PostMapping("/users")
     @Operation(summary = "登出")
+    @NotAuthentication
     public CommonResponse<?> loginOut(String userName) {
         return CommonResponse.ok();
     }
