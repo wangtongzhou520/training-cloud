@@ -2,6 +2,11 @@ server:
   port: 8888
 
 
+gateway:
+  #动态网关
+  dynamicRoute:
+    enabled: true
+
 
 spring:
   application:
