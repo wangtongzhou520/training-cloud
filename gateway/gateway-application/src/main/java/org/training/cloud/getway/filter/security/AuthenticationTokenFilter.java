@@ -1,4 +1,4 @@
-package org.training.cloud.getway.filter;
+package org.training.cloud.getway.filter.security;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.apache.commons.lang3.StringUtils;
