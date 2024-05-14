@@ -11,6 +11,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * @since 2023-04-24 20:56
  */
 @SpringBootApplication
+@EnableDiscoveryClient
 public class GetWayApplication {
 
 

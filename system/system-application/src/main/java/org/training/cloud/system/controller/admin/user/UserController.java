@@ -47,7 +47,7 @@ public class UserController {
      */
     @PostMapping("/user")
     @Operation(summary = "添加用户信息")
-    @PreAuthorize("@ss.hasPermission('system:user:create')")
+    @PreAuthorize("@ssc.hasPermission('system:user:create')")
     public CommonResponse<?> saveUser(@RequestBody @Valid AddUserDTO addUserDTO) {
         userService.addUser(addUserDTO);
         return CommonResponse.ok();
@@ -61,7 +61,7 @@ public class UserController {
      */
     @PutMapping("/user")
     @Operation(summary = "更新用户信息")
-    @PreAuthorize("@ss.hasPermission('system:user:update')")
+    @PreAuthorize("@ssc.hasPermission('system:user:update')")
     public CommonResponse<?> updateUser(@RequestBody @Valid ModifyUserDTO modifyUserDTO) {
         userService.updateUser(modifyUserDTO);
         return CommonResponse.ok();
@@ -75,7 +75,7 @@ public class UserController {
      */
     @PostMapping("/user/page")
     @Operation(summary = "分页查询管理端用户信息")
-    @PreAuthorize("@ss.hasPermission('system:user:list')")
+    @PreAuthorize("@ssc.hasPermission('system:user:list')")
     public CommonResponse<PageResponse<UserVO>> pageAdminUser(@RequestBody UserDTO userDTO) {
         PageResponse<SysUser> pageResponse = userService.pageAdminUser(userDTO);
         if (CollectionUtils.isEmpty(pageResponse.getList())) {
@@ -93,7 +93,7 @@ public class UserController {
      */
     @GetMapping("/getUserInfo")
     @Operation(summary = "获取用户信息")
-    @PreAuthorize("@ss.hasPermission('system:user:query')")
+    @PreAuthorize("@ssc.hasPermission('system:user:query')")
     public CommonResponse<UserVO> getUserInfo(@RequestParam("id") Long id) {
         SysUser sysUser = userService.getUserById(id);
         SysDept sysDept = deptService.getDeptId(id);
@@ -111,7 +111,7 @@ public class UserController {
      */
     @DeleteMapping("/user/{id}")
     @Operation(summary = "删除用户")
-    @PreAuthorize("@ss.hasPermission('system:user:delete')")
+    @PreAuthorize("@ssc.hasPermission('system:user:delete')")
     public CommonResponse<?> delUser(@PathVariable("id") Long id) {
         userService.removeUserById(id);
         return CommonResponse.ok();

@@ -37,7 +37,7 @@ public class DeptController {
      */
     @PostMapping("/dept")
     @Operation(summary = "添加部门信息")
-    @PreAuthorize("@ss.hasPermission('system:dept:create')")
+    @PreAuthorize("@ssc.hasPermission('system:dept:create')")
     public CommonResponse<?> saveDept(@RequestBody @Valid AddDeptDTO addDeptDTO) {
         deptService.addDept(addDeptDTO);
         return CommonResponse.ok();
@@ -51,7 +51,7 @@ public class DeptController {
      */
     @PutMapping("/dept")
     @Operation(summary = "修改部门信息")
-    @PreAuthorize("@ss.hasPermission('system:dept:update')")
+    @PreAuthorize("@ssc.hasPermission('system:dept:update')")
     public CommonResponse<?> updateDept(@RequestBody @Valid ModifyDeptDTO modifyDeptDTO) {
         deptService.modifyDept(modifyDeptDTO);
         return CommonResponse.ok();
@@ -64,7 +64,7 @@ public class DeptController {
      */
     @PostMapping("/deptList")
     @Operation(summary = "部门树")
-    @PreAuthorize("@ss.hasPermission('system:dept:list')")
+    @PreAuthorize("@ssc.hasPermission('system:dept:list')")
     public CommonResponse<List<DeptVO>> deptList(@RequestBody DeptDTO deptDTO) {
         return CommonResponse.ok(deptService.getAllDept(deptDTO));
     }
@@ -77,7 +77,7 @@ public class DeptController {
      */
     @DeleteMapping("/dept/{id}")
     @Operation(summary = "删除部门")
-    @PreAuthorize("@ss.hasPermission('system:dept:delete')")
+    @PreAuthorize("@ssc.hasPermission('system:dept:delete')")
     public CommonResponse<?> delDept(@PathVariable("id") Long id) {
         deptService.removeDeptById(id);
         return CommonResponse.ok();

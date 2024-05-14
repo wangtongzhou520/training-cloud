@@ -37,7 +37,7 @@ public class RoleController {
 
     @PostMapping("/role")
     @Operation(summary = "添加角色信息")
-    @PreAuthorize("@ss.hasPermission('system:role:create')")
+    @PreAuthorize("@ssc.hasPermission('system:role:create')")
     public CommonResponse<?> addRole(@RequestBody @Valid AddRoleDTO addRoleDTO) {
         roleService.addRole(addRoleDTO);
         return CommonResponse.ok();
@@ -46,7 +46,7 @@ public class RoleController {
 
     @PutMapping("/role")
     @Operation(summary = "修改角色信息")
-    @PreAuthorize("@ss.hasPermission('system:role:update')")
+    @PreAuthorize("@ssc.hasPermission('system:role:update')")
     public CommonResponse<?> modifyUser(@RequestBody @Valid ModifyRoleDTO modifyRoleDTO) {
         roleService.modifyRole(modifyRoleDTO);
         return CommonResponse.ok();
@@ -55,7 +55,7 @@ public class RoleController {
 
     @PostMapping("/role/page")
     @Operation(summary = "分页查询角色信息")
-    @PreAuthorize("@ss.hasPermission('system:role:list')")
+    @PreAuthorize("@ssc.hasPermission('system:role:list')")
     public CommonResponse<PageResponse<RoleVO>> pageRoles(@RequestBody RoleDTO roleDTO) {
         PageResponse<SysRole> pageResponse = roleService.pageRole(roleDTO);
         return CommonResponse.ok(RoleConvert.INSTANCE.convert(pageResponse));
@@ -63,7 +63,7 @@ public class RoleController {
 
     @GetMapping("/role/all")
     @Operation(summary = "获取所有的角色信息")
-    @PreAuthorize("@ss.hasPermission('system:role:list')")
+    @PreAuthorize("@ssc.hasPermission('system:role:list')")
     public CommonResponse<List<RoleVO>> allRoles() {
         List<SysRole> allRoles = roleService.allRoles();
         return CommonResponse.ok(RoleConvert.INSTANCE.convert(allRoles));
@@ -78,7 +78,7 @@ public class RoleController {
      */
     @DeleteMapping("/role/{id}")
     @Operation(summary = "删除角色")
-    @PreAuthorize("@ss.hasPermission('system:role:delete')")
+    @PreAuthorize("@ssc.hasPermission('system:role:delete')")
     public CommonResponse<?> delRole(@PathVariable("id") Long id) {
         roleService.removeByRoleId(id);
         return CommonResponse.ok();

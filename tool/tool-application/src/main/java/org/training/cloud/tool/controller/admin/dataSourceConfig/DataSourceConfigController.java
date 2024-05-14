@@ -42,7 +42,7 @@ public class DataSourceConfigController {
      */
     @PostMapping("/dataSourceConfig")
     @Operation(summary = "添加数据源配置")
-    @PreAuthorize("@ss.hasPermission('system:dataSourceConfig:create')")
+    @PreAuthorize("@ssc.hasPermission('system:dataSourceConfig:create')")
     public CommonResponse<?> addDataSourceConfig(@RequestBody @Valid AddDataSourceConfigDTO addDataSourceConfigDTO) {
         dataSourceConfigService.addDataSourceConfig(addDataSourceConfigDTO);
         return CommonResponse.ok();
@@ -56,7 +56,7 @@ public class DataSourceConfigController {
      */
     @PutMapping("/dataSourceConfig")
     @Operation(summary = "更新数据源配置")
-    @PreAuthorize("@ss.hasPermission('system:dataSourceConfig:update')")
+    @PreAuthorize("@ssc.hasPermission('system:dataSourceConfig:update')")
     public CommonResponse<?> updateDataSourceConfig(@RequestBody @Valid ModifyDataSourceConfigDTO modifyDataSourceConfigDTO) {
         dataSourceConfigService.updateDataSourceConfig(modifyDataSourceConfigDTO);
         return CommonResponse.ok();
@@ -70,7 +70,7 @@ public class DataSourceConfigController {
      */
     @PostMapping("/dataSourceConfig/page")
     @Operation(summary = "分页查询数据源配置")
-    @PreAuthorize("@ss.hasPermission('system:dataSourceConfig:list')")
+    @PreAuthorize("@ssc.hasPermission('system:dataSourceConfig:list')")
     public CommonResponse<PageResponse<DataSourceConfigVO>> pageAdminUser(@RequestBody DataSourceConfigDTO dataSourceConfigDTO) {
         PageResponse<DataSourceConfigVO> pageResponse =
                 dataSourceConfigService.pageDataSourceConfig(dataSourceConfigDTO);
@@ -86,7 +86,7 @@ public class DataSourceConfigController {
      */
     @DeleteMapping("/dataSourceConfig/{id}")
     @Operation(summary = "删除数据源配置")
-    @PreAuthorize("@ss.hasPermission('system:dataSourceConfig:delete')")
+    @PreAuthorize("@ssc.hasPermission('system:dataSourceConfig:delete')")
     public CommonResponse<?> deleteDataSourceConfig(@PathVariable("id") Long id) {
         dataSourceConfigService.deleteDataSourceConfig(id);
         return CommonResponse.ok();
@@ -96,7 +96,7 @@ public class DataSourceConfigController {
 
     @GetMapping("/dataSourceConfig/id")
     @Operation(summary = "获得数据源配置")
-    @PreAuthorize("@ss.hasPermission('system:dataSourceConfig:query')")
+    @PreAuthorize("@ssc.hasPermission('system:dataSourceConfig:query')")
     public CommonResponse<DataSourceConfigVO> getDataSourceConfig(@PathVariable("id") Long id) {
         ToolDataSourceConfig config = dataSourceConfigService.getDataSourceConfig(id);
         return CommonResponse.ok(DataSourceConfigConvert.INSTANCE.convert(config));
@@ -107,7 +107,7 @@ public class DataSourceConfigController {
 
     @GetMapping("/dataSourceConfig/list")
     @Operation(summary = "获得数据源配置")
-    @PreAuthorize("@ss.hasPermission('system:dataSourceConfig:list')")
+    @PreAuthorize("@ssc.hasPermission('system:dataSourceConfig:list')")
     public CommonResponse<List<DataSourceConfigVO>> getDataSourceConfigList() {
         List<ToolDataSourceConfig> configs = dataSourceConfigService.getDataSourceConfigList();
         return CommonResponse.ok(DataSourceConfigConvert.INSTANCE.convert(configs));

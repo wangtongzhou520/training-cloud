@@ -44,7 +44,7 @@ public class AuthController {
 
     @GetMapping("/getUserPermission")
     @Operation(summary = "获取用户的权限信息")
-    @PreAuthorize("@ss.hasPermission('system:permission:list')")
+    @PreAuthorize("@ssc.hasPermission('system:permission:list')")
     public CommonResponse<AuthPermissionVO> getUserPermission() {
         Long userId = WebUtil.getLoginUserId();
         if (userId == null) {
