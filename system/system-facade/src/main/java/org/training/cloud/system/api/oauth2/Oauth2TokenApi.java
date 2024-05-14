@@ -21,7 +21,6 @@ public interface Oauth2TokenApi {
     /**
      * 检查 token
      */
-    @SuppressWarnings("HttpUrlsUsage")
     String CHECK_TOKEN = "http://" + ApiConstants.NAME + "/sys/oauth2token/checkAccessToken";
 
 

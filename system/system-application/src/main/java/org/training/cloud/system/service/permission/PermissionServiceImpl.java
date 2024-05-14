@@ -2,6 +2,8 @@ package org.training.cloud.system.service.permission;
 
 import com.google.common.collect.Sets;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.training.cloud.common.core.utils.collection.CollectionExtUtils;
@@ -9,6 +11,7 @@ import org.training.cloud.system.dao.permission.SysRoleMenuMapper;
 import org.training.cloud.system.dao.permission.SysUserRoleMapper;
 import org.training.cloud.system.dto.permission.MenuDTO;
 import org.training.cloud.system.entity.permission.SysMenu;
+import org.training.cloud.system.entity.permission.SysRole;
 import org.training.cloud.system.entity.permission.SysRoleMenu;
 import org.training.cloud.system.entity.permission.SysUserRole;
 
@@ -147,5 +150,67 @@ public class PermissionServiceImpl implements PermissionService {
     public void removeListByRoleId(Long roleId) {
         sysUserRoleMapper.removeListByRoleId(roleId);
         sysRoleMenuMapper.removeListByRoleId(roleId);
+    }
+
+    @Override
+    public Boolean hasAnyPermissions(Long userId, String... permissions) {
+        //为空说明不需要检查权限
+        if (ArrayUtils.isEmpty(permissions)) {
+            return true;
+        }
+        //后续分为两种情况管理员和普通权限用户
+        //获取当前用户的角色信息
+        Set<Long> roleIds = getRoleIdListByUserId(userId);
+        if (CollectionUtils.isEmpty(roleIds)) {
+            return false;
+        }
+        //优先处理管理员权限
+        Boolean hasAnySuperAdmin = roleService.hasAnySuperAdmin(roleIds);
+        if (hasAnySuperAdmin) {
+            return true;
+        }
+        //所有权限信息
+        Set<Long> menuIds = getMenuIdListByRoleIds(roleIds);
+        if (CollectionUtils.isEmpty(menuIds)) {
+            return false;
+        }
+        List<SysMenu> menus = menuService.getMenuListByIds(menuIds);
+        if (CollectionUtils.isEmpty(menus)) {
+            return false;
+        }
+        //只要有一个匹配不上返回false
+        for (String permission : permissions) {
+            boolean anyMatch = menus.stream().anyMatch(y -> StringUtils.equals(y.getPermission(), permission));
+            if (!anyMatch) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public Boolean hasAnyRoles(Long userId, String... roles) {
+        //没有角色信息不检查
+        if (ArrayUtils.isEmpty(roles)) {
+            return true;
+        }
+
+        Set<Long> roleIds = getRoleIdListByUserId(userId);
+        if (CollectionUtils.isEmpty(roleIds)) {
+            return false;
+        }
+
+        List<SysRole> roleList = roleService.getRoleListByIds(roleIds);
+        if (CollectionUtils.isEmpty(roleList)){
+            return false;
+        }
+
+        for (String role : roles) {
+            boolean anyMatch = roleList.stream().anyMatch(y -> StringUtils.equals(y.getCode(), role));
+            if (!anyMatch) {
+                return false;
+            }
+        }
+        return true;
     }
 }

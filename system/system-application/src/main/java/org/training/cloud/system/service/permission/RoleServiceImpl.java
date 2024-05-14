@@ -80,7 +80,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public boolean hasAnySuperAdmin(Collection<Long> ids) {
+    public Boolean hasAnySuperAdmin(Collection<Long> ids) {
         if (CollectionUtils.isEmpty(ids)) {
             return false;
         }
