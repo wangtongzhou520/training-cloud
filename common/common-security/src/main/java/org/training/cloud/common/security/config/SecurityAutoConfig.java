@@ -10,18 +10,21 @@ import org.training.cloud.common.security.core.filter.AuthenticationTokenFilter;
 import org.training.cloud.common.security.core.service.SecuritySecurityCheckService;
 import org.training.cloud.common.web.handler.GlobalExceptionHandler;
 import org.training.cloud.system.api.oauth2.Oauth2TokenApi;
+import org.training.cloud.system.api.permission.PermissionApi;
+
+import javax.annotation.Resource;
 
 /**
  * 自动加载类配置文件
  *
- * @author wangtongzhou 
+ * @author wangtongzhou
  * @since 2023-04-09 18:27
  */
 @AutoConfiguration
 @EnableConfigurationProperties(NotAuthenticationProperties.class)
 public class SecurityAutoConfig {
 
-    @Autowired
+    @Resource
     private NotAuthenticationProperties notAuthenticationProperties;
 
 
@@ -37,8 +40,8 @@ public class SecurityAutoConfig {
     }
 
     @Bean("ssc")
-    public SecuritySecurityCheckService permissionService() {
-        return new SecuritySecurityCheckService();
+    public SecuritySecurityCheckService permissionService(PermissionApi permissionApi) {
+        return new SecuritySecurityCheckService(permissionApi);
     }
 
     @Bean

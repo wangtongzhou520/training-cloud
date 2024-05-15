@@ -1,4 +1,4 @@
-package org.training.cloud.common.feign.core.config;
+package org.training.cloud.common.feign.config;
 
 import feign.Logger;
 import org.springframework.context.annotation.Bean;

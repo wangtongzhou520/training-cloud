@@ -24,24 +24,14 @@ public interface PermissionApi {
 
     @GetMapping(PREFIX + "/hasAnyPermissions")
     @Operation(summary = "判断是否有权限")
-    @Parameters({
-            @Parameter(name = "userId", description = "用户编号", example = "1", required = true),
-            @Parameter(name = "permissions", description = "权限", example = "sys:permission:list", required = true)
-    })
-    CommonResponse<Boolean> hasAnyPermissions(@RequestParam("userId") Long userId,
-                                              @RequestParam("permissions") String... permissions);
-
+    @Parameters({@Parameter(name = "userId", description = "用户编号", example = "1", required = true), @Parameter(name = "permissions", description = "权限", example = "sys:permission:list", required = true)})
+    CommonResponse<Boolean> hasAnyPermissions(@RequestParam("userId") Long userId, @RequestParam("permissions") String... permissions);
 
 
     @GetMapping(PREFIX + "/hasAnyRoles")
     @Operation(summary = "判断是否有角色")
-    @Parameters({
-            @Parameter(name = "userId", description = "用户编号", example = "1", required = true),
-            @Parameter(name = "roles", description = "角色", example = "admin", required = true)
-    })
-    CommonResponse<Boolean> hasAnyRoles(@RequestParam("userId") Long userId,
-                                      @RequestParam("roles") String... roles);
-
+    @Parameters({@Parameter(name = "userId", description = "用户编号", example = "1", required = true), @Parameter(name = "roles", description = "角色", example = "admin", required = true)})
+    CommonResponse<Boolean> hasAnyRoles(@RequestParam("userId") Long userId, @RequestParam("roles") String... roles);
 
 
 }
