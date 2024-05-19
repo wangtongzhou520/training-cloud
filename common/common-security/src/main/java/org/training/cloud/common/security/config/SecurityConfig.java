@@ -11,15 +11,26 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.training.cloud.common.security.core.filter.AuthenticationTokenFilter;
 import org.training.cloud.common.security.core.handler.CustomizeAccessDeniedHandler;
 import org.training.cloud.common.security.core.handler.CustomizeAuthExceptionEntryPoint;
 import org.training.cloud.common.security.core.service.SecuritySecurityCheckService;
+
+import javax.annotation.Resource;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * 安全配置
@@ -28,15 +39,21 @@ import org.training.cloud.common.security.core.service.SecuritySecurityCheckServ
  * @since 2023-03-03 21:27
  */
 @AutoConfiguration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig {
 
 
-    @Autowired
+    @Resource
     private NotAuthenticationConfig notAuthenticationConfig;
 
-    @Autowired
+    @Resource
     private AuthenticationTokenFilter authenticationTokenFilter;
+
+    @Resource
+    private AccessDeniedHandler accessDeniedHandler;
+
+    @Resource
+    private AuthenticationEntryPoint authenticationEntryPoint;
 
 
     @Bean
@@ -44,24 +61,27 @@ public class SecurityConfig {
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 
-        //支持跨域
         http.cors().and()
                 //csrf关闭
                 .csrf().disable()
                 //不使用session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .headers().frameOptions().disable().and()
-                .authorizeRequests(rep -> rep.antMatchers(notAuthenticationConfig.getPermitAllUrls().toArray(new String[0]))
-                        .permitAll().anyRequest().authenticated())
-                .exceptionHandling()
-                //异常认证
-                .authenticationEntryPoint(new CustomizeAuthExceptionEntryPoint())
-                .accessDeniedHandler(new CustomizeAccessDeniedHandler())
-                .and().addFilterBefore(authenticationTokenFilter,
-                UsernamePasswordAuthenticationFilter.class);
+                .headers().frameOptions().disable().and();
+
+
+        http.authorizeRequests().antMatchers(notAuthenticationConfig.getPermitAllUrls().toArray(new String[0])).permitAll().anyRequest().authenticated();
+
+
+        http.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+
+
+        //异常认证
+        http.exceptionHandling().accessDeniedHandler(accessDeniedHandler).authenticationEntryPoint(authenticationEntryPoint);
+
 
         return http.build();
     }
+
 
 
 
@@ -76,9 +96,6 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
-
-
-
 
 
 }

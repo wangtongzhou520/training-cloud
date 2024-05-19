@@ -34,7 +34,7 @@ public class MenuController {
 
     @PostMapping("/menu")
     @Operation(summary = "添加菜单信息")
-    @PreAuthorize("@ssc.hasPermission('system:menu:create')")
+    @PreAuthorize("@ssc.hasPermission('sys:menu:create')")
     public CommonResponse<?> addMenu(@RequestBody @Valid AddMenuDTO addMenuDTO) {
         menuService.addMenu(addMenuDTO);
         return CommonResponse.ok();
@@ -43,7 +43,7 @@ public class MenuController {
 
     @PutMapping("/menu")
     @Operation(summary = "修改菜单信息")
-    @PreAuthorize("@ssc.hasPermission('system:menu:modify')")
+    @PreAuthorize("@ssc.hasPermission('sys:menu:update')")
     public CommonResponse<?> modifyMenu(@RequestBody @Valid ModifyMenuDTO modifyMenuDTO) {
         menuService.modifyMenu(modifyMenuDTO);
         return CommonResponse.ok();
@@ -52,7 +52,7 @@ public class MenuController {
 
     @DeleteMapping("/menu/{id}")
     @Operation(summary = "删除菜单信息")
-    @PreAuthorize("@ssc.hasPermission('system:menu:delete')")
+    @PreAuthorize("@ssc.hasPermission('sys:menu:delete')")
     public CommonResponse<?> removeMenu(@PathVariable("id") Long id) {
         menuService.removeMenu(id);
         return CommonResponse.ok();
@@ -61,7 +61,7 @@ public class MenuController {
 
     @GetMapping("/menu/{id}")
     @Operation(summary = "获取菜单信息")
-    @PreAuthorize("@ssc.hasPermission('system:menu:query')")
+    @PreAuthorize("@ssc.hasPermission('sys:menu:query')")
     public CommonResponse<?> getMenuInfo(@PathVariable("id") Long id) {
         SysMenu sysMenu=menuService.getMenuById(id);
         return CommonResponse.ok(MenuConvert.INSTANCE.convert(sysMenu));
@@ -70,7 +70,7 @@ public class MenuController {
 
     @PostMapping("/menu/list")
     @Operation(summary = "菜单信息")
-    @PreAuthorize("@ssc.hasPermission('system:menu:list')")
+    @PreAuthorize("@ssc.hasPermission('sys:menu:list')")
     public CommonResponse<List<MenuVO>> menuList(@RequestBody MenuDTO menuDTO) {
         List<SysMenu> sysMenus = menuService.menuList(menuDTO);
         return CommonResponse.ok(MenuConvert.INSTANCE.convert(sysMenus));

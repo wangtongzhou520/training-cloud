@@ -31,7 +31,7 @@ public class PermissionController {
 
     @PostMapping("/addUserRole")
     @Operation(summary = "添加用户角色信息")
-    @PreAuthorize("@ssc.hasPermission('system:permission:role')")
+    @PreAuthorize("@ssc.hasPermission('sys:permission:user-role')")
     public CommonResponse<Boolean> addUserRole(@RequestBody @Valid AddUserRoleDTO addUserRoleDTO) {
         permissionService.addUserRole(addUserRoleDTO.getUserId(), addUserRoleDTO.getRoleIds());
         return CommonResponse.ok();
@@ -40,7 +40,7 @@ public class PermissionController {
     @GetMapping("/listRoles")
     @Parameter(name = "userId", description = "用户编号", required = true)
     @Operation(summary = "根据用户ID获取用户所具有的角色信息")
-    @PreAuthorize("@ssc.hasPermission('system:permission:list')")
+    @PreAuthorize("@ssc.hasPermission('sys:permission:list')")
     public CommonResponse<Set<Long>> listRoles(@RequestParam("userId") Long userId){
         return CommonResponse.ok(permissionService.getRoleIdListByUserId(userId));
     }
@@ -48,7 +48,7 @@ public class PermissionController {
     @GetMapping("/listMenus")
     @Parameter(name = "roleId", description = "角色编号", required = true)
     @Operation(summary = "根据角色ID获取用户所具有权限信息")
-    @PreAuthorize("@ssc.hasPermission('system:permission:list')")
+    @PreAuthorize("@ssc.hasPermission('sys:permission:list')")
     public CommonResponse<Set<Long>> listMenus(@RequestParam("roleId") Long roleId){
         return CommonResponse.ok(permissionService.getMenuIdListByRoleId(roleId));
     }
@@ -56,7 +56,7 @@ public class PermissionController {
 
     @PostMapping("/addRoleMenu")
     @Operation(summary = "添加角色权限信息")
-    @PreAuthorize("@ssc.hasPermission('system:permission:menu')")
+    @PreAuthorize("@ssc.hasPermission('sys:permission:role-menu')")
     public CommonResponse<Boolean> addRoleMenu(@RequestBody @Valid AddRoleMenuDTO addRoleMenuDTO) {
         permissionService.addRoleMenu(addRoleMenuDTO.getRoleId(),
                 addRoleMenuDTO.getMenuIds());

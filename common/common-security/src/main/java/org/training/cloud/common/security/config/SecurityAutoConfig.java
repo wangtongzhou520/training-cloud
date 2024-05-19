@@ -1,12 +1,15 @@
 package org.training.cloud.common.security.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.training.cloud.common.security.core.filter.AuthenticationTokenFilter;
+import org.training.cloud.common.security.core.handler.CustomizeAccessDeniedHandler;
+import org.training.cloud.common.security.core.handler.CustomizeAuthExceptionEntryPoint;
 import org.training.cloud.common.security.core.service.SecuritySecurityCheckService;
 import org.training.cloud.common.web.handler.GlobalExceptionHandler;
 import org.training.cloud.system.api.oauth2.Oauth2TokenApi;
@@ -44,10 +47,36 @@ public class SecurityAutoConfig {
         return new SecuritySecurityCheckService(permissionApi);
     }
 
+    /**
+     * 权限不够
+     *
+     * @return
+     */
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return new CustomizeAccessDeniedHandler();
+    }
+
+
+    /**
+     * 认证失败
+     *
+     * @return
+     */
+    @Bean
+    public AuthenticationEntryPoint authenticationEntryPoint() {
+        return new CustomizeAuthExceptionEntryPoint();
+    }
+
+
     @Bean
     public AuthenticationTokenFilter authenticationTokenFilter(GlobalExceptionHandler exceptionHandler,
                                                                NotAuthenticationProperties authenticationProperties,
                                                                Oauth2TokenApi oauth2TokenApi) {
         return new AuthenticationTokenFilter(authenticationProperties, oauth2TokenApi, exceptionHandler);
     }
+
+
+
+
 }

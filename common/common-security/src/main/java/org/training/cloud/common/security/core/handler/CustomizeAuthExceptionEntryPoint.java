@@ -18,10 +18,9 @@ import java.io.IOException;
  * @author wangtongzhou 
  * @since 2023-03-06 21:30
  */
-@Component
 public class CustomizeAuthExceptionEntryPoint implements AuthenticationEntryPoint {
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
         CommonResponse result = CommonResponse.error(UserExceptionCode.UNAUTHORIZED);
         //处理编码方式，防止中文乱码的情况
         response.setContentType("text/json;charset=utf-8");

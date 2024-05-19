@@ -2,8 +2,10 @@ package org.training.cloud.common.security.core.filter;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.training.cloud.common.security.config.NotAuthenticationProperties;
+import org.training.cloud.common.security.core.handler.CustomizeAccessDeniedHandler;
 import org.training.cloud.common.security.core.model.AuthUser;
 import org.training.cloud.common.security.core.utils.SecurityUtils;
 import org.training.cloud.common.core.utils.josn.JsonUtils;
@@ -60,26 +62,23 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
         if (Objects.nonNull(authUser)) {
             SecurityUtils.setLoginUser(authUser, request);
         }
+
         chain.doFilter(request, response);
     }
 
     private AuthUser buildAuthUserByToken(String token) {
         //检验token合法性
-        Oauth2AccessTokenVO oAuth2AccessTokenVO =
-                oauth2TokenApi.checkAccessToken(token).getApiData();
+        Oauth2AccessTokenVO oAuth2AccessTokenVO = oauth2TokenApi.checkAccessToken(token).getApiData();
         if (Objects.isNull(oAuth2AccessTokenVO)) {
             return null;
         }
         //构建用户信息
-        return new AuthUser().setId(oAuth2AccessTokenVO.getUserId())
-                .setUserType(oAuth2AccessTokenVO.getUserType())
-                .setScopes(oAuth2AccessTokenVO.getScopes());
+        return new AuthUser().setId(oAuth2AccessTokenVO.getUserId()).setUserType(oAuth2AccessTokenVO.getUserType()).setScopes(oAuth2AccessTokenVO.getScopes());
     }
 
     private AuthUser getHeaderAuthUser(HttpServletRequest request) {
         String userToken = request.getHeader(SecurityUtils.USER_INFO);
-        return StringUtils.isNotBlank(userToken) ?
-                JsonUtils.parseObject(userToken, AuthUser.class) : null;
+        return StringUtils.isNotBlank(userToken) ? JsonUtils.parseObject(userToken, AuthUser.class) : null;
     }
 
 

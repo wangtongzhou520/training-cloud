@@ -1,10 +1,16 @@
 package org.training.cloud.system.service.permission;
 
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
 /**
- * 员工考勤信息
+ * 权限测试
  *
- * @author wangtongzhou 
+ * @author wangtongzhou
  * @since 2024-05-16 07:33
  */
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class PermissionServiceImplTest {
 }

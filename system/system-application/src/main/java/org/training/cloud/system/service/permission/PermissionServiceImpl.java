@@ -113,8 +113,7 @@ public class PermissionServiceImpl implements PermissionService {
     public void addRoleMenu(Long roleId, List<Long> menuIds) {
         //查询用户已拥菜单信息
         List<SysRoleMenu> sysRoleMenus = sysRoleMenuMapper.selectByRoleId(roleId);
-        Set<Long> hasMenus = CollectionExtUtils.convertSet(sysRoleMenus,
-                SysRoleMenu::getMenuId);
+        Set<Long> hasMenus = CollectionExtUtils.convertSet(sysRoleMenus, SysRoleMenu::getMenuId);
         Set<Long> paramsMenus = new HashSet<>(menuIds);
         //查找新增和删除的菜单信息
         //新增菜单和已拥有的求差集
@@ -178,14 +177,11 @@ public class PermissionServiceImpl implements PermissionService {
         if (CollectionUtils.isEmpty(menus)) {
             return false;
         }
-        //只要有一个匹配不上返回false
-        for (String permission : permissions) {
-            boolean anyMatch = menus.stream().anyMatch(y -> StringUtils.equals(y.getPermission(), permission));
-            if (!anyMatch) {
-                return false;
-            }
-        }
-        return true;
+        //检查用于访问权限是否全包含检查权限
+        Set<String> checkPermission = new HashSet<>(Arrays.asList(permissions));
+        Set<String> hasPermission = menus.stream().map(SysMenu::getPermission).collect(Collectors.toSet());
+
+        return hasPermission.containsAll(checkPermission);
     }
 
     @Override
@@ -201,16 +197,14 @@ public class PermissionServiceImpl implements PermissionService {
         }
 
         List<SysRole> roleList = roleService.getRoleListByIds(roleIds);
-        if (CollectionUtils.isEmpty(roleList)){
+        if (CollectionUtils.isEmpty(roleList)) {
             return false;
         }
 
-        for (String role : roles) {
-            boolean anyMatch = roleList.stream().anyMatch(y -> StringUtils.equals(y.getCode(), role));
-            if (!anyMatch) {
-                return false;
-            }
-        }
-        return true;
+        //检查用于访问权限是否全包含检查权限
+        Set<String> checkRoles = new HashSet<>(Arrays.asList(roles));
+        Set<String> hasRoles = roleList.stream().map(SysRole::getName).collect(Collectors.toSet());
+
+        return hasRoles.containsAll(checkRoles);
     }
 }
