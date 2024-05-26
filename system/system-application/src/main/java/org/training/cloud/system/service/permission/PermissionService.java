@@ -1,5 +1,7 @@
 package org.training.cloud.system.service.permission;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.List;
 import java.util.Set;
 
@@ -53,14 +55,13 @@ public interface PermissionService {
     Set<Long> getMenuIdListByRoleIds(Set<Long> roleIds);
 
 
-
     /**
      * 为菜单赋权
      *
      * @param roleId
      * @param menuIds
      */
-    void addRoleMenu(Long roleId,List<Long> menuIds);
+    void addRoleMenu(Long roleId, List<Long> menuIds);
 
     /**
      * 删除菜单关联的角色信息
@@ -75,6 +76,26 @@ public interface PermissionService {
      * @param roleId
      */
     void removeListByRoleId(Long roleId);
+
+
+    /**
+     * 是否拥有权限信息
+     *
+     * @param userId
+     * @param permissions
+     * @return
+     */
+    Boolean hasAnyPermissions(Long userId, String... permissions);
+
+
+    /**
+     * 是否拥有角色信息
+     *
+     * @param userId
+     * @param roles
+     * @return
+     */
+    Boolean hasAnyRoles(Long userId, String... roles);
 
 
 }

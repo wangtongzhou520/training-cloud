@@ -3,6 +3,7 @@ package org.training.cloud.system.controller.admin.user;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.training.cloud.common.core.utils.collection.CollectionExtUtils;
 import org.training.cloud.common.core.vo.CommonResponse;
@@ -46,6 +47,7 @@ public class UserController {
      */
     @PostMapping("/user")
     @Operation(summary = "添加用户信息")
+    @PreAuthorize("@ssc.hasPermission('system:user:create')")
     public CommonResponse<?> saveUser(@RequestBody @Valid AddUserDTO addUserDTO) {
         userService.addUser(addUserDTO);
         return CommonResponse.ok();
@@ -59,6 +61,7 @@ public class UserController {
      */
     @PutMapping("/user")
     @Operation(summary = "更新用户信息")
+    @PreAuthorize("@ssc.hasPermission('sys:user:update')")
     public CommonResponse<?> updateUser(@RequestBody @Valid ModifyUserDTO modifyUserDTO) {
         userService.updateUser(modifyUserDTO);
         return CommonResponse.ok();
@@ -72,6 +75,7 @@ public class UserController {
      */
     @PostMapping("/user/page")
     @Operation(summary = "分页查询管理端用户信息")
+    @PreAuthorize("@ssc.hasPermission('sys:user:list')")
     public CommonResponse<PageResponse<UserVO>> pageAdminUser(@RequestBody UserDTO userDTO) {
         PageResponse<SysUser> pageResponse = userService.pageAdminUser(userDTO);
         if (CollectionUtils.isEmpty(pageResponse.getList())) {
@@ -89,6 +93,7 @@ public class UserController {
      */
     @GetMapping("/getUserInfo")
     @Operation(summary = "获取用户信息")
+    @PreAuthorize("@ssc.hasPermission('sys:user:query')")
     public CommonResponse<UserVO> getUserInfo(@RequestParam("id") Long id) {
         SysUser sysUser = userService.getUserById(id);
         SysDept sysDept = deptService.getDeptId(id);
@@ -106,6 +111,7 @@ public class UserController {
      */
     @DeleteMapping("/user/{id}")
     @Operation(summary = "删除用户")
+    @PreAuthorize("@ssc.hasPermission('sys:user:delete')")
     public CommonResponse<?> delUser(@PathVariable("id") Long id) {
         userService.removeUserById(id);
         return CommonResponse.ok();

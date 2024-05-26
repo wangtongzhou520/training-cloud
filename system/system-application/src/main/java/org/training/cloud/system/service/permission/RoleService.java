@@ -68,7 +68,7 @@ public interface RoleService {
      * @param ids
      * @return
      */
-    boolean hasAnySuperAdmin(Collection<Long> ids);
+    Boolean hasAnySuperAdmin(Collection<Long> ids);
 
 
 

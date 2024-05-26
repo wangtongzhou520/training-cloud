@@ -1,48 +1,48 @@
-server:
-  port: 8888
 
 
 
-spring:
-  application:
-    name: gateway-application
-  main:
-    allow-circular-references: true
-  cloud:
-    nacos:
-      discovery:
-        namespace: 6a0743bc-014a-4f5f-846c-a75a02b4c315
-        server-addr: 127.0.0.1:8848
-        username: nacos
-        password: nacos
-    gateway:
-      default-filters:
-        # 多重跨域 Access-Control-Allow-Origin *，出现重复的 * ，导致跨域失效问题处理
-        - DedupeResponseHeader=Vary Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_FIRST
-        # 保留唯一的，出现重复的属性值，会保留一个
-        - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_FIRST
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
-      routes:
-        # 服务
-        - id: system-application
-          # 服务地址
-          uri: lb://system-application
-          # 拦截的路由
-          predicates:
-            - Path=/sys/**
-          # 配置转发
-          filters:
-            - RewritePath=/sys/v3/api-docs, /v3/api-docs
-        # 服务
-        - id: tool-application
-          # 服务地址
-          uri: lb://tool-application
-          # 拦截的路由
-          predicates:
-            - Path=/tool/**
-          # 配置转发
-          filters:
-            - RewritePath=/tool/v3/api-docs, /v3/api-docs
+
+
+#spring:
+#  application:
+#    name: gateway-application
+#  main:
+#    allow-circular-references: true
+#  cloud:
+#    nacos:
+#      discovery:
+#        namespace: 6a0743bc-014a-4f5f-846c-a75a02b4c315
+#        server-addr: 127.0.0.1:8848
+#        username: nacos
+#        password: nacos
+#    gateway:
+#      default-filters:
+#        # 多重跨域 Access-Control-Allow-Origin *，出现重复的 * ，导致跨域失效问题处理
+#        - DedupeResponseHeader=Vary Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_FIRST
+#        # 保留唯一的，出现重复的属性值，会保留一个
+#        - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_FIRST
+#      discovery:
+#        locator:
+#          enabled: true
+#          lower-case-service-id: true
+#      routes:
+#        # 服务
+#        - id: system-application
+#          # 服务地址
+#          uri: lb://system-application
+#          # 拦截的路由
+#          predicates:
+#            - Path=/sys/**
+#          # 配置转发
+#          filters:
+#            - RewritePath=/sys/v3/api-docs, /v3/api-docs
+#        # 服务
+#        - id: tool-application
+#          # 服务地址
+#          uri: lb://tool-application
+#          # 拦截的路由
+#          predicates:
+#            - Path=/tool/**
+#          # 配置转发
+#          filters:
+#            - RewritePath=/tool/v3/api-docs, /v3/api-docs

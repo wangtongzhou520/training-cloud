@@ -49,6 +49,7 @@ public class GeneratorController {
      */
     @PostMapping("/generator")
     @Operation(summary = "创建代码生成器的表和字段定义")
+    @PreAuthorize("@ssc.hasPermission('system:generator:create')")
     public CommonResponse<?> addGenerator(@RequestBody @Valid AddGeneratorDTO addGeneratorDTO) {
         generatorService.addGeneratorList(addGeneratorDTO);
         return CommonResponse.ok();
@@ -63,6 +64,7 @@ public class GeneratorController {
      */
     @PutMapping("/generator")
     @Operation(summary = "更新数据库的表和字段定义")
+    @PreAuthorize("@ssc.hasPermission('system:generator:update')")
     public CommonResponse<?> updateGenerator(@RequestBody @Valid ModifyGeneratorDTO modifyGeneratorDTO) {
         generatorService.modifyGenerator(modifyGeneratorDTO);
         return CommonResponse.ok();
@@ -76,6 +78,7 @@ public class GeneratorController {
      */
     @PostMapping("/generator/page")
     @Operation(summary = "分页获取表定义")
+    @PreAuthorize("@ssc.hasPermission('system:generator:list')")
     public CommonResponse<PageResponse<GeneratorTableVO>> pageAdminUser(@RequestBody GeneratorTableDTO generatorTableDTO) {
         PageResponse<GeneratorTableVO> pageResponse =
                 generatorService.pageGeneratorTable(generatorTableDTO);
@@ -91,6 +94,7 @@ public class GeneratorController {
      */
     @GetMapping("/generator/detail/{id}")
     @Operation(summary = "获取表和字段的详情")
+    @PreAuthorize("@ssc.hasPermission('system:generator:query')")
     public CommonResponse<GeneratorVO> queryGeneratorDetail(@PathVariable("id") Long id) {
         return CommonResponse.ok(generatorService.queryGeneratorDetail(id));
     }
@@ -104,6 +108,7 @@ public class GeneratorController {
             @Parameter(name = "comment", description = "描述，模糊匹配", example =
                     "描述")
     })
+    @PreAuthorize("@ssc.hasPermission('system:generator:list')")
     public CommonResponse<List<DatabaseTableVO>> queryDatabaseTableList(
             @RequestParam(value = "dataSourceConfigId") Long dataSourceConfigId,
             @RequestParam(value = "tableName", required = false) String tableName,
@@ -121,6 +126,7 @@ public class GeneratorController {
     @Parameters({
             @Parameter(name = "tableId", description = "表单ID", required = true, example = "1"),
     })
+    @PreAuthorize("@ssc.hasPermission('system:generator:query')")
     public CommonResponse<List<GeneratorPreviewCodeVO>> previewCodegen(@RequestParam("tableId") Long tableId) {
         Map<String, String> codeMap = generatorService.previewGeneratorCode(tableId);
         return CommonResponse.ok(GeneratorTableConvert.INSTANCE.convert(codeMap));

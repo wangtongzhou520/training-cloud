@@ -17,7 +17,6 @@ import java.io.IOException;
  * @author wangtongzhou
  * @since 2023-03-17 21:19
  */
-@Component
 public class CustomizeAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {

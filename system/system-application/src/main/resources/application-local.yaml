@@ -15,6 +15,7 @@ auth:
       - /webjars/**
       - /v3/**
       - /swagger-resources/**
+      - /api/system/**
 
 
 # Swagger 配置项

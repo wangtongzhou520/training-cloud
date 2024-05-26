@@ -3,6 +3,7 @@ package org.training.cloud.system.controller.admin.permission;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.training.cloud.common.core.vo.CommonResponse;
@@ -36,6 +37,7 @@ public class RoleController {
 
     @PostMapping("/role")
     @Operation(summary = "添加角色信息")
+    @PreAuthorize("@ssc.hasPermission('sys:role:create')")
     public CommonResponse<?> addRole(@RequestBody @Valid AddRoleDTO addRoleDTO) {
         roleService.addRole(addRoleDTO);
         return CommonResponse.ok();
@@ -44,6 +46,7 @@ public class RoleController {
 
     @PutMapping("/role")
     @Operation(summary = "修改角色信息")
+    @PreAuthorize("@ssc.hasPermission('sys:role:update')")
     public CommonResponse<?> modifyUser(@RequestBody @Valid ModifyRoleDTO modifyRoleDTO) {
         roleService.modifyRole(modifyRoleDTO);
         return CommonResponse.ok();
@@ -52,6 +55,7 @@ public class RoleController {
 
     @PostMapping("/role/page")
     @Operation(summary = "分页查询角色信息")
+    @PreAuthorize("@ssc.hasPermission('sys:role:list')")
     public CommonResponse<PageResponse<RoleVO>> pageRoles(@RequestBody RoleDTO roleDTO) {
         PageResponse<SysRole> pageResponse = roleService.pageRole(roleDTO);
         return CommonResponse.ok(RoleConvert.INSTANCE.convert(pageResponse));
@@ -59,6 +63,7 @@ public class RoleController {
 
     @GetMapping("/role/all")
     @Operation(summary = "获取所有的角色信息")
+    @PreAuthorize("@ssc.hasPermission('sys:role:list')")
     public CommonResponse<List<RoleVO>> allRoles() {
         List<SysRole> allRoles = roleService.allRoles();
         return CommonResponse.ok(RoleConvert.INSTANCE.convert(allRoles));
@@ -73,6 +78,7 @@ public class RoleController {
      */
     @DeleteMapping("/role/{id}")
     @Operation(summary = "删除角色")
+    @PreAuthorize("@ssc.hasPermission('sys:role:delete')")
     public CommonResponse<?> delRole(@PathVariable("id") Long id) {
         roleService.removeByRoleId(id);
         return CommonResponse.ok();

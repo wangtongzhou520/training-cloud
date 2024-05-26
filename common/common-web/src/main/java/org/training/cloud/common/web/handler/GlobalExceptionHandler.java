@@ -2,6 +2,7 @@ package org.training.cloud.common.web.handler;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -19,7 +20,6 @@ import org.training.cloud.common.core.constant.UserExceptionCode;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import java.nio.file.AccessDeniedException;
 
 /**
  * 公共的全局异常处理器
@@ -31,9 +31,6 @@ import java.nio.file.AccessDeniedException;
 @AllArgsConstructor
 @Slf4j
 public class GlobalExceptionHandler {
-
-
-
 
 
     /**
@@ -126,16 +123,16 @@ public class GlobalExceptionHandler {
     /**
      * 权限不够
      *
-     * @param req
      * @param ex
      * @return
      */
     @ExceptionHandler(value = AccessDeniedException.class)
-    public CommonResponse<?> accessDeniedExceptionHandler(HttpServletRequest req, AccessDeniedException ex) {
+    public CommonResponse<?> accessDeniedExceptionHandler(AccessDeniedException ex) {
 //        log.warn("[accessDeniedExceptionHandler][userId({}) 无法访问 url({})]", WebFrameworkUtils.getLoginUserId(req),
 //                req.getRequestURL(), ex);
         return CommonResponse.error(UserExceptionCode.FORBIDDEN);
     }
+
 
 
     /**
@@ -168,7 +165,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = Exception.class)
     public CommonResponse<?> serviceExceptionHandler(HttpServletRequest req, Throwable ex) {
-        log.error("serviceExceptionHandler",ex);
+        log.error("serviceExceptionHandler", ex);
         return CommonResponse.error(UserExceptionCode.SERVER_ERROR.getCode(),
                 UserExceptionCode.SERVER_ERROR.getMessage());
     }
@@ -207,7 +204,7 @@ public class GlobalExceptionHandler {
             return businessExceptionExceptionHandler((BusinessException) ex);
         }
         if (ex instanceof AccessDeniedException) {
-            return accessDeniedExceptionHandler(request, (AccessDeniedException) ex);
+            return accessDeniedExceptionHandler((AccessDeniedException) ex);
         }
         return serviceExceptionHandler(request, ex);
     }

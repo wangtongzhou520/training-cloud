@@ -3,8 +3,6 @@ package org.training.cloud.system;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.training.cloud.system.api.oauth2.Oauth2TokenApi;
 
 /**
  * 系统相关应用
