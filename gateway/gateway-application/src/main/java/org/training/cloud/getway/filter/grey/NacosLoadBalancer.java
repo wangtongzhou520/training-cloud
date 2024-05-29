@@ -40,7 +40,7 @@ public class NacosLoadBalancer implements ReactorServiceInstanceLoadBalancer {
     @Override
     public Mono<Response<ServiceInstance>> choose(Request request) {
         //获取version
-        HttpHeaders headers = ((RequestDataContext) request.getContext()).getClientRequest().getHeaders();
+        HttpHeaders headers = (HttpHeaders) request.getContext();
         //选择实例
         ServiceInstanceListSupplier supplier = serviceInstanceListSupplierProvider.getIfAvailable(NoopServiceInstanceListSupplier::new);
         return supplier.get(request).next().map(list -> getInstanceResponse(list, headers));
