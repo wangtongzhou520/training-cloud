@@ -3,7 +3,7 @@ package org.training.cloud.tool.enums.generator;
 /**
  * 代码生成器的字段过滤条件枚举
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou
  * @since 2024-03-03 16:34
  */
 public enum GeneratorColumnListConditionEnum {

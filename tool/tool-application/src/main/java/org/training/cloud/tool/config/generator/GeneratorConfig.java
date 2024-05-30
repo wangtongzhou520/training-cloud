@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * 生成代码
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou
  * @since 2024-04-06 16:34
  */
 

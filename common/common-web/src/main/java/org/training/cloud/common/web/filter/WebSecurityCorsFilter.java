@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * 跨域
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou
  * @since 2024-05-19 21:22
  */
 public class WebSecurityCorsFilter implements Filter {

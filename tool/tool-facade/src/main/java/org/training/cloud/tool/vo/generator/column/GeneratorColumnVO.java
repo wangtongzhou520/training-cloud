@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * 字段定义
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou
  * @since 2024-03-09 17:06
  */
 @Data

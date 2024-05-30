@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 /**
  * 数据源配置
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou
  * @since 2024-03-10 10:59
  */
 @Data

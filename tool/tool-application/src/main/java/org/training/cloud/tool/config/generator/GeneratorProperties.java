@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 /**
  * 员工考勤信息
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou
  * @since 2024-04-06 16:36
  */
 @ConfigurationProperties(prefix = "tool.codegen")
