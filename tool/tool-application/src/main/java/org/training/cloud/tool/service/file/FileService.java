@@ -9,7 +9,7 @@ import org.training.cloud.tool.entity.file.File;
 /**
  * 文件管理
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou
  * @since 2024-04-21 17:36
  */
 public interface FileService {

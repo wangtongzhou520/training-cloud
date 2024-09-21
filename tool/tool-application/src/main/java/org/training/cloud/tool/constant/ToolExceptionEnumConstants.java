@@ -5,7 +5,7 @@ import org.training.cloud.common.core.constant.ExceptionCode;
 /**
  * 工具类异常配置
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou
  * @since 2024-02-26 20:51
  */
 public interface ToolExceptionEnumConstants {

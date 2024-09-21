@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * 数据表
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou
  * @since 2024-02-26 21:14
  */
 @Schema(description = "数据表查询")

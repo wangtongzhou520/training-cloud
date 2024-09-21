@@ -11,7 +11,7 @@ import org.training.cloud.tool.entity.db.ToolDataSourceConfig;
 /**
  * 数据源配置
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou
  * @since 2024-02-25 21:38
  */
 @Mapper

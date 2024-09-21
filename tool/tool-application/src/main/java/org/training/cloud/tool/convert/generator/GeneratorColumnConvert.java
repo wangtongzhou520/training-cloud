@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * 生成列
  *
- * @author wangtongzhou 18635604249
+ * @author wangtongzhou
  * @since 2024-03-03 16:25
  */
 @Mapper
