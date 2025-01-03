@@ -6,9 +6,9 @@ spring:
       template_update_delay: 0
     suffix: .ftl
     template-loader-path: classpath:/generator
-
   main:
-    allow-circular-references: true
+    allow-circular-references: true # 允许循环依赖
+    allow-bean-definition-overriding: true # 允许 Bean 覆盖
   cloud:
     discovery:
       enabled: true
