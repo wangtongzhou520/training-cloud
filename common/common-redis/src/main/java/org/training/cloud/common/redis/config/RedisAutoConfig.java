@@ -7,7 +7,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.training.cloud.common.redis.core.RedisUtils;
 
 /**
- * 员工考勤信息
+ * redis 自动配置
  *
  * @author wangtongzhou 
  * @since 2023-04-21 07:14
