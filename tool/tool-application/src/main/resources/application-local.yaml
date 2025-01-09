@@ -30,8 +30,8 @@ training:
 file:
   storage:
     provider: aliyun
-    accessKey: LTAI5tKsSbpA2yhvr82Tz9TX
-    secretKey: L0CKwUPw6hNhVwlYhU36hLt8Bw6h8t
+    accessKey:
+    secretKey:
     bucketName: training-oss-file
     endpoint: https://oss-cn-shanghai.aliyuncs.com
 

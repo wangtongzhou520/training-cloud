@@ -3,7 +3,6 @@ package org.training.cloud.system.service.permission;
 import com.google.common.collect.Sets;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.training.cloud.common.core.utils.collection.CollectionExtUtils;

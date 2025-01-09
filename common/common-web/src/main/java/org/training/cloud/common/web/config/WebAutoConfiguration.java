@@ -16,9 +16,4 @@ public class WebAutoConfiguration implements WebMvcConfigurer {
     public GlobalExceptionHandler globalExceptionHandler() {
         return new GlobalExceptionHandler();
     }
-
-
-
-
-
 }
