@@ -66,7 +66,7 @@ public class SysOauth2AuthorizationCode extends BaseDO {
 
 
     /**
-     * 状态
+     * 标识
      */
     private String state;
 }
