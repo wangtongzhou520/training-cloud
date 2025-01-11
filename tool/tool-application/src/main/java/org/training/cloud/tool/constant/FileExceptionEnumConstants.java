@@ -18,4 +18,13 @@ public interface FileExceptionEnumConstants {
 
     ExceptionCode FILE_NOT_EXISTS = new ExceptionCode(102001001,"文件不存在");
 
+
+    ExceptionCode FILE_CATEGORY_NOT_EXISTS = new ExceptionCode(102001002,
+            "文件分类不存在");
+
+
+    ExceptionCode FILE_CATEGORY_EXISTS = new ExceptionCode(102001002,
+            "文件分类已存在");
+
+
 }

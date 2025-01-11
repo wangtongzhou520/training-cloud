@@ -1,11 +1,5 @@
 package org.training.cloud.system.utils;
 
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 /**
  * Oauth2工具类
  *

@@ -14,10 +14,9 @@ import org.training.cloud.system.dto.dept.AddDeptDTO;
 import org.training.cloud.system.dto.dept.DeptDTO;
 import org.training.cloud.system.dto.dept.ModifyDeptDTO;
 import org.training.cloud.system.entity.dept.SysDept;
-import org.training.cloud.system.entity.permission.SysRoleMenu;
 import org.training.cloud.system.entity.user.SysUser;
 import org.training.cloud.system.service.user.UserService;
-import org.training.cloud.system.utils.LevelUtil;
+import org.training.cloud.common.core.utils.LevelUtil;
 import org.training.cloud.system.vo.dept.DeptTreeVO;
 import org.training.cloud.system.vo.dept.DeptVO;
 
@@ -106,7 +105,7 @@ public class DeptServiceImpl implements DeptService {
     @Override
     public void removeDeptById(Long id) {
         //查询部门是否存在
-        SysDept before = checkDeptExistById(id);
+        checkDeptExistById(id);
         //检查该部门下面是否存在子部门
         if (sysDeptMapper.countByParentId(id) > 0) {
             throw new BusinessException("当前部门下面还存在子部门");
