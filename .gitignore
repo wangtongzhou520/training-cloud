@@ -20,6 +20,7 @@ target/
 *.ipr
 *.class
 bootstrap.yaml
+application-local.yaml
 target/*
 
 ### NetBeans ###
