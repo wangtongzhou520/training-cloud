@@ -19,6 +19,7 @@ target/
 *.iml
 *.ipr
 *.class
+*local.yaml
 target/*
 
 ### NetBeans ###
