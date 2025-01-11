@@ -27,13 +27,6 @@ training:
 
 
 # 文件存储配置
-file:
-  storage:
-    provider: aliyun
-    accessKey:
-    secretKey:
-    bucketName: training-oss-file
-    endpoint: https://oss-cn-shanghai.aliyuncs.com
 
 
 # MyBatis Plus 配置项
