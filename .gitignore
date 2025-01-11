@@ -19,7 +19,7 @@ target/
 *.iml
 *.ipr
 *.class
-*local.yaml
+bootstrap.yaml
 target/*
 
 ### NetBeans ###
