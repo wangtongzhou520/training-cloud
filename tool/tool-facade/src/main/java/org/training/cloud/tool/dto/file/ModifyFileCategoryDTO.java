@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 public class ModifyFileCategoryDTO implements Serializable {
 
     @Schema(description = "文件分类ID")
+    @NotNull(message = "文件分类ID不能为空")
     private Long id;
 
     @Schema(description = "分类名称")
@@ -34,8 +35,5 @@ public class ModifyFileCategoryDTO implements Serializable {
     @NotBlank(message = "备注不能为空")
     private String remark;
 
-    @Schema(description = "删除状态（0：未删除，1：已删除）")
-    @NotNull(message = "删除状态（0：未删除，1：已删除）不能为空")
-    private Boolean deleteState;
 
 }

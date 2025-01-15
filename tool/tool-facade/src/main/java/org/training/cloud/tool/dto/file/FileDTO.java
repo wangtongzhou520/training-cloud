@@ -23,11 +23,12 @@ public class FileDTO extends PageParam {
     @Schema(description = "文件名称")
     private String name;
 
+
     @Schema(description = "文件路径" )
     private String path;
 
-    @Schema(description = "文件类型,1文件0图片2视频" , example = "2")
-    private Integer type;
+
+    private String type;
 
 
 }

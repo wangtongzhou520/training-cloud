@@ -14,11 +14,11 @@ spring:
       enabled: true
     nacos:
       discovery:
-        namespace:
+        namespace: 9cc7ec02-a70e-40a7-a8ee-e7ab21392c57
         server-addr: 127.0.0.1:8848
       config:
         server-addr: 127.0.0.1:8848
-        namespace:
+        namespace: 9cc7ec02-a70e-40a7-a8ee-e7ab21392c57
         group: DEFAULT_GROUP
         prefix: tool-local
         file-extension: yaml

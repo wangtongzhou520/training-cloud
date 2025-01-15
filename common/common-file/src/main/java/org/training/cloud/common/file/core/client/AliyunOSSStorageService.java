@@ -26,7 +26,7 @@ public class AliyunOSSStorageService implements FileStorageService {
                 .build(properties.getEndpoint(), properties.getAccessKey(), properties.getSecretKey());
         try {
             ossClient.putObject(bucketName, path, new ByteArrayInputStream(content));
-            return properties.getEndpoint() + "/" + path;
+            return properties.getEndpoint()+ "/" + bucketName + "/" + path;
         } finally {
             ossClient.shutdown();
         }

@@ -40,20 +40,31 @@ public class FileController {
     @Resource
     private FileStorageProperties fileStorageProperties;
 
-    @PostMapping("/add")
-    @Operation(summary = "添加文件信息")
-    public CommonResponse<?> addFile(@RequestBody @Valid AddFileDTO addFileDTO) {
-        fileService.addFile(addFileDTO);
-        return CommonResponse.ok();
-    }
-
 
     @PostMapping("/upload")
-    public String uploadFile(@RequestParam("file") MultipartFile file) {
+    public String uploadFile(@RequestParam("categoryId") Long categoryId,
+                             @RequestParam("file") MultipartFile file) {
         try {
             byte[] binaryData = file.getBytes();
-            return fileStorageService.uploadFile(binaryData,
-                    file.getOriginalFilename(), fileStorageProperties.getBucketName());
+            String fileName = file.getOriginalFilename();
+            //文件后缀
+            String fileExtension = "";
+            if (fileName != null && fileName.lastIndexOf(".") > 0) {
+                fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1);
+            }
+            long fileSize = file.getSize();
+            String filePath = System.currentTimeMillis() + "." + fileExtension;
+            String url = fileStorageService.uploadFile(binaryData,
+                    filePath, fileStorageProperties.getBucketName());
+            AddFileDTO addFileDTO = new AddFileDTO();
+            addFileDTO.setType(fileExtension);
+            addFileDTO.setName(fileName);
+            addFileDTO.setPath(filePath);
+            addFileDTO.setCategoryId(categoryId);
+            addFileDTO.setSize(fileSize);
+            addFileDTO.setUrl(url);
+            fileService.addFile(addFileDTO);
+            return url;
         } catch (IOException e) {
             return "Failed to upload file: " + e.getMessage();
         }
