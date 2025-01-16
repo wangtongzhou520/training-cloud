@@ -52,10 +52,6 @@ public class File extends BaseDO {
      * 文件大小
      */
     private Long size;
-    /**
-     * 备注
-     */
-    private String remark;
 
 }
 

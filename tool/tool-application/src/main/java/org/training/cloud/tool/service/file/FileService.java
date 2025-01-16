@@ -4,6 +4,7 @@ package org.training.cloud.tool.service.file;
 import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.tool.dto.file.AddFileDTO;
 import org.training.cloud.tool.dto.file.FileDTO;
+import org.training.cloud.tool.dto.file.ModifyFileDTO;
 import org.training.cloud.tool.entity.file.File;
 
 /**
@@ -20,6 +21,14 @@ public interface FileService {
      * @param addFileDTO
      */
     void addFile(AddFileDTO addFileDTO);
+
+
+    /**
+     * 修改文件管理
+     *
+     * @param modifyFileDTO
+     */
+    void modifyFile(ModifyFileDTO modifyFileDTO);
 
 
 

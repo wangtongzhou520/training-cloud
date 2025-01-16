@@ -8,6 +8,7 @@ import org.training.cloud.tool.convert.file.FileConvert;
 import org.training.cloud.tool.dao.file.FileMapper;
 import org.training.cloud.tool.dto.file.AddFileDTO;
 import org.training.cloud.tool.dto.file.FileDTO;
+import org.training.cloud.tool.dto.file.ModifyFileDTO;
 import org.training.cloud.tool.entity.file.File;
 
 import javax.annotation.Resource;
@@ -35,7 +36,12 @@ public class FileServiceImpl implements FileService{
         fileMapper.insert(file);
     }
 
-
+    @Override
+    public void modifyFile(ModifyFileDTO modifyFileDTO) {
+        checkExistById(modifyFileDTO.getId());
+        File file = FileConvert.INSTANCE.convert(modifyFileDTO);
+        fileMapper.updateById(file);
+    }
 
 
     @Override

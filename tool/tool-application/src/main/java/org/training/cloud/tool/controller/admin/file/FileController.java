@@ -11,6 +11,7 @@ import org.training.cloud.common.file.core.client.FileStorageService;
 import org.training.cloud.tool.convert.file.FileConvert;
 import org.training.cloud.tool.dto.file.AddFileDTO;
 import org.training.cloud.tool.dto.file.FileDTO;
+import org.training.cloud.tool.dto.file.ModifyFileDTO;
 import org.training.cloud.tool.entity.file.File;
 import org.training.cloud.tool.service.file.FileService;
 import org.training.cloud.tool.vo.file.FileVO;
@@ -68,6 +69,13 @@ public class FileController {
         } catch (IOException e) {
             return "Failed to upload file: " + e.getMessage();
         }
+    }
+
+    @PutMapping("/modify")
+    @Operation(summary = "更新文件管理信息")
+    public CommonResponse<?> modifyFile(@RequestBody @Valid ModifyFileDTO modifyFileDTO) {
+        fileService.modifyFile(modifyFileDTO);
+        return CommonResponse.ok();
     }
 
 

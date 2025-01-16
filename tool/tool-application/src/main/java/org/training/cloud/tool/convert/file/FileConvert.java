@@ -5,6 +5,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.tool.dto.file.AddFileDTO;
+import org.training.cloud.tool.dto.file.ModifyFileDTO;
 import org.training.cloud.tool.entity.file.File;
 import org.training.cloud.tool.vo.file.FileVO;
 
@@ -20,6 +21,9 @@ public interface FileConvert {
 
 
     File convert(AddFileDTO addFileDTO);
+
+    File convert(ModifyFileDTO modifyFileDTO);
+
 
     PageResponse<FileVO> convert(PageResponse<File> filePageResponse);
 

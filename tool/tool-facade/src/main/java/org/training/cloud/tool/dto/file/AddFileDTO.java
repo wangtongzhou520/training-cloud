@@ -36,8 +36,10 @@ public class AddFileDTO implements Serializable {
     @NotBlank(message = "url不能为空")
     private String url;
 
+    @Schema(description = "文件类型")
     private String type;
 
+    @Schema(description = "文件大小")
     private Long size;
 
 }
