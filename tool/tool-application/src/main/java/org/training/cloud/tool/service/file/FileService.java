@@ -6,6 +6,7 @@ import org.training.cloud.tool.dto.file.AddFileDTO;
 import org.training.cloud.tool.dto.file.FileDTO;
 import org.training.cloud.tool.dto.file.ModifyFileDTO;
 import org.training.cloud.tool.entity.file.File;
+import org.training.cloud.tool.vo.file.FileVO;
 
 /**
  * 文件管理
@@ -37,7 +38,7 @@ public interface FileService {
      *
      * @param fileDTO
      */
-    PageResponse<File> pageFile(FileDTO fileDTO);
+    PageResponse<FileVO> pageFile(FileDTO fileDTO);
 
 
     /**

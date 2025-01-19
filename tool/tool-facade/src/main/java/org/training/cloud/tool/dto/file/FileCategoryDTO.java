@@ -12,8 +12,8 @@ import org.training.cloud.common.core.vo.PageParam;
 @Schema(description = "文件分类分页查询")
 public class FileCategoryDTO extends PageParam {
 
-//    @Schema(description = "文件分类ID" )
-//    private Long id;
+    @Schema(description = "文件分类ID" )
+    private Long id;
 
     @Schema(description = "分类名称" )
     private String name;

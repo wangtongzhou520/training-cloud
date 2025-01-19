@@ -82,8 +82,8 @@ public class FileController {
     @GetMapping("/page")
     @Operation(summary = "分页查询文件")
     public CommonResponse<PageResponse<FileVO>> pageFile(@Valid FileDTO fileDTO) {
-        PageResponse<File> filePageResponse = fileService.pageFile(fileDTO);
-        return CommonResponse.ok(FileConvert.INSTANCE.convert(filePageResponse));
+        PageResponse<FileVO> filePageResponse = fileService.pageFile(fileDTO);
+        return CommonResponse.ok(filePageResponse);
     }
 
     @GetMapping("/{id}")

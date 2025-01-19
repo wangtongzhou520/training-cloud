@@ -15,6 +15,7 @@ import org.training.cloud.tool.entity.file.FileCategory;
 import org.training.cloud.tool.vo.file.FileCategoryVO;
 
 import javax.annotation.Resource;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -135,6 +136,11 @@ public class FileCategoryServiceImpl implements FileCategoryService {
             throw new BusinessException(FILE_CATEGORY_NOT_EXISTS);
         }
         return fileCategory;
+    }
+
+    @Override
+    public List<FileCategory> getFileCategoryByIds(Collection<Long> ids) {
+        return fileCategoryMapper.selectBatchIds(ids);
     }
 
     @Override

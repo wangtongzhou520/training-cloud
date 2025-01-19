@@ -10,6 +10,7 @@ import org.training.cloud.tool.dto.file.ModifyFileCategoryDTO;
 import org.training.cloud.tool.entity.file.FileCategory;
 import org.training.cloud.tool.vo.file.FileCategoryVO;
 
+import java.util.Collection;
 import java.util.List;
 
 
@@ -21,14 +22,12 @@ import java.util.List;
 public interface FileCategoryService {
 
 
-
     /**
      * 创建文件分类
      *
      * @param addFileCategoryDTO
      */
     void addFileCategory(AddFileCategoryDTO addFileCategoryDTO);
-
 
 
     /**
@@ -55,8 +54,6 @@ public interface FileCategoryService {
     void delFileCategory(Long id);
 
 
-
-
     /**
      * 查询单个文件分类
      *
@@ -66,6 +63,13 @@ public interface FileCategoryService {
     FileCategory getFileCategoryById(Long id);
 
 
+    /**
+     * 根据列表获取多个分类
+     *
+     * @param ids
+     * @return
+     */
+    List<FileCategory> getFileCategoryByIds(Collection<Long> ids);
 
 
     /**

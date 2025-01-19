@@ -15,9 +15,9 @@ import java.util.List;
 public interface FileCategoryMapper extends BaseMapperExtend<FileCategory> {
 
     default PageResponse<FileCategory> selectPage(FileCategoryDTO fileCategoryDTO) {
-        return selectPage(fileCategoryDTO,new LambdaQueryWrapperExtend<FileCategory>()
-                .likeIfPresent(FileCategory::getName,
-                        fileCategoryDTO.getName())
+        return selectPage(fileCategoryDTO, new LambdaQueryWrapperExtend<FileCategory>()
+                        .likeIfPresent(FileCategory::getName,
+                                fileCategoryDTO.getName())
 //                .eqIfPresent(FileCategory::getParentId, fileCategoryDTO.getParentId())
 //                .eqIfPresent(FileCategory::getLevel, fileCategoryDTO.getLevel())
 //                .eqIfPresent(FileCategory::getSeq, fileCategoryDTO.getSeq())
@@ -27,7 +27,7 @@ public interface FileCategoryMapper extends BaseMapperExtend<FileCategory> {
 //                .eqIfPresent(FileCategory::getGmtCreate, fileCategoryDTO.getGmtCreate())
 //                .eqIfPresent(FileCategory::getGmtModified, fileCategoryDTO.getGmtModified())
 //                .eqIfPresent(FileCategory::getDeleteState, fileCategoryDTO.getDeleteState())
-                .orderByDesc(FileCategory::getId)
+                        .orderByDesc(FileCategory::getId)
         );
     }
 
@@ -41,7 +41,7 @@ public interface FileCategoryMapper extends BaseMapperExtend<FileCategory> {
     default Long countByParentId(Long id) {
         return selectCount(new LambdaQueryWrapperExtend<FileCategory>()
                 .eq(FileCategory::getParentId, id)
-                .eq(FileCategory::getDeleteState,false)
+                .eq(FileCategory::getDeleteState, false)
         );
     }
 
@@ -57,7 +57,7 @@ public interface FileCategoryMapper extends BaseMapperExtend<FileCategory> {
         return selectCount(new LambdaQueryWrapperExtend<FileCategory>()
                 .eq(FileCategory::getParentId, parentId)
                 .eq(FileCategory::getName, name)
-                .eq(FileCategory::getDeleteState,false));
+                .eq(FileCategory::getDeleteState, false));
     }
 
 
@@ -70,10 +70,9 @@ public interface FileCategoryMapper extends BaseMapperExtend<FileCategory> {
     default List<FileCategory> selectByChildDeptByLevel(String level) {
         return selectList(new LambdaQueryWrapperExtend<FileCategory>()
                 .likeIfPresent(FileCategory::getLevel, level)
-                .eq(FileCategory::getDeleteState,false)
+                .eq(FileCategory::getDeleteState, false)
         );
     }
-
 
 
     /**
@@ -85,7 +84,8 @@ public interface FileCategoryMapper extends BaseMapperExtend<FileCategory> {
         return selectList(new LambdaQueryWrapperExtend<FileCategory>()
                 .likeIfPresent(FileCategory::getName,
                         fileCategoryDTO.getName())
-                .eqIfPresent(FileCategory::getDeleteState,false)
+                .eqIfPresent(FileCategory::getId, fileCategoryDTO.getId())
+                .eqIfPresent(FileCategory::getDeleteState, false)
         );
     }
 
