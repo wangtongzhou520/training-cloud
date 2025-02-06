@@ -15,5 +15,9 @@ public interface CourseExceptionEnumConstants {
     ExceptionCode LESSON_NOT_EXISTS = new ExceptionCode(103003001,"课程内容不存在");
 
 
+    ExceptionCode COURSE_NOT_EXISTS = new ExceptionCode(103004001,"课程不存在");
+
+
+
 
 }
