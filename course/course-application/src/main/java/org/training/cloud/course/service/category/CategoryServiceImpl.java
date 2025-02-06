@@ -14,7 +14,7 @@ import org.training.cloud.course.entity.category.Category;
 import javax.annotation.Resource;
 import java.util.Objects;
 
-import static org.training.cloud.course.constant.CategoryExceptionEnumConstants.CATEGORY_NOT_EXISTS;
+import static org.training.cloud.course.constant.CourseExceptionEnumConstants.CATEGORY_NOT_EXISTS;
 
 
 @Service
