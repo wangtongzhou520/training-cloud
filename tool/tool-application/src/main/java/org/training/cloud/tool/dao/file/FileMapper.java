@@ -1,7 +1,6 @@
 package org.training.cloud.tool.dao.file;
 
 
-
 import org.apache.ibatis.annotations.Mapper;
 import org.training.cloud.common.core.vo.PageResponse;
 import org.training.cloud.common.mybatis.extend.LambdaQueryWrapperExtend;
@@ -17,12 +16,12 @@ import org.training.cloud.tool.entity.file.File;
  */
 
 @Mapper
-public interface FileMapper extends BaseMapperExtend<File>{
+public interface FileMapper extends BaseMapperExtend<File> {
 
     default PageResponse<File> selectPage(FileDTO fileDTO) {
-        return selectPage(fileDTO,new LambdaQueryWrapperExtend<File>()
+        return selectPage(fileDTO, new LambdaQueryWrapperExtend<File>()
                 .likeIfPresent(File::getName, fileDTO.getName())
-                .eqIfPresent(File::getPath, fileDTO.getPath())
+                .eqIfPresent(File::getCategoryId, fileDTO.getCategoryId())
                 .orderByDesc(File::getId)
         );
     }

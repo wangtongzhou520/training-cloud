@@ -80,6 +80,10 @@ public class GeneratorTableUtil {
             businessName.append(arrays[i]);
         }
         table.setBusinessName(businessName.toString().toLowerCase());
+        //没有_就是表名
+        if (StringUtils.isBlank(businessName)) {
+            table.setBusinessName(tableName.toLowerCase());
+        }
         //类名驼峰命名
         StringBuilder className = new StringBuilder();
         for (int i = 1; i < arrays.length; i++) {
@@ -88,7 +92,12 @@ public class GeneratorTableUtil {
                 className.append(Character.toUpperCase(firstChar)).append(arrays[i].substring(1));
             }
         }
-        table.setClassName(className.toString());
+        if (StringUtils.isNotBlank(className)) {
+            table.setClassName(className.toString());
+        } else {
+            char firstChar = tableName.charAt(0);
+            table.setClassName(Character.toUpperCase(firstChar) + tableName.substring(1));
+        }
         //类描述
         table.setClassComment(table.getTableComment());
     }
@@ -168,7 +177,7 @@ public class GeneratorTableUtil {
         //Oauth2AuthorizationCode -> oauth2AuthorizationCode
         paramsMap.put("firstLowerClassName", Character.toLowerCase(table.getClassName().charAt(0)) + table.getClassName().substring(1));
         //system -> System
-        paramsMap.put("upperModuleName", Character.toLowerCase(table.getModuleName().charAt(0))+table.getModuleName().substring(1));
+        paramsMap.put("upperModuleName", Character.toLowerCase(table.getModuleName().charAt(0)) + table.getModuleName().substring(1));
         //sys_oauth2_authorization_code  ->  OAUTH2_AUTHORIZATION_CODE
         paramsMap.put("upperCaseClassName", upperCase.substring(0, upperCase.length() - 1));
         //sys_oauth2_authorization_code  ->  oauth2authorizationcode

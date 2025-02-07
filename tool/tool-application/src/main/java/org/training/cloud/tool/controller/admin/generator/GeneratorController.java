@@ -133,4 +133,13 @@ public class GeneratorController {
     }
 
 
+    @DeleteMapping("/generator/{id}")
+    @Operation(summary = "删除代码生成表定义")
+    @PreAuthorize("@ssc.hasPermission('tool:generator:delete')")
+    public CommonResponse<?> delGeneratorTable(@PathVariable("id") Long id) {
+        generatorService.delGenerator(id);
+        return CommonResponse.ok();
+    }
+
+
 }

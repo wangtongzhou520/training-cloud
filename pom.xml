@@ -37,6 +37,7 @@
         <module>system</module>
         <module>gateway</module>
         <module>tool</module>
+        <module>course</module>
     </modules>
 
     <!--统一版本号管理-->

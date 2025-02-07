@@ -20,14 +20,15 @@ import static org.training.cloud.common.core.utils.date.DateUtils.DATE_TIME_PATT
 @Accessors(chain = true)
 @Schema(description = "文件分页查询")
 public class FileDTO extends PageParam {
+
+    @Schema(description = "文件名称")
+    private Long categoryId;
+
     @Schema(description = "文件名称")
     private String name;
 
-    @Schema(description = "文件路径" )
-    private String path;
-
-    @Schema(description = "文件类型,1文件0图片2视频" , example = "2")
-    private Integer type;
+    @Schema(description = "文件类型" )
+    private String type;
 
 
 }

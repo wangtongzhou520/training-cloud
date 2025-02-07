@@ -41,22 +41,17 @@ public class File extends BaseDO {
      * url
      */
     private String url;
+
+
     /**
-     * 文件后缀
+     * 文件类型
      */
-    private String suffix;
-    /**
-     * 文件类型,1文件0图片2视频
-     */
-    private Integer type;
+    private String type;
+
     /**
      * 文件大小
      */
-    private Integer size;
-    /**
-     * 备注
-     */
-    private String remark;
+    private Long size;
 
 }
 

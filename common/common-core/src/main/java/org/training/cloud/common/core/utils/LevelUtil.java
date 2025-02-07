@@ -1,4 +1,4 @@
-package org.training.cloud.system.utils;
+package org.training.cloud.common.core.utils;
 
 import org.apache.commons.lang3.StringUtils;
 

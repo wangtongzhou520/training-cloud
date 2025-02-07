@@ -20,7 +20,6 @@ public class PermissionImplApi implements PermissionApi {
 
     @Override
     public CommonResponse<Boolean> hasAnyPermissions(Long userId, String... permissions) {
-
         return CommonResponse.ok(permissionService.hasAnyPermissions(userId, permissions));
     }
 

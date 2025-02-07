@@ -2,14 +2,12 @@ package org.training.cloud.common.security.core.filter;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.training.cloud.common.security.config.NotAuthenticationProperties;
-import org.training.cloud.common.security.core.handler.CustomizeAccessDeniedHandler;
-import org.training.cloud.common.security.core.model.AuthUser;
-import org.training.cloud.common.security.core.utils.SecurityUtils;
 import org.training.cloud.common.core.utils.josn.JsonUtils;
 import org.training.cloud.common.core.vo.CommonResponse;
+import org.training.cloud.common.security.config.NotAuthenticationProperties;
+import org.training.cloud.common.security.core.model.AuthUser;
+import org.training.cloud.common.security.core.utils.SecurityUtils;
 import org.training.cloud.common.web.handler.GlobalExceptionHandler;
 import org.training.cloud.system.api.oauth2.Oauth2TokenApi;
 import org.training.cloud.system.vo.oauth2.Oauth2AccessTokenVO;
