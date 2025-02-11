@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import javax.validation.constraints.NotNull;
 
 /**
- * 员工考勤信息
+ * 扫描基础配置
  *
  * @author wangtongzhou
  * @since 2024-04-06 16:36

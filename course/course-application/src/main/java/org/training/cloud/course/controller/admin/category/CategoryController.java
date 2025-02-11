@@ -15,6 +15,7 @@ import org.training.cloud.course.vo.category.CategoryVO;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.List;
 
 
 @Tag(name = "管理后台课程分类")
@@ -42,18 +43,17 @@ public class CategoryController {
 
     @GetMapping("/page")
     @Operation(summary = "分页查询课程分类")
-    public CommonResponse<PageResponse<CategoryVO>> pageCategory (@Valid CategoryDTO categoryDTO) {
-        PageResponse<Category> categoryPageResponse =categoryService.pageCategory(categoryDTO);
+    public CommonResponse<PageResponse<CategoryVO>> pageCategory(@Valid CategoryDTO categoryDTO) {
+        PageResponse<Category> categoryPageResponse = categoryService.pageCategory(categoryDTO);
         return CommonResponse.ok(CategoryConvert.INSTANCE.convert(categoryPageResponse));
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "获取课程分类信息")
     public CommonResponse<?> getCategoryById(@PathVariable("id") Long id) {
-        Category category=categoryService.getCategoryById(id);
+        Category category = categoryService.getCategoryById(id);
         return CommonResponse.ok(CategoryConvert.INSTANCE.convert(category));
     }
-
 
 
     @DeleteMapping("/delete/{id}")
@@ -61,5 +61,12 @@ public class CategoryController {
     public CommonResponse<?> delCategory(@PathVariable("id") Long id) {
         categoryService.delCategory(id);
         return CommonResponse.ok();
+    }
+
+
+    @PostMapping("/categoryList")
+    @Operation(summary = "课程分类")
+    public CommonResponse<List<CategoryVO>> categoryList(@RequestBody CategoryDTO categoryDTO) {
+        return CommonResponse.ok(categoryService.categoryList(categoryDTO));
     }
 }

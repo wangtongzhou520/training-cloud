@@ -20,7 +20,7 @@ public class AddCategoryDTO implements Serializable {
 
     @Schema(description = "分类名称")
     @NotBlank(message = "分类名称不能为空")
-    private String categoryName;
+    private String name;
 
     @Schema(description = "父菜单ID")
     @NotNull(message = "父菜单ID不能为空")

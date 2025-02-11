@@ -16,7 +16,7 @@ public class CategoryDTO extends PageParam {
     private Long id;
 
     @Schema(description = "分类名称")
-    private String categoryName;
+    private String name;
 
     @Schema(description = "父菜单ID")
     private Long parentId;
