@@ -19,7 +19,7 @@ import javax.validation.Valid;
 
 @Tag(name = "管理后台课程")
 @RestController
-@RequestMapping("/course/info")
+@RequestMapping("/course")
 public class CourseController {
     @Resource
     private CourseService courseService;

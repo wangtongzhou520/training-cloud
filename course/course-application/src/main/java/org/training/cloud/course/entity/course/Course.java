@@ -40,6 +40,11 @@ public class Course extends BaseDO {
      */
     private Boolean isPublished;
 
+    /**
+     * 章节状态(0: 无章节 1: 存在章节)
+     */
+    private Integer chapterState;
+
 }
 
 
