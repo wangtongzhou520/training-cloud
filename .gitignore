@@ -52,6 +52,7 @@ yarn-error.log
 
 /coverage
 .idea
+.claude
 yarn.lock
 package-lock.json
 *bak
