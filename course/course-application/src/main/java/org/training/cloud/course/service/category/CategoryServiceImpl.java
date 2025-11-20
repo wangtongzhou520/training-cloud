@@ -1,6 +1,7 @@
 package org.training.cloud.course.service.category;
 
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.training.cloud.common.core.exception.BusinessException;
 import org.training.cloud.common.core.vo.PageResponse;
@@ -10,8 +11,10 @@ import org.training.cloud.course.dto.category.AddCategoryDTO;
 import org.training.cloud.course.dto.category.CategoryDTO;
 import org.training.cloud.course.dto.category.ModifyCategoryDTO;
 import org.training.cloud.course.entity.category.Category;
+import org.training.cloud.course.vo.category.CategoryVO;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Objects;
 
 import static org.training.cloud.course.constant.CourseExceptionEnumConstants.CATEGORY_NOT_EXISTS;
@@ -54,6 +57,15 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category getCategoryById(Long id) {
         return categoryMapper.selectById(id);
+    }
+
+    @Override
+    public List<CategoryVO> categoryList(CategoryDTO categoryDTO) {
+        List<Category> categoryList = categoryMapper.selectList();
+        if (CollectionUtils.isEmpty(categoryList)) {
+            return null;
+        }
+        return CategoryConvert.INSTANCE.convert(categoryList);
     }
 
 

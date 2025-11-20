@@ -6,6 +6,9 @@ import org.training.cloud.course.dto.category.AddCategoryDTO;
 import org.training.cloud.course.dto.category.ModifyCategoryDTO;
 import org.training.cloud.course.dto.category.CategoryDTO;
 import org.training.cloud.course.entity.category.Category;
+import org.training.cloud.course.vo.category.CategoryVO;
+
+import java.util.List;
 
 
 /**
@@ -59,6 +62,15 @@ public interface CategoryService {
      * @return
      */
     Category getCategoryById(Long id);
+
+
+    /**
+     * 获取所有分类
+     *
+     * @param categoryDTO
+     * @return
+     */
+    List<CategoryVO> categoryList(CategoryDTO categoryDTO);
 
 
 }
