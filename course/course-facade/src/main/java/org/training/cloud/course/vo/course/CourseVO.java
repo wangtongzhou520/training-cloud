@@ -32,6 +32,9 @@ public class CourseVO implements Serializable {
     @Schema(description = "是否发布（0：未发布，1：已发布）")
     private Boolean isPublished;
 
+    @Schema(description = "章节状态(0: 无章节 1: 存在章节)")
+    private Integer chapterState;
+
     @Schema(description = "删除状态（0：未删除，1：已删除）")
     private Boolean deleteState;
 

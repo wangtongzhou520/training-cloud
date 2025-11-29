@@ -11,6 +11,7 @@ import org.training.cloud.course.dto.course.CourseDTO;
 import org.training.cloud.course.dto.course.ModifyCourseDTO;
 import org.training.cloud.course.entity.course.Course;
 import org.training.cloud.course.service.course.CourseService;
+import org.training.cloud.course.vo.course.CourseDetailVO;
 import org.training.cloud.course.vo.course.CourseVO;
 
 import javax.annotation.Resource;
@@ -61,5 +62,26 @@ public class CourseController {
     public CommonResponse<?> delCourse(@PathVariable("id") Long id) {
         courseService.delCourse(id);
         return CommonResponse.ok();
+    }
+
+    @PutMapping("/publish/{id}")
+    @Operation(summary = "发布课程")
+    public CommonResponse<?> publishCourse(@PathVariable("id") Long id) {
+        courseService.publishCourse(id);
+        return CommonResponse.ok();
+    }
+
+    @PutMapping("/unpublish/{id}")
+    @Operation(summary = "下架课程")
+    public CommonResponse<?> unpublishCourse(@PathVariable("id") Long id) {
+        courseService.unpublishCourse(id);
+        return CommonResponse.ok();
+    }
+
+    @GetMapping("/detail/{id}")
+    @Operation(summary = "获取课程详情（包含章节和课时）")
+    public CommonResponse<CourseDetailVO> getCourseDetail(@PathVariable("id") Long id) {
+        CourseDetailVO courseDetail = courseService.getCourseDetail(id);
+        return CommonResponse.ok(courseDetail);
     }
 }
