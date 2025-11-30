@@ -35,4 +35,21 @@ public interface CourseExceptionEnumConstants {
     ExceptionCode COURSE_ALREADY_PUBLISHED = new ExceptionCode(103004004, "课程已发布，无法删除");
     ExceptionCode COURSE_NOT_PUBLISHED = new ExceptionCode(103004005, "课程未发布");
 
+    /**
+     * 讲师相关异常
+     */
+    ExceptionCode TEACHER_NOT_EXISTS = new ExceptionCode(103005001, "讲师不存在");
+    ExceptionCode TEACHER_USER_ID_EXISTS = new ExceptionCode(103005002, "该用户已是讲师");
+    ExceptionCode TEACHER_HAS_COURSES = new ExceptionCode(103005003, "讲师已关联课程，无法删除");
+    ExceptionCode TEACHER_ALREADY_APPROVED = new ExceptionCode(103005004, "讲师已审核通过");
+    ExceptionCode TEACHER_ALREADY_REJECTED = new ExceptionCode(103005005, "讲师已被拒绝");
+    ExceptionCode TEACHER_STATUS_DISABLED = new ExceptionCode(103005006, "讲师已被禁用");
+
+    /**
+     * 课程讲师关联异常
+     */
+    ExceptionCode COURSE_TEACHER_NOT_EXISTS = new ExceptionCode(103006001, "课程讲师关联不存在");
+    ExceptionCode COURSE_TEACHER_ALREADY_EXISTS = new ExceptionCode(103006002, "该讲师已关联此课程");
+    ExceptionCode COURSE_TEACHER_RELATION_NOT_EXISTS = new ExceptionCode(103006003, "课程讲师关联关系不存在");
+
 }
