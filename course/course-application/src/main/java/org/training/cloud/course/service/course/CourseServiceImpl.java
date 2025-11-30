@@ -167,7 +167,7 @@ public class CourseServiceImpl implements CourseService {
         CourseDetailVO courseDetailVO = new CourseDetailVO();
         courseDetailVO.setId(course.getId())
                 .setCourseName(course.getCourseName())
-                .setDescription(course.getDescription())
+                .setCourseDescription(course.getCourseDescription())
                 .setCategoryId(course.getCategoryId())
                 .setThumbnailUrl(course.getThumbnailUrl())
                 .setIsPublished(course.getIsPublished())

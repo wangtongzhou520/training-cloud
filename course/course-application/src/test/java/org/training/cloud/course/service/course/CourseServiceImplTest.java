@@ -69,7 +69,7 @@ public class CourseServiceImplTest {
         testCourse.setId(1L);
         testCourse.setCourseName("测试课程");
         testCourse.setCategoryId(1L);
-        testCourse.setDescription("课程描述");
+        testCourse.setCourseDescription("课程描述");
         testCourse.setIsPublished(false);
         testCourse.setChapterState(0);
         testCourse.setDeleteState(false);
@@ -97,7 +97,7 @@ public class CourseServiceImplTest {
         AddCourseDTO addCourseDTO = new AddCourseDTO();
         addCourseDTO.setCourseName("新课程");
         addCourseDTO.setCategoryId(1L);
-        addCourseDTO.setDescription("新课程描述");
+        addCourseDTO.setCourseDescription("新课程描述");
 
         when(categoryMapper.selectById(1L)).thenReturn(testCategory);
         when(courseMapper.insert(any(Course.class))).thenReturn(1);
