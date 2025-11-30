@@ -30,6 +30,9 @@ public class ModifyChapterDTO implements Serializable {
     @NotNull(message = "排序序号不能为空")
     private Integer sort;
 
+    @Schema(description = "章节描述")
+    private String chapterDescription;
+
     @Schema(description = "删除状态（0：未删除，1：已删除）")
     @NotNull(message = "删除状态（0：未删除，1：已删除）不能为空")
     private Boolean deleteState;
