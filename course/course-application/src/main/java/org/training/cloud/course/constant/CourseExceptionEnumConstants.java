@@ -52,4 +52,11 @@ public interface CourseExceptionEnumConstants {
     ExceptionCode COURSE_TEACHER_ALREADY_EXISTS = new ExceptionCode(103006002, "该讲师已关联此课程");
     ExceptionCode COURSE_TEACHER_RELATION_NOT_EXISTS = new ExceptionCode(103006003, "课程讲师关联关系不存在");
 
+    /**
+     * 课程资料相关异常
+     */
+    ExceptionCode COURSE_MATERIAL_NOT_EXISTS = new ExceptionCode(103007001, "课程资料不存在");
+    ExceptionCode COURSE_MATERIAL_COURSE_NOT_EXISTS = new ExceptionCode(103007002, "所属课程不存在");
+    ExceptionCode COURSE_MATERIAL_LESSON_NOT_EXISTS = new ExceptionCode(103007003, "所属课时不存在");
+
 }
