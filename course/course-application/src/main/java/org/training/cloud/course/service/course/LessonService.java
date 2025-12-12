@@ -7,6 +7,9 @@ import org.training.cloud.course.dto.course.LessonDTO;
 import org.training.cloud.course.dto.course.ModifyLessonDTO;
 import org.training.cloud.course.entity.course.Lesson;
 
+import java.util.Collection;
+import java.util.List;
+
 
 /**
  * 课程内容 Service 接口
@@ -59,6 +62,14 @@ public interface LessonService {
      * @return
      */
     Lesson getLessonById(Long id);
+
+    /**
+     * 根据章节ID列表批量查询课时（按排序升序）
+     *
+     * @param chapterIds 章节ID列表
+     * @return 课时列表
+     */
+    List<Lesson> getLessonsByChapterIds(Collection<Long> chapterIds);
 
 
 }

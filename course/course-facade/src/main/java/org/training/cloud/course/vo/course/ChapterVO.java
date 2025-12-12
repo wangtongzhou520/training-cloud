@@ -24,6 +24,14 @@ public class ChapterVO implements Serializable {
     @Schema(description = "排序序号")
     private Integer sort;
 
+    @Schema(description = "章节描述")
+    private String chapterDescription;
+
+    @Schema(description = "课时数量（自动统计）")
+    private Integer lessonCount;
+
+    @Schema(description = "章节总时长（自动汇总，单位：秒）")
+    private Integer totalDuration;
 
     @Schema(description = "删除状态（0：未删除，1：已删除）")
     private Boolean deleteState;

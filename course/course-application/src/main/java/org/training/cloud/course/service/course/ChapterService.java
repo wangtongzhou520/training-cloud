@@ -7,6 +7,8 @@ import org.training.cloud.course.dto.course.ChapterDTO;
 import org.training.cloud.course.dto.course.ModifyChapterDTO;
 import org.training.cloud.course.entity.course.Chapter;
 
+import java.util.List;
+
 
 /**
  * 课程章节 Service 接口
@@ -59,6 +61,14 @@ public interface ChapterService {
      * @return
      */
     Chapter getChapterById(Long id);
+
+    /**
+     * 根据课程ID查询章节列表（按排序升序）
+     *
+     * @param courseId 课程ID
+     * @return 章节列表
+     */
+    List<Chapter> getChaptersByCourseId(Long courseId);
 
 
 }

@@ -17,7 +17,7 @@ public interface CourseMapper extends BaseMapperExtend<Course> {
     default PageResponse<Course> selectPage(CourseDTO infoDTO) {
         return selectPage(infoDTO,new LambdaQueryWrapperExtend<Course>()
                 .likeIfPresent(Course::getCourseName, infoDTO.getCourseName())
-                .eqIfPresent(Course::getDescription, infoDTO.getDescription())
+                .eqIfPresent(Course::getCourseDescription, infoDTO.getDescription())
                 .eqIfPresent(Course::getCategoryId, infoDTO.getCategoryId())
                 .eqIfPresent(Course::getThumbnailUrl, infoDTO.getThumbnailUrl())
                 .eqIfPresent(Course::getIsPublished, infoDTO.getIsPublished())

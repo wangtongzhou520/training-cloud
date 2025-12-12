@@ -19,18 +19,46 @@ public class Category extends BaseDO {
      */
     @TableId(type = IdType.AUTO)
     private Long id;
+
     /**
      * 分类名称
      */
     private String categoryName;
+
     /**
-     * 父菜单ID
+     * 父菜单ID（0表示顶级分类）
      */
     private Long parentId;
+
     /**
-     * 排序序号
+     * 分类层级（1-一级，2-二级，3-三级）
+     */
+    private Integer categoryLevel;
+
+    /**
+     * 排序序号（数字越小越靠前）
      */
     private Integer sort;
+
+    /**
+     * 分类图标URL
+     */
+    private String categoryIcon;
+
+    /**
+     * 分类描述
+     */
+    private String categoryDescription;
+
+    /**
+     * 是否显示（0-隐藏，1-显示）
+     */
+    private Boolean isShow;
+
+    /**
+     * 课程数量（冗余字段，便于展示）
+     */
+    private Integer courseCount;
 
 }
 

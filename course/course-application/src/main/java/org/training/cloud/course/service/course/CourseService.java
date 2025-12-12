@@ -6,6 +6,7 @@ import org.training.cloud.course.dto.course.AddCourseDTO;
 import org.training.cloud.course.dto.course.CourseDTO;
 import org.training.cloud.course.dto.course.ModifyCourseDTO;
 import org.training.cloud.course.entity.course.Course;
+import org.training.cloud.course.vo.course.CourseDetailVO;
 
 
 /**
@@ -59,6 +60,28 @@ public interface CourseService {
      * @return
      */
     Course getCourseById(Long id);
+
+    /**
+     * 发布课程
+     *
+     * @param id 课程ID
+     */
+    void publishCourse(Long id);
+
+    /**
+     * 下架课程
+     *
+     * @param id 课程ID
+     */
+    void unpublishCourse(Long id);
+
+    /**
+     * 获取课程详情（包含章节和课时）
+     *
+     * @param id 课程ID
+     * @return 课程详情
+     */
+    CourseDetailVO getCourseDetail(Long id);
 
 
 }

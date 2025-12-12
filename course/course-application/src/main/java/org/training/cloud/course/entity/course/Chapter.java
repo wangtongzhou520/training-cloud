@@ -31,6 +31,18 @@ public class Chapter extends BaseDO {
      * 排序序号
      */
     private Integer sort;
+    /**
+     * 章节描述
+     */
+    private String chapterDescription;
+    /**
+     * 课时数量（自动统计）
+     */
+    private Integer lessonCount;
+    /**
+     * 章节总时长（自动汇总，单位：秒）
+     */
+    private Integer totalDuration;
 
 }
 
